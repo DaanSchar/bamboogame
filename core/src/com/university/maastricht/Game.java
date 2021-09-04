@@ -17,12 +17,10 @@ public class Game extends ApplicationAdapter {
 	private ShapeRenderer shapeRenderer;
 	private SpriteBatch batch;
 
-
 	private final int WORLD_WIDTH = 1000;
 	private final int WORLD_HEIGHT = 1000;
 
 	private Tile[][] tiles;
-
 
 	@Override
 	public void create () {
@@ -35,14 +33,14 @@ public class Game extends ApplicationAdapter {
 		int xOffset = tileRadius + 50;
 		int yOffset = tileRadius + 50;
 
-		int k = 0;
+		int index = 0;
 
 		for (int i = 0; i < tiles.length; i++) {
-			for (int j = 0; j < tiles.length; j++) {
-				int x = j * 2 * tileRadius;
-				int y = i * 2 * tileRadius;
-				tiles[i][j] = new Tile(x + xOffset, y + yOffset, k);
-				k++;
+			for (int j = 0; j < tiles[0].length; j++) {
+				int x = j * tileRadius*2 + xOffset;
+				int y = i * tileRadius*2 + yOffset;
+				tiles[i][j] = new Tile(x, y, index);
+				index++;
 			}
 		}
 	}

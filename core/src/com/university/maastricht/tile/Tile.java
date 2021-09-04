@@ -42,8 +42,8 @@ public class Tile {
     }
 
     private void onHoverExit() {
-        outline.setRadius(radius);
         center.setRadius(radius - 3);
+        outline.setRadius(radius);
     }
 
     public void renderText(SpriteBatch batch) {

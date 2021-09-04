@@ -38,6 +38,7 @@ public class Circle {
     }
 
     // this method works properly as long as we dont resize the window.
+    // TODO: handle window resizing
     public boolean isMouseHover() {
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
