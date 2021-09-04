@@ -1,0 +1,32 @@
+package com.university.maastricht.tile;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
+public class Tile {
+
+    private int x;
+    private int y;
+
+    private Circle outline;
+    private Circle center;
+
+    private static int radius = 50;
+
+    public Tile(int x, int y) {
+        this.x = x;
+        this.y = y;
+
+        createCircles();
+    }
+
+    private void createCircles() {
+        outline = new Circle(x, y, radius, new Color(0,0,0,0));
+        center = new Circle(x, y, radius-2, new Color(1,1,1,0));
+    }
+
+    public void render(ShapeRenderer renderer) {
+        outline.render(renderer);
+        center.render(renderer);
+    }
+}
