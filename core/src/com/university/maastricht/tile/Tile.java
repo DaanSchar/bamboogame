@@ -2,6 +2,7 @@ package com.university.maastricht.tile;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.university.maastricht.shapes.Circle;
 
 public class Tile {
 
@@ -11,7 +12,7 @@ public class Tile {
     private Circle outline;
     private Circle center;
 
-    private static int radius = 50;
+    private static int radius = 90;
 
     public Tile(int x, int y) {
         this.x = x;
