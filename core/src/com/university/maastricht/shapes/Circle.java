@@ -5,16 +5,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Circle {
 
     private int x;
     private int y;
     private int index;
+
     BitmapFont font;
-
-
     private Color color;
 
     private static int segments = 70; // the amount fo detail the circle has
@@ -39,17 +37,15 @@ public class Circle {
         font.draw(batch, Integer.toString(index) , x, y);
     }
 
+    // this method works properly as long as we dont resize the window.
     public boolean isMouseHover() {
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-        if (mouseX > x - radius && mouseX < x + radius) {
-            if (mouseY > y - radius && mouseY < y + radius) {
+        if (mouseX > x - radius && mouseX < x + radius)
+            if (mouseY > y - radius && mouseY < y + radius)
                 return true;
-            }
             return false;
-        }
-        return false;
     }
 
     public void setRadius(int radius) {

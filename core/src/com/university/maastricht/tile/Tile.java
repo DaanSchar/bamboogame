@@ -1,6 +1,5 @@
 package com.university.maastricht.tile;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -10,7 +9,6 @@ public class Tile {
 
     private int x;
     private int y;
-
     private int index;
 
     private Circle outline;
@@ -22,6 +20,7 @@ public class Tile {
         this.x = x;
         this.y = y;
         this.index = index;
+
         outline = new Circle(x, y, radius, new Color(0,0,0,0), index);
         center = new Circle(x, y, radius-3, new Color(1,1,1,0), index);
     }
@@ -38,7 +37,7 @@ public class Tile {
     }
 
     private void onHoverEnter() {
-        center.setRadius(radius + 5 - 3);
+        center.setRadius(radius + 2);
         outline.setRadius(radius + 5);
     }
 

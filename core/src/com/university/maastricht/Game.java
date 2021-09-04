@@ -51,22 +51,20 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void render() {
 		ScreenUtils.clear(0.95f, 0.95f, 0.95f, 1);
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
 
 		// renders each tile inside the 5x5 tile field
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		for (Tile[] tiles : tiles)
 			for (Tile tile : tiles)
 				tile.render(shapeRenderer);
-
 		shapeRenderer.end();
+
+		// renders the text of each tile
 		batch.begin();
 		for (Tile[] tiles : tiles)
 			for (Tile tile : tiles)
 				tile.renderText(batch);
 		batch.end();
-
-
 	}
 
 
@@ -76,7 +74,7 @@ public class Game extends ApplicationAdapter {
 	public void init() {
 		shapeRenderer = new ShapeRenderer();
 		camera = new OrthographicCamera();
-		viewport = new ExtendViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+		viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 		batch = new SpriteBatch();
 	}
 
