@@ -1,6 +1,7 @@
 package com.university.maastricht.tile;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.university.maastricht.shapes.Circle;
@@ -11,6 +12,8 @@ public class Tile {
     private int y;
     private int index;
 
+    private BitmapFont font;
+
     private Circle outline;
     private Circle center;
 
@@ -20,9 +23,10 @@ public class Tile {
         this.x = x;
         this.y = y;
         this.index = index;
+        font = new BitmapFont();
 
-        outline = new Circle(x, y, radius, new Color(0,0,0,0), index);
-        center = new Circle(x, y, radius-3, new Color(1,1,1,0), index);
+        outline = new Circle(x, y, radius, new Color(0,0,0,0));
+        center = new Circle(x, y, radius-3, new Color(1,1,1,0));
     }
 
 
@@ -47,6 +51,6 @@ public class Tile {
     }
 
     public void renderText(SpriteBatch batch) {
-        center.renderText(batch);
+        font.draw(batch, Integer.toString(index) , x, y);
     }
 }
