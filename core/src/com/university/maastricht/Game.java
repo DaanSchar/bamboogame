@@ -6,32 +6,35 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
 import com.university.maastricht.tile.Tile;
 
 public class Game extends ApplicationAdapter {
 
+	public static final int WORLD_WIDTH = 1280;
+	public static final int WORLD_HEIGHT = 720;
+
+	public static Viewport viewport;
 	private Camera camera;
-	private Viewport viewport;
 	private ShapeRenderer shapeRenderer;
 	private SpriteBatch batch;
-
-	private final int WORLD_WIDTH = 1000;
-	private final int WORLD_HEIGHT = 1000;
 
 	private Tile[][] tiles;
 
 	@Override
 	public void create () {
 		init();
+		createPlayingField();
+	}
 
-		// creating a 5x5 field of tiles.
-		// I know its a hexagon, this is just a place holder
+	private void createPlayingField() {
 		tiles = new Tile[5][5];
-		int tileRadius = 90;
-		int xOffset = tileRadius + 50;
-		int yOffset = tileRadius + 50;
+		int tileRadius = 50;
+		int xOffset = tileRadius + 200;
+		int yOffset = tileRadius + 100;
 
 		int index = 0;
 
@@ -55,6 +58,7 @@ public class Game extends ApplicationAdapter {
 		for (Tile[] tiles : tiles)
 			for (Tile tile : tiles)
 				tile.render(shapeRenderer);
+
 		shapeRenderer.end();
 
 		// renders the text of each tile
@@ -72,7 +76,7 @@ public class Game extends ApplicationAdapter {
 	public void init() {
 		shapeRenderer = new ShapeRenderer();
 		camera = new OrthographicCamera();
-		viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+		viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 		batch = new SpriteBatch();
 	}
 
@@ -83,7 +87,7 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void resize(int width, int height) {
-		viewport.update(width, height, true);
+		viewport.update((width), (int)(width * (9.0/16)), true);
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		batch.setProjectionMatrix(camera.combined);
 	}

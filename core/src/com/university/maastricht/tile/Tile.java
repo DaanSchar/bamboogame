@@ -14,7 +14,7 @@ public class Tile {
     private Circle outline;
     private Circle center;
 
-    private static int radius = 90;
+    private static int radius = 50;
 
     public Tile(int x, int y, int index) {
         this.x = x;

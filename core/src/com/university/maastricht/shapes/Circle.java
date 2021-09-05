@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.university.maastricht.Game;
 
 public class Circle {
 
@@ -37,8 +38,6 @@ public class Circle {
         font.draw(batch, Integer.toString(index) , x, y);
     }
 
-    // this method works properly as long as we dont resize the window.
-    // TODO: handle window resizing
     public boolean isMouseHover() {
         if (getDistanceToMouse() < radius)
             return true;
@@ -46,8 +45,11 @@ public class Circle {
     }
 
     private int getDistanceToMouse() {
-        int mouseX = Gdx.input.getX();
-        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        float widthRatio =  Game.viewport.getWorldWidth() / Game.viewport.getScreenWidth();
+        float heightRatio = Game.viewport.getWorldHeight() / Game.viewport.getScreenHeight();
+
+        int mouseX = (int) (Gdx.input.getX() * widthRatio);
+        int mouseY = (int) ((Gdx.graphics.getHeight() - Gdx.input.getY()) * heightRatio);
 
         return (int) Math.sqrt( (mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) );
     }
