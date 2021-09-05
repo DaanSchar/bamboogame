@@ -40,13 +40,16 @@ public class Circle {
     // this method works properly as long as we dont resize the window.
     // TODO: handle window resizing
     public boolean isMouseHover() {
+        if (getDistanceToMouse() < radius)
+            return true;
+        return false;
+    }
+
+    private int getDistanceToMouse() {
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-        if (mouseX > x - radius && mouseX < x + radius)
-            if (mouseY > y - radius && mouseY < y + radius)
-                return true;
-            return false;
+        return (int) Math.sqrt( (mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) );
     }
 
     public void setRadius(int radius) {
