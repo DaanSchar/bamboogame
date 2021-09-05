@@ -57,14 +57,14 @@ project(":core") {
 
 
     dependencies {
-//        implementation project(":logic")
+        implementation project(":logic")
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         
     }
 }
 
-project(":logic") {
+project("logic") {
     apply plugin: "java-library"
 
 }
