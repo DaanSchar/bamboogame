@@ -1,4 +1,4 @@
-package com.university.maastricht.ui;
+package com.university.maastricht;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
-import com.university.maastricht.ui.tile.Tile;
+import com.university.maastricht.tile.Tile;
 
 public class Game extends ApplicationAdapter {
 

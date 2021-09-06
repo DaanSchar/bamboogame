@@ -1,10 +1,10 @@
-package com.university.maastricht.ui.tile;
+package com.university.maastricht.tile;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.university.maastricht.ui.shapes.Circle;
+import com.university.maastricht.shapes.Circle;
 
 public class Tile {
 

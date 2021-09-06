@@ -1,4 +1,4 @@
-package com.university.maastricht.ui.shapes;
+package com.university.maastricht.shapes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
