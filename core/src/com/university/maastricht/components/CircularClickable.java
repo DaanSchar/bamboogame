@@ -2,13 +2,13 @@ package com.university.maastricht.components;
 
 import com.badlogic.gdx.Gdx;
 
-public class ClickableCircle {
+public class CircularClickable {
 
     private int x;
     private int y;
     private int radius;
 
-    public ClickableCircle(int x, int y, int radius) {
+    public CircularClickable(int x, int y, int radius) {
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -43,6 +43,8 @@ public class ClickableCircle {
         return (int) Math.sqrt( (mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) );
     }
 
+
+
     public int getX() {
         return x;
     }
@@ -57,5 +59,13 @@ public class ClickableCircle {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
 }

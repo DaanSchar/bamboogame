@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.university.maastricht.shapes.Circle;
+import com.university.maastricht.shapes.Circular;
 
 public class Tile {
 
@@ -14,8 +14,8 @@ public class Tile {
 
     private BitmapFont font;
 
-    private Circle outline;
-    private Circle center;
+    private Circular outline;
+    private Circular center;
 
     private static int radius = 50;
 
@@ -25,8 +25,8 @@ public class Tile {
         this.index = index;
         font = new BitmapFont();
 
-        outline = new Circle(x, y, radius, new Color(0,0,0,0));
-        center = new Circle(x, y, radius-3, new Color(1,1,1,0));
+        outline = new Circular(x, y, radius, new Color(0,0,0,0));
+        center = new Circular(x, y, radius-3, new Color(1,1,1,0));
     }
 
 

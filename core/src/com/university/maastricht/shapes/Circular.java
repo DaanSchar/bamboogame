@@ -3,28 +3,22 @@ package com.university.maastricht.shapes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.university.maastricht.components.CircularClickable;
 
-public class Circle {
-
-    private int x;
-    private int y;
+public class Circular extends CircularClickable {
 
     private Color color;
-
     private static int segments = 70; // the amount of detail the circle has
-    private int radius;
 
-    public Circle(int x, int y, int radius, Color color) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
+    public Circular(int x, int y, int radius, Color color) {
+        super(x,y,radius);
         this.color = color;
     }
 
 
     public void render(ShapeRenderer renderer) {
         renderer.setColor(color);
-        renderer.circle(x, y, radius, segments);
+        renderer.circle(super.getX(), super.getY(),super.getRadius(), segments);
     }
 
     /**
@@ -40,7 +34,7 @@ public class Circle {
      * directly on top of the circle
      */
     public boolean isMouseHover() {
-        if (getDistanceToMouse() < radius)
+        if (getDistanceToMouse() < super.getRadius())
             return true;
         return false;
     }
@@ -53,10 +47,6 @@ public class Circle {
         int mouseX = Gdx.input.getX() ;
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-        return (int) Math.sqrt( (mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) );
-    }
-
-    public void setRadius(int radius) {
-        this.radius = radius;
+        return (int) Math.sqrt( (mouseX - super.getX())*(mouseX - super.getX()) + (mouseY - super.getY())*(mouseY - super.getY()) );
     }
 }
