@@ -39,11 +39,8 @@ public class Circle {
     }
 
     private int getDistanceToMouse() {
-        float widthRatio =  Game.viewport.getWorldWidth() / Game.viewport.getScreenWidth();
-        float heightRatio = Game.viewport.getWorldHeight() / Game.viewport.getScreenHeight();
-
-        int mouseX = (int) (Gdx.input.getX() * widthRatio);
-        int mouseY = (int) ((Gdx.graphics.getHeight() - Gdx.input.getY()) * heightRatio);
+        int mouseX = Gdx.input.getX() ;
+        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
         return (int) Math.sqrt( (mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) );
     }
