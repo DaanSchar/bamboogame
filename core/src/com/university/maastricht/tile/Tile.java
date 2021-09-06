@@ -1,10 +1,10 @@
-package com.university.maastricht.ui.tile;
+package com.university.maastricht.tile;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.university.maastricht.ui.shapes.Circle;
+import com.university.maastricht.shapes.Circle;
 
 public class Tile {
 
@@ -36,6 +36,9 @@ public class Tile {
         else
             onHoverExit();
 
+        if (center.isClicked())
+            onClick();
+
         outline.render(renderer);
         center.render(renderer);
     }
@@ -48,6 +51,10 @@ public class Tile {
     private void onHoverExit() {
         center.setRadius(radius - 3);
         outline.setRadius(radius);
+    }
+
+    private void onClick() {
+        System.out.println("clicked circle with index " + index);
     }
 
     public void renderText(SpriteBatch batch) {

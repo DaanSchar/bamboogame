@@ -1,13 +1,14 @@
-package com.university.maastricht.ui;
+package com.university.maastricht;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
-import com.university.maastricht.ui.tile.Tile;
+import com.university.maastricht.tile.Tile;
 
 public class Game extends ApplicationAdapter {
 
@@ -26,6 +27,7 @@ public class Game extends ApplicationAdapter {
 		init();
 		createPlayingField();
 	}
+
 
 	private void createPlayingField() {
 		tiles = new Tile[5][5];
@@ -64,6 +66,8 @@ public class Game extends ApplicationAdapter {
 			for (Tile tile : tiles)
 				tile.renderText(batch);
 		batch.end();
+
+		System.out.println(Gdx.graphics.getWidth());
 	}
 
 
@@ -73,7 +77,7 @@ public class Game extends ApplicationAdapter {
 	public void init() {
 		shapeRenderer = new ShapeRenderer();
 		camera = new OrthographicCamera();
-		viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+		viewport = new ScreenViewport(camera);
 		batch = new SpriteBatch();
 	}
 
@@ -84,7 +88,7 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void resize(int width, int height) {
-		viewport.update((width), (int)(width * (9.0/16)), true);
+		viewport.update(width, height, true);
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		batch.setProjectionMatrix(camera.combined);
 	}
