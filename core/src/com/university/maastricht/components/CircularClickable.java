@@ -14,7 +14,6 @@ public class CircularClickable {
         this.radius = radius;
     }
 
-
     /**
      * returns true if circle is pressed
      */
@@ -42,7 +41,6 @@ public class CircularClickable {
 
         return (int) Math.sqrt( (mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) );
     }
-
 
 
     public int getX() {

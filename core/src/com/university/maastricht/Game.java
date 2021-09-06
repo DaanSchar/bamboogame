@@ -1,7 +1,6 @@
 package com.university.maastricht;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,9 +10,6 @@ import com.badlogic.gdx.utils.viewport.*;
 import com.university.maastricht.tile.Tile;
 
 public class Game extends ApplicationAdapter {
-
-	public static final int WORLD_WIDTH = 1280;
-	public static final int WORLD_HEIGHT = 720;
 
 	public static Viewport viewport;
 	private Camera camera;
@@ -66,10 +62,7 @@ public class Game extends ApplicationAdapter {
 			for (Tile tile : tiles)
 				tile.renderText(batch);
 		batch.end();
-
-		System.out.println(Gdx.graphics.getWidth());
 	}
-
 
 
 	// ------ stuff you dont really need to worry about for now -----
