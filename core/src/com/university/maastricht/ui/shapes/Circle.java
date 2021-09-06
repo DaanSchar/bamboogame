@@ -34,6 +34,10 @@ public class Circle {
         return false;
     }
 
+    public boolean isClicked() {
+        return isMouseHover() && Gdx.input.isTouched();
+    }
+
     private int getDistanceToMouse() {
         float widthRatio =  Game.viewport.getWorldWidth() / Game.viewport.getScreenWidth();
         float heightRatio = Game.viewport.getWorldHeight() / Game.viewport.getScreenHeight();

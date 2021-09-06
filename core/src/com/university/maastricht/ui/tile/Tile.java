@@ -36,6 +36,9 @@ public class Tile {
         else
             onHoverExit();
 
+        if (center.isClicked())
+            onClick();
+
         outline.render(renderer);
         center.render(renderer);
     }
@@ -48,6 +51,10 @@ public class Tile {
     private void onHoverExit() {
         center.setRadius(radius - 3);
         outline.setRadius(radius);
+    }
+
+    private void onClick() {
+        System.out.println("clicked circle with index " + index);
     }
 
     public void renderText(SpriteBatch batch) {
