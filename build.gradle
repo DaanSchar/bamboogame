@@ -63,3 +63,10 @@ project(":core") {
     }
 }
 
+project(":logic") {
+    apply plugin: "java-library"
+
+    dependencies {
+    }
+}
+

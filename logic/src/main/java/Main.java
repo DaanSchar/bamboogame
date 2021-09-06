@@ -1,5 +1,3 @@
-package com.university.maastricht.logic;
-
 public class Main {
 
     public static void main(String[] args) {
