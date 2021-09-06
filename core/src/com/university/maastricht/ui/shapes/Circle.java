@@ -3,7 +3,6 @@ package com.university.maastricht.ui.shapes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.university.maastricht.ui.Game;
 
 public class Circle {
 
@@ -12,7 +11,7 @@ public class Circle {
 
     private Color color;
 
-    private static int segments = 70; // the amount fo detail the circle has
+    private static int segments = 70; // the amount of detail the circle has
     private int radius;
 
     public Circle(int x, int y, int radius, Color color) {
@@ -22,22 +21,34 @@ public class Circle {
         this.color = color;
     }
 
+
     public void render(ShapeRenderer renderer) {
         renderer.setColor(color);
         renderer.circle(x, y, radius, segments);
     }
 
+    /**
+     * returns true if circle is pressed
+     */
+    public boolean isClicked() {
+        return isMouseHover() && Gdx.input.isTouched();
+    }
 
+
+    /**
+     * return true if the mouse is positioned
+     * directly on top of the circle
+     */
     public boolean isMouseHover() {
         if (getDistanceToMouse() < radius)
             return true;
         return false;
     }
 
-    public boolean isClicked() {
-        return isMouseHover() && Gdx.input.isTouched();
-    }
-
+    /**
+     * returns the distance between
+     * the mouse and the center of the circle
+     */
     private int getDistanceToMouse() {
         int mouseX = Gdx.input.getX() ;
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
