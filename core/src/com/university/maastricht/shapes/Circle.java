@@ -10,12 +10,7 @@ public class Circle extends CircularClickable {
     private static int segments = 70; // the amount of detail the circle has
 
     public Circle(int x, int y, int radius, Color color) {
-        super(x,y,radius);
+        super("badlogic.jpg",x,y,radius);
         this.color = color;
-    }
-
-    public void render(ShapeRenderer renderer) {
-        renderer.setColor(color);
-        renderer.circle(getX(), getY(), getRadius(), segments);
     }
 }

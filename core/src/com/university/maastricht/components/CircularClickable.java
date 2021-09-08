@@ -2,15 +2,12 @@ package com.university.maastricht.components;
 
 import com.badlogic.gdx.Gdx;
 
-public class CircularClickable{
+public class CircularClickable extends GameObject{
 
-    private int x;
-    private int y;
     private int radius;
 
-    public CircularClickable(int x, int y, int radius) {
-        this.x = x;
-        this.y = y;
+    public CircularClickable(String textureUrl, int x, int y, int radius) {
+        super(textureUrl, x, y, radius, radius);
         this.radius = radius;
     }
 
@@ -39,24 +36,7 @@ public class CircularClickable{
         int mouseX = Gdx.input.getX() ;
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
-        return (int) Math.sqrt( (mouseX - x)*(mouseX - x) + (mouseY - y)*(mouseY - y) );
-    }
-
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+        return (int) Math.sqrt( (mouseX - getX())*(mouseX - getX()) + (mouseY - getY())*(mouseY - getY()) );
     }
 
     public int getRadius() {
@@ -65,5 +45,7 @@ public class CircularClickable{
 
     public void setRadius(int radius) {
         this.radius = radius;
+        super.setHeight(radius);
+        super.setWidth(radius);
     }
 }

@@ -50,17 +50,19 @@ public class Game extends ApplicationAdapter {
 
 		// renders each tile inside the 5x5 tile field
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-		for (Tile[] tiles : tiles)
-			for (Tile tile : tiles)
-				tile.render(shapeRenderer);
+//		for (Tile[] tiles : tiles)
+//			for (Tile tile : tiles)
+//				tile.render(shapeRenderer);
 
 		shapeRenderer.end();
 
 		// renders the text of each tile
 		batch.begin();
 		for (Tile[] tiles : tiles)
-			for (Tile tile : tiles)
-				tile.renderText(batch);
+			for (Tile tile : tiles) {
+				tile.render(batch);
+			}
+
 		batch.end();
 	}
 

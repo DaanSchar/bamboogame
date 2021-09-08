@@ -1,5 +1,6 @@
 package com.university.maastricht.components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -14,15 +15,13 @@ public class GameObject {
     private int y;
 
     public GameObject(String textureUrl) {
-        this.width = width;
-        this.height = height;
-        texture = new Texture(textureUrl);
+        this.texture = new Texture(Gdx.files.internal(textureUrl));
     }
 
     public GameObject(String textureUrl, int x, int y) {
         this.x = x;
         this.y = y;
-        this.texture = new Texture(textureUrl);
+        this.texture = new Texture(Gdx.files.internal(textureUrl));
     }
 
     public GameObject(String textureUrl,int x, int y, int width, int height) {
@@ -30,7 +29,7 @@ public class GameObject {
         this.y = y;
         this.width = width;
         this.height = height;
-        texture = new Texture(textureUrl);
+        this.texture = new Texture(Gdx.files.internal(textureUrl));
     }
 
     public void render(SpriteBatch batch) {
@@ -39,12 +38,6 @@ public class GameObject {
         else
             batch.draw(texture, x, y, width, height);
     }
-
-
-
-
-
-
 
     public int getX() {
         return x;
