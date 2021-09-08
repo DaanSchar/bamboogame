@@ -38,7 +38,7 @@ public class GameObject {
             batch.draw(texture, x, y);
         else
             batch.draw(texture, x, y, width, height);
-        System.out.println("drawing on " + x);
+        System.out.println("drawing on " + y);
     }
 
     public int getX() {

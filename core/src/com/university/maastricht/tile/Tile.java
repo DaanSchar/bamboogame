@@ -37,25 +37,18 @@ public class Tile {
         if (view.isClicked())
             onClick();
 
-
         view.render(batch);
-//        text.draw(batch, Integer.toString(index), x, y);
-//        g.render(batch);
+        text.draw(batch, Integer.toString(index),x, y);
     }
 
     private void onHoverEnter() {
-//        g.setX(x + 5);
-//        g.setHeight(radius*2 + 5);
-//        g.setWidth(radius*2 + 5);
-
-        view.setX(x - 5);
-        view.setRadius(radius + 5);
+        int dSize = 5;
+        view.setX(x - dSize);
+        view.setY(y - dSize);
+        view.setRadius(radius + dSize);
     }
 
     private void onHoverExit() {
-//        g.setX(x);
-//        g.setHeight(radius*2);
-//        g.setWidth(radius*2);
         view.setX(x);
         view.setY(y);
         view.setRadius(radius);
