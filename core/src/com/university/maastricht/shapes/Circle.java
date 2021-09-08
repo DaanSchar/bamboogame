@@ -17,6 +17,6 @@ public class Circle extends CircularClickable {
 
     public void render(ShapeRenderer renderer) {
         renderer.setColor(color);
-        renderer.circle(getX(), getY(), (int)(getRadius() * Scalar.getHeight()), segments);
+        renderer.circle(getX(), getY(), getRadius() , segments);
     }
 }

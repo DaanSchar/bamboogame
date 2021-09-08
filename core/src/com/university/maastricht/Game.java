@@ -11,6 +11,10 @@ import com.university.maastricht.tile.Tile;
 
 public class Game extends ApplicationAdapter {
 
+	public static final int WINDOW_HEIGHT = 720;
+	public static final int WINDOW_WIDTH = 1280;
+
+
 	public static Viewport viewport;
 	private Camera camera;
 	private ShapeRenderer shapeRenderer;
@@ -35,9 +39,9 @@ public class Game extends ApplicationAdapter {
 
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
-				int x = j * tileRadius*2 + xOffset;
-				int y = i * tileRadius*2 + yOffset;
-				tiles[i][j] = new Tile(x, y, index);
+				int x = j * (int)(Scalar.getHeight()*tileRadius*2) + xOffset;
+				int y = i * (int)(Scalar.getHeight()*tileRadius*2) + yOffset;
+				tiles[i][j] = new Tile(x, y, (int)(tileRadius * Scalar.getHeight()), index);
 				index++;
 			}
 		}
@@ -62,8 +66,6 @@ public class Game extends ApplicationAdapter {
 			for (Tile tile : tiles)
 				tile.renderText(batch);
 		batch.end();
-
-		System.out.println(Scalar.getWidth());
 	}
 
 
@@ -86,5 +88,6 @@ public class Game extends ApplicationAdapter {
 		viewport.update(width, height, true);
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		batch.setProjectionMatrix(camera.combined);
+		createPlayingField();
 	}
 }
