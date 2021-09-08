@@ -14,10 +14,20 @@ public class GameObject {
     private int y;
 
     public GameObject(String textureUrl) {
+        this.width = width;
+        this.height = height;
+        texture = new Texture(textureUrl);
+    }
+
+    public GameObject(String textureUrl, int x, int y) {
+        this.x = x;
+        this.y = y;
         this.texture = new Texture(textureUrl);
     }
 
-    public GameObject(String textureUrl, int width, int height) {
+    public GameObject(String textureUrl,int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
         this.width = width;
         this.height = height;
         texture = new Texture(textureUrl);
@@ -39,4 +49,5 @@ public class GameObject {
     public void setY(int y) {
         this.y = y;
     }
+
 }
