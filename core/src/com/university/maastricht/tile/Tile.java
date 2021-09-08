@@ -33,7 +33,7 @@ public class Tile {
             onClick();
 
         view.render(batch);
-        text.draw(batch, Integer.toString(index) , x, y);
+        text.draw(batch, Integer.toString(index), x, y);
     }
 
     private void onHoverEnter() {
