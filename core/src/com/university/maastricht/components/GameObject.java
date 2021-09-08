@@ -1,13 +1,12 @@
 package com.university.maastricht.components;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class GameObject {
 
-    private Texture texture;
+    private Sprite sprite;
 
     private int width;
     private int height;
@@ -15,30 +14,32 @@ public class GameObject {
     private int x;
     private int y;
 
-    public GameObject(String textureUrl) {
-        this.texture = new Texture(Gdx.files.internal(textureUrl));
+    public GameObject(TextureAtlas atlas, String textureName) {
+        this.sprite = new Sprite(atlas.findRegion(textureName));
     }
 
-    public GameObject(String textureUrl, int x, int y) {
+    public GameObject(TextureAtlas atlas, String textureName, int x, int y) {
         this.x = x;
         this.y = y;
-        this.texture = new Texture(Gdx.files.internal(textureUrl));
+        this.sprite = new Sprite(atlas.findRegion(textureName));
     }
 
-    public GameObject(String textureUrl,int x, int y, int width, int height) {
+    public GameObject(TextureAtlas atlas, String textureName,int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.texture = new Texture(Gdx.files.internal(textureUrl));
+        this.sprite = new Sprite(atlas.findRegion(textureName));
     }
 
+    //TODO: add position and width/height
     public void render(SpriteBatch batch) {
-        if (this.width == 0 || this.height == 0)
-            batch.draw(texture, x, y);
-        else
-            batch.draw(texture, x, y, width, height);
-        System.out.println("drawing on " + y);
+        sprite.setPosition(x, y);
+
+        if (!(this.width == 0 || this.height == 0))
+            sprite.setSize(width, height);
+
+        sprite.draw(batch);
     }
 
     public int getX() {
@@ -55,14 +56,6 @@ public class GameObject {
 
     public void setY(int y) {
         this.y = y;
-    }
-
-    public Texture getTexture() {
-        return texture;
-    }
-
-    public void setTexture(Texture texture) {
-        this.texture = texture;
     }
 
     public int getWidth() {

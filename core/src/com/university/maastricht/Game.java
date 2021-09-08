@@ -1,10 +1,14 @@
 package com.university.maastricht;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -18,15 +22,21 @@ public class Game extends ApplicationAdapter {
 	public static final int WINDOW_WIDTH = 1280;
 
 	public static Viewport viewport;
+	public static TextureAtlas spriteSheet;
 	private Camera camera;
 	private ShapeRenderer shapeRenderer;	
 	private SpriteBatch batch;
 
 	private Tile[][] tiles;
+	Texture sprite;
+	TextureAtlas atlas;
+	TextureRegion region;
 
 	@Override
 	public void create () {
 		init();
+		spriteSheet = new TextureAtlas(Gdx.files.internal("tile/sprites.atlas"));
+
 		createPlayingField();
 	}
 
@@ -48,6 +58,12 @@ public class Game extends ApplicationAdapter {
 		}
 	}
 
+	public void renderMap(SpriteBatch batch) {
+		for (Tile[] tileRow : tiles)
+			for (Tile tile : tileRow)
+				tile.render(batch);
+	}
+
 	// this method gets called at every new frame
 	@Override
 	public void render() {
@@ -55,9 +71,7 @@ public class Game extends ApplicationAdapter {
 
 		// renders the text of each tile
 		batch.begin();
-		for (Tile[] tileRow : tiles)
-			for (Tile tile : tileRow)
-				tile.render(batch);
+		renderMap(batch);
 		batch.end();
 	}
 
