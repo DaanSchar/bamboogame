@@ -14,7 +14,6 @@ public class Game extends ApplicationAdapter {
 	public static final int WINDOW_HEIGHT = 720;
 	public static final int WINDOW_WIDTH = 1280;
 
-
 	public static Viewport viewport;
 	private Camera camera;
 	private ShapeRenderer shapeRenderer;
@@ -27,7 +26,6 @@ public class Game extends ApplicationAdapter {
 		init();
 		createPlayingField();
 	}
-
 
 	private void createPlayingField() {
 		tiles = new Tile[5][5];
