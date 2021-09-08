@@ -24,7 +24,6 @@ public class Game extends ApplicationAdapter {
 		createPlayingField();
 	}
 
-
 	private void createPlayingField() {
 		tiles = new Tile[5][5];
 		int tileRadius = 50;
