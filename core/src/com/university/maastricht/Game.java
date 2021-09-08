@@ -50,10 +50,9 @@ public class Game extends ApplicationAdapter {
 
 		// renders the text of each tile
 		batch.begin();
-		for (Tile[] tiles : tiles)
-			for (Tile tile : tiles) {
+		for (Tile[] tileRow : tiles)
+			for (Tile tile : tileRow)
 				tile.render(batch);
-			}
 
 		batch.end();
 	}
