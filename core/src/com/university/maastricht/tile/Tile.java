@@ -60,4 +60,16 @@ public class Tile {
     public void renderText(SpriteBatch batch) {
         font.draw(batch, Integer.toString(index) , x, y);
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getIndex() {
+        return index;
+    }
 }
