@@ -1,4 +1,18 @@
+import java.util.LinkedList;
+
 public class Tile {
+    private int id;
     private int groupNumber;
     private int groupSize;
+
+    private List<Tile> groupMembers = new LinkedList<Tile>();
+
+    private static int count;
+
+    public Tile(){
+        this.id = count;
+        count++;
+        groupNumber = 0;
+        groupSize = 0;
+    }
 }
