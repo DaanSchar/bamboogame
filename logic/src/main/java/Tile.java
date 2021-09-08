@@ -7,6 +7,7 @@ public class Tile {
     private int groupSize;
 
     private List<Tile> groupMembers = new LinkedList<Tile>();
+    private List<Tile> neighbours = new LinkedList<Tile>();
 
     private static int count;
 

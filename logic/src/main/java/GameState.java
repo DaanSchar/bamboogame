@@ -9,13 +9,22 @@ public class GameState {
         this.numberOfGroupsBlue = 0;
         this.numberOfGroupsRed = 0;
         this.redsTurn = true;
-        this.board = board;
+        this.board = new Tile[7][7][7];
+        for(int i=0; i<7; i++) {
+            for(int j=0; j<7; j++) {
+                for(int k=0; k<7; k++) {
+
+                }
+            }
+        }
     }
 
-    public void getLegalMovesBlue() {
+    public boolean[][][] getLegalMovesBlue() {
+        return new boolean[4][4][4];
     }
 
-    public void getLegalMovesRed() {
+    public boolean[][][] getLegalMovesRed() {
+        return new boolean[4][4][4];
     }
 
     public void moveBlue() {
