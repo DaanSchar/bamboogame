@@ -8,7 +8,6 @@ public class CircularClickable extends GameObject implements Clickable{
     private int y;
     private int radius;
 
-
     public CircularClickable(String textureUrl, int x, int y, int radius) {
         super(textureUrl, x-radius, y-radius, 2*radius, 2*radius);
         this.x = x;
@@ -35,7 +34,6 @@ public class CircularClickable extends GameObject implements Clickable{
         return (int) Math.sqrt((mouseX - getX())*(mouseX - getX()) + (mouseY - this.getY())*(mouseY - this.getY()) );
     }
 
-
     public int getRadius() {
         return radius;
     }
@@ -54,6 +52,7 @@ public class CircularClickable extends GameObject implements Clickable{
     @Override
     public void setX(int x) {
         this.x = x;
+        super.setX(x - radius);
     }
 
     @Override
@@ -64,5 +63,6 @@ public class CircularClickable extends GameObject implements Clickable{
     @Override
     public void setY(int y) {
         this.y = y;
+        super.setY(y - radius);
     }
 }
