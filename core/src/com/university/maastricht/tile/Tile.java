@@ -21,9 +21,6 @@ public class Tile {
         this.index = index;
         text = new BitmapFont();
         view = new CircularClickable("badlogic.jpg", x, y, radius);
-        if (index == 1)
-            view.setRadius(100);
-
     }
 
     public void render(SpriteBatch batch) {
