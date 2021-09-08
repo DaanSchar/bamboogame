@@ -18,7 +18,7 @@ public class Tile {
         groupSize = 0;
     }
 
-    public void SetNeighbours() {
+    public void SetNeighbours(Tile neighbour) {
 
     }
 }
