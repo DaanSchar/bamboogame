@@ -8,6 +8,8 @@ public class CircularClickable {
     private int y;
     private int radius;
 
+    // this is part of the awesome feature
+
     public CircularClickable(int x, int y, int radius) {
         this.x = x;
         this.y = y;
