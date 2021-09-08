@@ -31,7 +31,7 @@ public class Game extends ApplicationAdapter {
 
 	private void createPlayingField() {
 		tiles = new Tile[5][5];
-		int tileRadius = 100;
+		int tileRadius = 50;
 		int xOffset = tileRadius + 200;
 		int yOffset = tileRadius + 100;
 
