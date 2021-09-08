@@ -3,6 +3,7 @@ package com.university.maastricht.components;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class GameObject {
 
@@ -37,6 +38,7 @@ public class GameObject {
             batch.draw(texture, x, y);
         else
             batch.draw(texture, x, y, width, height);
+        System.out.println("drawing on " + y);
     }
 
     public int getX() {

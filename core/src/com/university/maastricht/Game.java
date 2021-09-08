@@ -3,10 +3,13 @@ package com.university.maastricht;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
+import com.university.maastricht.components.CircularClickable;
 import com.university.maastricht.tile.Tile;
 
 public class Game extends ApplicationAdapter {
@@ -39,7 +42,7 @@ public class Game extends ApplicationAdapter {
 			for (int j = 0; j < tiles[0].length; j++) {
 				int x = j *tileRadius*2 + xOffset;
 				int y = i * tileRadius*2 + yOffset;
-				tiles[i][j] = new Tile(x, y, tileRadius, index);
+				tiles[i][j] = new Tile(x, y, index);
 				index++;
 			}
 		}
@@ -55,7 +58,6 @@ public class Game extends ApplicationAdapter {
 		for (Tile[] tileRow : tiles)
 			for (Tile tile : tileRow)
 				tile.render(batch);
-
 		batch.end();
 	}
 
@@ -72,6 +74,7 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		shapeRenderer.dispose();
+		batch.dispose();
 	}
 
 	@Override

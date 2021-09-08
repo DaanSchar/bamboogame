@@ -7,7 +7,7 @@ public class CircularClickable extends GameObject implements Clickable{
     private int radius;
 
     public CircularClickable(String textureUrl, int x, int y, int radius) {
-        super(textureUrl, x, y, radius, radius);
+        super(textureUrl, x-radius, y-radius, 2*radius, 2*radius);
         this.radius = radius;
     }
 
@@ -24,10 +24,10 @@ public class CircularClickable extends GameObject implements Clickable{
     }
 
     private int getDistanceToMouse() {
-        int mouseX = Gdx.input.getX() ;
-        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        int mouseX = Gdx.input.getX() - radius;
+        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY() - radius;
 
-        return (int) Math.sqrt( (mouseX - getX())*(mouseX - getX()) + (mouseY - getY())*(mouseY - getY()) );
+        return (int) Math.sqrt((mouseX - getX())*(mouseX - getX()) + (mouseY - this.getY())*(mouseY - this.getY()) );
     }
 
     public int getRadius() {
@@ -36,7 +36,7 @@ public class CircularClickable extends GameObject implements Clickable{
 
     public void setRadius(int radius) {
         this.radius = radius;
-        super.setHeight(radius);
-        super.setWidth(radius);
+        super.setHeight(2*radius);
+        super.setWidth(2*radius);
     }
 }

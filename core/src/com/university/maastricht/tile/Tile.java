@@ -1,8 +1,11 @@
 package com.university.maastricht.tile;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.university.maastricht.components.CircularClickable;
+import com.university.maastricht.components.GameObject;
 
 public class Tile {
 
@@ -12,6 +15,7 @@ public class Tile {
 
     private BitmapFont text;
     private CircularClickable view;
+    private GameObject g;
 
     private static int radius = 50;
 
@@ -21,6 +25,7 @@ public class Tile {
         this.index = index;
         text = new BitmapFont();
         view = new CircularClickable("badlogic.jpg", x, y, radius);
+        g = new GameObject("badlogic.jpg", x, y, radius*2, radius*2);
     }
 
     public void render(SpriteBatch batch) {
@@ -33,14 +38,19 @@ public class Tile {
             onClick();
 
         view.render(batch);
-        text.draw(batch, Integer.toString(index), x, y);
+        text.draw(batch, Integer.toString(index),x, y);
     }
 
     private void onHoverEnter() {
-        view.setRadius(radius + 5);
+        int dSize = 5;
+        view.setX(x - dSize);
+        view.setY(y - dSize);
+        view.setRadius(radius + dSize);
     }
 
     private void onHoverExit() {
+        view.setX(x);
+        view.setY(y);
         view.setRadius(radius);
     }
 
