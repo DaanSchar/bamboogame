@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
+import com.university.maastricht.components.GameObject;
 import com.university.maastricht.tile.Tile;
 
 public class Game extends ApplicationAdapter {
@@ -23,12 +24,15 @@ public class Game extends ApplicationAdapter {
 	private Tile tile;
 	private Tile tile2;
 
+	private GameObject lock;
+
 	@Override
 	public void create () {
 		init();
 
 		tile = new Tile(100, 100, 50, 0);
 		tile2 = new Tile(100, 100, 50, 1);
+		lock = new GameObject(spriteSheet, "block_locked_small", 300, 300);
 	}
 
 	// this method gets called at every new frame
@@ -41,6 +45,8 @@ public class Game extends ApplicationAdapter {
 
 		tile.render(batch);
 		tile2.render(batch);
+
+		lock.render(batch);
 
 		batch.end();
 	}
