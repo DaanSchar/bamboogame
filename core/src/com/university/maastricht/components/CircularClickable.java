@@ -2,14 +2,13 @@ package com.university.maastricht.components;
 
 import com.badlogic.gdx.Gdx;
 
-public class CircularClickable extends GameObject{
+public class CircularClickable{
 
     private int x;
     private int y;
     private int radius;
 
     public CircularClickable(int x, int y, int radius) {
-        super(x, y, radius, radius);
         this.x = x;
         this.y = y;
         this.radius = radius;
