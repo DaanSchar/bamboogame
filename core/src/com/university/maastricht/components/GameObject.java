@@ -32,7 +32,6 @@ public class GameObject {
         this.sprite = new Sprite(atlas.findRegion(textureName));
     }
 
-    //TODO: add position and width/height
     public void render(SpriteBatch batch) {
         sprite.setPosition(x, y);
         sprite.setOrigin(width/2, height/2);
@@ -79,7 +78,8 @@ public class GameObject {
         return sprite;
     }
 
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
+    public void setSprite(TextureAtlas atlas, String textureName) {
+        this.sprite = new Sprite(atlas.findRegion(textureName));
     }
+
 }

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
 import com.university.maastricht.tile.Tile;
@@ -19,51 +18,30 @@ public class Game extends ApplicationAdapter {
 	public static Viewport viewport;
 	public static TextureAtlas spriteSheet;
 	private Camera camera;
-	private ShapeRenderer shapeRenderer;	
 	private SpriteBatch batch;
 
-	private Tile[][] tiles;
+	private Tile tile;
+	private Tile tile2;
 
 	@Override
 	public void create () {
 		init();
-		spriteSheet = new TextureAtlas(Gdx.files.internal("tile/sprites.atlas"));
 
-		createPlayingField();
-	}
-
-	private void createPlayingField() {
-		tiles = new Tile[5][5];
-		int tileRadius = 50;
-		int xOffset = tileRadius + 200;
-		int yOffset = tileRadius + 100;
-
-		int index = 0;
-
-		for (int i = 0; i < tiles.length; i++) {
-			for (int j = 0; j < tiles[0].length; j++) {
-				int x = j *tileRadius*2 + xOffset;
-				int y = i * tileRadius*2 + yOffset;
-				tiles[i][j] = new Tile(x, y, index);
-				index++;
-			}
-		}
-	}
-
-	public void renderMap(SpriteBatch batch) {
-		for (Tile[] tileRow : tiles)
-			for (Tile tile : tileRow)
-				tile.render(batch);
+		tile = new Tile(100, 100, 50, 0);
+		tile2 = new Tile(100, 100, 50, 1);
 	}
 
 	// this method gets called at every new frame
 	@Override
 	public void render() {
-		ScreenUtils.clear(0.95f, 0.95f, 0.95f, 1);
+		ScreenUtils.clear(0.95f, 0.95f, 0.95f, 1); // sets the color of the background
 
-		// renders the text of each tile
+		// this is where you render an object (AKA display an object)
 		batch.begin();
-		renderMap(batch);
+
+		tile.render(batch);
+		tile2.render(batch);
+
 		batch.end();
 	}
 
@@ -71,23 +49,20 @@ public class Game extends ApplicationAdapter {
 	// ------ stuff you dont really need to worry about for now -----
 
 	public void init() {
-		shapeRenderer = new ShapeRenderer();
 		camera = new OrthographicCamera();
 		viewport = new ScreenViewport(camera);
 		batch = new SpriteBatch();
+		spriteSheet = new TextureAtlas(Gdx.files.internal("tile/sprites.atlas"));
 	}
 
 	@Override
 	public void dispose() {
-		shapeRenderer.dispose();
 		batch.dispose();
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		viewport.update(width, height, true);
-		shapeRenderer.setProjectionMatrix(camera.combined);
 		batch.setProjectionMatrix(camera.combined);
-		createPlayingField();
 	}
 }

@@ -14,17 +14,25 @@ public class Tile {
     private BitmapFont text;
     private CircularClickable gameObject;
 
-    private static int radius = 50;
+    private int radius;
 
-    public Tile(int x, int y, int index) {
+    public Tile(int x, int y, int radius, int index) {
         this.x = x;
         this.y = y;
         this.index = index;
+        this.radius = radius;
+
         text = new BitmapFont();
         gameObject = new CircularClickable(Game.spriteSheet, "ball_blue_large", x, y, radius);
     }
 
     public void render(SpriteBatch batch) {
+        mouseEvent();
+        gameObject.render(batch);
+        text.draw(batch, Integer.toString(index),x + radius, y + radius);
+    }
+
+    private void mouseEvent() {
         if (gameObject.isMouseHover())
             onHoverEnter();
         else
@@ -32,9 +40,6 @@ public class Tile {
 
         if (gameObject.isClicked())
             onClick();
-
-        gameObject.render(batch);
-        text.draw(batch, Integer.toString(index),x + radius, y + radius);
     }
 
     private void onHoverEnter() {
@@ -51,10 +56,6 @@ public class Tile {
     }
 
     private void onClick() {
-        System.out.println("clicked circle with index " + index);
-    }
-
-    public CircularClickable getGameObject() {
-        return gameObject;
+        gameObject.setSprite(Game.spriteSheet, "ball_red_large");
     }
 }
