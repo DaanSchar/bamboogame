@@ -37,9 +37,9 @@ public class Game extends ApplicationAdapter {
 
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
-				int x = j * (int)(Scalar.getHeight()*tileRadius*2) + xOffset;
-				int y = i * (int)(Scalar.getHeight()*tileRadius*2) + yOffset;
-				tiles[i][j] = new Tile(x, y, (int)(tileRadius * Scalar.getHeight()), index);
+				int x = j *tileRadius*2 + xOffset;
+				int y = i * tileRadius*2 + yOffset;
+				tiles[i][j] = new Tile(x, y, tileRadius, index);
 				index++;
 			}
 		}
