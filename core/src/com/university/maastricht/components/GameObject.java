@@ -35,6 +35,7 @@ public class GameObject {
     //TODO: add position and width/height
     public void render(SpriteBatch batch) {
         sprite.setPosition(x, y);
+        sprite.setOrigin(width/2, height/2);
 
         if (!(this.width == 0 || this.height == 0))
             sprite.setSize(width, height);
@@ -72,5 +73,13 @@ public class GameObject {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
     }
 }

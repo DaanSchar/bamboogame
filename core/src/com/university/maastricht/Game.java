@@ -4,16 +4,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
-import com.university.maastricht.components.CircularClickable;
 import com.university.maastricht.tile.Tile;
 
 public class Game extends ApplicationAdapter {
@@ -28,9 +23,6 @@ public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
 
 	private Tile[][] tiles;
-	Texture sprite;
-	TextureAtlas atlas;
-	TextureRegion region;
 
 	@Override
 	public void create () {
