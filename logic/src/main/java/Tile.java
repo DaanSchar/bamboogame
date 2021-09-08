@@ -17,4 +17,8 @@ public class Tile {
         groupNumber = 0;
         groupSize = 0;
     }
+
+    public void SetNeighbours() {
+
+    }
 }
