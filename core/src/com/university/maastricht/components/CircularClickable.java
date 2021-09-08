@@ -2,7 +2,7 @@ package com.university.maastricht.components;
 
 import com.badlogic.gdx.Gdx;
 
-public class CircularClickable extends GameObject{
+public class CircularClickable extends GameObject implements Clickable{
 
     private int radius;
 
@@ -11,27 +11,18 @@ public class CircularClickable extends GameObject{
         this.radius = radius;
     }
 
-    /**
-     * returns true if circle is pressed
-     */
+    @Override
     public boolean isClicked() {
         return isMouseHover() && Gdx.input.isTouched();
     }
 
-    /**
-     * return true if the mouse is positioned
-     * directly on top of the circle
-     */
+    @Override
     public boolean isMouseHover() {
         if (getDistanceToMouse() < radius)
             return true;
         return false;
     }
 
-    /**
-     * returns the distance between
-     * the mouse and the center of the circle
-     */
     private int getDistanceToMouse() {
         int mouseX = Gdx.input.getX() ;
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
