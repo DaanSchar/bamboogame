@@ -9,7 +9,6 @@ public class Board {
         //make and fill in the 3d-array with tiles according to this structure:
         // https://www.redblobgames.com/grids/hexagons/
         // Start with the top row, and than go down till the end
-        // TODO: simplify this
         /*
         made a 7 tile board by accident
         this.board = new Tile[7][7][7];
@@ -35,7 +34,8 @@ public class Board {
             board[i][6-i][6] = new Tile();
         }
         */
-
+        /*
+        //Row by row
         this.board = new Tile[9][9][9];
         for(int i=4; i<9; i++) {
             board[i][9-i][0] = new Tile();
@@ -52,6 +52,7 @@ public class Board {
         for(int i=0; i<9; i++) {
             board[i][9-i][4] = new Tile();
         }
+
         for(int i=1; i<9; i++) {
             board[i][9-i][5] = new Tile();
         }
@@ -62,7 +63,22 @@ public class Board {
             board[i][9-i][7] = new Tile();
         }
         for(int i=4; i<9; i++) {
-            board[i][9 - i][8] = new Tile();
+            board[i][9-i][8] = new Tile();
+        }
+         */
+
+        //first half of board
+        this.board = new Tile[9][9][9];
+        for(int j=0; j<5; j++) {
+            for(int i=4-j; i<9; i++) {
+                board[i][9-i][j] = new Tile();
+            }
+        }
+        //Second half of board
+        for(int j=5; j<9; j++) {
+            for(int i=j-4; i<9; i++) {
+                board[i][9-i][j] = new Tile();
+            }
         }
     }
 }
