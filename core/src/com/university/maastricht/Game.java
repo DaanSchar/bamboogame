@@ -3,10 +3,12 @@ package com.university.maastricht;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
+import com.university.maastricht.components.CircularClickable;
 import com.university.maastricht.tile.Tile;
 
 public class Game extends ApplicationAdapter {
@@ -29,7 +31,7 @@ public class Game extends ApplicationAdapter {
 
 	private void createPlayingField() {
 		tiles = new Tile[5][5];
-		int tileRadius = 50;
+		int tileRadius = 100;
 		int xOffset = tileRadius + 200;
 		int yOffset = tileRadius + 100;
 
@@ -39,7 +41,7 @@ public class Game extends ApplicationAdapter {
 			for (int j = 0; j < tiles[0].length; j++) {
 				int x = j *tileRadius*2 + xOffset;
 				int y = i * tileRadius*2 + yOffset;
-				tiles[i][j] = new Tile(x, y, tileRadius, index);
+				tiles[i][j] = new Tile(x, y, index);
 				index++;
 			}
 		}
@@ -49,6 +51,15 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void render() {
 		ScreenUtils.clear(0.95f, 0.95f, 0.95f, 1);
+
+
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		for (Tile[] tileRow : tiles)
+			for (Tile tile : tileRow)
+				tile.render(shapeRenderer);
+
+		shapeRenderer.end();
+
 
 		// renders the text of each tile
 		batch.begin();

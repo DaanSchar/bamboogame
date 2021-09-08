@@ -2,6 +2,7 @@ package com.university.maastricht.tile;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.university.maastricht.components.CircularClickable;
 
 public class Tile {
@@ -34,6 +35,10 @@ public class Tile {
 
         view.render(batch);
         text.draw(batch, Integer.toString(index), x, y);
+    }
+
+    public void render(ShapeRenderer batch) {
+        batch.circle(x,y, radius);
     }
 
     private void onHoverEnter() {
