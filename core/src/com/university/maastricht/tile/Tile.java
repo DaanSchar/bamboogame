@@ -1,11 +1,9 @@
 package com.university.maastricht.tile;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.university.maastricht.Game;
 import com.university.maastricht.components.CircularClickable;
-import com.university.maastricht.components.GameObject;
 
 public class Tile {
 
@@ -14,48 +12,50 @@ public class Tile {
     private int index;
 
     private BitmapFont text;
-    private CircularClickable view;
-    private GameObject g;
+    private CircularClickable gameObject;
 
-    private static int radius = 50;
+    private int radius;
 
-    public Tile(int x, int y, int index) {
+    public Tile(int x, int y, int radius, int index) {
         this.x = x;
         this.y = y;
         this.index = index;
+        this.radius = radius;
+
         text = new BitmapFont();
-        view = new CircularClickable("badlogic.jpg", x, y, radius);
-        g = new GameObject("badlogic.jpg", x, y, radius*2, radius*2);
+        gameObject = new CircularClickable(Game.spriteSheet, "ball_blue_large", x, y, radius);
     }
 
     public void render(SpriteBatch batch) {
-        if (view.isMouseHover())
+        mouseEvent();
+        gameObject.render(batch);
+        text.draw(batch, Integer.toString(index),x + radius, y + radius);
+    }
+
+    private void mouseEvent() {
+        if (gameObject.isMouseHover())
             onHoverEnter();
         else
             onHoverExit();
 
-        if (view.isClicked())
+        if (gameObject.isClicked())
             onClick();
-
-        view.render(batch);
-        text.draw(batch, Integer.toString(index),x, y);
     }
 
     private void onHoverEnter() {
         int dSize = 5;
-        view.setX(x - dSize);
-        view.setY(y - dSize);
-        view.setRadius(radius + dSize);
+        gameObject.setX(x - dSize);
+        gameObject.setY(y - dSize);
+        gameObject.setRadius(radius + dSize);
     }
 
     private void onHoverExit() {
-        view.setX(x);
-        view.setY(y);
-        view.setRadius(radius);
+        gameObject.setX(x);
+        gameObject.setY(y);
+        gameObject.setRadius(radius);
     }
 
     private void onClick() {
-        System.out.println("clicked circle with index " + index);
+        gameObject.setSprite(Game.spriteSheet, "ball_red_large");
     }
-
 }

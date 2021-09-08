@@ -29,5 +29,13 @@ public class Scalar {
         return (double)screen/(double)world;
     }
 
+    public static int scaleByHeight(int value) {
+        return (int)(value * getHeight());
+    }
+
+    public static int scaleByWidth(int value) {
+        return (int)(value * getWidth());
+    }
+
 
 }

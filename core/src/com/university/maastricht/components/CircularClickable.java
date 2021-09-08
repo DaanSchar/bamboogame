@@ -1,13 +1,14 @@
 package com.university.maastricht.components;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class CircularClickable extends GameObject implements Clickable{
 
     private int radius;
 
-    public CircularClickable(String textureUrl, int x, int y, int radius) {
-        super(textureUrl, x-radius, y-radius, 2*radius, 2*radius);
+    public CircularClickable(TextureAtlas atlas, String textureName, int x, int y, int radius) {
+        super(atlas, textureName, x-radius, y-radius, 2*radius, 2*radius);
         this.radius = radius;
     }
 
