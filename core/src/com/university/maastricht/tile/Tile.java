@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.university.maastricht.Scalar;
 import com.university.maastricht.shapes.Circle;
 
 public class Tile {
@@ -16,13 +17,13 @@ public class Tile {
 
     private Circle outline;
     private Circle center;
+    private int radius;
 
-    private static int radius = 50;
-
-    public Tile(int x, int y, int index) {
+    public Tile(int x, int y, int radius, int index) {
         this.x = x;
         this.y = y;
         this.index = index;
+        this.radius = radius;
         font = new BitmapFont();
 
         outline = new Circle(x, y, radius, new Color(0,0,0,0));
@@ -52,6 +53,7 @@ public class Tile {
         center.setRadius(radius - 3);
         outline.setRadius(radius);
     }
+
 
     private void onClick() {
         System.out.println("clicked circle with index " + index);

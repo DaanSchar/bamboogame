@@ -2,6 +2,7 @@ package com.university.maastricht.shapes;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.university.maastricht.Scalar;
 import com.university.maastricht.components.CircularClickable;
 
 public class Circle extends CircularClickable {
@@ -16,6 +17,6 @@ public class Circle extends CircularClickable {
 
     public void render(ShapeRenderer renderer) {
         renderer.setColor(color);
-        renderer.circle(getX(), getY(), getRadius(), segments);
+        renderer.circle(getX(), getY(), getRadius() , segments);
     }
 }
