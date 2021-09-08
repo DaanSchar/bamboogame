@@ -62,6 +62,8 @@ public class Game extends ApplicationAdapter {
 			for (Tile tile : tiles)
 				tile.renderText(batch);
 		batch.end();
+
+		System.out.println(Scalar.getWidth());
 	}
 
 

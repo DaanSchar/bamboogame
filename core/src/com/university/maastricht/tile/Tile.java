@@ -53,6 +53,7 @@ public class Tile {
         outline.setRadius(radius);
     }
 
+
     private void onClick() {
         System.out.println("clicked circle with index " + index);
     }
