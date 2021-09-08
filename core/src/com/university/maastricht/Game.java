@@ -13,7 +13,7 @@ public class Game extends ApplicationAdapter {
 
 	public static Viewport viewport;
 	private Camera camera;
-	private ShapeRenderer shapeRenderer;
+	private ShapeRenderer shapeRenderer;	
 	private SpriteBatch batch;
 
 	private Tile[][] tiles;
