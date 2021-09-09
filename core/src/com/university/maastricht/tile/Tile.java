@@ -33,4 +33,16 @@ public class Tile {
     public Button getActor() {
         return actor;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getIndex() {
+        return index;
+    }
 }
