@@ -1,5 +1,6 @@
 package com.university.maastricht.components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -60,6 +61,15 @@ public class Button extends Image {
     }
 
 
+    //TODO: finish circle stuff
+    private float distanceMouseToCenter() {
+        double mouseX = Gdx.input.getX();
+        double mouseY = Gdx.input.getY() - Gdx.graphics.getHeight();
+
+
+        return (float)Math.sqrt( (mouseX - getX()) * (mouseX - getX()) + (mouseY - getY()) * (mouseY - getY()));
+    }
+
     // -------------------- Animation Actions --------------------
 
     private Action scaleAction(float scale, float time) {
@@ -76,6 +86,7 @@ public class Button extends Image {
         action.setInterpolation(Interpolation.exp5);
         return action;
     }
+
 
 
 }

@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
-import com.university.maastricht.components.GameObject;
 import com.university.maastricht.components.Button;
 import com.university.maastricht.tile.Tile;
 
@@ -24,27 +23,23 @@ public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
 
 	private Tile tile;
-	private Tile tile2;
-	private Button actor;
+	private Button button;
 	Stage stage;
 
-	private GameObject lock;
 
 	@Override
 	public void create () {
 		init();
 
-		tile = new Tile(100, 100, 50, 0);
-		tile2 = new Tile(100, 100, 50, 1);
-		lock = new GameObject(spriteSheet, "block_locked_small", 300, 300);
-		actor = new Button(spriteSheet.findRegion("ball_blue_large"), 50, 50, 100, 100);
+		tile = new Tile(200, 50, 70, 0);
+		button = new Button(spriteSheet.findRegion("ball_blue_large"), 50, 50, 100, 100);
 
 		stage = new Stage(viewport);
 		Gdx.input.setInputProcessor(stage);
 
-		stage.addActor(actor);
+		stage.addActor(button);
 		stage.addActor(tile.getActor());
-		stage.setKeyboardFocus(actor);
+		stage.setKeyboardFocus(button);
 	}
 
 	// this method gets called at every new frame
