@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
 import com.university.maastricht.components.Button;
+import com.university.maastricht.components.GameObject;
 import com.university.maastricht.tile.Tile;
 
 public class Game extends ApplicationAdapter {
@@ -24,6 +25,9 @@ public class Game extends ApplicationAdapter {
 
 	private Tile tile;
 	private Button button;
+
+	private GameObject gameObject;
+
 	Stage stage;
 
 
@@ -36,6 +40,8 @@ public class Game extends ApplicationAdapter {
 
 		stage = new Stage(viewport);
 		Gdx.input.setInputProcessor(stage);
+
+		gameObject = new GameObject(spriteSheet,"block_locked_large", 500, 300);
 
 		stage.addActor(button);
 		stage.addActor(tile.getActor());
@@ -50,8 +56,8 @@ public class Game extends ApplicationAdapter {
 		stage.draw();
 
 		batch.begin();
-
 		// here you call your render methods
+		gameObject.render(batch);
 
 		batch.end();
 	}
