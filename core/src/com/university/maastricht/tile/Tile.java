@@ -52,4 +52,12 @@ public class Tile {
     public void setTexture(TextureRegion region) {
         actor.setDrawable(new TextureRegionDrawable(region));
     }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 }
