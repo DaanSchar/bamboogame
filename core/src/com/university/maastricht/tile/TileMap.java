@@ -1,6 +1,8 @@
 package com.university.maastricht.tile;
 
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class TileMap {
 
@@ -19,12 +21,9 @@ public class TileMap {
                 if(i+j < 4 || i+j > 12)
                     tileMap[i][j] = null;
                 else
-                    tileMap[i][j] = new Tile(i,j,j+i*dimension);
+                    tileMap[i][j] = new Tile(i,j,30,j+i*dimension);
             }
         }
-
-
-
     }
 
     public Tile[][] getTileMap() {
@@ -38,5 +37,14 @@ public class TileMap {
     public Tile getTile(int x, int y) {
         return tileMap[x][y];
     }
+
+    public void addToStage(Stage stage) {
+        for (Tile[] tileRow : tileMap) {
+            for (Tile tile : tileRow) {
+                if (tile != null) stage.addActor(tile.getActor());
+            }
+        }
+    }
+
 
 }
