@@ -26,7 +26,7 @@ public class TileMap {
                 if(i+j < 4 || i+j > 12)
                     tileMap[i][j] = null;
                 else
-                    tileMap[i][j] = new Tile(i * TileSize + i+j * 30,j * TileSize,30,j+i*dimension);
+                    tileMap[i][j] = new Tile(i * TileSize + i+j * TileSize/2,j * TileSize,30,j+i*dimension);
             }
         }
     }
