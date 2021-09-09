@@ -31,7 +31,6 @@ public class Button extends Image {
                     addAction(scaleAction(1.13f, 0.03f));
                     addAction(rotateAction(-25, 0.2f));
                 }
-
             }
         };
     }
@@ -43,7 +42,6 @@ public class Button extends Image {
                 addAction(scaleAction(1.07f,0.1f));
                 addAction(rotateAction(180, 0.4f));
             }
-
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 if (pointer == -1) {
                     addAction(scaleAction(1.07f, 0.05f));
