@@ -1,7 +1,9 @@
 package com.university.maastricht.tile;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.university.maastricht.Game;
 import com.university.maastricht.components.Button;
 
@@ -26,6 +28,7 @@ public class Tile {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println(index);
+                setTexture(Game.spriteSheet.findRegion("ball_blue_large"));
             }
         });
     }
@@ -44,5 +47,9 @@ public class Tile {
 
     public int getIndex() {
         return index;
+    }
+
+    public void setTexture(TextureRegion region) {
+        actor.setDrawable(new TextureRegionDrawable(region));
     }
 }

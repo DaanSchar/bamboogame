@@ -4,9 +4,12 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
 import com.university.maastricht.components.Button;
@@ -37,8 +40,8 @@ public class Game extends ApplicationAdapter {
 	public void create () {
 		init();
 
-		tile = new Tile(200, 50, 70, 0);
-		button = new Button(spriteSheet.findRegion("ball_blue_large"), 50, 50, 100, 100);
+		tile = new Tile(200, 50, 100, 0);
+		button = new Button(spriteSheet.findRegion("ball_blue_large"), 50, 50, 200, 200);
 		tileMap = new TileMap();
 
 		stage = new Stage(viewport);
