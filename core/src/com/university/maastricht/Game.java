@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.*;
 import com.university.maastricht.components.GameObject;
+import com.university.maastricht.components.Button;
 import com.university.maastricht.tile.Tile;
 
 public class Game extends ApplicationAdapter {
@@ -23,6 +25,8 @@ public class Game extends ApplicationAdapter {
 
 	private Tile tile;
 	private Tile tile2;
+	private Button actor;
+	Stage stage;
 
 	private GameObject lock;
 
@@ -33,6 +37,14 @@ public class Game extends ApplicationAdapter {
 		tile = new Tile(100, 100, 50, 0);
 		tile2 = new Tile(100, 100, 50, 1);
 		lock = new GameObject(spriteSheet, "block_locked_small", 300, 300);
+		actor = new Button(spriteSheet.findRegion("ball_blue_large"), 50, 50, 100, 100);
+
+		stage = new Stage(viewport);
+		Gdx.input.setInputProcessor(stage);
+
+		stage.addActor(actor);
+		stage.addActor(tile.getActor());
+		stage.setKeyboardFocus(actor);
 	}
 
 	// this method gets called at every new frame
@@ -40,15 +52,8 @@ public class Game extends ApplicationAdapter {
 	public void render() {
 		ScreenUtils.clear(0.95f, 0.95f, 0.95f, 1); // sets the color of the background
 
-		// this is where you render an object (AKA display an object)
-		batch.begin();
-
-		tile.render(batch);
-		tile2.render(batch);
-
-		lock.render(batch);
-
-		batch.end();
+		stage.act();
+		stage.draw();
 	}
 
 
@@ -64,6 +69,7 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		batch.dispose();
+		stage.dispose();
 	}
 
 	@Override

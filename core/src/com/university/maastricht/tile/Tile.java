@@ -1,61 +1,36 @@
 package com.university.maastricht.tile;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.university.maastricht.Game;
-import com.university.maastricht.components.CircularClickable;
+import com.university.maastricht.components.Button;
 
 public class Tile {
 
     private int x;
     private int y;
+
     private int index;
-
-    private BitmapFont text;
-    private CircularClickable gameObject;
-
     private int radius;
 
-    public Tile(int x, int y, int radius, int index) {
+    private Button actor;
+
+    public Tile(int x, int y, int radius, final int index) {
         this.x = x;
         this.y = y;
         this.index = index;
         this.radius = radius;
 
-        text = new BitmapFont();
-        gameObject = new CircularClickable(Game.spriteSheet, "ball_blue_large", x, y, radius);
+        actor = new Button(Game.spriteSheet.findRegion("ball_red_large"), x, y, 2*radius, 2*radius);
+        actor.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Clicked on " + index);
+            }
+        });
     }
 
-    public void render(SpriteBatch batch) {
-        mouseEvent();
-        gameObject.render(batch);
-        text.draw(batch, Integer.toString(index),x + radius, y + radius);
-    }
-
-    private void mouseEvent() {
-        if (gameObject.isMouseHover())
-            onHoverEnter();
-        else
-            onHoverExit();
-
-        if (gameObject.isClicked())
-            onClick();
-    }
-
-    private void onHoverEnter() {
-        int dSize = 5;
-        gameObject.setX(x - dSize);
-        gameObject.setY(y - dSize);
-        gameObject.setRadius(radius + dSize);
-    }
-
-    private void onHoverExit() {
-        gameObject.setX(x);
-        gameObject.setY(y);
-        gameObject.setRadius(radius);
-    }
-
-    private void onClick() {
-        gameObject.setSprite(Game.spriteSheet, "ball_red_large");
+    public Button getActor() {
+        return actor;
     }
 }
