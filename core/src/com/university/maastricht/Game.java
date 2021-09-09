@@ -4,14 +4,12 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.*;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.university.maastricht.components.Button;
 import com.university.maastricht.components.GameObject;
 import com.university.maastricht.tile.Tile;
@@ -42,7 +40,7 @@ public class Game extends ApplicationAdapter {
 
 		tile = new Tile(200, 50, 100, 0);
 		button = new Button(spriteSheet.findRegion("ball_blue_large"), 50, 50, 200, 200);
-		tileMap = new TileMap();
+		tileMap = new TileMap(0,0,60);
 
 		stage = new Stage(viewport);
 		Gdx.input.setInputProcessor(stage);

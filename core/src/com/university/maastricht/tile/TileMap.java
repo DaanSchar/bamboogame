@@ -26,7 +26,7 @@ public class TileMap {
                 if(i+j < 4 || i+j > 12)
                     tileMap[i][j] = null;
                 else
-                    tileMap[i][j] = new Tile(i * TileSize + i+j * TileSize/2,j * TileSize,30,j+i*dimension);
+                    tileMap[i][j] = new Tile(mapX + (i * TileSize) + (i+j * TileSize/2),mapY + j * TileSize,30,j+i*dimension);
             }
         }
     }
@@ -55,6 +55,18 @@ public class TileMap {
         for (Tile[] tileRow : tileMap) {
             for (Tile tile : tileRow) {
                 if (tile != null) stage.addActor(tile.getActor());
+            }
+        }
+    }
+
+    //Moves tileMap to new Location
+    public void moveTileMap(int newX, int newY) {
+        for(int i = 0; i<dimension;i++) {
+            for (int j = 0; j < dimension; j++) {
+                if(tileMap[i][j] != null) {
+                    tileMap[i][j].setX(newX + (i * TileSize) + (i+j * TileSize/2));
+                    tileMap[i][j].setY(newY + j * TileSize);
+                }
             }
         }
     }
