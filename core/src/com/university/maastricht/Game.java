@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.*;
 import com.university.maastricht.components.Button;
 import com.university.maastricht.components.GameObject;
 import com.university.maastricht.tile.Tile;
+import com.university.maastricht.tile.TileMap;
 
 public class Game extends ApplicationAdapter {
 
@@ -25,6 +26,7 @@ public class Game extends ApplicationAdapter {
 
 	private Tile tile;
 	private Button button;
+	private TileMap tileMap;
 
 	private GameObject gameObject;
 
@@ -37,6 +39,7 @@ public class Game extends ApplicationAdapter {
 
 		tile = new Tile(200, 50, 70, 0);
 		button = new Button(spriteSheet.findRegion("ball_blue_large"), 50, 50, 100, 100);
+		tileMap = new TileMap();
 
 		stage = new Stage(viewport);
 		Gdx.input.setInputProcessor(stage);
@@ -46,6 +49,7 @@ public class Game extends ApplicationAdapter {
 		stage.addActor(button);
 		stage.addActor(tile.getActor());
 		stage.setKeyboardFocus(button);
+		tileMap.addToStage(stage);
 	}
 
 	// this method gets called at every new frame
