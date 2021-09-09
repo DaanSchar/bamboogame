@@ -1,19 +1,24 @@
 package com.university.maastricht.tile;
 
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class TileMap {
 
     private Tile[][] tileMap;
     private int dimension = 9;
+    private int mapX;
+    private int mapY;
+    private int TileSize; //Everything is scaled by TileSize, 60 works well rn
 
 
     //Constructor generates a 2d array as shown in
     //https://www.redblobgames.com/grids/hexagons/#map-storage
     //acces via x,y; Index is pretty meaningless rn
-    public TileMap() {
+    public TileMap(int mapX, int mapY, int TileSize) {
+        this.mapX = mapX;
+        this.mapY = mapY;
+        this.TileSize = TileSize;
         tileMap = new Tile[dimension][dimension];
 
         for(int i = 0; i < dimension; i++) {
@@ -21,13 +26,21 @@ public class TileMap {
                 if(i+j < 4 || i+j > 12)
                     tileMap[i][j] = null;
                 else
-                    tileMap[i][j] = new Tile(i,j,30,j+i*dimension);
+                    tileMap[i][j] = new Tile(i * TileSize + i+j * 30,j * TileSize,30,j+i*dimension);
             }
         }
     }
 
     public Tile[][] getTileMap() {
         return tileMap;
+    }
+
+    public int getMapX() {
+        return mapX;
+    }
+
+    public int getMapY() {
+        return mapY;
     }
 
     //return the Tile at the specified x and y

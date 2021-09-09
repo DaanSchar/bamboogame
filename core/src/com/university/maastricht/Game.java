@@ -39,7 +39,7 @@ public class Game extends ApplicationAdapter {
 
 		tile = new Tile(200, 50, 70, 0);
 		button = new Button(spriteSheet.findRegion("ball_blue_large"), 50, 50, 100, 100);
-		tileMap = new TileMap();
+		tileMap = new TileMap(0,0,60); //Add mapX,mapY
 
 		stage = new Stage(viewport);
 		Gdx.input.setInputProcessor(stage);
