@@ -46,9 +46,14 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void render() {
 		ScreenUtils.clear(0.95f, 0.95f, 0.95f, 1); // sets the color of the background
-
 		stage.act();
 		stage.draw();
+
+		batch.begin();
+
+		// here you call your render methods
+
+		batch.end();
 	}
 
 

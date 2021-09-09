@@ -25,7 +25,7 @@ public class Tile {
         actor.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Clicked on " + index);
+                System.out.println(index);
             }
         });
     }
