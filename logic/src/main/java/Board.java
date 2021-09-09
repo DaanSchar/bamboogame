@@ -91,29 +91,66 @@ public class Board {
     public boolean[][][] validMovesBlue() {
         return new boolean[boardLength][boardLength][boardLength];
     }
-    public boolean[][][] validMovesRed() {
-        return new boolean[boardLength][boardLength][boardLength];
-    }
+    public boolean[][][] validMovesRed() { return new boolean[boardLength][boardLength][boardLength]; }
 
-    public void moveBlue(int x, int y, int z) throws Exception {
+    public void move(int x, int y, int z, int c) throws Exception {
+        int numberOfGroups;
+        if(c==1) {
+            numberOfGroups = numberOfGroupsRed;
+        }
+        else if(c==2) {
+            numberOfGroups = numberOfGroupsBlue;
+        }
+        else {
+            throw new Exception("illegal Colour");
+        }
+
         Tile tile = board[x][y][z];
         if (tile.getColour()!=0)
         {
             throw new Exception("illegal move : already coloured");
         }
 
-        List<Tile> neighbours = tile.getNeighbours();
+        //make list of all groups connected to tile
+        List<Tile> tilesFromDifferentGroups = tile.getSurroundedTilesFromDifferentGroups(c);
+        List<Tile> tilesConnectedAndColoured = tile.getSurroundedTilesFromGroups(c);
 
+
+        //add a new group if no groups connected to that tile
+        if(tilesFromDifferentGroups.size()==0) {
+            if(c==1) {
+                numberOfGroupsRed++;
+            }
+            else if(c==2) {
+                numberOfGroupsBlue++;
+            }
+        }
+
+        //need code to update a group if the new tile connects to it and check if legal
+        int groupSizesFromAllNeighbours = 0;
+        for(int i=0; i< tilesFromDifferentGroups.size(); i++) {
+            groupSizesFromAllNeighbours += tilesFromDifferentGroups.get(i).getGroupSize();
+        }
+        if(groupSizesFromAllNeighbours+1 > numberOfGroups + 1 - (tilesFromDifferentGroups.size()))
+        {
+            throw new Exception("illegal move: groupsize too big");
+        }
+        else {
+            tile.setColour(c);
+        }
+
+        //Update the number of groups
+        if(c==1) {
+            numberOfGroupsRed = numberOfGroupsRed += 1 - (tilesFromDifferentGroups.size());
+        }
+        else if(c==2) {
+            numberOfGroupsBlue = numberOfGroupsBlue += 1 - (tilesFromDifferentGroups.size());
+        }
+
+        //TODO: update the connected tiles
+        //do this in tile
 
     }
 
-    public void moveRed( int x, int y, int z) throws Exception {
-       if (board[x][y][z].getColour()!=0)
-       {
-            throw new Exception("illegal move: already colored!");
-       }
 
-       //check if has coloured neighbours, if not, can be coloured
-        // if it does have, and opposite colour, than check groupsize and max allowed groupsize
-    }
 }
