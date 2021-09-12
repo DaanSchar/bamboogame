@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,9 +55,10 @@ public class Tile {
 
     }
 
-    private void updateSurroundingTiles(int c){
+    private Collection<? extends Tile> updateSurroundingTiles(int c){
 
         List<Tile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(c);
+
 
         //check if groupID needs to be changed
         //if new group, make a new groupID
@@ -102,7 +104,26 @@ public class Tile {
                     tempGroupMembers.get(i).setGroupID(newGroupId);
                 }
             }
-        }
+            // add the Tile to a new list
+           /* List<Tile> t = getGroupMembers();
+            var b = t.addAll(i, updateSurroundingTiles(c));
+            if (b)
+            {
+                //t.updateSurroundingTiles(c);
+                t.addAll(tempGroupMembers);
+            }*/
+
+            //merging list
+            //https://stackoverflow.com/questions/45281454/combine-multiple-lists-in-java
+            //https://stackoverflow.com/questions/21805999/how-to-append-a-list-to-another-list-in-java
+
+            //refer to addAll()
+            //https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/List.html
+                    //adding elements to a list
+            //https://www.geeksforgeeks.org/list-add-method-in-java-with-examples/
+
+        https://stackoverflow.com/questions/21805999/how-to-append-a-list-to-another-list-in-java
+
 
         //TODO: add the new neighbours
         //make sure that the same object gets send to all connected tiles, so updated automatically if one changes
