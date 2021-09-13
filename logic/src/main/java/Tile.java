@@ -82,7 +82,7 @@ public class Tile {
     }
 
     private Collection<? extends Tile> updateSurroundingTiles(int c) {
-        List<Tile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(c);     // not sure how to resolve this method call without reordering
+        List<Tile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(c);     // not sure how to resolve this method call without reordering the methods
 
         //check if groupID needs to be changed. if new group, make a new groupID
         if (tilesFromDifferentGroups.size() == 0) {
@@ -132,12 +132,12 @@ public class Tile {
             //TODO: add the new neighbours
             //make sure that the same object gets send to all connected tiles, so updated automatically if one changes
             //add tile itself to groupmemberList
-            // add the Tile to a new list
-            List<Tile> t = getGroupMembers();
-            var b = t.addAll(i, updateSurroundingTiles(c));
-            if (b) {
-                //t.updateSurroundingTiles(c);
-                t.addAll(tempGroupMembers);
+            // add the Tile to a new list and merging object list with the tile. Unsure if this is the best approach.
+            List<Tile> t = getGroupMembers();   // create a new list to add the Tile and merging objects. List name "t" may not be the wisest. Need to revise.
+            var b = t.addAll(i, updateSurroundingTiles(c));     // using the addAll method to append both the tile and the previous neighbor list
+            if (b) {    //if objects were added the list create above, the list will execute the merging
+                //t.updateSurroundingTiles(c);      // commented out because unsure if this is correct or not
+                t.addAll(tempGroupMembers);         // execute the merging
             }
 
             //merging list
@@ -150,22 +150,17 @@ public class Tile {
             //https://www.geeksforgeeks.org/list-add-method-in-java-with-examples/
             //https://stackoverflow.com/questions/21805999/how-to-append-a-list-to-another-list-in-java
 
-
-
-
             //TODO: update the groupMembers List
-
 
         }
 
-        public List<Tile> getSurroundedTilesFromDifferentGroups ( int c){
+        public List<Tile> getSurroundedTilesFromDifferentGroups (int c){
             List<Tile> neighbours = getNeighbours();
             List<Tile> tilesFromDifferentGroups = new LinkedList<Tile>();
             for (int i = 0; i < neighbours.size(); i++) {
                 Tile tempTile = neighbours.get(i);
                 //if they are coloured blue
                 if (tempTile.getColour() == c) {
-
                     //check if one of that group is already added to the list
                     //only add if that is not the case (don't want duplicated groups)
                     boolean duplicate = false;
