@@ -1,3 +1,5 @@
+package com.maastricht.university;
+
 import java.util.LinkedList;
 import java.util.List;
 

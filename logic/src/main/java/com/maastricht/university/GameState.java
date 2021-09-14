@@ -1,3 +1,5 @@
+package com.maastricht.university;
+
 public class GameState {
 
     private int numberOfGroupsBlue;

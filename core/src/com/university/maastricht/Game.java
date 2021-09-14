@@ -40,16 +40,16 @@ public class Game extends ApplicationAdapter {
 
 		tile = new Tile(200, 50, 100, 0);
 		button = new Button(spriteSheet.findRegion("ball_blue_large"), 50, 50, 200, 200);
-		tileMap = new TileMap(0,0,60);
+		tileMap = new TileMap(100,100,100);
 
 		stage = new Stage(viewport);
 		Gdx.input.setInputProcessor(stage);
 
 		gameObject = new GameObject(spriteSheet,"block_locked_large", 500, 300);
 
-		stage.addActor(button);
-		stage.addActor(tile.getActor());
-		stage.setKeyboardFocus(button);
+//		stage.addActor(button);
+//		stage.addActor(tile.getActor());
+//		stage.setKeyboardFocus(button);
 		tileMap.addToStage(stage);
 	}
 
@@ -57,14 +57,16 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void render() {
 		ScreenUtils.clear(0.95f, 0.95f, 0.95f, 1); // sets the color of the background
-		stage.act();
-		stage.draw();
-
 		batch.begin();
+		tileMap.render(batch);
+
 		// here you call your render methods
-		gameObject.render(batch);
+//		gameObject.render(batch);
 
 		batch.end();
+
+		stage.act();
+		stage.draw();
 	}
 
 
