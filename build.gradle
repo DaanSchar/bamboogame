@@ -12,10 +12,20 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
+//sourceSets {
+//    main {
+//        resources {
+//            srcDirs = ["src/main/java"]
+//            includes = ["**/*.fxml"]
+//        }
+//    }
+//}
+
 javafx {
     version = "17"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
+
 
 test {
     useJUnitPlatform()
