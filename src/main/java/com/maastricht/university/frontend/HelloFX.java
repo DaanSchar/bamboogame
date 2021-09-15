@@ -18,8 +18,8 @@ public class HelloFX extends Application {
 
 
         Pane playground = new Pane();
-        Tile t = new Tile(0, 100, 100);
-        playground.getChildren().add(t.getButton());
+        BambooButton b = new BambooButton(100, 100, 10, 50);
+        playground.getChildren().add(b);
         Scene scene = new Scene(playground, 640, 480);
         stage.setScene(scene);
         stage.show();
