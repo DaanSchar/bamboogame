@@ -1,4 +1,1 @@
-include 'desktop', 'core'
-include 'logic'
-include 'frontend'
 
