@@ -75,7 +75,7 @@ public class Tile {
 
     }
 
-    private Collection<? extends Tile> updateSurroundingTilesAndBoard(int c) {
+    private void updateSurroundingTilesAndBoard(int c) {
         List<Tile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(c);     // not sure how to resolve this method call without reordering the methods
 
         //check if groupID needs to be changed. if new group, make a new groupID
@@ -128,12 +128,20 @@ public class Tile {
             //add tile itself to groupmemberList
 
             // add the Tile to a new list and merging object list with the tile. Unsure if this is the best approach.
+            /*
             List<Tile> t = getGroupMembers();   // create a new list to add the Tile and merging objects. List name "t" may not be the wisest. Need to revise.
+            /*
             var b = t.addAll(i, updateSurroundingTilesAndBoard(c));     // using the addAll method to append both the tile and the previous neighbor list
             if (b) {    //if objects were added the list create above, the list will execute the merging
                 //t.updateSurroundingTilesAndBoard(c);      // commented out because unsure if this is correct or not
                 t.addAll(tempGroupMembers);         // execute the merging
             }
+            */
+
+            //make sure that the same object gets send to all connected tiles, so updated automatically if one changes
+            //add tile itself to groupmemberList
+
+
 
             //merging list
             //https://stackoverflow.com/questions/45281454/combine-multiple-lists-in-java
@@ -152,10 +160,9 @@ public class Tile {
         else if(c==2) {
             board.setNumberOfGroupsBlue(board.getNumberOfGroupsBlue()+1);
         }
-
-        //TODO: implement return statement or remove it
-        return null;
     }
+
+
 
     public List<Tile> getSurroundedTilesFromDifferentGroups (int c){
         List<Tile> neighbours = getNeighbours();
