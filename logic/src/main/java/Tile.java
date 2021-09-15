@@ -58,7 +58,7 @@ public class Tile {
         return new LinkedList<Tile>(groupMembers);
     }
 
-    public List<Tile> setGroupMembers(List<Tile> list) {
+    public void setGroupMembers(List<Tile> list) {
         groupMembers = list;
     }
 
