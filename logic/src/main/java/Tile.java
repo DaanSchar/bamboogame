@@ -58,6 +58,10 @@ public class Tile {
         return new LinkedList<Tile>(groupMembers);
     }
 
+    public List<Tile> setGroupMembers(List<Tile> list) {
+        groupMembers = list;
+    }
+
     public List<Tile> getGroupMembersWithoutCopy() {
         return groupMembers;
     }
