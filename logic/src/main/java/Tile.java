@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Tile {
+    private Board board;
     private int groupID;
     private static int groupIdCount = 0;
     private int groupSize;
@@ -13,6 +14,15 @@ public class Tile {
 
     private List<Tile> groupMembers = new LinkedList<Tile>();
     private List<Tile> neighbours = new LinkedList<Tile>();
+
+    public Tile(Board b) {
+        board = b;
+        groupID = 0;
+        groupSize = 0;
+        colour = 0;
+        legalForBlue = true;
+        legalForRed = true;
+    }
 
     public void setGroupSize(int number) {
         groupSize = number;
@@ -32,22 +42,67 @@ public class Tile {
 
     public boolean isLegalForRed() {
         //TODO: compute if legal
-        // legal move only if tile is empty and the number of red group is more than the number of stones
-        return legalForRed;
+        int numberOfGroups = board.getNumberOfGroupsRed();
+
+        //if the tile is already coloured, return false
+        if(getColour()!=0)
+        {
+            return false;
+        }
+
+        //make list of all groups connected to tile
+        List<Tile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(1);
+        List<Tile> tilesConnectedAndColoured = getSurroundedTilesFromGroups(1);
+
+        //if no groups connected to that tile, return true
+        if(tilesFromDifferentGroups.size()==0) {
+            return true;
+        }
+
+        //if the the new groupsize (if coloured) will be too big, it's not possible
+        int groupSizesFromAllNeighbours = 0;
+        for(int i=0; i< tilesFromDifferentGroups.size(); i++) {
+            groupSizesFromAllNeighbours += tilesFromDifferentGroups.get(i).getGroupSize();
+        }
+        if(groupSizesFromAllNeighbours+1 > numberOfGroups + 1 - (tilesFromDifferentGroups.size()))
+        {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     public boolean isLegalForBlue() {
-        //TODO: compute if legal
-        // legal move only if tile is empty and the number of blue group is more than the number of stones
-        return legalForBlue;
-    }
+        int numberOfGroups = board.getNumberOfGroupsBlue();
 
-    public Tile() {
-        groupID = 0;
-        groupSize = 0;
-        colour = 0;
-        legalForBlue = true;
-        legalForRed = true;
+        //if the tile is already coloured, return false
+        if(getColour()!=0)
+        {
+            return false;
+        }
+
+        //make list of all groups connected to tile
+        List<Tile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(1);
+        List<Tile> tilesConnectedAndColoured = getSurroundedTilesFromGroups(1);
+
+        //if no groups connected to that tile, return true
+        if(tilesFromDifferentGroups.size()==0) {
+            return true;
+        }
+
+        //if the the new groupsize (if coloured) will be too big, it's not possible
+        int groupSizesFromAllNeighbours = 0;
+        for(int i=0; i< tilesFromDifferentGroups.size(); i++) {
+            groupSizesFromAllNeighbours += tilesFromDifferentGroups.get(i).getGroupSize();
+        }
+        if(groupSizesFromAllNeighbours+1 > numberOfGroups + 1 - (tilesFromDifferentGroups.size()))
+        {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     public void addNeighbour(Tile neighbour) {
@@ -61,10 +116,14 @@ public class Tile {
     }
 
     public List<Tile> getNeighbours() {
-        return neighbours;
+        return new LinkedList<Tile>(neighbours);
     }
 
     public List<Tile> getGroupMembers() {
+        return new LinkedList<Tile>(groupMembers);
+    }
+
+    public List<Tile> getGroupMembersWithoutCopy() {
         return groupMembers;
     }
 
@@ -157,26 +216,39 @@ public class Tile {
         return null;
     }
 
-        public List<Tile> getSurroundedTilesFromDifferentGroups (int c){
-            List<Tile> neighbours = getNeighbours();
-            List<Tile> tilesFromDifferentGroups = new LinkedList<Tile>();
-            for (int i = 0; i < neighbours.size(); i++) {
-                Tile tempTile = neighbours.get(i);
-                //if they are coloured blue
-                if (tempTile.getColour() == c) {
-                    //check if one of that group is already added to the list
-                    //only add if that is not the case (don't want duplicated groups)
-                    boolean duplicate = false;
-                    for (int j = 0; j < tilesFromDifferentGroups.size(); j++) {
-                        if (tempTile.getGroupID() == tilesFromDifferentGroups.get(j).getGroupID()) {
-                            duplicate = true;
-                        }
-                    }
-                    if (!duplicate) {
-                        tilesFromDifferentGroups.add(tempTile);
+    public List<Tile> getSurroundedTilesFromDifferentGroups (int c){
+        List<Tile> neighbours = getNeighbours();
+        List<Tile> tilesFromDifferentGroups = new LinkedList<Tile>();
+        for (int i = 0; i < neighbours.size(); i++) {
+            Tile tempTile = neighbours.get(i);
+            //if they are coloured blue
+            if (tempTile.getColour() == c) {
+                //check if one of that group is already added to the list
+                //only add if that is not the case (don't want duplicated groups)
+                boolean duplicate = false;
+                for (int j = 0; j < tilesFromDifferentGroups.size(); j++) {
+                    if (tempTile.getGroupID() == tilesFromDifferentGroups.get(j).getGroupID()) {
+                        duplicate = true;
                     }
                 }
+                if (!duplicate) {
+                    tilesFromDifferentGroups.add(tempTile);
+                }
             }
-            return tilesFromDifferentGroups;
         }
+        return tilesFromDifferentGroups;
     }
+
+    public List<Tile> getSurroundedTilesFromGroups(int c) {
+        List<Tile> neighbours = getNeighbours();
+        List<Tile> tilesConnectedAndColoured = new LinkedList<Tile>();
+        for(int i=0; i<neighbours.size(); i++) {
+            Tile tempTile = neighbours.get(i);
+            //if they are coloured blue, add it too the list
+            if(tempTile.getColour()==c) {
+                tilesConnectedAndColoured.add(tempTile);
+            }
+        }
+        return tilesConnectedAndColoured;
+    }
+}

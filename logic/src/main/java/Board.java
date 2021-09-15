@@ -26,13 +26,13 @@ public class Board {
         this.board = new Tile[boardLength][boardLength][boardLength];
         for(int j=0; j<halfBoardLength; j++) {
             for(int i=(boardLength-halfBoardLength)-j; i<boardLength; i++) {
-                board[i][boardLength-i][j] = new Tile();
+                board[i][boardLength-i][j] = new Tile(this);
             }
         }
         //Second half of board
         for(int j=halfBoardLength; j<boardLength; j++) {
             for(int i=j-(boardLength-halfBoardLength); i<boardLength; i++) {
-                board[i][boardLength-i][j] = new Tile();
+                board[i][boardLength-i][j] = new Tile(this);
             }
         }
 
@@ -87,6 +87,13 @@ public class Board {
         return boardLength;
     }
 
+    public int getNumberOfGroupsRed() {
+        return numberOfGroupsRed;
+    }
+
+    public int getNumberOfGroupsBlue() {
+        return numberOfGroupsBlue;
+    }
 
     public boolean[][][] validMovesBlue() {
         return new boolean[boardLength][boardLength][boardLength];
@@ -94,63 +101,27 @@ public class Board {
     public boolean[][][] validMovesRed() { return new boolean[boardLength][boardLength][boardLength]; }
 
     public void move(int x, int y, int z, int c) throws Exception {
-        int numberOfGroups;
-        if(c==1) {
-            numberOfGroups = numberOfGroupsRed;
-        }
-        else if(c==2) {
-            numberOfGroups = numberOfGroupsBlue;
-        }
-        else {
+        //check if a legal colour
+        if(!(c==1 || c==2)) {
             throw new Exception("illegal Colour");
         }
 
+        //check if that tile can be coloured by that colour
         Tile tile = board[x][y][z];
-        if (tile.getColour()!=0)
-        {
-            throw new Exception("illegal move : already coloured");
-        }
-
-        //make list of all groups connected to tile
-        List<Tile> tilesFromDifferentGroups = tile.getSurroundedTilesFromDifferentGroups(c);
-        List<Tile> tilesConnectedAndColoured = tile.getSurroundedTilesFromGroups(c);
-
-
-        //add a new group if no groups connected to that tile
-        if(tilesFromDifferentGroups.size()==0) {
-            if(c==1) {
-                numberOfGroupsRed++;
-            }
-            else if(c==2) {
-                numberOfGroupsBlue++;
-            }
-        }
-
-        //need code to update a group if the new tile connects to it and check if legal
-        int groupSizesFromAllNeighbours = 0;
-        for(int i=0; i< tilesFromDifferentGroups.size(); i++) {
-            groupSizesFromAllNeighbours += tilesFromDifferentGroups.get(i).getGroupSize();
-        }
-        if(groupSizesFromAllNeighbours+1 > numberOfGroups + 1 - (tilesFromDifferentGroups.size()))
-        {
-            throw new Exception("illegal move: groupsize too big");
-        }
-        else {
-            tile.setColour(c);
-        }
-
-        //Update the number of groups
+        boolean canColour = false;
         if(c==1) {
-            numberOfGroupsRed = numberOfGroupsRed += 1 - (tilesFromDifferentGroups.size());
+            canColour = tile.isLegalForRed();
         }
         else if(c==2) {
-            numberOfGroupsBlue = numberOfGroupsBlue += 1 - (tilesFromDifferentGroups.size());
+            canColour = tile.isLegalForBlue();
         }
 
-        //TODO: update the connected tiles
-        //do this in tile
-
+        //if it can't be coloured, throw an exception
+        if(canColour) {
+            tile.setColour(c);
+        }
+        else {
+            throw new Exception("illegal move");
+        }
     }
-
-
 }
