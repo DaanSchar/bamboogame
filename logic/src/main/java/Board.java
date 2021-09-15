@@ -2,6 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Board {
+    private boolean redsTurn;
 
     private int numberOfGroupsBlue;
     private int numberOfGroupsRed;
@@ -36,12 +37,7 @@ public class Board {
             }
         }
 
-        //Update what the neighbours are
-        //have to check 6 places, for each direction,
-        // check where x stays the same, y+1, z+1, and check where y-1, z+1
-        // and than for every direction
-
-        //For every tile
+        //Update what the neighbours are for every tile
         this.board = new Tile[boardLength][boardLength][boardLength];
         for(int j=0; j<halfBoardLength; j++) {
             for(int i=(boardLength-halfBoardLength)-j; i<boardLength; i++) {
@@ -58,11 +54,11 @@ public class Board {
     }
 
     //Update what the neighbours are
-    //have to check 6 places, 2 for each direction,
-    // check where x stays the same, y+1, z+1, and check where y-1, z+1
-    // and then for every direction
     public void addNeighboursOfTile(Tile tile, int x, int y, int z) {
         // TODO: simplify it
+        //have to check 6 places, 2 for each direction,
+        // check where x stays the same, y+1, z+1, and check where y-1, z+1
+        // and then for every direction (x, y and z)
         if(y!=boardLength && z!=0) {
             tile.addNeighbour(board[x][y + 1][z - 1]);
         }
@@ -83,35 +79,15 @@ public class Board {
         }
     }
 
-    public int getBoardSize() {
-        return boardLength;
-    }
-
-    public int getNumberOfGroupsRed() {
-        return numberOfGroupsRed;
-    }
-
-    public int getNumberOfGroupsBlue() {
-        return numberOfGroupsBlue;
-    }
-
-    public void setNumberOfGroupsRed(int n) {
-        numberOfGroupsRed = n;
-    }
-
-    public void setNumberOfGroupsBlue(int n) {
-        numberOfGroupsBlue = n;
-    }
-
-    public boolean[][][] validMovesBlue() {
-        return new boolean[boardLength][boardLength][boardLength];
-    }
-    public boolean[][][] validMovesRed() { return new boolean[boardLength][boardLength][boardLength]; }
-
     public void move(int x, int y, int z, int c) throws Exception {
         //check if a legal colour
         if(!(c==1 || c==2)) {
             throw new Exception("illegal Colour");
+        }
+
+        //check if that colours turn
+        if((redsTurn && c!=1) || (!redsTurn && c==1)) {
+            throw new Exception("Not that colours turn");
         }
 
         //check if that tile can be coloured by that colour
@@ -132,4 +108,32 @@ public class Board {
             throw new Exception("illegal move");
         }
     }
+
+    public boolean isMoveLegal(int x, int y, int z, int c){
+        //check if a legal colour
+        if(!(c==1 || c==2)) {
+            return false;
+        }
+
+        //check if that colours turn
+        if((redsTurn && c!=1) || (!redsTurn && c==1)) {
+            return false;
+        }
+
+        //check if move legal for that colour
+        if(c==1){
+            return board[x][y][z].isLegalForRed();
+        }
+        else {
+            return board[x][y][z].isLegalForBlue();
+        }
+    }
+    public int getBoardSize() {return boardLength;}
+    public int getNumberOfGroupsRed() { return numberOfGroupsRed; }
+    public int getNumberOfGroupsBlue() { return numberOfGroupsBlue;}
+    public void setNumberOfGroupsRed(int n) {numberOfGroupsRed = n;}
+    public void setNumberOfGroupsBlue(int n) {numberOfGroupsBlue = n;}
+
+    public boolean isRedsTurn() { return redsTurn; }
+    public void setRedsTurn(boolean turnRed) { redsTurn = turnRed; }
 }
