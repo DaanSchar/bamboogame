@@ -1,80 +1,54 @@
 package com.maastricht.university.frontend;
 
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 
 public class Tile {
 
-    private Button button;
+    private HoverableButton button;
 
     private int index;
-    private int size;
+    private double size;
+    private double x;
+    private double y;
 
-    private int x;
-    private int y;
+    private boolean isClicked;
 
-    public Tile(int x, int y, int size, int index) {
+    public Tile(double x, double y, double size, int index)  {
         this.index = index;
         this.size = size;
         this.x = x;
         this.y = y;
 
-        createButton(size);
+        initButton();
     }
 
-    private void createButton(int size) {
-        button = new Button(Integer.toString(index));
-        setButtonPos(x, y);
-        setButtonStyle(size);
+    // here we create a nice looking circular button
+    private void initButton() {
+        button = new HoverableButton(x, y, size, size);
+        button.setColor("#333333");
+        SVGPath circle = new SVGPath();
+        circle.setContent("M25 20" +
+                "a5 5 0 1 1-10 0 " +
+                "5 5 0 1 1 10 0z");
+        button.setShape(circle);
+        button.setText(Integer.toString(index));
+        button.setTextFill(Color.WHITE);
         setClickEvent();
-        setHoverEnter();
-        setHoverExit();
-
     }
 
-    private void setButtonPos(int x, int y) {
-        button.setLayoutX(x);
-        button.setLayoutY(y);
-    }
-
-    private void setButtonStyle(int size) {
-        button.setStyle(
-                "-fx-background-radius: " + size + "em; " +
-                        "-fx-min-width:  " + size + "px; " +
-                        "-fx-min-height:  " + size + "px; " +
-                        "-fx-max-width:  " + size + "px; " +
-                        "-fx-max-height:  " + size + "px;" +
-                        "-fx-background-color: #333333 ; "
-        );
-    }
-
-    private void setHoverEnter() {
-        button.setOnMouseEntered(e -> {
-            updateButtonSizeBy(size/10);
-        });
-    }
-
-    private void setHoverExit() {
-        button.setOnMouseExited(e -> {
-            updateButtonSizeBy(0);
-        });
-    }
-
+    // here we determine what happens when we click the button
     private void setClickEvent() {
         button.setOnMouseClicked(e -> {
             System.out.println(this.index);
-        });
+            isClicked = !isClicked;
 
-        button.setOnMousePressed(e -> {
-            updateButtonSizeBy(size/6);
+            if (isClicked)
+                button.setColor("#4d9de0");
+            else
+                button.setColor("#E15554");
         });
-        button.setOnMouseReleased(e -> {
-            updateButtonSizeBy(size/10);
-        });
-    }
-
-    private void updateButtonSizeBy(int size) {
-        setButtonPos(this.x - size/2, this.y - size/2);
-        setButtonStyle(this.size + size);
     }
 
     public Button getButton() {
