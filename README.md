@@ -2,4 +2,4 @@
 
 setup after cloning:
   run gradle build.
-  run the main method in desktop/src/.../DesktopLauncher.java
+  run the following command in the terminal: .\gradlew run
