@@ -129,9 +129,10 @@ public class Tile {
                 }
             }
 
-            //TODO: add the new neighbours
+            //TODO: update the groupMembers List
             //make sure that the same object gets send to all connected tiles, so updated automatically if one changes
             //add tile itself to groupmemberList
+
             // add the Tile to a new list and merging object list with the tile. Unsure if this is the best approach.
             List<Tile> t = getGroupMembers();   // create a new list to add the Tile and merging objects. List name "t" may not be the wisest. Need to revise.
             var b = t.addAll(i, updateSurroundingTiles(c));     // using the addAll method to append both the tile and the previous neighbor list
@@ -150,9 +151,11 @@ public class Tile {
             //https://www.geeksforgeeks.org/list-add-method-in-java-with-examples/
             //https://stackoverflow.com/questions/21805999/how-to-append-a-list-to-another-list-in-java
 
-            //TODO: update the groupMembers List
-
         }
+
+        //TODO: implement return statement or remove it
+        return null;
+    }
 
         public List<Tile> getSurroundedTilesFromDifferentGroups (int c){
             List<Tile> neighbours = getNeighbours();
@@ -177,4 +180,3 @@ public class Tile {
             return tilesFromDifferentGroups;
         }
     }
-}
