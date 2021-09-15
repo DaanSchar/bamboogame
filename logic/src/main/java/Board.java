@@ -95,6 +95,14 @@ public class Board {
         return numberOfGroupsBlue;
     }
 
+    public void setNumberOfGroupsRed(int n) {
+        numberOfGroupsRed = n;
+    }
+
+    public void setNumberOfGroupsBlue(int n) {
+        numberOfGroupsBlue = n;
+    }
+
     public boolean[][][] validMovesBlue() {
         return new boolean[boardLength][boardLength][boardLength];
     }
