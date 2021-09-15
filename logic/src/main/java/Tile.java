@@ -127,20 +127,22 @@ public class Tile {
         //TODO: update the groupMembers List (doesn't work yet right now)
         //make sure that the same object gets send to all connected tiles, so updated automatically if one changes
         //add tile itself to groupmemberList
+
         List<Tile> tileNewList = getSurroundedTilesFromDifferentGroups(c);
         List<Tile> newGroupMembers= new LinkedList<Tile>();
 
-
+        //Make a list of all the members of the current group
         for(int x=0; x<tileNewList.size(); x++)
         {
             Tile t = tileNewList.get(x);
             List<Tile> smallGroup = t.getGroupMembers();
             for(int j=0; j< tileNewList.indexOf(x); j++) {
                 newGroupMembers.add(smallGroup.get(j));
-
             }
-
         }
+        newGroupMembers.add(this);
+
+        //Give this list to all the tiles in the group
 
         if(c==1) {
             board.setNumberOfGroupsRed(board.getNumberOfGroupsRed()+1);
