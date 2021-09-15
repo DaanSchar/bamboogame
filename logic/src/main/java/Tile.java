@@ -123,35 +123,27 @@ public class Tile {
                 }
             }
 
+            List<Tile> tileNewList = getSurroundedTilesFromDifferentGroups(c);
+            List<Tile> newGroupMembers= new LinkedList<Tile>();
+
+
+            for(int x=0; x<tileNewList.size(); x++)
+            {
+                Tile t = tileNewList.get(x);
+                List<Tile> smallGroup = t.getGroupMembers();
+               for(int j=0; j< tileNewList.indexOf(x); j++) {
+                   newGroupMembers.add(smallGroup.get(j));
+
+               }
+
+            }
+
+
             //TODO: update the groupMembers List (doesn't work yet right now)
             //make sure that the same object gets send to all connected tiles, so updated automatically if one changes
             //add tile itself to groupmemberList
 
-            // add the Tile to a new list and merging object list with the tile. Unsure if this is the best approach.
-            /*
-            List<Tile> t = getGroupMembers();   // create a new list to add the Tile and merging objects. List name "t" may not be the wisest. Need to revise.
-            /*
-            var b = t.addAll(i, updateSurroundingTilesAndBoard(c));     // using the addAll method to append both the tile and the previous neighbor list
-            if (b) {    //if objects were added the list create above, the list will execute the merging
-                //t.updateSurroundingTilesAndBoard(c);      // commented out because unsure if this is correct or not
-                t.addAll(tempGroupMembers);         // execute the merging
-            }
-            */
 
-            //make sure that the same object gets send to all connected tiles, so updated automatically if one changes
-            //add tile itself to groupmemberList
-
-
-
-            //merging list
-            //https://stackoverflow.com/questions/45281454/combine-multiple-lists-in-java
-            //https://stackoverflow.com/questions/21805999/how-to-append-a-list-to-another-list-in-java
-
-            //refer to addAll()
-            //https://docs.oracle.com/en/java/javase/16/docs/api/java.base/java/util/List.html
-            //adding elements to a list
-            //https://www.geeksforgeeks.org/list-add-method-in-java-with-examples/
-            //https://stackoverflow.com/questions/21805999/how-to-append-a-list-to-another-list-in-java
 
         }
         if(c==1) {
