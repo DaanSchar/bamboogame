@@ -31,4 +31,4 @@ test {
     useJUnitPlatform()
 }
 
-mainClassName = 'com.maastricht.university.frontend.HelloFX'
+mainClassName = 'com.maastricht.university.frontend.Main'
