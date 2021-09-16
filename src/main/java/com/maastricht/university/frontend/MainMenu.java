@@ -3,15 +3,13 @@ package com.maastricht.university.frontend;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.awt.*;
-import java.awt.event.ActionListener;
+
 
 public class MainMenu extends Application {
 
@@ -61,6 +59,7 @@ public class MainMenu extends Application {
         humanView.setFitWidth(270);
         human.setGraphic(humanView);
 
+        //TODO: make this button go to the game
         human.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 System.out.println("This goes into the game :)");
@@ -71,6 +70,13 @@ public class MainMenu extends Application {
         pcView.setFitHeight(100);
         pcView.setFitWidth(270);
         computer.setGraphic(pcView);
+
+        //TODO: make this button go to the game (phase 2)
+        computer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                System.out.println("This goes into the game :)");
+            }
+        });
 
         computer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
@@ -102,7 +108,7 @@ public class MainMenu extends Application {
                 Pane r = new Pane();
                 Scene sc = new Scene(r,width/2.5,height/2.5);
                 rulesWindow.setScene(sc);
-                
+
                 rulesWindow.show();
 
                 System.out.println("Opens tutorial");
