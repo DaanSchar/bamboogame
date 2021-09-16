@@ -10,11 +10,11 @@ import java.awt.*;
 
 public class MainMenu extends Application {
 
-    public Image humanPNG = new Image("resources/button_human.png");
-    public Image pcPNG = new Image("resources/button_computer.png");
-    public Image exitPNG = new Image("resources/button_exit.png");
-    public Image rulesPNG = new Image("resources/button_rules.png");
-    public Image bambooText = new Image("resources/bambooText.png");
+    public Image humanPNG = new Image("/images/button_human.png");
+    public Image pcPNG = new Image("/images/button_computer.png");
+    public Image exitPNG = new Image("/images/button_exit.png");
+    public Image rulesPNG = new Image("/images/button_rules.png");
+    public Image bambooText = new Image("/images/bambooText.png");
 
     public ImageView humanView = new ImageView(humanPNG);
     public ImageView pcView = new ImageView(pcPNG);
@@ -25,12 +25,12 @@ public class MainMenu extends Application {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     double width = screenSize.getWidth();
     double height = screenSize.getHeight();
-    public Image bambooBcg = new Image("resources/bamboo.jpg",width,height,false,true);
+    public Image bambooBcg = new Image("/images/bamboo.jpg", width, height, false, true);
 
     @Override
     public void start(Stage stage) {
         Pane r = new Pane();
-        Scene scene = new Scene(r,width, height);
+        Scene scene = new Scene(r, width, height);
 
         //set background picture
         BackgroundImage bImg = new BackgroundImage(bambooBcg,
@@ -44,29 +44,29 @@ public class MainMenu extends Application {
         stage.setScene(scene);
 
         //add title to scene
-        title.setLayoutX(width/2);
-        title.setLayoutY(50);
-        title.setFitWidth(270);
-        title.setFitHeight(100);
+        title.setLayoutX(width / 4);
+        title.setLayoutY(0);
+        title.setFitWidth(width / 2);
+        title.setFitHeight(width / 3.5);
         r.getChildren().add(title);
 
         //create buttons and add the design
-        HoverableButton human = new HoverableButton(width/2,height/2,20,20);
+        HoverableButton human = new HoverableButton(width / 2, height / 2, 20, 20);
         humanView.setFitHeight(100);
         humanView.setFitWidth(270);
         human.setGraphic(humanView);
 
-        HoverableButton computer = new HoverableButton(width/2,height/3,20,20);
+        HoverableButton computer = new HoverableButton(width / 2, height / 3, 20, 20);
         pcView.setFitHeight(100);
         pcView.setFitWidth(270);
         computer.setGraphic(pcView);
 
-        HoverableButton exit = new HoverableButton(200,height-height/4,20,20);
+        HoverableButton exit = new HoverableButton(200, height - height / 4, 20, 20);
         exitView.setFitHeight(90);
         exitView.setFitWidth(175);
         exit.setGraphic(exitView);
 
-        HoverableButton rules = new HoverableButton(width - width/6, height/6,20,20);
+        HoverableButton rules = new HoverableButton(width - width / 6, height / 6, 20, 20);
         rulesView.setFitHeight(90);
         rulesView.setFitWidth(175);
         rules.setGraphic(rulesView);
@@ -85,4 +85,5 @@ public class MainMenu extends Application {
     public static void main(String[] args) {
         launch();
     }
+
 }
