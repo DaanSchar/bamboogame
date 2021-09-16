@@ -142,9 +142,15 @@ public class Tile {
             List<Tile> smallGroup = t.getGroupMembers();
             for(int j=0; j< tileNewList.indexOf(x); j++) {
                 newGroupMembers.add(smallGroup.get(j));
+
             }
         }
         newGroupMembers.add(this);
+        List<Tile> newGroupMembers2= new LinkedList<Tile>();
+        for(int x=0; x<newGroupMembers.size(); x++)
+        {
+            newGroupMembers2.get(x).setGroupMembers(newGroupMembers);
+        }
 
         //Give this list to all the tiles in the group
 
