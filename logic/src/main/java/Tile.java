@@ -146,10 +146,10 @@ public class Tile {
             }
         }
         newGroupMembers.add(this);
-        List<Tile> newGroupMembers2= new LinkedList<Tile>();
+
         for(int x=0; x<newGroupMembers.size(); x++)
         {
-            newGroupMembers2.get(x).setGroupMembers(newGroupMembers);
+            newGroupMembers.get(x).setGroupMembers(newGroupMembers);
         }
 
         //Give this list to all the tiles in the group
