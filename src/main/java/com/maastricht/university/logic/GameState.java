@@ -2,54 +2,32 @@ package com.maastricht.university.logic;
 
 public class GameState {
 
-    private int numberOfGroupsBlue;
-    private int numberOfGroupsRed;
     private boolean redsTurn;
-    private Tile[][][] board;
+    private Board board;
 
-    public GameState() {
-        this.numberOfGroupsBlue = 0;
-        this.numberOfGroupsRed = 0;
+    public GameState(int boardSize) throws Exception {
         this.redsTurn = true;
-        this.board = new Tile[9][9][9];
-        for(int i=0; i<7; i++) {
-            for(int j=0; j<7; j++) {
-                for(int k=0; k<7; k++) {
+        this.board = new Board(boardSize);
 
-                }
-            }
-        }
     }
 
-    public boolean[][][] getLegalMovesBlue() {
-        return new boolean[9][9][9];
+    public void moveBlue(int x, int y, int z) throws Exception {
+        board.move(x, y, z, 2);
     }
 
-    public boolean[][][] getLegalMovesRed() {
-        return new boolean[9][9][9];
+    public void moveRed(int x, int y, int z) throws Exception {
+        board.move(x, y, z, 1);
     }
 
-    public void moveBlue() {
-        if(!redsTurn) {
-            //update board
-            //recount number of groups for Blue
-            //update legal moves
-        }
+    public void move(int x, int y, int z, int c) throws Exception {
+        board.move(x, y, z, c);
     }
 
-    public void moveRed() {
-        if(redsTurn) {
-            //update board
-            //recount number of groups for Red
-            //update legal moves
-        }
+    public boolean isRedsTurn() {
+        return redsTurn;
     }
 
-    public int getNumberOfGroupsBlue() {
-        return numberOfGroupsBlue;
-    }
-
-    public int getNumberOfGroupsRed() {
-        return numberOfGroupsRed;
+    public boolean isMoveLegal(int x, int y, int z, int c) {
+        return board.isMoveLegal(x, y, z, c);
     }
 }
