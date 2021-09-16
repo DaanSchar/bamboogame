@@ -11,6 +11,8 @@ public class GameState {
 
     }
 
+    //Make sure that you get all the tiles from frontend
+
     public void moveBlue(int x, int y, int z) throws Exception {
         board.move(x, y, z, 2);
     }

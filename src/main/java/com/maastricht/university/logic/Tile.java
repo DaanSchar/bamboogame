@@ -12,6 +12,7 @@ public class Tile {
     private static int groupIdCount = 0;
     private int groupSize;
     private int colour; //0 for no colour, 1 for red, 2 for blue
+    //private frontendTile =;
 
     private boolean legalForRed;
     private boolean legalForBlue;
@@ -80,7 +81,6 @@ public class Tile {
         }
 
         updateSurroundingTilesAndBoard(c);
-
     }
 
     private void updateSurroundingTilesAndBoard(int c) {
@@ -204,8 +204,9 @@ public class Tile {
         return tilesConnectedAndColoured;
     }
 
+    //TODO: check all other groups too for size in case of less groups instead of only the newly formed group
+    //TODO: remove duplicate code from the isLegal methods
     public boolean isLegalForRed() {
-        //TODO: compute if legal
         int numberOfGroups = board.getNumberOfGroupsRed();
 
         //if the tile is already coloured, return false
