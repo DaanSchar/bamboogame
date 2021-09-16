@@ -7,13 +7,14 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class HelloFX extends Application {
+public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
 
         TileMap tilemap = new TileMap(0,0,30);
         Pane playground = tilemap.getTileMapPane();
+        System.out.println(getClass().getResource("sample.css"));
 
         Scene scene = new Scene(playground, 640, 480);
         stage.setScene(scene);
