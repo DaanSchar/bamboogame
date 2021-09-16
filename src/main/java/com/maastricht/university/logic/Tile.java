@@ -1,3 +1,7 @@
+package com.maastricht.university.logic;
+
+import com.maastricht.university.logic.Board;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
