@@ -1,17 +1,22 @@
 package com.maastricht.university.logic;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Board {
     private boolean redsTurn;
 
-    private int numberOfGroupsBlue;
-    private int numberOfGroupsRed;
+    private List<TileGroup>[] groups;
 
-    private Tile[][][] board;
+    private LogicTile[][][] board;
     private int boardLength;
 
-    public Board(int boardSize) throws Exception {
-        this.numberOfGroupsBlue = 0;
-        this.numberOfGroupsRed = 0;
+    public Board(int boardSize, int numberOfPlayers) throws Exception {
+        groups = new LinkedList[2];
+        //groups = new LinkedList[numberOfPlayers];
+        for(int i=0; i<numberOfPlayers; i++) {
+            groups[i] = new LinkedList<TileGroup>();
+        }
 
         if(boardSize%2==0) { throw new Exception("illegal boardSize"); }
         boardLength = boardSize; // can't be even
@@ -23,37 +28,37 @@ public class Board {
         // Start with the top row, and than go down till the end
 
         //first half of board
-        this.board = new Tile[boardLength][boardLength][boardLength];
+        this.board = new LogicTile[boardLength][boardLength][boardLength];
         for(int j=0; j<halfBoardLength; j++) {
             for(int i=(boardLength-halfBoardLength)-j; i<boardLength; i++) {
-                board[i][boardLength-i][j] = new Tile(this);
+                board[i][boardLength-i][j] = new LogicTile(this);
             }
         }
         //Second half of board
         for(int j=halfBoardLength; j<boardLength; j++) {
             for(int i=j-(boardLength-halfBoardLength); i<boardLength; i++) {
-                board[i][boardLength-i][j] = new Tile(this);
+                board[i][boardLength-i][j] = new LogicTile(this);
             }
         }
 
         //Update what the neighbours are for every tile
-        this.board = new Tile[boardLength][boardLength][boardLength];
+        this.board = new LogicTile[boardLength][boardLength][boardLength];
         for(int j=0; j<halfBoardLength; j++) {
             for(int i=(boardLength-halfBoardLength)-j; i<boardLength; i++) {
-                Tile tempTile = board[i][boardLength-i][j];
+                LogicTile tempTile = board[i][boardLength-i][j];
                 addNeighboursOfTile(tempTile, i, boardLength-i, j);
             }
         }
         for(int j=halfBoardLength; j<boardLength; j++) {
             for(int i=j-(boardLength-halfBoardLength); i<boardLength; i++) {
-                Tile tempTile = board[i][boardLength-i][j];
+                LogicTile tempTile = board[i][boardLength-i][j];
                 addNeighboursOfTile(tempTile, i, boardLength-i, j);
             }
         }
     }
 
     //Update what the neighbours are
-    public void addNeighboursOfTile(Tile tile, int x, int y, int z) {
+    public void addNeighboursOfTile(LogicTile tile, int x, int y, int z) {
         // TODO: simplify it
         //have to check 6 places, 2 for each direction,
         // check where x stays the same, y+1, z+1, and check where y-1, z+1
@@ -90,7 +95,7 @@ public class Board {
         }
 
         //check if that tile can be coloured by that colour
-        Tile tile = board[x][y][z];
+        LogicTile tile = board[x][y][z];
         boolean canColour = false;
         if(c==1) {
             canColour = tile.isLegalForRed();
@@ -127,11 +132,19 @@ public class Board {
             return board[x][y][z].isLegalForBlue();
         }
     }
+    public void addGroup(int c, TileGroup group) {
+        groups[c-1].add(group);
+    }
+
+    public void removeGroup(int c, TileGroup group) {
+        groups[c-1].remove(group);
+    }
+
     public int getBoardSize() {return boardLength;}
-    public int getNumberOfGroupsRed() { return numberOfGroupsRed; }
-    public int getNumberOfGroupsBlue() { return numberOfGroupsBlue;}
-    public void setNumberOfGroupsRed(int n) {numberOfGroupsRed = n;}
-    public void setNumberOfGroupsBlue(int n) {numberOfGroupsBlue = n;}
+    public int getNumberOfGroups(int c) {return groups[c-1].size();}
+    public List<TileGroup> getGroups(int c) {return groups[c-1];}
+    public int getNumberOfGroupsRed() { return groups[0].size();}
+    public int getNumberOfGroupsBlue() { return groups[1].size();}
 
     public boolean isRedsTurn() { return redsTurn; }
     public void setRedsTurn(boolean turnRed) { redsTurn = turnRed; }

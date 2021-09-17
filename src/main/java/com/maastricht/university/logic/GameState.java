@@ -5,11 +5,13 @@ public class GameState {
     private boolean redsTurn;
     private Board board;
 
-    public GameState(int boardSize) throws Exception {
+    public GameState(int boardSize, int numberOfPlayers) throws Exception {
         this.redsTurn = true;
-        this.board = new Board(boardSize);
+        this.board = new Board(boardSize, numberOfPlayers);
 
     }
+
+    //Make sure that you get all the tiles from frontend
 
     public void moveBlue(int x, int y, int z) throws Exception {
         board.move(x, y, z, 2);
