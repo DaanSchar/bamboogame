@@ -1,12 +1,14 @@
 package com.maastricht.university.logic;
 
+//TODO: add list of all groups to board (implement logic in TileGroup)
+
 public class Board {
     private boolean redsTurn;
 
     private int numberOfGroupsBlue;
     private int numberOfGroupsRed;
 
-    private Tile[][][] board;
+    private LogicTile[][][] board;
     private int boardLength;
 
     public Board(int boardSize) throws Exception {
@@ -23,37 +25,37 @@ public class Board {
         // Start with the top row, and than go down till the end
 
         //first half of board
-        this.board = new Tile[boardLength][boardLength][boardLength];
+        this.board = new LogicTile[boardLength][boardLength][boardLength];
         for(int j=0; j<halfBoardLength; j++) {
             for(int i=(boardLength-halfBoardLength)-j; i<boardLength; i++) {
-                board[i][boardLength-i][j] = new Tile(this);
+                board[i][boardLength-i][j] = new LogicTile(this);
             }
         }
         //Second half of board
         for(int j=halfBoardLength; j<boardLength; j++) {
             for(int i=j-(boardLength-halfBoardLength); i<boardLength; i++) {
-                board[i][boardLength-i][j] = new Tile(this);
+                board[i][boardLength-i][j] = new LogicTile(this);
             }
         }
 
         //Update what the neighbours are for every tile
-        this.board = new Tile[boardLength][boardLength][boardLength];
+        this.board = new LogicTile[boardLength][boardLength][boardLength];
         for(int j=0; j<halfBoardLength; j++) {
             for(int i=(boardLength-halfBoardLength)-j; i<boardLength; i++) {
-                Tile tempTile = board[i][boardLength-i][j];
+                LogicTile tempTile = board[i][boardLength-i][j];
                 addNeighboursOfTile(tempTile, i, boardLength-i, j);
             }
         }
         for(int j=halfBoardLength; j<boardLength; j++) {
             for(int i=j-(boardLength-halfBoardLength); i<boardLength; i++) {
-                Tile tempTile = board[i][boardLength-i][j];
+                LogicTile tempTile = board[i][boardLength-i][j];
                 addNeighboursOfTile(tempTile, i, boardLength-i, j);
             }
         }
     }
 
     //Update what the neighbours are
-    public void addNeighboursOfTile(Tile tile, int x, int y, int z) {
+    public void addNeighboursOfTile(LogicTile tile, int x, int y, int z) {
         // TODO: simplify it
         //have to check 6 places, 2 for each direction,
         // check where x stays the same, y+1, z+1, and check where y-1, z+1
@@ -90,7 +92,7 @@ public class Board {
         }
 
         //check if that tile can be coloured by that colour
-        Tile tile = board[x][y][z];
+        LogicTile tile = board[x][y][z];
         boolean canColour = false;
         if(c==1) {
             canColour = tile.isLegalForRed();
