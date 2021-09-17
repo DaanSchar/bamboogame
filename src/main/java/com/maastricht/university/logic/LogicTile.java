@@ -4,21 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LogicTile {
-    private Board board;
+    private final Board board;
 
     private TileGroup tileGroup;
 
     private int colour; //0 for no colour, 1 for red, 2 for blue
-    private boolean legalForRed;
-    private boolean legalForBlue;
 
     private List<LogicTile> neighbours = new LinkedList<LogicTile>();
 
     public LogicTile(Board b) {
         board = b;
         colour = 0;
-        legalForBlue = true;
-        legalForRed = true;
     }
 
     public void setTileGroup(TileGroup group) {
@@ -82,16 +78,15 @@ public class LogicTile {
 
     public List<LogicTile> getSurroundedTilesFromDifferentGroups (int c){
         List<LogicTile> neighbours = getNeighbours();
-        List<LogicTile> tilesFromDifferentGroups = new LinkedList<LogicTile>();
-        for (int i = 0; i < neighbours.size(); i++) {
-            LogicTile tempTile = neighbours.get(i);
+        List<LogicTile> tilesFromDifferentGroups = new LinkedList<>();
+        for(LogicTile tempTile : neighbours) {
             //if they are coloured blue
             if (tempTile.getColour() == c) {
                 //check if one of that group is already added to the list
                 //only add if that is not the case (don't want duplicated groups)
                 boolean duplicate = false;
-                for (int j = 0; j < tilesFromDifferentGroups.size(); j++) {
-                    if (tempTile.getTileGroup().getGroupID() == tilesFromDifferentGroups.get(j).getTileGroup().getGroupID()) {
+                for (LogicTile tilesFromDifferentGroup : tilesFromDifferentGroups) {
+                    if (tempTile.getTileGroup().getGroupID() == tilesFromDifferentGroup.getTileGroup().getGroupID()) {
                         duplicate = true;
                     }
                 }
@@ -106,10 +101,9 @@ public class LogicTile {
     public List<LogicTile> getSurroundedTilesFromGroups(int c) {
         List<LogicTile> neighbours = getNeighbours();
         List<LogicTile> tilesConnectedAndColoured = new LinkedList<LogicTile>();
-        for(int i=0; i<neighbours.size(); i++) {
-            LogicTile tempTile = neighbours.get(i);
+        for (LogicTile tempTile : neighbours) {
             //if they are coloured blue, add it too the list
-            if(tempTile.getColour()==c) {
+            if (tempTile.getColour() == c) {
                 tilesConnectedAndColoured.add(tempTile);
             }
         }
@@ -137,8 +131,8 @@ public class LogicTile {
 
         //if the the new groupsize (if coloured) will be too big, it's not possible
         int groupSizesFromAllNeighbours = 0;
-        for(int i=0; i< tilesFromDifferentGroups.size(); i++) {
-            groupSizesFromAllNeighbours += tilesFromDifferentGroups.get(i).getTileGroup().getGroupSize();
+        for (LogicTile tilesFromDifferentGroup : tilesFromDifferentGroups) {
+            groupSizesFromAllNeighbours += tilesFromDifferentGroup.getTileGroup().getGroupSize();
         }
         if(groupSizesFromAllNeighbours+1 > numberOfGroups + 1 - (tilesFromDifferentGroups.size()))
         {
@@ -147,8 +141,8 @@ public class LogicTile {
 
         //check if any of the existing groups is too big (since number of groups becomes smaller)
         List<TileGroup> groups = board.getGroups(1);
-        for(int i=0; i<groups.size(); i++) {
-            if(groups.get(i).getGroupSize() > numberOfGroups + 1 - (tilesFromDifferentGroups.size())) {
+        for (TileGroup group : groups) {
+            if (group.getGroupSize() > numberOfGroups + 1 - (tilesFromDifferentGroups.size())) {
                 return false;
             }
         }
@@ -168,7 +162,6 @@ public class LogicTile {
 
         //make list of all groups connected to tile
         List<LogicTile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(2);
-        List<LogicTile> tilesConnectedAndColoured = getSurroundedTilesFromGroups(2);
 
         //if no groups connected to that tile, return true
         if(tilesFromDifferentGroups.size()==0) {
@@ -177,8 +170,8 @@ public class LogicTile {
 
         //if the the new groupsize (if coloured) will be too big, it's not possible
         int groupSizesFromAllNeighbours = 0;
-        for(int i=0; i< tilesFromDifferentGroups.size(); i++) {
-            groupSizesFromAllNeighbours += tilesFromDifferentGroups.get(i).getTileGroup().getGroupSize();
+        for (LogicTile tilesFromDifferentGroup : tilesFromDifferentGroups) {
+            groupSizesFromAllNeighbours += tilesFromDifferentGroup.getTileGroup().getGroupSize();
         }
         if(groupSizesFromAllNeighbours+1 > numberOfGroups + 1 - (tilesFromDifferentGroups.size()))
         {
@@ -187,8 +180,8 @@ public class LogicTile {
 
         //check if any of the existing groups is too big (since number of groups becomes smaller)
         List<TileGroup> groups = board.getGroups(2);
-        for(int i=0; i<groups.size(); i++) {
-            if(groups.get(i).getGroupSize() > numberOfGroups + 1 - (tilesFromDifferentGroups.size())) {
+        for (TileGroup group : groups) {
+            if (group.getGroupSize() > numberOfGroups + 1 - (tilesFromDifferentGroups.size())) {
                 return false;
             }
         }
