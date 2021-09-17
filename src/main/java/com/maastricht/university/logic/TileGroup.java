@@ -22,6 +22,10 @@ public class TileGroup {
         }
         groupID = count;
         count++;
+
+        if(members.size()!=0) {
+            members.get(0).getBoard().addGroup(members.get(0).getColour(), this);
+        }
     }
 
     /**
@@ -77,6 +81,8 @@ public class TileGroup {
                 groupMembers.add(tiles.get(j));
                 tiles.get(j).setTileGroup(this);
             }
+            LogicTile tempTile = groups.get(i).getGroupMembers().get(0);
+            tempTile.getBoard().removeGroup(tempTile.getColour(), this);
         }
     }
 }

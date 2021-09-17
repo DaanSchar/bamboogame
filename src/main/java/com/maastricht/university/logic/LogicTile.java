@@ -28,7 +28,7 @@ public class LogicTile {
     public TileGroup getTileGroup() {
         return tileGroup;
     }
-
+    public Board getBoard() {return board;}
     public int getColour() {
         return colour;
     }
@@ -172,8 +172,8 @@ public class LogicTile {
         }
 
         //make list of all groups connected to tile
-        List<LogicTile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(1);
-        List<LogicTile> tilesConnectedAndColoured = getSurroundedTilesFromGroups(1);
+        List<LogicTile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(2);
+        List<LogicTile> tilesConnectedAndColoured = getSurroundedTilesFromGroups(2);
 
         //if no groups connected to that tile, return true
         if(tilesFromDifferentGroups.size()==0) {

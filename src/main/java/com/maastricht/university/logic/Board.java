@@ -2,18 +2,25 @@ package com.maastricht.university.logic;
 
 //TODO: add list of all groups to board (implement logic in TileGroup)
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Board {
     private boolean redsTurn;
 
     private int numberOfGroupsBlue;
     private int numberOfGroupsRed;
+    private List<TileGroup>[] groups;
 
     private LogicTile[][][] board;
     private int boardLength;
 
-    public Board(int boardSize) throws Exception {
+    public Board(int boardSize, int numberOfPlayers) throws Exception {
         this.numberOfGroupsBlue = 0;
         this.numberOfGroupsRed = 0;
+        for(int i=0; i<numberOfPlayers; i++) {
+            groups[i] = new LinkedList<TileGroup>();
+        }
 
         if(boardSize%2==0) { throw new Exception("illegal boardSize"); }
         boardLength = boardSize; // can't be even
@@ -129,9 +136,19 @@ public class Board {
             return board[x][y][z].isLegalForBlue();
         }
     }
+    public void addGroup(int c, TileGroup group) {
+        groups[c-1].add(group);
+    }
+
+    public void removeGroup(int c, TileGroup group) {
+        groups[c-1].remove(group);
+    }
+
     public int getBoardSize() {return boardLength;}
-    public int getNumberOfGroupsRed() { return numberOfGroupsRed; }
-    public int getNumberOfGroupsBlue() { return numberOfGroupsBlue;}
+    public int getNumberOfGroups(int c) {return groups[c-1].size();}
+
+    public int getNumberOfGroupsRed() { return groups[0].size();}
+    public int getNumberOfGroupsBlue() { return groups[1].size();}
     public void setNumberOfGroupsRed(int n) {numberOfGroupsRed = n;}
     public void setNumberOfGroupsBlue(int n) {numberOfGroupsBlue = n;}
 
