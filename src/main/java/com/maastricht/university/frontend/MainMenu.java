@@ -11,17 +11,12 @@ import javafx.stage.Stage;
 
 public class MainMenu extends Application {
 
-    public Image humanPNG = new Image("/images/button_human.png");
-    public Image pcPNG = new Image("/images/button_computer.png");
-    public Image exitPNG = new Image("/images/button_exit.png");
-    public Image rulesPNG = new Image("/images/button_rules.png");
-    public Image bambooText = new Image("/images/bambooText.png");
-
-    public ImageView humanView = new ImageView(humanPNG);
-    public ImageView pcView = new ImageView(pcPNG);
-    public ImageView exitView = new ImageView(exitPNG);
-    public ImageView rulesView = new ImageView(rulesPNG);
-    public ImageView title = new ImageView(bambooText);
+    public ImageView humanView = new ImageView(new Image("/images/button_human.png"));
+    public ImageView pcView = new ImageView(new Image("/images/button_computer.png"));
+    public ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
+    public ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
+    public ImageView title = new ImageView(new Image("/images/bambooText.png"));
+    public ImageView tutorialView = new ImageView(new Image("/images/tutorial.gif"));
 
     double width = 800;
     double height = 500;
@@ -77,7 +72,7 @@ public class MainMenu extends Application {
 
         computer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                System.out.println("Opens game");
+                System.out.println("This goes into the game :)");
             }
         });
 
@@ -102,13 +97,16 @@ public class MainMenu extends Application {
         rules.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Stage rulesWindow = new Stage();
-                Pane r = new Pane();
-                Scene sc = new Scene(r,width/2.5,height/2.5);
+                Pane r_2 = new Pane();
+                Scene sc = new Scene(r_2,width/2,height/2);
                 rulesWindow.setScene(sc);
 
+                //TODO: make the GIF play
+                tutorialView.setFitWidth(width/2);
+                tutorialView.setFitHeight(height/2);
+                r_2.getChildren().add(tutorialView);
                 rulesWindow.show();
 
-                System.out.println("Opens tutorial");
             }
         });
 
