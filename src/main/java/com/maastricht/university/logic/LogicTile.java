@@ -78,18 +78,6 @@ public class LogicTile {
         }
         tilesFromDifferentGroups.get(0).getTileGroup().mergeGroups(groupsToMerge);
         tilesFromDifferentGroups.get(0).getTileGroup().addGroupMember(this);
-
-
-        //TODO: communicate with board how many groups there are (part of implementing list of groups in board)
-        /*
-        This doesn't work when merging group(s)
-        if(c==1) {
-            board.setNumberOfGroupsRed(board.getNumberOfGroupsRed()+1);
-        }
-        else if(c==2) {
-            board.setNumberOfGroupsBlue(board.getNumberOfGroupsBlue()+1);
-        }
-         */
     }
 
     public List<LogicTile> getSurroundedTilesFromDifferentGroups (int c){
@@ -128,7 +116,6 @@ public class LogicTile {
         return tilesConnectedAndColoured;
     }
 
-    //TODO: check all other groups too for size in case of less groups instead of only the newly formed group
     //TODO: remove duplicate code from the isLegal methods
     public boolean isLegalForRed() {
         int numberOfGroups = board.getNumberOfGroupsRed();
@@ -157,9 +144,17 @@ public class LogicTile {
         {
             return false;
         }
-        else {
-            return true;
+
+        //check if any of the existing groups is too big (since number of groups becomes smaller)
+        List<TileGroup> groups = board.getGroups(1);
+        for(int i=0; i<groups.size(); i++) {
+            if(groups.get(i).getGroupSize() > numberOfGroups + 1 - (tilesFromDifferentGroups.size())) {
+                return false;
+            }
         }
+        //if that is not the case, return true
+        return true;
+
     }
 
     public boolean isLegalForBlue() {
@@ -189,8 +184,15 @@ public class LogicTile {
         {
             return false;
         }
-        else {
-            return true;
+
+        //check if any of the existing groups is too big (since number of groups becomes smaller)
+        List<TileGroup> groups = board.getGroups(2);
+        for(int i=0; i<groups.size(); i++) {
+            if(groups.get(i).getGroupSize() > numberOfGroups + 1 - (tilesFromDifferentGroups.size())) {
+                return false;
+            }
         }
+        //if that is not the case, return true
+        return true;
     }
 }

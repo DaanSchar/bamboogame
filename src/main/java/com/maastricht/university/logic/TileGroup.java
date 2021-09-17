@@ -3,8 +3,6 @@ package com.maastricht.university.logic;
 import java.util.LinkedList;
 import java.util.List;
 
-//TODO: add list of all groups to board (implement logic in TileGroup)
-
 public class TileGroup {
     private List<LogicTile> groupMembers;
 
