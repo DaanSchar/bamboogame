@@ -8,13 +8,6 @@ public class LogicTile {
 
     private TileGroup tileGroup;
 
-    /*
-    private int groupID;
-    private static int groupIdCount = 0;
-    private int groupSize;
-    private List<LogicTile> groupMembers = new LinkedList<LogicTile>();
-    */
-
     private int colour; //0 for no colour, 1 for red, 2 for blue
     private boolean legalForRed;
     private boolean legalForBlue;
@@ -85,7 +78,6 @@ public class LogicTile {
         }
         tilesFromDifferentGroups.get(0).getTileGroup().mergeGroups(groupsToMerge);
         tilesFromDifferentGroups.get(0).getTileGroup().addGroupMember(this);
-
 
 
         //TODO: communicate with board how many groups there are (part of implementing list of groups in board)
