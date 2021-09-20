@@ -3,11 +3,17 @@ package com.maastricht.university.frontend;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class MainMenu extends Application {
 
@@ -16,7 +22,8 @@ public class MainMenu extends Application {
     public ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
     public ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
     public ImageView title = new ImageView(new Image("/images/bambooText.png"));
-    public ImageView tutorialView = new ImageView(new Image("/images/tutorial.gif"));
+    //public ImageView tutorialView = new ImageView(new Image("/images/tutorial.gif"));
+    public File video = new File("/images/tutorial.mp4");
 
     double width = 800;
     double height = 500;
@@ -97,14 +104,21 @@ public class MainMenu extends Application {
         rules.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Stage rulesWindow = new Stage();
-                Pane r_2 = new Pane();
+
+
+                //TODO: make the GIF play
+                Media media = new Media(video.toURI().toString());
+                MediaPlayer mp = new MediaPlayer(media);
+                MediaView tutorial = new MediaView(mp);
+                tutorial.setFitHeight(height/2);
+                tutorial.setFitWidth(width/2);
+
+                Group r_2 = new Group(tutorial);
                 Scene sc = new Scene(r_2,width/2,height/2);
                 rulesWindow.setScene(sc);
 
-                //TODO: make the GIF play
-                tutorialView.setFitWidth(width/2);
-                tutorialView.setFitHeight(height/2);
-                r_2.getChildren().add(tutorialView);
+                //tutorialView.setFitWidth(width/2);
+                //tutorialView.setFitHeight(height/2);
                 rulesWindow.show();
 
             }
