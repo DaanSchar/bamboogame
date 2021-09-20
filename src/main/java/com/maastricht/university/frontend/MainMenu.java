@@ -3,17 +3,12 @@ package com.maastricht.university.frontend;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
-import javafx.stage.Stage;
 
-import java.io.File;
+import javafx.stage.Stage;
 
 public class MainMenu extends Application {
 
@@ -103,15 +98,13 @@ public class MainMenu extends Application {
         rules.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Stage rulesWindow = new Stage();
-                Pane r_2 = new Pane();
+
+                Pane r_2 = new Pane(tutorialView);
                 Scene sc = new Scene(r_2,width/2,height/2);
                 rulesWindow.setScene(sc);
 
-                //TODO: make the GIF play
-
                 tutorialView.setFitWidth(width/2);
                 tutorialView.setFitHeight(height/2);
-                r_2.getChildren().add(tutorialView);
                 rulesWindow.show();
 
             }
