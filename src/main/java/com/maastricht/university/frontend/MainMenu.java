@@ -22,8 +22,7 @@ public class MainMenu extends Application {
     public ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
     public ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
     public ImageView title = new ImageView(new Image("/images/bambooText.png"));
-    //public ImageView tutorialView = new ImageView(new Image("/images/tutorial.gif"));
-    public File video = new File("/images/tutorial.mp4");
+    public ImageView tutorialView = new ImageView(new Image("/images/tutorial.gif"));
 
     double width = 800;
     double height = 500;
@@ -104,21 +103,15 @@ public class MainMenu extends Application {
         rules.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Stage rulesWindow = new Stage();
-
-
-                //TODO: make the GIF play
-                Media media = new Media(video.toURI().toString());
-                MediaPlayer mp = new MediaPlayer(media);
-                MediaView tutorial = new MediaView(mp);
-                tutorial.setFitHeight(height/2);
-                tutorial.setFitWidth(width/2);
-
-                Group r_2 = new Group(tutorial);
+                Pane r_2 = new Pane();
                 Scene sc = new Scene(r_2,width/2,height/2);
                 rulesWindow.setScene(sc);
 
-                //tutorialView.setFitWidth(width/2);
-                //tutorialView.setFitHeight(height/2);
+                //TODO: make the GIF play
+
+                tutorialView.setFitWidth(width/2);
+                tutorialView.setFitHeight(height/2);
+                r_2.getChildren().add(tutorialView);
                 rulesWindow.show();
 
             }
