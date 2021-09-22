@@ -7,28 +7,21 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import java.awt.*;
 
+import javafx.stage.Stage;
 
 public class MainMenu extends Application {
 
-    public Image humanPNG = new Image("/images/button_human.png");
-    public Image pcPNG = new Image("/images/button_computer.png");
-    public Image exitPNG = new Image("/images/button_exit.png");
-    public Image rulesPNG = new Image("/images/button_rules.png");
-    public Image bambooText = new Image("/images/bambooText.png");
+    public ImageView humanView = new ImageView(new Image("/images/button_human.png"));
+    public ImageView pcView = new ImageView(new Image("/images/button_computer.png"));
+    public ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
+    public ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
+    public ImageView title = new ImageView(new Image("/images/bambooText.png"));
+    public ImageView tutorialView = new ImageView(new Image("/images/tutorial.gif"));
 
-    public ImageView humanView = new ImageView(humanPNG);
-    public ImageView pcView = new ImageView(pcPNG);
-    public ImageView exitView = new ImageView(exitPNG);
-    public ImageView rulesView = new ImageView(rulesPNG);
-    public ImageView title = new ImageView(bambooText);
-
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    double width = screenSize.getWidth();
-    double height = screenSize.getHeight();
-    public Image bambooBcg = new Image("/images/bamboo.jpg", width, height, false, true);
+    double width = 800;
+    double height = 500;
+    public Image bambooBcg = new Image("/images/bamboo.jpeg", width, height, false, true);
 
     @Override
     public void start(Stage stage) {
@@ -47,16 +40,16 @@ public class MainMenu extends Application {
         stage.setScene(scene);
 
         //add title to scene
-        title.setLayoutX(width / 4);
-        title.setLayoutY(0);
-        title.setFitWidth(width / 2);
-        title.setFitHeight(width / 3.5);
+        title.setLayoutX(width / 6);
+        title.setLayoutY(-height/6);
+        title.setFitWidth(width/1.5);
+        title.setFitHeight(width/2);
         r.getChildren().add(title);
 
         //create buttons and add the design
-        HoverableButton human = new HoverableButton(width / 2, height / 3, 20, 20);
-        humanView.setFitHeight(100);
-        humanView.setFitWidth(270);
+        HoverableButton human = new HoverableButton(width/2,height/2.5 , 20, 20);
+        humanView.setFitHeight(75);
+        humanView.setFitWidth(170);
         human.setGraphic(humanView);
 
         //TODO: make this button go to the game
@@ -66,9 +59,9 @@ public class MainMenu extends Application {
             }
         });
 
-        HoverableButton computer = new HoverableButton(width / 2, height / 2, 20, 20);
-        pcView.setFitHeight(100);
-        pcView.setFitWidth(270);
+        HoverableButton computer = new HoverableButton(width / 2, height - height/3, 20, 20);
+        pcView.setFitHeight(75);
+        pcView.setFitWidth(170);
         computer.setGraphic(pcView);
 
         //TODO: make this button go to the game (phase 2)
@@ -80,13 +73,13 @@ public class MainMenu extends Application {
 
         computer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                System.out.println("Opens game");
+                System.out.println("This goes into the game :)");
             }
         });
 
-        HoverableButton exit = new HoverableButton(200, height - height / 4, 20, 20);
-        exitView.setFitHeight(90);
-        exitView.setFitWidth(175);
+        HoverableButton exit = new HoverableButton(50, height - height/16, 20, 20);
+        exitView.setFitHeight(40);
+        exitView.setFitWidth(80);
         exit.setGraphic(exitView);
 
         //if the exit button is clicked, it will close the program
@@ -97,21 +90,23 @@ public class MainMenu extends Application {
             }
         });
 
-        HoverableButton rules = new HoverableButton(width - width / 6, height / 6, 20, 20);
-        rulesView.setFitHeight(90);
-        rulesView.setFitWidth(175);
+        HoverableButton rules = new HoverableButton(width - width / 16, height / 16, 20, 20);
+        rulesView.setFitHeight(40);
+        rulesView.setFitWidth(80);
         rules.setGraphic(rulesView);
 
         rules.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Stage rulesWindow = new Stage();
-                Pane r = new Pane();
-                Scene sc = new Scene(r,width/2.5,height/2.5);
+
+                Pane r_2 = new Pane(tutorialView);
+                Scene sc = new Scene(r_2,width/2,height/2);
                 rulesWindow.setScene(sc);
 
+                tutorialView.setFitWidth(width/2);
+                tutorialView.setFitHeight(height/2);
                 rulesWindow.show();
 
-                System.out.println("Opens tutorial");
             }
         });
 
