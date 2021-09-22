@@ -83,6 +83,8 @@ public class Board {
         }
     }
 
+
+
     public void move(int x, int y, int z, int c) throws Exception {
         //check if a legal colour
         for(int i=0, i<)
@@ -101,12 +103,9 @@ public class Board {
         //check if that tile can be coloured by that colour
         LogicTile tile = board[x][y][z];
         boolean canColour = false;
-        if(c==1) {
-            canColour = tile.isLegalForRed();
-        }
-        else if(c==2) {
-            canColour = tile.isLegalForBlue();
-        }
+
+
+        canColour= tile.isLegal(c);
 
         //if it can't be coloured, throw an exception
         if(canColour) {
@@ -147,8 +146,7 @@ public class Board {
     public int getBoardSize() {return boardLength;}
     public int getNumberOfGroups(int c) {return groups[c-1].size();}
     public List<TileGroup> getGroups(int c) {return groups[c-1];}
-    public int getNumberOfGroupsRed() { return groups[0].size();}
-    public int getNumberOfGroupsBlue() { return groups[1].size();}
+
 
     public boolean isRedsTurn() { return redsTurn; }
     public void setRedsTurn(boolean turnRed) { redsTurn = turnRed; }
