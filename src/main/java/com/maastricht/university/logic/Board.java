@@ -21,6 +21,16 @@ public class Board {
 
         initGroups();
         initBoard();
+
+        for (int i = 0; i < 4*2+1; i++) {
+            System.out.println();
+            for (int j = 0; j < 4*2+1; j++) {
+                if (tileMap.get(i,j) == null)
+                    System.out.print(" . ");
+                else
+                    System.out.print(" " + 1 + " ");
+            }
+        }
     }
 
     private void initGroups() {
@@ -31,9 +41,12 @@ public class Board {
     }
 
     private void initBoard() {
+        tileMap = new Hexagon<>(boardSize);
+
         for (int i = 0; i < boardSize; i++)
-            for (int j = 0; j < boardSize; j++)
+            for (int j = 0; j < boardSize; j++) {
                 tileMap.insert(i, j, new LogicTile(this));
+            }
 
         for (int i = 0; i < boardSize; i++)
             for (int j = 0; j < boardSize; j++)
@@ -43,8 +56,12 @@ public class Board {
     private void SetNeighboursOfTile(int q, int r) {
         List<LogicTile> neighbours = tileMap.getNeighbours(q, r);
 
-        for (LogicTile neighbour : neighbours)
-            tileMap.get(q, r).addNeighbour(neighbour);
+        for (LogicTile neighbour : neighbours) {
+            LogicTile tile = tileMap.get(q, r);
+
+            if (tile != null)
+                tile.addNeighbour(neighbour);
+        }
     }
 
     public void move(int x, int y, int z, int c) throws Exception {

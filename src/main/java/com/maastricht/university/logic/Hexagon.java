@@ -99,7 +99,7 @@ public class Hexagon<T> implements IHexagon<T>{
 
     @Override
     public int getSize() {
-        return size;
+        return arraySize;
     }
 
     @Override
@@ -117,10 +117,6 @@ public class Hexagon<T> implements IHexagon<T>{
             neighbors.remove(null);
 
         return neighbors;
-    }
-
-    public int getArraySize() {
-        return arraySize;
     }
 
     private boolean isOutsideHexagon(int q, int r) {
