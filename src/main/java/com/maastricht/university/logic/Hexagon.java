@@ -2,6 +2,31 @@ package com.maastricht.university.logic;
 
 public class Hexagon<T> implements IHexagon<T>{
 
+    /**
+     * this class represent a 2d hexagonal structure represented by a 2d array.
+     * article: https://www.redblobgames.com/grids/hexagons/
+     *
+     * Implementation:
+     * an array where the bottom left and top right indices have been cut out (the way that Fabian had
+     * implemented it in the frontend package.). it wil look something like this:
+     *
+     * [1] [1] [1] [ ] [ ]
+     * [1] [1] [1] [1] [ ]
+     * [1] [1] [1] [1] [1]
+     * [ ] [1] [1] [1] [1]
+     * [ ] [ ] [1] [1] [1]
+     *
+     * (the size of this example is 2, aka the length from the center to the outside)
+     *
+     * you can simply loop through it as if it were a 2d array, however on the empty indices, it will
+     * simply return null.
+     *
+     * NOTE: I actually didnt find anything about storing the array inside a 3-dimensional array,
+     * so i chose to do it inside a 2d array, which seemed also a lot simpler. We could extend this class
+     * if we wanted to add some translations of the coordinates to have the center of the hexagon be 0,0 ,
+     * but for now that doesnt seem really necessary.
+     */
+
     private int size;
     private int arraySize;
 
