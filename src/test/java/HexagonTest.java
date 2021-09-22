@@ -21,7 +21,7 @@ public class HexagonTest {
 
     @Test
     public void getTotalIndicesSize3() {
-        IHexagon<Integer> hexagon = new Hexagon<>(2);
+        IHexagon<Integer> hexagon = new Hexagon<>(3);
         Assertions.assertEquals(37, getTotalIndices(hexagon));
     }
 
