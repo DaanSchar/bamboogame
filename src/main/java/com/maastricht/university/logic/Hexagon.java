@@ -20,6 +20,8 @@ public class Hexagon<T> implements IHexagon<T>{
      *
      * you can simply loop through it as if it were a 2d array, however on the empty indices, it will
      * simply return null.
+     * in this structure we use the Axial Coordinates, but instead of having negative coordinates and the center
+     * of the hexagon being 0,0 the non-existing bottom right index is 0,0. this might be easier for looping.
      *
      * NOTE: I actually didnt find anything about storing the array inside a 3-dimensional array,
      * so i chose to do it inside a 2d array, which seemed also a lot simpler. We could extend this class
