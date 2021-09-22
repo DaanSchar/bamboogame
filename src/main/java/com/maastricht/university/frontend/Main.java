@@ -14,7 +14,6 @@ public class Main extends Application {
 
         TileMap tilemap = new TileMap(0,0,30);
         Pane playground = tilemap.getTileMapPane();
-        System.out.println(getClass().getResource("sample.css"));
 
         Scene scene = new Scene(playground, 640, 480);
         stage.setScene(scene);
