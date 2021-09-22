@@ -72,6 +72,10 @@ public class Hexagon<T> implements IHexagon<T>{
         return size;
     }
 
+    public int getArraySize() {
+        return arraySize;
+    }
+
     private boolean isOutsideHexagon(int q, int r) {
         return q + r < size || q + r > 3*size;
     }
