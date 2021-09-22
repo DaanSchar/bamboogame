@@ -102,6 +102,7 @@ public class Board {
             return board[x][y][z].isLegalForBlue();
         }
     }
+
     public void addGroup(int c, TileGroup group) {
         groups[c-1].add(group);
     }
