@@ -85,6 +85,10 @@ public class Board {
 
     public void move(int x, int y, int z, int c) throws Exception {
         //check if a legal colour
+        for(int i=0, i<)
+
+
+
         if(!(c==1 || c==2)) {
             throw new Exception("illegal Colour");
         }

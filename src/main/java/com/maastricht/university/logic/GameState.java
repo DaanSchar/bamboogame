@@ -2,11 +2,9 @@ package com.maastricht.university.logic;
 
 public class GameState {
 
-    private boolean redsTurn;
     private Board board;
 
     public GameState(int boardSize, int numberOfPlayers) throws Exception {
-        this.redsTurn = true;
         this.board = new Board(boardSize, numberOfPlayers);
 
     }
@@ -25,8 +23,8 @@ public class GameState {
         board.move(x, y, z, c);
     }
 
-    public boolean isRedsTurn() {
-        return redsTurn;
+    public int getPlayerTurn() {
+        return board.getPlayerTurn();
     }
 
     public boolean isMoveLegal(int x, int y, int z, int c) {
