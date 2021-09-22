@@ -9,77 +9,47 @@ public class Board {
     private List<TileGroup>[] groups;
 
     private LogicTile[][][] board;
-    private int boardLength;
+    private Hexagon<LogicTile> tileMap; // <--- replacement of LogicTile[][][] board
+
+    // radius of the hexagon
+    private int boardSize;
+    private int numberOfPlayers;
 
     public Board(int boardSize, int numberOfPlayers) throws Exception {
-        groups = new LinkedList[2];
-        //groups = new LinkedList[numberOfPlayers];
-        for(int i=0; i<numberOfPlayers; i++) {
-            groups[i] = new LinkedList<TileGroup>();
-        }
+        this.boardSize = boardSize;
+        this.numberOfPlayers = numberOfPlayers;
 
-        if(boardSize%2==0) { throw new Exception("illegal boardSize"); }
-        boardLength = boardSize; // can't be even
-        int halfBoardLength = boardLength/2 +1;
-
-        //  make and fill in the 3d-array with tiles according to this structure:
-        // https://www.redblobgames.com/grids/hexagons/
-        // But bigger and +4 to all coördinates because negative indexes can't be used in arrays
-        // Start with the top row, and than go down till the end
-
-        //first half of board
-        this.board = new LogicTile[boardLength][boardLength][boardLength];
-        for(int j=0; j<halfBoardLength; j++) {
-            for(int i=(boardLength-halfBoardLength)-j; i<boardLength; i++) {
-                board[i][boardLength-i][j] = new LogicTile(this);
-            }
-        }
-        //Second half of board
-        for(int j=halfBoardLength; j<boardLength; j++) {
-            for(int i=j-(boardLength-halfBoardLength); i<boardLength; i++) {
-                board[i][boardLength-i][j] = new LogicTile(this);
-            }
-        }
-
-        //Update what the neighbours are for every tile
-        this.board = new LogicTile[boardLength][boardLength][boardLength];
-        for(int j=0; j<halfBoardLength; j++) {
-            for(int i=(boardLength-halfBoardLength)-j; i<boardLength; i++) {
-                LogicTile tempTile = board[i][boardLength-i][j];
-                addNeighboursOfTile(tempTile, i, boardLength-i, j);
-            }
-        }
-        for(int j=halfBoardLength; j<boardLength; j++) {
-            for(int i=j-(boardLength-halfBoardLength); i<boardLength; i++) {
-                LogicTile tempTile = board[i][boardLength-i][j];
-                addNeighboursOfTile(tempTile, i, boardLength-i, j);
-            }
-        }
+        initGroups();
+        initBoard();
     }
 
-    //Update what the neighbours are
-    public void addNeighboursOfTile(LogicTile tile, int x, int y, int z) {
-        // TODO: simplify it
-        //have to check 6 places, 2 for each direction,
-        // check where x stays the same, y+1, z+1, and check where y-1, z+1
-        // and then for every direction (x, y and z)
-        if(y!=boardLength && z!=0) {
-            tile.addNeighbour(board[x][y + 1][z - 1]);
-        }
-        if(y!=0 && z!=boardLength) {
-            tile.addNeighbour(board[x][y - 1][z + 1]);
-        }
-        if(x!=boardLength && z!=0) {
-            tile.addNeighbour(board[x + 1][y][z - 1]);
-        }
-        if(x!=0 && z!=boardLength) {
-            tile.addNeighbour(board[x - 1][y][z + 1]);
-        }
-        if(x!=0 && y!=boardLength) {
-            tile.addNeighbour(board[x - 1][y + 1][z]);
-        }
-        if(x!=boardLength && y!=0) {
-            tile.addNeighbour(board[x + 1][y - 1][z]);
+    private void initGroups() {
+        groups = new LinkedList[2];
+
+        for(int i=0; i<numberOfPlayers; i++)
+            groups[i] = new LinkedList<TileGroup>();
+    }
+
+    private void initBoard() {
+        tileMap = new Hexagon<>(boardSize);
+
+        for (int i = 0; i < tileMap.size(); i++)
+            for (int j = 0; j < tileMap.size(); j++)
+                tileMap.insert(i, j, new LogicTile(this));
+
+        for (int i = 0; i < tileMap.size(); i++)
+            for (int j = 0; j < tileMap.size(); j++)
+                SetNeighboursOfTile(i, j);
+    }
+
+    private void SetNeighboursOfTile(int q, int r) {
+        List<LogicTile> neighbours = tileMap.getNeighbours(q, r);
+
+        for (LogicTile neighbour : neighbours) {
+            LogicTile tile = tileMap.get(q, r);
+
+            if (tile != null)
+                tile.addNeighbour(neighbour);
         }
     }
 
@@ -132,6 +102,7 @@ public class Board {
             return board[x][y][z].isLegalForBlue();
         }
     }
+
     public void addGroup(int c, TileGroup group) {
         groups[c-1].add(group);
     }
@@ -140,7 +111,7 @@ public class Board {
         groups[c-1].remove(group);
     }
 
-    public int getBoardSize() {return boardLength;}
+    public int getBoardSize() {return boardSize;}
     public int getNumberOfGroups(int c) {return groups[c-1].size();}
     public List<TileGroup> getGroups(int c) {return groups[c-1];}
     public int getNumberOfGroupsRed() { return groups[0].size();}
