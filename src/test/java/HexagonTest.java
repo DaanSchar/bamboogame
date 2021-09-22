@@ -51,7 +51,7 @@ public class HexagonTest {
     }
 
     public int getTotalIndices(IHexagon<Integer> hexagon) {
-        int arraySize = hexagon.getSize()*2+1;
+        int arraySize = hexagon.size()*2+1;
         int total = 0;
 
         for (int i = 0; i < arraySize; i++)

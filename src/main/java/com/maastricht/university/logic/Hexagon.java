@@ -98,7 +98,7 @@ public class Hexagon<T> implements IHexagon<T>{
     }
 
     @Override
-    public int getSize() {
+    public int size() {
         return arraySize;
     }
 

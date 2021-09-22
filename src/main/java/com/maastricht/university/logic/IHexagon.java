@@ -14,7 +14,7 @@ public interface IHexagon<T>{
 
     boolean contains(T entity);
 
-    int getSize();
+    int size();
 
     List<T> getNeighbours(int x, int y);
 
