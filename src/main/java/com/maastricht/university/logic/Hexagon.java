@@ -1,5 +1,8 @@
 package com.maastricht.university.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Hexagon<T> implements IHexagon<T>{
 
     /**
@@ -85,9 +88,9 @@ public class Hexagon<T> implements IHexagon<T>{
         for (int i = 0; i < arraySize; i++) {
             for (int j = 0; j < arraySize; j++) {
 
-                if (this.get(i, j) == null)
+                if (get(i, j) == null)
                     break;
-                if (this.get(i, j).equals(entity))
+                if (get(i, j).equals(entity))
                     return true;
             }
         }
@@ -99,11 +102,34 @@ public class Hexagon<T> implements IHexagon<T>{
         return size;
     }
 
+    @Override
+    public List<T> getNeighbours(int q, int r) {
+        ArrayList<T> neighbors = new ArrayList<>();
+
+        neighbors.add(get(q, r - 1));
+        neighbors.add(get(q + 1, r - 1));
+        neighbors.add(get(q + 1, r));
+        neighbors.add(get(q, r + 1));
+        neighbors.add(get(q - 1, r + 1));
+        neighbors.add(get(q - 1, r));
+
+        while(neighbors.contains(null))
+            neighbors.remove(null);
+
+        return neighbors;
+    }
+
     public int getArraySize() {
         return arraySize;
     }
 
     private boolean isOutsideHexagon(int q, int r) {
+        try {
+            T x = array[q][r];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return true;
+        }
+
         return q + r < size || q + r > 3*size;
     }
 

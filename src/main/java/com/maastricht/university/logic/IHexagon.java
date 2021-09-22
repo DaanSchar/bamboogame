@@ -1,5 +1,7 @@
 package com.maastricht.university.logic;
 
+import java.util.List;
+
 public interface IHexagon<T>{
 
     T get(int x, int y);
@@ -13,5 +15,7 @@ public interface IHexagon<T>{
     boolean contains(T entity);
 
     int getSize();
+
+    List<T> getNeighbours(int x, int y);
 
 }
