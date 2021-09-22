@@ -29,6 +29,6 @@ public class Main {
             }
         }
 
-        System.out.print("\n" + a.getNeighbours(6,0));
+        System.out.print("\n" + a.getNeighbours(3,3));
     }
 }
