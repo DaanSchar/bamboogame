@@ -3,6 +3,8 @@ import com.maastricht.university.logic.IHexagon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 public class HexagonTest {
 
     @Test
@@ -39,15 +41,33 @@ public class HexagonTest {
 
     @Test
     public void cloneTest() {
-        IHexagon<Integer> a = new Hexagon<Integer>(4);
+        Random r = new Random();
 
-        for (int i = 0; i < 7; i++)
-            for (int j = 0; j < 7; j++)
-                a.insert(i,j,1);
+        class Point{
+            int a;
+            int b;
 
-        IHexagon<Integer> b = a.clone();
-        a.insert(2,2, 4);
-        Assertions.assertNotEquals(a.get(2,2), b.get(2,2));
+            public Point(int a, int b) {
+                this.a = a;
+                this.b = b;
+            }
+
+            @Override
+            public String toString() {
+                return a + " " + b;
+            }
+        }
+
+        IHexagon<Point> a = new Hexagon<>(3);
+
+        for (int i = 0; i < 3*2+1; i++)
+            for (int j = 0; j < 3*2+1; j++)
+                a.insert(i,j, new Point(r.nextInt(5)+1, r.nextInt(5)+1));
+
+        IHexagon<Point> b = a.clone();
+
+        a.get(0,6).a = 20;
+        Assertions.assertNotEquals(a.get(0,6).a, b.get(0,6).a);
     }
 
     public int getTotalIndices(IHexagon<Integer> hexagon) {
