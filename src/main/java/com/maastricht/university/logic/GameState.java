@@ -11,14 +11,6 @@ public class GameState {
 
     //Make sure that you get all the tiles from frontend
 
-    public void moveBlue(int x, int y, int z) throws Exception {
-        board.move(x, y, z, 2);
-    }
-
-    public void moveRed(int x, int y, int z) throws Exception {
-        board.move(x, y, z, 1);
-    }
-
     public void move(int x, int y, int z, int c) throws Exception {
         board.move(x, y, z, c);
     }
@@ -27,7 +19,7 @@ public class GameState {
         return board.getPlayerTurn();
     }
 
-    public boolean isMoveLegal(int x, int y, int z, int c) {
-        return board.isMoveLegal(x, y, z, c);
+    public boolean isLegal(int x, int y, int z, int c) {
+        return board.isLegal(x, y, z, c);
     }
 }

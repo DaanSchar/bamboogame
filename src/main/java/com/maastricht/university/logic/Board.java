@@ -1,10 +1,11 @@
 package com.maastricht.university.logic;
-
 import java.util.LinkedList;
 import java.util.List;
 
 public class Board {
-    private boolean redsTurn;
+    private int playerTurn;
+
+    private int numberOfPlayers;
 
     private List<TileGroup>[] groups;
 
@@ -12,8 +13,8 @@ public class Board {
     private int boardLength;
 
     public Board(int boardSize, int numberOfPlayers) throws Exception {
-        groups = new LinkedList[2];
-        //groups = new LinkedList[numberOfPlayers];
+        this.numberOfPlayers= numberOfPlayers;
+        this.groups = new LinkedList[numberOfPlayers];
         for(int i=0; i<numberOfPlayers; i++) {
             groups[i] = new LinkedList<TileGroup>();
         }
@@ -63,23 +64,25 @@ public class Board {
         //have to check 6 places, 2 for each direction,
         // check where x stays the same, y+1, z+1, and check where y-1, z+1
         // and then for every direction (x, y and z)
-        if(y!=boardLength && z!=0) {
-            tile.addNeighbour(board[x][y + 1][z - 1]);
-        }
-        if(y!=0 && z!=boardLength) {
-            tile.addNeighbour(board[x][y - 1][z + 1]);
-        }
-        if(x!=boardLength && z!=0) {
-            tile.addNeighbour(board[x + 1][y][z - 1]);
-        }
-        if(x!=0 && z!=boardLength) {
-            tile.addNeighbour(board[x - 1][y][z + 1]);
-        }
-        if(x!=0 && y!=boardLength) {
-            tile.addNeighbour(board[x - 1][y + 1][z]);
-        }
-        if(x!=boardLength && y!=0) {
-            tile.addNeighbour(board[x + 1][y - 1][z]);
+        if(isLegalcoordinates(x,y,z)) {
+            if (isLegalcoordinates(x,y+1,z-1) ) {
+                tile.addNeighbour(board[x][y + 1][z - 1]);
+            }
+            if (isLegalcoordinates(x,y-1,z+1)) {
+                tile.addNeighbour(board[x][y - 1][z + 1]);
+            }
+            if (isLegalcoordinates(x+1, y,z-1)) {
+                tile.addNeighbour(board[x + 1][y][z - 1]);
+            }
+            if (isLegalcoordinates(x-1, y,z+1)) {
+                tile.addNeighbour(board[x - 1][y][z + 1]);
+            }
+            if (isLegalcoordinates(x-1,y+1,z)) {
+                tile.addNeighbour(board[x - 1][y + 1][z]);
+            }
+            if (isLegalcoordinates(x+1,y-1,z)){
+                tile.addNeighbour(board[x + 1][y - 1][z]);
+            }
         }
     }
 
@@ -87,17 +90,13 @@ public class Board {
 
     public void move(int x, int y, int z, int c) throws Exception {
         //check if a legal colour
-        for(int i=0, i<)
-
-
-
-        if(!(c==1 || c==2)) {
+        if(c<=0 || c> numberOfPlayers) {
             throw new Exception("illegal Colour");
         }
 
         //check if that colours turn
-        if((redsTurn && c!=1) || (!redsTurn && c==1)) {
-            throw new Exception("Not that colours turn");
+        if(playerTurn != c) {
+            throw new Exception("Not that players turn");
         }
 
         //check if that tile can be coloured by that colour
@@ -110,31 +109,21 @@ public class Board {
         //if it can't be coloured, throw an exception
         if(canColour) {
             tile.setColour(c);
+            if(playerTurn>= numberOfPlayers)
+            {
+                playerTurn=1;
+            }
+            else
+            {
+                playerTurn++;
+            }
         }
         else {
             throw new Exception("illegal move");
         }
     }
 
-    public boolean isMoveLegal(int x, int y, int z, int c){
-        //check if a legal colour
-        if(!(c==1 || c==2)) {
-            return false;
-        }
 
-        //check if that colours turn
-        if((redsTurn && c!=1) || (!redsTurn && c==1)) {
-            return false;
-        }
-
-        //check if move legal for that colour
-        if(c==1){
-            return board[x][y][z].isLegalForRed();
-        }
-        else {
-            return board[x][y][z].isLegalForBlue();
-        }
-    }
     public void addGroup(int c, TileGroup group) {
         groups[c-1].add(group);
     }
@@ -142,12 +131,31 @@ public class Board {
     public void removeGroup(int c, TileGroup group) {
         groups[c-1].remove(group);
     }
+    public boolean isLegal(int x, int y, int z,int c)
+    {
+        LogicTile t= board[x][y][z];
+        return t.isLegal(c);
+    }
+     public boolean isLegalcoordinates(int x, int y, int z)
+     {
+         if(x<0 || y<0 || z<0)
+         {
+             return false;
+         }
+         if(x>boardLength || y>boardLength || z>boardLength )
+         {
+             return false;
+         }
+         return true;
+     }
 
-    public int getBoardSize() {return boardLength;}
+    public int BoardSize() {return boardLength;}
     public int getNumberOfGroups(int c) {return groups[c-1].size();}
     public List<TileGroup> getGroups(int c) {return groups[c-1];}
 
 
-    public boolean isRedsTurn() { return redsTurn; }
-    public void setRedsTurn(boolean turnRed) { redsTurn = turnRed; }
+    public int getPlayerTurn() { return playerTurn; }
+
+    public void setPlayerTurn(int pTurn) { this.playerTurn = pTurn; }
+
 }
