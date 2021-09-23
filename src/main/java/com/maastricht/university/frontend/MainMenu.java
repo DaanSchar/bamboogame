@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class MainMenu extends Application {
@@ -17,11 +18,11 @@ public class MainMenu extends Application {
     public ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
     public ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
     public ImageView title = new ImageView(new Image("/images/bambooText.png"));
-    public ImageView tutorialView = new ImageView(new Image("/images/tutorial.gif"));
 
     double width = 800;
     double height = 500;
     public Image bambooBcg = new Image("/images/bamboo.jpeg", width, height, false, true);
+    public String tutorial = "https://www.youtube.com/embed/uVcDO8EmDCs";
 
     @Override
     public void start(Stage stage) {
@@ -99,12 +100,13 @@ public class MainMenu extends Application {
             @Override public void handle(ActionEvent e) {
                 Stage rulesWindow = new Stage();
 
-                Pane r_2 = new Pane(tutorialView);
-                Scene sc = new Scene(r_2,width/2,height/2);
-                rulesWindow.setScene(sc);
+                WebView webview = new WebView();
+                webview.getEngine().load(tutorial);
 
-                tutorialView.setFitWidth(width/2);
-                tutorialView.setFitHeight(height/2);
+                VBox box = new VBox(webview);
+                Scene r = new Scene(box,width/1.5, height/2 );
+
+                rulesWindow.setScene(r);
                 rulesWindow.show();
 
             }
