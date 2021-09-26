@@ -63,18 +63,18 @@ public class Board {
      * check if a tile can be coloured
      * @param x coordinate
      * @param y coordinate
-     * @param c colour that can be used to colour the tile
+     * @param playerColor colour that can be used to colour the tile
      * @throws Exception if is not that players turn or if the tile has been coloured by an illegal colour
      */
 
-    public void move(int x, int y, int c) throws Exception {
+    public void move(int x, int y, int playerColor) throws Exception {
         //check if a legal colour
-        if(c<=0 || c> numberOfPlayers) {
+        if(playerColor<=0 || playerColor> numberOfPlayers) {
             throw new Exception("illegal Colour");
         }
 
         //check if that colours turn
-        if(playerTurn != c) {
+        if(playerTurn != playerColor) {
             throw new Exception("Not that players turn");
         }
 
@@ -83,11 +83,11 @@ public class Board {
         boolean canColour = false;
 
 
-        canColour= tile.isLegal(c);
+        canColour= tile.isLegal(playerColor);
 
         //if it can't be coloured, throw an exception
         if(canColour) {
-            tile.setColour(c);
+            tile.setColour(playerColor);
             if(playerTurn>= numberOfPlayers)
             {
                 playerTurn=1;
@@ -107,17 +107,17 @@ public class Board {
      * @param c colour
      * @param group new group added
      */
-    public void addGroup(int c, TileGroup group) {
-        groups[c-1].add(group);
+    public void addGroup(int playerColor, TileGroup group) {
+        groups[playerColor-1].add(group);
     }
 
     /**
      * remove group from a tile
-     * @param c colour
+     * @param playerColor colour
      * @param group removed group
      */
-    public void removeGroup(int c, TileGroup group) {
-        groups[c-1].remove(group);
+    public void removeGroup(int playerColor, TileGroup group) {
+        groups[playerColor-1].remove(group);
     }
 
     /**
@@ -129,29 +129,28 @@ public class Board {
      * check if the next move is legal
      * @param x coordinate
      * @param y coordinate
-     * @param c colour
+     * @param playerColor colour
      * @return true or false if the tile can be coloured by that colour or not
      */
-    public boolean isLegal(int x, int y, int c)
+    public boolean isLegal(int x, int y, int playerColor)
     {
         LogicTile t = tileMap.get(x, y);
-        return t.isLegal(c);
+        return t.isLegal(playerColor);
     }
-
 
     /**
      * if there is a tile that link two different group
      * @param c
      * @return it returns the size of the group of the previous move
      */
-    public int getNumberOfGroups(int c) {return groups[c-1].size();}
+    public int getNumberOfGroups(int playerColor) {return groups[playerColor-1].size();}
 
     /**
      *
      * @param c colour
      * @return the group of the previous move
      */
-    public List<TileGroup> getGroups(int c) {return groups[c-1];}
+    public List<TileGroup> getGroups(int playerColor) {return groups[playerColor-1];}
 
     /**
      *
@@ -163,6 +162,6 @@ public class Board {
      *
      * @param pTurn takes this variable to assign it to playerTurn
      */
-    public void setPlayerTurn(int pTurn) { this.playerTurn = pTurn; }
+    public void setPlayerTurn(int playerColor) { this.playerTurn = playerColor; }
 
 }
