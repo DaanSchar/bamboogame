@@ -10,7 +10,7 @@ public class GameState {
      * @param numberOfPlayers number of players that the user typed
      * @throws Exception
      */
-    public GameState(int boardSize, int numberOfPlayers) throws Exception {
+    public GameState(int boardSize, final int numberOfPlayers) throws Exception {
         this.board = new Board(boardSize, numberOfPlayers);
 
     }

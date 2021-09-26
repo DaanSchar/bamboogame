@@ -3,17 +3,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Board {
-    private int playerTurn;
-
-    private int numberOfPlayers;
-
-    private List<TileGroup>[] groups;
-
-//    private LogicTile[][][] board;
-    private Hexagon<LogicTile> tileMap; // <--- replacement of LogicTile[][][] board
 
     // radius of the hexagon
     private int boardSize;
+
+    private int playerTurn;
+    private int numberOfPlayers;
+
+    private List<TileGroup>[] groups;
+    private Hexagon<LogicTile> tileMap;
 
     /**
      * Constructs the board
@@ -21,7 +19,7 @@ public class Board {
      * @param numberOfPlayers is the number of players that the user decided
      */
 
-    public Board(int boardSize, int numberOfPlayers) throws Exception {
+    public Board(int boardSize, final int numberOfPlayers) throws Exception {
         this.boardSize = boardSize;
         this.numberOfPlayers = numberOfPlayers;
 
@@ -125,6 +123,7 @@ public class Board {
      * @return the length of the board
      */
     public int getBoardSize() {return boardSize;}
+
     /**
      * check if the next move is legal
      * @param x coordinate
@@ -160,7 +159,7 @@ public class Board {
 
     /**
      *
-     * @param pTurn takes this variable to assign it to playerTurn
+     * @param playerColor takes this variable to assign it to playerTurn
      */
     public void setPlayerTurn(int playerColor) { this.playerTurn = playerColor; }
 
