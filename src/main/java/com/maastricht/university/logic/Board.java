@@ -14,7 +14,6 @@ public class Board {
 
     // radius of the hexagon
     private int boardSize;
-    private int numberOfPlayers;
 
     /**
      * Constructs the board
