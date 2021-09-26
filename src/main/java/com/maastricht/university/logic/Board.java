@@ -121,6 +121,10 @@ public class Board {
         groups[c-1].remove(group);
     }
 
+    /**
+     *
+     * @return the length of the board
+     */
     public int getBoardSize() {return boardSize;}
     /**
      * check if the next move is legal
@@ -149,18 +153,12 @@ public class Board {
         {
             return false;
         }
-        if(x>boardLength || y>boardLength || z>boardLength )
+        if(x>boardSize || y>boardSize || z>boardSize )
         {
             return false;
         }
         return true;
     }
-
-    /**
-     *
-     * @return the length of the board
-     */
-    public int BoardSize() {return boardLength;}
 
     /**
      * if there is a tile that link two different group
