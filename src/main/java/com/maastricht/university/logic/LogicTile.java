@@ -21,30 +21,58 @@ public class LogicTile {
         colour = 0;
 
     }
-
+    /**
+     * Sets the reference to the group this tile is part of
+     * @param group the group of tiles this tile is part of
+     */
     public void setTileGroup(TileGroup group) {
         tileGroup = group;
     }
 
+    /**
+     * Returns the group of tiles this tile is part of
+     * @return the group of tiles this tile is part of
+     */
     public TileGroup getTileGroup() {
         return tileGroup;
     }
+
+    /**
+     * Returns the board this tiles is located on
+     * @return the board this tiles is located on
+     */
     public Board getBoard() {return board;}
+
+    /**
+     * Returns the colour this tile is coloured with
+     * @return the colour of this tile (postive int, 0 if not coloured)
+     */
     public int getColour() {
         return colour;
     }
 
+    /**
+     * Set another tile as this tile's neigbour
+     * @param neighbour a neighbour of this tile
+     */
     public void addNeighbour(LogicTile neighbour) {
         if (!neighbours.contains(neighbour)) {
             neighbours.add(neighbour);
         }
     }
 
+    /**
+     * Returns all the neighbours of this tile
+     * @return all the neighbours of this tile
+     */
     public List<LogicTile> getNeighbours() {
         return new LinkedList<LogicTile>(neighbours);
     }
 
-
+    /**
+     * Set the colour of the tile
+     * @param c the new colour of this tile
+     */
     public void setColour(int c) throws Exception {
         if (c != 0  && isLegal(c)) {
             colour = c;
@@ -56,6 +84,10 @@ public class LogicTile {
         updateSurroundingTilesAndBoard(c);
     }
 
+    /**
+     * Updates all necessary information about the board when the tile gets coloured
+     * @param c the new colour of this tile
+     */
     private void updateSurroundingTilesAndBoard(int c) {
         List<LogicTile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(c);     // not sure how to resolve this method call without reordering the methods
 
@@ -80,6 +112,11 @@ public class LogicTile {
         tilesFromDifferentGroups.get(0).getTileGroup().addGroupMember(this);
     }
 
+    /**
+     * Gets a list of tiles that contains a tile from every group with a certain colour that this tile is neighbours with
+     * @param c the colour the groups can be
+     * @return a list of tiles that contains a tile from every group with a certain colour that this tile is neighbours with
+     */
     public List<LogicTile> getSurroundedTilesFromDifferentGroups (int c){
         List<LogicTile> neighbours = getNeighbours();
         List<LogicTile> tilesFromDifferentGroups = new LinkedList<>();
@@ -102,6 +139,11 @@ public class LogicTile {
         return tilesFromDifferentGroups;
     }
 
+    /**
+     * Gets a list of tiles that contains all the neighbouring tiles that are coloured
+     * @param c the colour the groups can be
+     * @return a list of tiles that contains all the neighbouring tiles that are coloured
+     */
     public List<LogicTile> getSurroundedTilesFromGroups(int c) {
         List<LogicTile> neighbours = getNeighbours();
         List<LogicTile> tilesConnectedAndColoured = new LinkedList<LogicTile>();
