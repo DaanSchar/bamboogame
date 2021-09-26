@@ -21,8 +21,8 @@ public class TileGroup {
         groupID = count;
         count++;
 
-        if(members.size()!=0) {
-            members.get(0).getBoard().addGroup(members.get(0).getColour(), this);
+        if(members.size() != 0) {
+            members.get(0).getBoard().addGroup(members.get(0).getColour(), this); // TODO: dont do this, as this type of assignment can lead to spaghetti code.
         }
     }
 

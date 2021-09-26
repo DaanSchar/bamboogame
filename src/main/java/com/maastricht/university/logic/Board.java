@@ -19,7 +19,7 @@ public class Board {
      * @param numberOfPlayers is the number of players that the user decided
      */
 
-    public Board(int boardSize, final int numberOfPlayers) throws Exception {
+    public Board(final int boardSize, final int numberOfPlayers) throws Exception {
         this.boardSize = boardSize;
         this.numberOfPlayers = numberOfPlayers;
 
@@ -64,7 +64,6 @@ public class Board {
      * @param playerColor colour that can be used to colour the tile
      * @throws Exception if is not that players turn or if the tile has been coloured by an illegal colour
      */
-
     public void move(int x, int y, int playerColor) throws Exception {
         //check if a legal colour
         if(playerColor<=0 || playerColor> numberOfPlayers) {
@@ -139,7 +138,7 @@ public class Board {
 
     /**
      * if there is a tile that link two different group
-     * @param c
+     * @param playerColor
      * @return it returns the size of the group of the previous move
      */
     public int getNumberOfGroups(int playerColor) {return groups[playerColor-1].size();}

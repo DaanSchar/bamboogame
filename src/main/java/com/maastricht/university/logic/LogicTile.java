@@ -4,9 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LogicTile {
-    private final Board board;
+    private final Board board; //TODO: Why does a tile need a reference to the board its in?
 
-    private TileGroup tileGroup;
+    private TileGroup tileGroup; //TODO: why do we need a reference to the group its in.
 
     private int colour; //0 for no colour, 1 for red, 2 for blue
 
@@ -19,8 +19,8 @@ public class LogicTile {
     public LogicTile(Board b) {
         board = b;
         colour = 0;
-
     }
+
     /**
      * Sets the reference to the group this tile is part of
      * @param group the group of tiles this tile is part of
