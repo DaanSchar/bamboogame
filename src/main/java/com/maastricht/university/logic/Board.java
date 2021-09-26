@@ -138,25 +138,6 @@ public class Board {
         return t.isLegal(c);
     }
 
-    /**
-     * check if the coordinates of the board are correct
-     * @param x coordinate
-     * @param y coordinate
-     * @param z coordinate
-     * @return true or false if the board size is correct or not
-     */
-    public boolean isLegalcoordinates(int x, int y, int z)
-    {
-        if(x<0 || y<0 || z<0)
-        {
-            return false;
-        }
-        if(x>boardSize || y>boardSize || z>boardSize )
-        {
-            return false;
-        }
-        return true;
-    }
 
     /**
      * if there is a tile that link two different group
