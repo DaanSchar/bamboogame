@@ -12,46 +12,82 @@ public class LogicTile {
 
     private List<LogicTile> neighbours = new LinkedList<LogicTile>();
 
+    /**
+     * Constructs an empty Tile
+     * @param b the board that contains this tile
+     */
     public LogicTile(Board b) {
         board = b;
         colour = 0;
-    }
 
+    }
+    /**
+     * Sets the reference to the group this tile is part of
+     * @param group the group of tiles this tile is part of
+     */
     public void setTileGroup(TileGroup group) {
         tileGroup = group;
     }
 
+    /**
+     * Returns the group of tiles this tile is part of
+     * @return the group of tiles this tile is part of
+     */
     public TileGroup getTileGroup() {
         return tileGroup;
     }
+
+    /**
+     * Returns the board this tiles is located on
+     * @return the board this tiles is located on
+     */
     public Board getBoard() {return board;}
+
+    /**
+     * Returns the colour this tile is coloured with
+     * @return the colour of this tile (postive int, 0 if not coloured)
+     */
     public int getColour() {
         return colour;
     }
 
+    /**
+     * Set another tile as this tile's neigbour
+     * @param neighbour a neighbour of this tile
+     */
     public void addNeighbour(LogicTile neighbour) {
         if (!neighbours.contains(neighbour)) {
             neighbours.add(neighbour);
         }
     }
 
+    /**
+     * Returns all the neighbours of this tile
+     * @return all the neighbours of this tile
+     */
     public List<LogicTile> getNeighbours() {
         return new LinkedList<LogicTile>(neighbours);
     }
 
-
+    /**
+     * Set the colour of the tile
+     * @param c the new colour of this tile
+     */
     public void setColour(int c) throws Exception {
-        if (c == 1 && isLegalForRed()) {
+        if (c != 0  && isLegal(c)) {
             colour = c;
-        } else if (c == 2 && isLegalForBlue()) {
-            colour = c;
-        } else {
+        }
+        else {
             throw new Exception("illegal Colouring");
         }
 
         updateSurroundingTilesAndBoard(c);
     }
 
+    /**
+     * Updates all necessary information about the board when the tile gets coloured
+     * @param c the new colour of this tile
+     */
     private void updateSurroundingTilesAndBoard(int c) {
         List<LogicTile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(c);     // not sure how to resolve this method call without reordering the methods
 
@@ -76,6 +112,11 @@ public class LogicTile {
         tilesFromDifferentGroups.get(0).getTileGroup().addGroupMember(this);
     }
 
+    /**
+     * Gets a list of tiles that contains a tile from every group with a certain colour that this tile is neighbours with
+     * @param c the colour the groups can be
+     * @return a list of tiles that contains a tile from every group with a certain colour that this tile is neighbours with
+     */
     public List<LogicTile> getSurroundedTilesFromDifferentGroups (int c){
         List<LogicTile> neighbours = getNeighbours();
         List<LogicTile> tilesFromDifferentGroups = new LinkedList<>();
@@ -98,6 +139,11 @@ public class LogicTile {
         return tilesFromDifferentGroups;
     }
 
+    /**
+     * Gets a list of tiles that contains all the neighbouring tiles that are coloured
+     * @param c the colour the groups can be
+     * @return a list of tiles that contains all the neighbouring tiles that are coloured
+     */
     public List<LogicTile> getSurroundedTilesFromGroups(int c) {
         List<LogicTile> neighbours = getNeighbours();
         List<LogicTile> tilesConnectedAndColoured = new LinkedList<LogicTile>();
@@ -110,19 +156,24 @@ public class LogicTile {
         return tilesConnectedAndColoured;
     }
 
-    //TODO: remove duplicate code from the isLegal methods
-    public boolean isLegalForRed() {
-        int numberOfGroups = board.getNumberOfGroupsRed();
+
+    /**
+     * Checks whether this specific tile can legally be coloured by a specific colour
+     * @param c the colour we want to check the legality of
+     * @return whether this specific tile can legally be coloured by c
+     */
+    public boolean isLegal(int c)
+    {
+        int numberOfGroups = board.getNumberOfGroups(c);
 
         //if the tile is already coloured, return false
-        if(getColour()!=0)
+        if(colour!=0)
         {
             return false;
         }
 
         //make list of all groups connected to tile
-        List<LogicTile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(1);
-        List<LogicTile> tilesConnectedAndColoured = getSurroundedTilesFromGroups(1);
+        List<LogicTile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(c);
 
         //if no groups connected to that tile, return true
         if(tilesFromDifferentGroups.size()==0) {
@@ -140,46 +191,7 @@ public class LogicTile {
         }
 
         //check if any of the existing groups is too big (since number of groups becomes smaller)
-        List<TileGroup> groups = board.getGroups(1);
-        for (TileGroup group : groups) {
-            if (group.getGroupSize() > numberOfGroups + 1 - (tilesFromDifferentGroups.size())) {
-                return false;
-            }
-        }
-        //if that is not the case, return true
-        return true;
-
-    }
-
-    public boolean isLegalForBlue() {
-        int numberOfGroups = board.getNumberOfGroupsBlue();
-
-        //if the tile is already coloured, return false
-        if(getColour()!=0)
-        {
-            return false;
-        }
-
-        //make list of all groups connected to tile
-        List<LogicTile> tilesFromDifferentGroups = getSurroundedTilesFromDifferentGroups(2);
-
-        //if no groups connected to that tile, return true
-        if(tilesFromDifferentGroups.size()==0) {
-            return true;
-        }
-
-        //if the the new groupsize (if coloured) will be too big, it's not possible
-        int groupSizesFromAllNeighbours = 0;
-        for (LogicTile tilesFromDifferentGroup : tilesFromDifferentGroups) {
-            groupSizesFromAllNeighbours += tilesFromDifferentGroup.getTileGroup().getGroupSize();
-        }
-        if(groupSizesFromAllNeighbours+1 > numberOfGroups + 1 - (tilesFromDifferentGroups.size()))
-        {
-            return false;
-        }
-
-        //check if any of the existing groups is too big (since number of groups becomes smaller)
-        List<TileGroup> groups = board.getGroups(2);
+        List<TileGroup> groups = board.getGroups(c);
         for (TileGroup group : groups) {
             if (group.getGroupSize() > numberOfGroups + 1 - (tilesFromDifferentGroups.size())) {
                 return false;

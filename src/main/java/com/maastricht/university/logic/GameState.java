@@ -2,34 +2,49 @@ package com.maastricht.university.logic;
 
 public class GameState {
 
-    private boolean redsTurn;
     private Board board;
 
+    /**
+     * construct the gamestate
+     * @param boardSize is the size of the board we are using
+     * @param numberOfPlayers number of players that the user typed
+     * @throws Exception
+     */
     public GameState(int boardSize, int numberOfPlayers) throws Exception {
-        this.redsTurn = true;
         this.board = new Board(boardSize, numberOfPlayers);
 
     }
 
-    //Make sure that you get all the tiles from frontend
 
-    public void moveBlue(int x, int y, int z) throws Exception {
-        board.move(x, y, z, 2);
-    }
-
-    public void moveRed(int x, int y, int z) throws Exception {
-        board.move(x, y, z, 1);
-    }
-
+    /**
+     * Make sure that you get all the tiles from frontend
+     * @param x coordinate
+     * @param y coordinate
+     * @param z coordinate
+     * @param c color
+     * @throws Exception
+     */
     public void move(int x, int y, int z, int c) throws Exception {
         board.move(x, y, z, c);
     }
 
-    public boolean isRedsTurn() {
-        return redsTurn;
+    /**
+     *
+     * @return player turn
+     */
+    public int getPlayerTurn() {
+        return board.getPlayerTurn();
     }
 
-    public boolean isMoveLegal(int x, int y, int z, int c) {
-        return board.isMoveLegal(x, y, z, c);
+    /**
+     * method that check if the new player move is legal
+     * @param x coordinate
+     * @param y coordinate
+     * @param z coordinate
+     * @param c colour
+     * @return true or false depending on is legal move
+     */
+    public boolean isLegal(int x, int y, int z, int c) {
+        return board.isLegal(x, y, z, c);
     }
 }

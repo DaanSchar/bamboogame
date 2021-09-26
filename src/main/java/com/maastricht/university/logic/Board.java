@@ -1,10 +1,11 @@
 package com.maastricht.university.logic;
-
 import java.util.LinkedList;
 import java.util.List;
 
 public class Board {
-    private boolean redsTurn;
+    private int playerTurn;
+
+    private int numberOfPlayers;
 
     private List<TileGroup>[] groups;
 
@@ -14,6 +15,12 @@ public class Board {
     // radius of the hexagon
     private int boardSize;
     private int numberOfPlayers;
+
+    /**
+     * Constructs the board
+     * @param boardSize is the size of our board
+     * @param numberOfPlayers is the number of players that the user decided
+     */
 
     public Board(int boardSize, int numberOfPlayers) throws Exception {
         this.boardSize = boardSize;
@@ -53,70 +60,133 @@ public class Board {
         }
     }
 
+    /**
+     * check if a tile can be coloured
+     * @param x coordinate
+     * @param y coordinate
+     * @param z coordinate
+     * @param c colour that can be used to colour the tile
+     * @throws Exception if is not that players turn or if the tile has been coloured by an illegal colour
+     */
+
     public void move(int x, int y, int z, int c) throws Exception {
         //check if a legal colour
-        if(!(c==1 || c==2)) {
+        if(c<=0 || c> numberOfPlayers) {
             throw new Exception("illegal Colour");
         }
 
         //check if that colours turn
-        if((redsTurn && c!=1) || (!redsTurn && c==1)) {
-            throw new Exception("Not that colours turn");
+        if(playerTurn != c) {
+            throw new Exception("Not that players turn");
         }
 
         //check if that tile can be coloured by that colour
         LogicTile tile = board[x][y][z];
         boolean canColour = false;
-        if(c==1) {
-            canColour = tile.isLegalForRed();
-        }
-        else if(c==2) {
-            canColour = tile.isLegalForBlue();
-        }
+
+
+        canColour= tile.isLegal(c);
 
         //if it can't be coloured, throw an exception
         if(canColour) {
             tile.setColour(c);
+            if(playerTurn>= numberOfPlayers)
+            {
+                playerTurn=1;
+            }
+            else
+            {
+                playerTurn++;
+            }
         }
         else {
             throw new Exception("illegal move");
         }
     }
 
-    public boolean isMoveLegal(int x, int y, int z, int c){
-        //check if a legal colour
-        if(!(c==1 || c==2)) {
-            return false;
-        }
-
-        //check if that colours turn
-        if((redsTurn && c!=1) || (!redsTurn && c==1)) {
-            return false;
-        }
-
-        //check if move legal for that colour
-        if(c==1){
-            return board[x][y][z].isLegalForRed();
-        }
-        else {
-            return board[x][y][z].isLegalForBlue();
-        }
-    }
-
+    /**
+     * add group to a tile
+     * @param c colour
+     * @param group new group added
+     */
     public void addGroup(int c, TileGroup group) {
         groups[c-1].add(group);
     }
 
+    /**
+     * remove group from a tile
+     * @param c colour
+     * @param group removed group
+     */
     public void removeGroup(int c, TileGroup group) {
         groups[c-1].remove(group);
     }
 
     public int getBoardSize() {return boardSize;}
-    public int getNumberOfGroups(int c) {return groups[c-1].size();}
-    public List<TileGroup> getGroups(int c) {return groups[c-1];}
-    public int getNumberOfGroupsRed() { return groups[0].size();}
-    public int getNumberOfGroupsBlue() { return groups[1].size();}
+    /**
+     * check if the next move is legal
+     * @param x coordinate
+     * @param y coordinate
+     * @param z coordinate
+     * @param c colour
+     * @return true or false if the tile can be coloured by that colour or not
+     */
+    public boolean isLegal(int x, int y, int z,int c)
+    {
+        LogicTile t= board[x][y][z];
+        return t.isLegal(c);
+    }
 
-    public boolean isRedsTurn() { return redsTurn; }
-    public void setRedsTurn(boolean turnRed) { redsTurn = turnRed; }
+    /**
+     * check if the coordinates of the board are correct
+     * @param x coordinate
+     * @param y coordinate
+     * @param z coordinate
+     * @return true or false if the board size is correct or not
+     */
+    public boolean isLegalcoordinates(int x, int y, int z)
+    {
+        if(x<0 || y<0 || z<0)
+        {
+            return false;
+        }
+        if(x>boardLength || y>boardLength || z>boardLength )
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *
+     * @return the length of the board
+     */
+    public int BoardSize() {return boardLength;}
+
+    /**
+     * if there is a tile that link two different group
+     * @param c
+     * @return it returns the size of the group of the previous move
+     */
+    public int getNumberOfGroups(int c) {return groups[c-1].size();}
+
+    /**
+     *
+     * @param c colour
+     * @return the group of the previous move
+     */
+    public List<TileGroup> getGroups(int c) {return groups[c-1];}
+
+    /**
+     *
+     * @return the playerTurn value
+     */
+    public int getPlayerTurn() { return playerTurn; }
+
+    /**
+     *
+     * @param pTurn takes this variable to assign it to playerTurn
+     */
+    public void setPlayerTurn(int pTurn) { this.playerTurn = pTurn; }
+
 }
