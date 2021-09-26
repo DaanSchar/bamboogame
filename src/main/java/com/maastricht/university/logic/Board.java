@@ -9,7 +9,7 @@ public class Board {
 
     private List<TileGroup>[] groups;
 
-    private LogicTile[][][] board;
+//    private LogicTile[][][] board;
     private Hexagon<LogicTile> tileMap; // <--- replacement of LogicTile[][][] board
 
     // radius of the hexagon
@@ -63,12 +63,11 @@ public class Board {
      * check if a tile can be coloured
      * @param x coordinate
      * @param y coordinate
-     * @param z coordinate
      * @param c colour that can be used to colour the tile
      * @throws Exception if is not that players turn or if the tile has been coloured by an illegal colour
      */
 
-    public void move(int x, int y, int z, int c) throws Exception {
+    public void move(int x, int y, int c) throws Exception {
         //check if a legal colour
         if(c<=0 || c> numberOfPlayers) {
             throw new Exception("illegal Colour");
@@ -80,7 +79,7 @@ public class Board {
         }
 
         //check if that tile can be coloured by that colour
-        LogicTile tile = board[x][y][z];
+        LogicTile tile = tileMap.get(x,y);
         boolean canColour = false;
 
 
@@ -130,13 +129,12 @@ public class Board {
      * check if the next move is legal
      * @param x coordinate
      * @param y coordinate
-     * @param z coordinate
      * @param c colour
      * @return true or false if the tile can be coloured by that colour or not
      */
-    public boolean isLegal(int x, int y, int z,int c)
+    public boolean isLegal(int x, int y, int c)
     {
-        LogicTile t= board[x][y][z];
+        LogicTile t = tileMap.get(x, y);
         return t.isLegal(c);
     }
 

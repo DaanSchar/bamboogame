@@ -20,12 +20,11 @@ public class GameState {
      * Make sure that you get all the tiles from frontend
      * @param x coordinate
      * @param y coordinate
-     * @param z coordinate
      * @param c color
      * @throws Exception
      */
-    public void move(int x, int y, int z, int c) throws Exception {
-        board.move(x, y, z, c);
+    public void move(int x, int y, int c) throws Exception {
+        board.move(x, y, c);
     }
 
     /**
@@ -40,11 +39,10 @@ public class GameState {
      * method that check if the new player move is legal
      * @param x coordinate
      * @param y coordinate
-     * @param z coordinate
      * @param c colour
      * @return true or false depending on is legal move
      */
-    public boolean isLegal(int x, int y, int z, int c) {
-        return board.isLegal(x, y, z, c);
+    public boolean isLegal(int x, int y, int c) {
+        return board.isLegal(x, y, c);
     }
 }
