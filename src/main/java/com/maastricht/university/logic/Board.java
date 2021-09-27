@@ -113,6 +113,20 @@ public class Board {
         addGroup(newGroup);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private void initGroups() {
         groups = new LinkedList[2];
 

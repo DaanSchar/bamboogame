@@ -58,6 +58,13 @@ public class GameState {
         return board.getPlayerTurn();
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
+
+
+
 
 
 

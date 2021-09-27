@@ -7,7 +7,7 @@ public class Main {
         System.out.println("This is where the logic happens");
 
         GameState state = new GameState(4,2);
-        System.out.println(state.getPlayerTurn());
+
     }
 }
 
