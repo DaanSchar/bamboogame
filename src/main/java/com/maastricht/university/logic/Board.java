@@ -32,6 +32,7 @@ public class Board {
      */
     public void move(int q, int r, int playerColor) {
         tileMap.get(q, r).setPlayerColour(playerColor);
+        addGroup(new TileGroup(tileMap.get(q, r)));
         updateGroups();
     }
 
@@ -58,7 +59,7 @@ public class Board {
      * @param group new group added
      */
     public void addGroup(TileGroup group) {
-        groups[group.getGroupID()-1].add(group);
+        groups[group.getGroupID()].add(group);
     }
 
     /**
@@ -66,7 +67,7 @@ public class Board {
      * @param group removed group
      */
     public void removeGroup(TileGroup group) {
-        groups[group.getGroupID()-1].remove(group);
+        groups[group.getGroupID()].remove(group);
     }
 
     /**
@@ -80,7 +81,12 @@ public class Board {
      * @param playerColor colour
      * @return the current groups which belong to the player of playerColor
      */
-    public List<TileGroup> getGroups(int playerColor) {return groups[playerColor-1];}
+    public List<TileGroup> getGroups(int playerColor) {
+        if (playerColor == 0)
+            return new LinkedList<>();
+
+        return groups[playerColor-1];
+    }
 
     /**
      *

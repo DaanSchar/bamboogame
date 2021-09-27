@@ -19,18 +19,14 @@ public class GameState {
     /**
      * performs a move if it is legal
      */
-    public void move(int q, int r, int playerColor) {
-//        try {
-            if (board.getTileMap().get(q, r) == null)
-                throw new IllegalArgumentException("Coordinates are outside tilemap, returned null");
-            if (!isLegal(q, r, playerColor))
-                throw new IllegalArgumentException("Move is Illegal");
+    public void move(int q, int r, int playerColor) throws Exception {
+        if (board.getTileMap().get(q, r) == null)
+            throw new OutsideHexagonException("Coordinates are outside tilemap, returned null");
+        if (!isLegal(q, r, playerColor))
+            throw new IllegalMoveException("Move is Illegal");
 
-            board.move(q, r, playerColor);
+        board.move(q, r, playerColor);
 
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
     }
 
     /**
@@ -115,6 +111,7 @@ public class GameState {
             if (board.getGroup(neighbor) != null)
                 if (board.getGroup(neighbor).getPlayerColor() == playerColor)
                     groups.add(board.getGroup(neighbor));
+
 
         removeDuplicateGroups(groups);
         return groups;

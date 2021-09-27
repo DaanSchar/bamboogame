@@ -3,14 +3,20 @@ package com.maastricht.university.logic;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
-        System.out.println("This is where the logic happens");
+    public static void main(String[] args) throws Exception  {
+        GameState state = new GameState(2,2);
 
-        GameState state = new GameState(4,2);
-        state.move(4,4,1);
+        try {
+            state.move(0, 3, 1);
+        } catch (IllegalMoveException e) {
+            System.out.println(e);
+        }
 
-        System.out.println(state.getBoard().getTileMap());
-
+        try {
+            state.move(0, 4, 1);
+        } catch (IllegalMoveException e) {
+            System.out.println(e);
+        }
 
     }
 }
