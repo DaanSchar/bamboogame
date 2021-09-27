@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+//push
 public class MainMenu extends Application {
 
     public ImageView humanView = new ImageView(new Image("/images/button_human.png"));
