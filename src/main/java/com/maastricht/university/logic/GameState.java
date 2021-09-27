@@ -1,7 +1,5 @@
 package com.maastricht.university.logic;
 
-import com.maastricht.university.frontend.Tile;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,7 +53,7 @@ public class GameState {
         if (getNeighboringGroups(tile).size() == 0)
             return true;
 
-        if (getNewGroupSize(tile) > getNewMaxGroupSize(tile))
+        if (getNewGroupSize(tile) > getNewTotalGroups(tile))
             return false;
 
         return true;
@@ -89,7 +87,7 @@ public class GameState {
     }
 
     /**
-     * a neighbor is defined of a tile is defined by its location in the hexagon structure.
+     * a neighbor of a tile is defined by its location in the hexagon structure.
      * if a tile is adjacent to our tile, it is considered a neighbor.
      * @param tile
      * @return list of adjacent tiles
@@ -99,28 +97,30 @@ public class GameState {
     }
 
     /**
-     * determines what the maximum total of tiles may be contained by one group.
-     * this is the amount of groups the player has.
-     * @param playerColor
-     * @return maximum allowed size for a group
+     * returns the size of the group this tile will reside in once
+     * it gets colored
+     * @param tile
+     * @return size of the to be created group
      */
-    private int getNewGroupSize(int playerColor) {
-        //TODO: this implementation needs to be changed, as it needs an update before
-        // it can determine the new max allowed size
-        return board.getGroups(playerColor).size();
+    private int getNewGroupSize(LogicTile tile) {
+        List<TileGroup> groups = getNeighboringGroups(tile);
+        int size = 0;
+
+        for (TileGroup group : groups)
+            size += group.getMembers().size();
+
+        return size + 1;
     }
 
     /**
-     * determines how large a group will be if tile were to be colored.
-     * that means that there is no new group created.
-     *
-     * when we place a tile, all groups neighboring this tile become 1 group,
-     * @return int size of group
+     * when we color a tile which is neighboring one or multiple groups,
+     * these groups will merge, decreasing the amount of total groups.
+     * @return total groups if tile were to be colored
      */
-    private int getNewMaxGroupSize(LogicTile tile) {
+    private int getNewTotalGroups(LogicTile tile) {
         int totalNeighboringGroups = board.getGroups(tile.getColour()).size();
         int totalGroups = getNeighboringGroups(tile).size();
-        return totalGroups - totalNeighboringGroups;
+        return totalGroups - (totalNeighboringGroups + 1);
     }
 
     /**
@@ -131,7 +131,7 @@ public class GameState {
         List<TileGroup> groups =  board.getGroups(tile.getColour());
 
         for (TileGroup group : groups)
-            for (LogicTile groupTile : group.getGroupMembers())
+            for (LogicTile groupTile : group.getMembers())
                 if (groupTile.equals(tile))
                     return group;
 
