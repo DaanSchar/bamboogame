@@ -21,6 +21,8 @@ public class GameState {
      */
     public void move(int q, int r, int playerColor) {
         try {
+            if (board.getTileMap().get(q, r) == null)
+                throw new IllegalArgumentException("Coordinates are outside tilemap, returned null");
             if (!isLegal(q, r, playerColor))
                 throw new IllegalArgumentException("Move is Illegal");
 
