@@ -59,4 +59,8 @@ public class LogicTile {
                 r == logicTile.getR();
     }
 
+    @Override
+    public String toString() {
+        return playerColor + "";
+    }
 }

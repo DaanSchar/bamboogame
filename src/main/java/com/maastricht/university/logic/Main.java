@@ -9,6 +9,7 @@ public class Main {
         GameState state = new GameState(4,2);
         state.move(4,4,1);
 
+        System.out.println(state.getBoard().getTileMap());
 
 
     }

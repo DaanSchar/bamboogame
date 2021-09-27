@@ -129,5 +129,18 @@ public class Hexagon<T> implements IHexagon<T>{
         return q + r < size || q + r > 3*size;
     }
 
+    @Override
+    public String toString() {
+        String str = "";
 
+        for (T[] row : array) {
+            str += "\n";
+            for (T element : row)
+                if ( element == null)
+                    str += "[ ] ";
+                else
+                    str += "[" + element + "] ";
+        }
+        return str;
+    }
 }
