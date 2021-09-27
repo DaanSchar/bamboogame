@@ -53,7 +53,7 @@ public class MainMenu extends Application {
 
         human.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                AgainstHuman screen1 = new AgainstHuman();
+                Main screen1 = new Main();
 
                 stage.setScene(screen1.getScene());
                 stage.show();
