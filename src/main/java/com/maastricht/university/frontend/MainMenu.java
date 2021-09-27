@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
@@ -24,18 +23,17 @@ public class MainMenu extends Application {
     public Image bambooBcg = new Image("/images/bamboo.jpeg", width, height, false, true);
     public String tutorial = "https://www.youtube.com/embed/uVcDO8EmDCs";
 
+    public BackgroundImage bImg = new BackgroundImage(bambooBcg,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT);
+    public Background bGround = new Background(bImg);
+
     @Override
     public void start(Stage stage) {
         BorderPane r = new BorderPane();
-        Scene scene = new Scene(r, width, height);
-
-        //set background picture
-        BackgroundImage bImg = new BackgroundImage(bambooBcg,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        Background bGround = new Background(bImg);
+        Scene scene = new Scene(r,width,height);
         r.setBackground(bGround);
 
         stage.setScene(scene);
@@ -53,9 +51,12 @@ public class MainMenu extends Application {
         humanView.setFitWidth(170);
         human.setGraphic(humanView);
 
-        //TODO: make this button go to the game
         human.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                AgainstHuman screen1 = new AgainstHuman();
+
+                stage.setScene(screen1.getScene());
+                stage.show();
                 System.out.println("This goes into the game :)");
             }
         });
