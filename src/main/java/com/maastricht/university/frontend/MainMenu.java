@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class MainMenu extends Application {
@@ -17,24 +17,23 @@ public class MainMenu extends Application {
     public ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
     public ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
     public ImageView title = new ImageView(new Image("/images/bambooText.png"));
-    public ImageView tutorialView = new ImageView(new Image("/images/tutorial.gif"));
 
     double width = 800;
     double height = 500;
     public Image bambooBcg = new Image("/images/bamboo.jpeg", width, height, false, true);
+    public String tutorial = "https://www.youtube.com/embed/uVcDO8EmDCs";
+
+    public BackgroundImage bImg = new BackgroundImage(bambooBcg,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT);
+    public Background bGround = new Background(bImg);
 
     @Override
     public void start(Stage stage) {
         BorderPane r = new BorderPane();
-        Scene scene = new Scene(r, width, height);
-
-        //set background picture
-        BackgroundImage bImg = new BackgroundImage(bambooBcg,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        Background bGround = new Background(bImg);
+        Scene scene = new Scene(r,width,height);
         r.setBackground(bGround);
 
         stage.setScene(scene);
@@ -52,9 +51,12 @@ public class MainMenu extends Application {
         humanView.setFitWidth(170);
         human.setGraphic(humanView);
 
-        //TODO: make this button go to the game
         human.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                Main screen1 = new Main();
+
+                stage.setScene(screen1.getScene());
+                stage.show();
                 System.out.println("This goes into the game :)");
             }
         });
@@ -99,12 +101,13 @@ public class MainMenu extends Application {
             @Override public void handle(ActionEvent e) {
                 Stage rulesWindow = new Stage();
 
-                Pane r_2 = new Pane(tutorialView);
-                Scene sc = new Scene(r_2,width/2,height/2);
-                rulesWindow.setScene(sc);
+                WebView webview = new WebView();
+                webview.getEngine().load(tutorial);
 
-                tutorialView.setFitWidth(width/2);
-                tutorialView.setFitHeight(height/2);
+                VBox box = new VBox(webview);
+                Scene r = new Scene(box,width/1.5, height/2 );
+
+                rulesWindow.setScene(r);
                 rulesWindow.show();
 
             }
