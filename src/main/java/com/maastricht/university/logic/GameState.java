@@ -22,21 +22,13 @@ public class GameState {
     public void move(int q, int r, int playerColor) {
         try {
             if (!isLegal(q, r, playerColor))
-                throw new IllegalArgumentException("Move is not Legal");
+                throw new IllegalArgumentException("Move is Illegal");
 
             board.move(q, r, playerColor);
 
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
-
-    /**
-     *
-     * @return player turn
-     */
-    public int getPlayerTurn() {
-        return board.getPlayerTurn();
     }
 
     /**
@@ -56,6 +48,14 @@ public class GameState {
             return false;
 
         return true;
+    }
+
+    /**
+     *
+     * @return player turn
+     */
+    public int getPlayerTurn() {
+        return board.getPlayerTurn();
     }
 
 
