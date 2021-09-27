@@ -17,12 +17,18 @@ public class GameState {
     }
 
     /**
-     * Make sure that you get all the tiles from frontend
-     * @throws Exception
+     * performs a move if it is legal
      */
-    public void move(int q, int r, int playerColor) throws Exception {
-        if (isLegal(q, r, playerColor))
+    public void move(int q, int r, int playerColor) {
+        try {
+            if (!isLegal(q, r, playerColor))
+                throw new IllegalArgumentException("Move is not Legal");
+
             board.move(q, r, playerColor);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -50,6 +56,39 @@ public class GameState {
             return false;
 
         return true;
+    }
+
+
+
+
+
+
+
+    /**
+     * returns the size of the group this tile will reside in once
+     * it gets colored
+     * @param tile
+     * @return size of the to be created group
+     */
+    private int getNewGroupSize(LogicTile tile, int playerColor) {
+        List<TileGroup> groups = getNeighboringGroups(tile, playerColor);
+        int size = 0;
+
+        for (TileGroup group : groups)
+            size += group.getMembers().size();
+
+        return size + 1;
+    }
+
+    /**
+     * when we color a tile which is neighboring one or multiple groups,
+     * these groups will merge, decreasing the amount of total groups.
+     * @return total groups if tile were to be colored
+     */
+    private int getNewTotalGroups(LogicTile tile, int playerColor) {
+        int totalNeighboringGroups = board.getGroups(tile.getPlayerColor()).size();
+        int totalGroups = getNeighboringGroups(tile, playerColor).size();
+        return totalGroups - (totalNeighboringGroups + 1);
     }
 
     /**
@@ -89,31 +128,5 @@ public class GameState {
         return board.getTileMap().getNeighbours(tile.getQ(), tile.getR());
     }
 
-    /**
-     * returns the size of the group this tile will reside in once
-     * it gets colored
-     * @param tile
-     * @return size of the to be created group
-     */
-    private int getNewGroupSize(LogicTile tile, int playerColor) {
-        List<TileGroup> groups = getNeighboringGroups(tile, playerColor);
-        int size = 0;
-
-        for (TileGroup group : groups)
-            size += group.getMembers().size();
-
-        return size + 1;
-    }
-
-    /**
-     * when we color a tile which is neighboring one or multiple groups,
-     * these groups will merge, decreasing the amount of total groups.
-     * @return total groups if tile were to be colored
-     */
-    private int getNewTotalGroups(LogicTile tile, int playerColor) {
-        int totalNeighboringGroups = board.getGroups(tile.getPlayerColor()).size();
-        int totalGroups = getNeighboringGroups(tile, playerColor).size();
-        return totalGroups - (totalNeighboringGroups + 1);
-    }
 
 }

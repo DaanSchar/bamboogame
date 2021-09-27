@@ -92,18 +92,21 @@ public class TileGroup {
         }
     }
 
+    /**
+     * checks if all members in a list are of the same playerColor
+     */
+    private boolean membersAreSameColor(List<LogicTile> members) {
+        for (LogicTile member : members)
+            if (member.getPlayerColor() != playerColor)
+                return false;
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TileGroup group = (TileGroup) o;
         return groupID == group.groupID;
-    }
-
-    private boolean membersAreSameColor(List<LogicTile> members) {
-        for (LogicTile member : members)
-            if (member.getPlayerColor() != playerColor)
-                return false;
-        return false;
     }
 }
