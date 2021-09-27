@@ -47,7 +47,7 @@ public class TileMap {
         this.mapY = mapY;
         this.TileSize = TileSize;
 
-        hexagon = new Hexagon<>(dimension);
+        hexagon = new Hexagon<>(dimension/2);
 
         for (int i = 0; i < hexagon.size(); i++)
             for (int j = 0; j < hexagon.size(); j++)
