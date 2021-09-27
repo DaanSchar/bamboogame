@@ -14,7 +14,6 @@ public class GameState {
      */
     public GameState(final int boardSize, final int numberOfPlayers) {
         this.board = new Board(boardSize, numberOfPlayers);
-
     }
 
     /**
@@ -39,7 +38,7 @@ public class GameState {
      * @return true or false depending on is legal move
      */
     public boolean isLegal(int q, int r, int playerColor) {
-        LogicTile tile = board.getHexagon().get(q, r);
+        LogicTile tile = board.getTileMap().get(q, r);
 
         if (tile.getPlayerColor() != 0)
             return false;
@@ -65,12 +64,11 @@ public class GameState {
         List<TileGroup> groups = new LinkedList<>();
 
         for (LogicTile neighbor : neighbors)
-            if (getGroup(neighbor) != null)
-                if (getGroup(neighbor).getPlayerColor() == playerColor)
-                    groups.add(getGroup(neighbor));
+            if (board.getGroup(neighbor) != null)
+                if (board.getGroup(neighbor).getPlayerColor() == playerColor)
+                    groups.add(board.getGroup(neighbor));
 
         removeDuplicateGroups(groups);
-
         return groups;
     }
 
@@ -88,7 +86,7 @@ public class GameState {
      * @return list of adjacent tiles
      */
     private List<LogicTile> getNeighbors(LogicTile tile) {
-        return board.getHexagon().getNeighbours(tile.getQ(), tile.getR());
+        return board.getTileMap().getNeighbours(tile.getQ(), tile.getR());
     }
 
     /**
@@ -118,18 +116,4 @@ public class GameState {
         return totalGroups - (totalNeighboringGroups + 1);
     }
 
-    /**
-     * @param tile the tile we want to receive its current group from
-     * @return TileGroup which tile is located in
-     */
-    private TileGroup getGroup(LogicTile tile) {
-        List<TileGroup> groups =  board.getGroups(tile.getPlayerColor());
-
-        for (TileGroup group : groups)
-            for (LogicTile groupTile : group.getMembers())
-                if (groupTile.equals(tile))
-                    return group;
-
-        return null;
-    }
 }
