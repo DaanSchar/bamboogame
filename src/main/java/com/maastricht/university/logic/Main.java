@@ -1,6 +1,8 @@
 package com.maastricht.university.logic;
 
 
+import com.maastricht.university.logic.exceptions.IllegalMoveException;
+
 public class Main {
 
     public static void main(String[] args) throws Exception  {

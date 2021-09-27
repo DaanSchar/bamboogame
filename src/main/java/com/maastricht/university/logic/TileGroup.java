@@ -24,6 +24,7 @@ public class TileGroup {
         }
     }
 
+
     public TileGroup(LogicTile member) {
         this.playerColor = member.getPlayerColor();
         this.members = new LinkedList<>();

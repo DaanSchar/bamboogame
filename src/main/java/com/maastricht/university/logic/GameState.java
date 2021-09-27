@@ -1,5 +1,8 @@
 package com.maastricht.university.logic;
 
+import com.maastricht.university.logic.exceptions.IllegalMoveException;
+import com.maastricht.university.logic.exceptions.OutsideHexagonException;
+
 import java.util.LinkedList;
 import java.util.List;
 
