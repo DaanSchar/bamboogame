@@ -2,6 +2,7 @@ package com.maastricht.university.logic;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class TileGroup {
     private List<LogicTile> groupMembers;
@@ -82,5 +83,13 @@ public class TileGroup {
             LogicTile tempTile = groups.get(i).getGroupMembers().get(0);
             tempTile.getBoard().removeGroup(tempTile.getColour(), this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TileGroup group = (TileGroup) o;
+        return groupID == group.groupID;
     }
 }
