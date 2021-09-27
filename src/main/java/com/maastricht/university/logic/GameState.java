@@ -52,23 +52,40 @@ public class GameState {
         if (tile.getColour() != 0)
             return false;
 
-        if (!neighborsAreInGroup(tile))
+        if (getNeighboringGroups(tile).size() == 0)
             return true;
 
-        if (getNewGroupSize(tile) > getMaxGroupSize(playerColor))
+        if (getNewGroupSize(tile) > getNewMaxGroupSize(tile))
             return false;
 
         return true;
     }
 
-    private boolean neighborsAreInGroup(LogicTile tile) {
+    /**
+     * since getting the group of each neighbor results in having
+     * duplicate groups if 2 neighbors are in the same group, we
+     * have to filter this this list for duplicates.
+     * @param tile
+     * @return list of unique groups of the neighbors of tile
+     */
+    private List<TileGroup> getNeighboringGroups(LogicTile tile) {
         List<LogicTile> neighbors = getNeighbors(tile);
+        List<TileGroup> groups = new LinkedList<>();
 
         for (LogicTile neighbor : neighbors)
             if (getGroup(neighbor) != null)
-                return true;
+                groups.add(getGroup(neighbor));
 
-        return false;
+        removeDuplicateGroups(groups);
+
+        return groups;
+    }
+
+    private void removeDuplicateGroups(List<TileGroup> groups) {
+        for (int i = 0; i < groups.size(); i++)
+            for (int j = i + 1; j < groups.size(); j++)
+                if (groups.get(i).equals(groups.get(j)))
+                    groups.remove(i);
     }
 
     /**
@@ -87,7 +104,7 @@ public class GameState {
      * @param playerColor
      * @return maximum allowed size for a group
      */
-    private int getMaxGroupSize(int playerColor) {
+    private int getNewGroupSize(int playerColor) {
         //TODO: this implementation needs to be changed, as it needs an update before
         // it can determine the new max allowed size
         return board.getGroups(playerColor).size();
@@ -96,21 +113,17 @@ public class GameState {
     /**
      * determines how large a group will be if tile were to be colored.
      * that means that there is no new group created.
+     *
+     * when we place a tile, all groups neighboring this tile become 1 group,
      * @return int size of group
      */
-    private int getNewGroupSize(LogicTile tile) {
-        List<LogicTile> neighbors = getNeighbors(tile);
-        int size = 0;
-
-        for (LogicTile neighbour : neighbors)
-            if (getGroup(neighbour) != null)
-                size += getGroup(neighbour).getGroupSize();
-
-        return size;
+    private int getNewMaxGroupSize(LogicTile tile) {
+        int totalNeighboringGroups = board.getGroups(tile.getColour()).size();
+        int totalGroups = getNeighboringGroups(tile).size();
+        return totalGroups - totalNeighboringGroups;
     }
 
     /**
-     *
      * @param tile the tile we want to receive its current group from
      * @return TileGroup which tile is located in
      */
