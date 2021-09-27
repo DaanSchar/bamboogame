@@ -7,37 +7,35 @@ public class TileGroup {
 
     private List<LogicTile> members;
     private int groupID;
+    private int playerColor;
 
     private static int count = 0;
 
     public TileGroup(List<LogicTile> members) {
-        this.members = members;
+        try {
+            if (!membersAreSameColor(members))
+                throw new IllegalArgumentException("list of members are not of the same playerColor!");
 
-        groupID = count++;
+            this.members = members;
+            groupID = count++;
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public TileGroup(LogicTile member) {
+        this.playerColor = member.getPlayerColor();
         this.members = new LinkedList<>();
         members.add(member);
 
         groupID = count++;
     }
 
-    /**
-     * Merges groups together by adding the other groups into this one
-     * @param groups the TileGroups that will be merged into this group
-     *
-     */
-    public void merge(List<TileGroup> groups) {
-        for(int i=0; i<groups.size(); i++) {
-            List<LogicTile> tiles = groups.get(i).getMembers();
-            for(int j=0; j<tiles.size(); j++) {
-                members.add(tiles.get(j));
-                tiles.get(j).setTileGroup(this);
-            }
-            LogicTile tempTile = groups.get(i).getMembers().get(0);
-            tempTile.getBoard().removeGroup(tempTile.getColour(), this);
-        }
+    public TileGroup(int playerColor) {
+        this.playerColor = playerColor;
+        this.members = new LinkedList<>();
+        groupID = count++;
     }
 
     /**
@@ -58,10 +56,20 @@ public class TileGroup {
 
     /**
      * Resets the list of LogicTiles in this group
-     * @param list the new list of LogicTiles
+     * @param members the new list of LogicTiles
      */
-    public void setMembers(List<LogicTile> list) {
-        members = list;
+    public void setMembers(List<LogicTile> members) {
+        try {
+            if (!membersAreSameColor(members))
+                throw new IllegalArgumentException("Members are not of the same PlayerColor");
+            if (members.get(0).getPlayerColor() != playerColor)
+                throw new IllegalArgumentException("Cant set tilelist as members of this group because the tile's playerColor do not match the groups playerColor");
+
+            this.members = members;
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -69,7 +77,15 @@ public class TileGroup {
      * @param tile the tile that will be added to this group
      */
     public void addMember(LogicTile tile) {
-        members.add(tile);
+        try {
+            if (tile.getPlayerColor() != playerColor)
+                throw new IllegalArgumentException("Cant add tile to a group because the tile's playerColor doesn't match the groups playerColor");
+
+            members.add(tile);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -78,5 +94,12 @@ public class TileGroup {
         if (o == null || getClass() != o.getClass()) return false;
         TileGroup group = (TileGroup) o;
         return groupID == group.groupID;
+    }
+
+    private boolean membersAreSameColor(List<LogicTile> members) {
+        for (LogicTile member : members)
+            if (member.getPlayerColor() != playerColor)
+                return false;
+        return false;
     }
 }

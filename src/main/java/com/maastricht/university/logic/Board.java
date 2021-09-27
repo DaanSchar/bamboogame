@@ -117,6 +117,37 @@ public class Board {
         return this.tileMap;
     }
 
+    /**
+     * Merges groups together by adding the other groups into this one
+     * @param groups the TileGroups that will be merged into this group
+     *
+     */
+    public void merge(List<TileGroup> groups) {
+        for(int i=0; i<groups.size(); i++) {
+            List<LogicTile> tiles = groups.get(i).getMembers();
+            for(int j=0; j<tiles.size(); j++) {
+                members.add(tiles.get(j));
+                tiles.get(j).setTileGroup(this);
+            }
+            LogicTile tempTile = groups.get(i).getMembers().get(0);
+            tempTile.getBoard().removeGroup(tempTile.getColour(), this);
+        }
+        TileGroup newGroup = new TileGroup();
+
+        for (TileGroup group : groups)
+            for(LogicTile tile : group.getMembers())
+                newGroup.addMember(tile);
+
+        for (TileGroup group : groups)
+            for(LogicTile tile : group.getMembers())
+                removeGroup(tile.getPlayerColor(), group);
+
+        addGroup(newGroup.getMembers().get(0).getPlayerColor(), newGroup);
+
+
+
+    }
+
     private void initGroups() {
         groups = new LinkedList[2];
 
