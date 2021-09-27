@@ -71,20 +71,18 @@ public class Board {
 
     /**
      * add group to a tile
-     * @param playerColor colour
      * @param group new group added
      */
-    public void addGroup(int playerColor, TileGroup group) {
-        groups[playerColor-1].add(group);
+    public void addGroup(TileGroup group) {
+        groups[group.getGroupID()-1].add(group);
     }
 
     /**
      * remove group from a tile
-     * @param playerColor colour
      * @param group removed group
      */
-    public void removeGroup(int playerColor, TileGroup group) {
-        groups[playerColor-1].remove(group);
+    public void removeGroup(TileGroup group) {
+        groups[group.getGroupID()-1].remove(group);
     }
 
     /**
@@ -132,11 +130,13 @@ public class Board {
             LogicTile tempTile = groups.get(i).getMembers().get(0);
             tempTile.getBoard().removeGroup(tempTile.getColour(), this);
         }
-        TileGroup newGroup = new TileGroup();
+
+        TileGroup newGroup = new TileGroup(groups.get(0).getPlayerColor());
 
         for (TileGroup group : groups)
             for(LogicTile tile : group.getMembers())
                 newGroup.addMember(tile);
+
 
         for (TileGroup group : groups)
             for(LogicTile tile : group.getMembers())

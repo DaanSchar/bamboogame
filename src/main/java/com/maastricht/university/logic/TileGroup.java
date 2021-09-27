@@ -38,6 +38,10 @@ public class TileGroup {
         groupID = count++;
     }
 
+    public int getPlayerColor() {
+        return this.playerColor;
+    }
+
     /**
      * Returns the ID of the group
      * @return the ID of the group
