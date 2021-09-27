@@ -27,46 +27,12 @@ public class Board {
 
 
     /**
-     * check if a tile can be coloured
-     * @param x coordinate
-     * @param y coordinate
+     * colors the tile at coordinate q, r.
+     * cannot color tile if it's playerColor > 0
      * @param playerColor colour that can be used to colour the tile
-     * @throws Exception if is not that players turn or if the tile has been coloured by an illegal colour
      */
-    public void move(int x, int y, int playerColor) throws Exception {
-        //TODO: refactor this to fit the current code.
-//        //check if a legal colour
-//        if(playerColor<=0 || playerColor> numberOfPlayers) {
-//            throw new Exception("illegal Colour");
-//        }
-//
-//        //check if that colours turn
-//        if(playerTurn != playerColor) {
-//            throw new Exception("Not that players turn");
-//        }
-//
-//        //check if that tile can be coloured by that colour
-//        LogicTile tile = tileMap.get(x,y);
-//        boolean canColour = false;
-//
-//
-//        canColour= tile.isLegal(playerColor);
-//
-//        //if it can't be coloured, throw an exception
-//        if(canColour) {
-//            tile.setColour(playerColor);
-//            if(playerTurn>= numberOfPlayers)
-//            {
-//                playerTurn=1;
-//            }
-//            else
-//            {
-//                playerTurn++;
-//            }
-//        }
-//        else {
-//            throw new Exception("illegal move");
-//        }
+    public void move(int q, int r, int playerColor) {
+        tileMap.get(q, r).setPlayerColour(playerColor);
     }
 
     /**

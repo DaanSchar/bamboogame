@@ -26,18 +26,27 @@ public class LogicTile {
 
     /**
      * Returns the colour this tile is coloured with
-     * @return the colour of this tile (postive int, 0 if not coloured)
+     * @return the colour of this tile (positive int, 0 if not coloured)
      */
     public int getPlayerColor() {
         return this.playerColor;
     }
 
     /**
-     * Set the colour of the tile
+     * Set the colour of the tile.
+     * current color of the tile must be 0.
      * @param playerColor the new colour of this tile
      */
     public void setPlayerColour(int playerColor) {
-        this.playerColor = playerColor;
+        try {
+            if (this.playerColor != 0)
+                throw new IllegalAccessException("this tile is already colored with " + this.playerColor +". you cannot give it a different color");
+
+            this.playerColor = playerColor;
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
