@@ -40,7 +40,10 @@ public class Board {
      * @return TileGroup where tile is located in
      */
     public TileGroup getGroup(LogicTile tile) {
-        List<TileGroup> groups =  getGroups(tile.getPlayerColor());
+        if (tile.getPlayerColor() == 0)
+            return null;
+
+        List<TileGroup> groups = getGroups(tile.getPlayerColor());
 
         for (TileGroup group : groups)
             for (LogicTile groupTile : group.getMembers())
@@ -112,20 +115,6 @@ public class Board {
 
         addGroup(newGroup);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     private void initGroups() {
         groups = new LinkedList[2];

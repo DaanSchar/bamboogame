@@ -7,7 +7,8 @@ public class Main {
         System.out.println("This is where the logic happens");
 
         GameState state = new GameState(4,2);
-        state.move(0,0,1);
+        state.move(4,4,1);
+
 
 
     }
