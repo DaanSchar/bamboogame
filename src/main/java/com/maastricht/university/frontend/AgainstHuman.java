@@ -1,6 +1,8 @@
 package com.maastricht.university.frontend;
 
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,6 +14,7 @@ public class AgainstHuman{
 
     public ImageView p1 = new ImageView(new Image("/images/playerone.png"));
     public ImageView p2 = new ImageView(new Image("/images/playertwo.png"));
+    public ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
     public Image bambooBcg = new Image("/images/bamboo.jpeg", width, height, false, true);
     public BackgroundImage bImg = new BackgroundImage(bambooBcg,
             BackgroundRepeat.NO_REPEAT,
@@ -39,8 +42,21 @@ public class AgainstHuman{
         p2.setFitHeight(width/2);
         playground.getChildren().add(p2);
 
-        playground.setBackground(bGround);
+        HoverableButton exit = new HoverableButton(50, height - height/12, 20, 20);
+        exitView.setFitHeight(40);
+        exitView.setFitWidth(80);
+        exit.setGraphic(exitView);
+        playground.getChildren().add(exit);
 
+        //if the exit button is clicked, it will close the program
+        exit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e)
+            {
+                System.exit(0);
+            }
+        });
+
+        playground.setBackground(bGround);
         Scene scene = new Scene(playground, width, height);
         return scene;
     }
