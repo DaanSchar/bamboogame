@@ -17,7 +17,7 @@ public class Board {
      * @param boardSize is the size of our board
      * @param numberOfPlayers is the number of players that the user decided
      */
-    public Board(final int boardSize, final int numberOfPlayers) throws Exception {
+    public Board(final int boardSize, final int numberOfPlayers) {
         this.boardSize = boardSize;
         this.numberOfPlayers = numberOfPlayers;
 
@@ -121,31 +121,15 @@ public class Board {
      *
      */
     public void merge(List<TileGroup> groups) {
-        for(int i=0; i<groups.size(); i++) {
-            List<LogicTile> tiles = groups.get(i).getMembers();
-            for(int j=0; j<tiles.size(); j++) {
-                members.add(tiles.get(j));
-                tiles.get(j).setTileGroup(this);
-            }
-            LogicTile tempTile = groups.get(i).getMembers().get(0);
-            tempTile.getBoard().removeGroup(tempTile.getColour(), this);
-        }
-
         TileGroup newGroup = new TileGroup(groups.get(0).getPlayerColor());
 
-        for (TileGroup group : groups)
-            for(LogicTile tile : group.getMembers())
+        for (TileGroup group : groups) {
+            for (LogicTile tile : group.getMembers())
                 newGroup.addMember(tile);
+            removeGroup(group);
+        }
 
-
-        for (TileGroup group : groups)
-            for(LogicTile tile : group.getMembers())
-                removeGroup(tile.getPlayerColor(), group);
-
-        addGroup(newGroup.getMembers().get(0).getPlayerColor(), newGroup);
-
-
-
+        addGroup(newGroup);
     }
 
     private void initGroups() {

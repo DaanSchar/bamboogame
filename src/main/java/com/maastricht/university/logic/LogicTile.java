@@ -10,10 +10,6 @@ public class LogicTile {
     private int q;
     private int r;
 
-    /**
-     * Constructs an empty Tile
-     * @param b the board that contains this tile
-     */
     public LogicTile(int q, int r) {
         playerColor = 0;
         this.q = q;
@@ -33,14 +29,14 @@ public class LogicTile {
      * @return the colour of this tile (postive int, 0 if not coloured)
      */
     public int getPlayerColor() {
-        return playerColor;
+        return this.playerColor;
     }
 
     /**
      * Set the colour of the tile
      * @param playerColor the new colour of this tile
      */
-    public void setColour(int playerColor) {
+    public void setPlayerColour(int playerColor) {
         this.playerColor = playerColor;
     }
 

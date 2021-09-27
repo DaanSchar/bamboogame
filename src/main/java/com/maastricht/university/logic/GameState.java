@@ -9,24 +9,21 @@ public class GameState {
 
     /**
      * construct the gamestate
-     * @param boardSize is the size of the board we are using
+     * @param boardSize is the size of the board we are using, defined as the diameter of the hexagon.
      * @param numberOfPlayers number of players that the user typed
-     * @throws Exception
      */
-    public GameState(final int boardSize, final int numberOfPlayers) throws Exception {
+    public GameState(final int boardSize, final int numberOfPlayers) {
         this.board = new Board(boardSize, numberOfPlayers);
 
     }
 
     /**
      * Make sure that you get all the tiles from frontend
-     * @param x coordinate
-     * @param y coordinate
-     * @param c color
      * @throws Exception
      */
-    public void move(int x, int y, int c) throws Exception {
-        board.move(x, y, c);
+    public void move(int q, int r, int playerColor) throws Exception {
+        if (isLegal(q, r, playerColor))
+            board.move(q, r, playerColor);
     }
 
     /**
@@ -39,21 +36,18 @@ public class GameState {
 
     /**
      * method that check if the new player move is legal
-     * @param x coordinate
-     * @param y coordinate
-     * @param c colour
      * @return true or false depending on is legal move
      */
     public boolean isLegal(int q, int r, int playerColor) {
         LogicTile tile = board.getHexagon().get(q, r);
 
-        if (tile.getColour() != 0)
+        if (tile.getPlayerColor() != 0)
             return false;
 
-        if (getNeighboringGroups(tile).size() == 0)
+        if (getNeighboringGroups(tile, playerColor).size() == 0)
             return true;
 
-        if (getNewGroupSize(tile) > getNewTotalGroups(tile))
+        if (getNewGroupSize(tile, playerColor) > getNewTotalGroups(tile, playerColor))
             return false;
 
         return true;
@@ -66,13 +60,14 @@ public class GameState {
      * @param tile
      * @return list of unique groups of the neighbors of tile
      */
-    private List<TileGroup> getNeighboringGroups(LogicTile tile) {
+    private List<TileGroup> getNeighboringGroups(LogicTile tile, int playerColor) {
         List<LogicTile> neighbors = getNeighbors(tile);
         List<TileGroup> groups = new LinkedList<>();
 
         for (LogicTile neighbor : neighbors)
             if (getGroup(neighbor) != null)
-                groups.add(getGroup(neighbor));
+                if (getGroup(neighbor).getPlayerColor() == playerColor)
+                    groups.add(getGroup(neighbor));
 
         removeDuplicateGroups(groups);
 
@@ -102,8 +97,8 @@ public class GameState {
      * @param tile
      * @return size of the to be created group
      */
-    private int getNewGroupSize(LogicTile tile) {
-        List<TileGroup> groups = getNeighboringGroups(tile);
+    private int getNewGroupSize(LogicTile tile, int playerColor) {
+        List<TileGroup> groups = getNeighboringGroups(tile, playerColor);
         int size = 0;
 
         for (TileGroup group : groups)
@@ -117,9 +112,9 @@ public class GameState {
      * these groups will merge, decreasing the amount of total groups.
      * @return total groups if tile were to be colored
      */
-    private int getNewTotalGroups(LogicTile tile) {
-        int totalNeighboringGroups = board.getGroups(tile.getColour()).size();
-        int totalGroups = getNeighboringGroups(tile).size();
+    private int getNewTotalGroups(LogicTile tile, int playerColor) {
+        int totalNeighboringGroups = board.getGroups(tile.getPlayerColor()).size();
+        int totalGroups = getNeighboringGroups(tile, playerColor).size();
         return totalGroups - (totalNeighboringGroups + 1);
     }
 
@@ -128,7 +123,7 @@ public class GameState {
      * @return TileGroup which tile is located in
      */
     private TileGroup getGroup(LogicTile tile) {
-        List<TileGroup> groups =  board.getGroups(tile.getColour());
+        List<TileGroup> groups =  board.getGroups(tile.getPlayerColor());
 
         for (TileGroup group : groups)
             for (LogicTile groupTile : group.getMembers())
