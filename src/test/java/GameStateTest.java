@@ -104,20 +104,6 @@ public class GameStateTest {
         moveNextToEachOtherPlayer1(6, 1);
     }
 
-    // total groups of 1
-
-    @Test
-    public void assertTotalGroups1a() throws Exception {
-        assertTotalGroups1(3,4);
-    }
-
-    @Test
-    public void assertTotalGroups1b() throws Exception {
-        System.out.println("HEY");
-        System.out.println(state.getBoard().getTileMap().get(5, 4));
-        assertTotalGroups1(5,4);
-    }
-
     // total groups of 2
 
     @Test
@@ -128,6 +114,20 @@ public class GameStateTest {
     @Test
     public void assertTotalGroups2b() throws Exception{
         assertTotalGroups2(4,4, 2, 2);
+    }
+
+    // total groups of 2 when merge
+
+    @Test
+    public void assertTotalGroups2WhenMergeA() throws Exception {
+        state.move(1, 2, 1);
+        assertTotalGroups2WhenMerge(3,4);
+    }
+
+    @Test
+    public void assertTotalGroups2WhenMergeB() throws Exception {
+        state.move(4, 3, 1);
+        assertTotalGroups2WhenMerge(3,5);
     }
 
 
@@ -150,7 +150,6 @@ public class GameStateTest {
         Exception exception = Assertions.assertThrows(IllegalMoveException.class, () -> {
             state.move(p, q, 1);
             state.move(p, q+1, 1);
-            System.out.println(state.getBoard().getTileMap());
         });
         Assertions.assertTrue(exception.getMessage().contains("Move is Illegal"));
     }
@@ -161,9 +160,10 @@ public class GameStateTest {
         Assertions.assertEquals(2, state.getBoard().getGroups(1).size());
     }
 
-    public void assertTotalGroups1(int q, int r) throws Exception{
+    public void assertTotalGroups2WhenMerge(int q, int r) throws Exception{
         state.move(q,r, 1);
-        Assertions.assertEquals(1, state.getBoard().getGroups(1).size());
+        state.move(q-1,r, 1);
+        Assertions.assertEquals(2, state.getBoard().getGroups(1).size());
     }
 
 

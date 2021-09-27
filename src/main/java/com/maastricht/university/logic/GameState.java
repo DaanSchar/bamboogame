@@ -42,6 +42,7 @@ public class GameState {
         if (tile.getPlayerColor() != 0)
             return false;
 
+
         if (getNeighboringGroups(tile, playerColor).size() == 0)
             return true;
 
@@ -94,9 +95,9 @@ public class GameState {
      * @return total groups if tile were to be colored
      */
     private int getNewTotalGroups(LogicTile tile, int playerColor) {
-        int totalNeighboringGroups = board.getGroups(tile.getPlayerColor()).size();
-        int totalGroups = getNeighboringGroups(tile, playerColor).size();
-        return totalGroups - (totalNeighboringGroups + 1);
+        int totalGroups = board.getGroups(playerColor).size();
+        int totalNeighboringGroups = getNeighboringGroups(tile, playerColor).size();
+        return totalGroups+1 - (totalNeighboringGroups);
     }
 
     /**
