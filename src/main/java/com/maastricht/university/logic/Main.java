@@ -18,6 +18,8 @@ public class Main {
             System.out.println(e);
         }
 
+        System.out.println(state.getBoard().getTileMap());
+
     }
 }
 
