@@ -18,7 +18,6 @@ public class Board {
      * @param boardSize is the size of our board
      * @param numberOfPlayers is the number of players that the user decided
      */
-
     public Board(final int boardSize, final int numberOfPlayers) throws Exception {
         this.boardSize = boardSize;
         this.numberOfPlayers = numberOfPlayers;
@@ -37,13 +36,13 @@ public class Board {
     private void initBoard() {
         tileMap = new Hexagon<>(boardSize);
 
-        for (int i = 0; i < tileMap.size(); i++)
-            for (int j = 0; j < tileMap.size(); j++)
-                tileMap.insert(i, j, new LogicTile(this));
+        for (int q = 0; q < tileMap.size(); q++)
+            for (int r = 0; r < tileMap.size(); r++)
+                tileMap.insert(q, r, new LogicTile(this, q, r));
 
-        for (int i = 0; i < tileMap.size(); i++)
-            for (int j = 0; j < tileMap.size(); j++)
-                SetNeighboursOfTile(i, j);
+        for (int q = 0; q < tileMap.size(); q++)
+            for (int r = 0; r < tileMap.size(); r++)
+                SetNeighboursOfTile(q, r);
     }
 
     private void SetNeighboursOfTile(int q, int r) {
@@ -55,6 +54,10 @@ public class Board {
             if (tile != null)
                 tile.addNeighbour(neighbour);
         }
+    }
+
+    public IHexagon<LogicTile> getHexagon() {
+        return this.tileMap;
     }
 
     /**
@@ -145,7 +148,7 @@ public class Board {
 
     /**
      *
-     * @param c colour
+     * @param playerColor colour
      * @return the group of the previous move
      */
     public List<TileGroup> getGroups(int playerColor) {return groups[playerColor-1];}

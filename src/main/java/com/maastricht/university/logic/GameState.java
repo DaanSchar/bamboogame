@@ -43,6 +43,13 @@ public class GameState {
      * @return true or false depending on is legal move
      */
     public boolean isLegal(int x, int y, int c) {
-        return board.isLegal(x, y, c);
+        LogicTile tile = board.getHexagon().get(x, y);
+
+        if (tile.getColour() != 0)
+            return false;
+
+
+
+        return true;
     }
 }

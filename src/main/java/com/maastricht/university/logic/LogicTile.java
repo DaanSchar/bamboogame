@@ -12,11 +12,14 @@ public class LogicTile {
 
     private List<LogicTile> neighbours = new LinkedList<LogicTile>();
 
+    private int q;
+    private int r;
+
     /**
      * Constructs an empty Tile
      * @param b the board that contains this tile
      */
-    public LogicTile(Board b) {
+    public LogicTile(Board b, int p, int q) {
         board = b;
         colour = 0;
     }
