@@ -59,7 +59,7 @@ public class Board {
      * @param group new group added
      */
     public void addGroup(TileGroup group) {
-        groups[group.getGroupID()].add(group);
+        groups[group.getPlayerColor()-1].add(group);
     }
 
     /**
@@ -67,7 +67,7 @@ public class Board {
      * @param group removed group
      */
     public void removeGroup(TileGroup group) {
-        groups[group.getGroupID()].remove(group);
+        groups[group.getPlayerColor()-1].remove(group);
     }
 
     /**
@@ -192,6 +192,10 @@ public class Board {
      * merges them to one group
      */
     private void mergeNeighboringGroups(int q, int r) {
+
+        if (tileMap.get(q,r) == null)
+            return;
+
         List<TileGroup> neighborGroup = getNeighboringGroups(q, r);
 
         if (neighborGroup.size() > 0) {
