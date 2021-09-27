@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
-public class AgainstHuman{
+public class Main{
     int width = 800;
     int height = 500;
 
@@ -71,8 +71,5 @@ public class AgainstHuman{
         return 0;
     }
 
-    //public static void main(String[] args) {
-        //launch();
-    //}
 
 }
