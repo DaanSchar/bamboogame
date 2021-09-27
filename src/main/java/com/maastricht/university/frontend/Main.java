@@ -25,7 +25,7 @@ public class Main{
 
     public Scene getScene(){
 
-        TileMap tilemap = new TileMap(width/4,height/6,30);
+        TileMap tilemap = new TileMap(9,width/4,height/6,30);
         Pane playground = tilemap.getTileMapPane();
 
         //add labels for player stats to screen
