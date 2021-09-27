@@ -2,6 +2,7 @@ package com.maastricht.university.logic;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class LogicTile {
     private final Board board; //TODO: Why does a tile need a reference to the board its in?
@@ -22,6 +23,14 @@ public class LogicTile {
     public LogicTile(Board b, int p, int q) {
         board = b;
         colour = 0;
+    }
+
+    public int getQ() {
+        return this.q;
+    }
+
+    public int getR() {
+        return this.r;
     }
 
     /**
@@ -203,4 +212,15 @@ public class LogicTile {
         //if that is not the case, return true
         return true;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LogicTile logicTile = (LogicTile) o;
+        return colour == logicTile.colour &&
+                q == logicTile.q &&
+                r == logicTile.r;
+    }
+
 }
