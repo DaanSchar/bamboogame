@@ -43,11 +43,11 @@ public class HexagonTest {
     public void cloneTest() {
         Random r = new Random();
 
-        class Point{
+        class Point implements Cloneable{
             int a;
             int b;
 
-            public Point(int a, int b) {
+            public Point(int a, int b){
                 this.a = a;
                 this.b = b;
             }

@@ -136,7 +136,7 @@ public class Board {
 
 
     private void initGroups() {
-        groups = new LinkedList[2];
+        groups = new LinkedList[numberOfPlayers];
 
         for(int i=0; i<numberOfPlayers; i++)
             groups[i] = new LinkedList<TileGroup>();
