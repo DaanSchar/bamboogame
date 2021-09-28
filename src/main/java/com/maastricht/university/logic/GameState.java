@@ -25,6 +25,7 @@ public class GameState {
      * performs a move if it is legal
      */
     public void move(int q, int r, int playerColor) throws Exception {
+        //TODO: catch these exceptions inside this method instead of throwing it outside
         if (board.getTileMap().get(q, r) == null)
             throw new OutsideHexagonException("Coordinates are outside tilemap, returned null");
         if (!isLegal(q, r, playerColor))
