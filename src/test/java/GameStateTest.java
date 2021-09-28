@@ -160,12 +160,10 @@ public class GameStateTest {
 
     @Test
     public void assertPlayGamePart3() throws Exception{
-        Exception exception = Assertions.assertThrows(IllegalMoveException.class, () -> {
-            simulateGamePart1();
-            simulateGamePart2();
-            state.move(5, 0,1);
-        });
-        Assertions.assertTrue(exception.getMessage().contains("Move is Illegal"));
+        simulateGamePart1();
+        simulateGamePart2();
+        state.move(5, 0,1);
+        Assertions.assertEquals(0, state.getBoard().getTileMap().get(5, 0).getPlayerColor());
     }
 
 
@@ -178,28 +176,27 @@ public class GameStateTest {
     }
 
     private void moveOutsideHexagonPlayer1(int q, int r) throws Exception{
-        Exception exception = Assertions.assertThrows(OutsideHexagonException.class, () -> {
-            state.move(q, r, 1);
-        });
-        Assertions.assertTrue(exception.getMessage().contains("Coordinates are outside tilemap, returned null"));
+        state.move(q, r, 1);
+        Assertions.assertEquals(0 ,state.getBoard().getGroups(1).size());
     }
 
     public void moveNextToEachOtherPlayer1(int p, int q) {
-        Exception exception = Assertions.assertThrows(IllegalMoveException.class, () -> {
-            state.move(p, q, 1);
-            state.move(p, q+1, 1);
-        });
-        Assertions.assertTrue(exception.getMessage().contains("Move is Illegal"));
+        state.move(p, q, 1);
+        state.move(6,0,2);
+        state.move(p, q+1, 1);
+        Assertions.assertEquals(0, state.getBoard().getTileMap().get(p,q+1).getPlayerColor());
     }
 
     public void assertTotalGroups2(int q1, int r1, int q2, int r2) throws Exception{
         state.move(q1,r1, 1);
-        state.move(q1,q2, 1);
+        state.move(5,0,2);
+        state.move(q2,r2, 1);
         Assertions.assertEquals(2, state.getBoard().getGroups(1).size());
     }
 
     public void assertTotalGroups2WhenMerge(int q, int r) throws Exception{
         state.move(q,r, 1);
+        state.move(q+1, r, 2);
         state.move(q-1,r, 1);
         Assertions.assertEquals(2, state.getBoard().getGroups(1).size());
     }
