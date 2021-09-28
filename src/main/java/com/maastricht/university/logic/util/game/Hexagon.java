@@ -5,7 +5,7 @@ import com.maastricht.university.logic.util.interfaces.IHexagon;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hexagon<T> implements IHexagon<T> {
+public class Hexagon<T /*extends Cloneable*/> implements IHexagon<T> {
 
     /**
      * this class represent a 2d hexagonal structure represented by a 2d array.
@@ -78,12 +78,20 @@ public class Hexagon<T> implements IHexagon<T> {
 
         IHexagon<T> copy = new Hexagon<T>(size);
 
-        for (int i = 0; i < arraySize; i++)
-            for (int j = 0; j < arraySize; j++)
-                copy.insert(i,j, this.get(i, j));
-
+        for (int i = 0; i < arraySize; i++) {
+            for (int j = 0; j < arraySize; j++) {
+                copy.insert(i, j, this.get(i, j));
+                /*
+                T oldT = (T) this.get(i,j);
+                T newT = oldT.clone();
+                copy.insert(i, j, this.get(i, j).clone());
+                */
+            }
+        }
         return copy;
     }
+
+
 
     @Override
     public boolean contains(T entity) {

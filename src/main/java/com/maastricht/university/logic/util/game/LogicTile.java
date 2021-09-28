@@ -1,6 +1,6 @@
 package com.maastricht.university.logic.util.game;
 
-public class LogicTile {
+public class LogicTile implements Cloneable {
 
     private int playerColor;
     private int q;
