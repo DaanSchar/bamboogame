@@ -102,25 +102,9 @@ public class GameState implements IGameState{
      * @return list of unique groups of the neighbors of tile
      */
     private List<TileGroup> getNeighboringGroups(LogicTile tile, int playerColor) {
-        List<LogicTile> neighbors = getNeighbors(tile);
-        List<TileGroup> groups = new LinkedList<>();
-
-        for (LogicTile neighbor : neighbors)
-            if (board.getGroup(neighbor) != null)
-                if (board.getGroup(neighbor).getPlayerColor() == playerColor)
-                    groups.add(board.getGroup(neighbor));
-
-
-        removeDuplicateGroups(groups);
-        return groups;
+        return board.getNeighboringGroups(tile.getQ(), tile.getR(), playerColor);
     }
 
-    private void removeDuplicateGroups(List<TileGroup> groups) {
-        for (int i = 0; i < groups.size(); i++)
-            for (int j = i + 1; j < groups.size(); j++)
-                if (groups.get(i).equals(groups.get(j)))
-                    groups.remove(i);
-    }
 
     /**
      * a neighbor of a tile is defined by its location in the hexagon structure.
