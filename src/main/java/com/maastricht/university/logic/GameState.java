@@ -19,25 +19,23 @@ public class GameState {
      */
     public GameState(final int boardSize, final int numberOfPlayers) {
         this.board = new Board(boardSize, numberOfPlayers);
+        this.numberOfPlayers = numberOfPlayers;
+        playerTurn = 1;
     }
 
     /**
      * performs a move if it is legal
      */
-    public void move(int q, int r, int playerColor) throws Exception {
-        //TODO: catch these exceptions inside this method instead of throwing it outside
-        if (board.getTileMap().get(q, r) == null)
-            throw new OutsideHexagonException("Coordinates are outside tilemap, returned null");
-        if (!isLegal(q, r, playerColor))
-            throw new IllegalMoveException("Move is Illegal");
-        if (playerColor != playerTurn)
-            throw new IllegalMoveException("It is not their turn.");
-        if (playerColor > numberOfPlayers)
-            throw new IllegalMoveException("there are only " + numberOfPlayers + " players.");
-        if (playerColor < 1)
-            throw new IllegalMoveException("player must be bigger than 0");
+    public void move(int q, int r, int playerColor) {
+        try {
+            findIllegalException(q,r,playerColor);
 
-        board.move(q, r, playerColor);
+            board.move(q, r, playerColor);
+            playerTurn = getNextPlayer();
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("current player is still " + playerTurn);
+        }
     }
 
     /**
@@ -150,6 +148,30 @@ public class GameState {
      */
     private List<LogicTile> getNeighbors(LogicTile tile) {
         return board.getTileMap().getNeighbours(tile.getQ(), tile.getR());
+    }
+
+    /**
+     * throws the exception that need to be caught inside move()
+     */
+    private void findIllegalException(int q, int r, int playerColor) throws Exception {
+        if (board.getTileMap().get(q, r) == null)
+            throw new OutsideHexagonException("Coordinates are outside tilemap, returned null");
+        if (!isLegal(q, r, playerColor))
+            throw new IllegalMoveException("Move is Illegal");
+        if (playerColor != playerTurn)
+            throw new IllegalMoveException("It is not their turn.");
+        if (playerColor > numberOfPlayers)
+            throw new IllegalMoveException("there are only " + numberOfPlayers + " players.");
+        if (playerColor < 1)
+            throw new IllegalMoveException("player must be bigger than 0");
+    }
+
+    private int getNextPlayer() {
+        int nextPlayer = playerTurn+1;
+
+        if (nextPlayer > numberOfPlayers)
+            return 1;
+        return nextPlayer;
     }
 
 

@@ -8,17 +8,13 @@ public class Main {
     public static void main(String[] args) throws Exception  {
         GameState state = new GameState(2,2);
 
-        try {
-            state.move(0, 3, 1);
-        } catch (IllegalMoveException e) {
-            System.out.println(e);
-        }
 
-        try {
-            state.move(0, 4, 1);
-        } catch (IllegalMoveException e) {
-            System.out.println(e);
-        }
+        state.move(0, 3, 1);
+
+
+
+        state.move(0, 4, 1);
+
 
         System.out.println(state.getBoard().getTileMap());
 
