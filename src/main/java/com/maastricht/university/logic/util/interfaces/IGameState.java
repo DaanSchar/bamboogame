@@ -5,6 +5,11 @@ import com.maastricht.university.logic.game.TileGroup;
 
 import java.util.List;
 
+/**
+ * this interface makes sure that the frontend wont have access to anything we dont want
+ * the frontend to have access to. we do this by giving this interface methods for
+ * everything that the frontend might need as primitive types, which are not mutable.
+ */
 public interface IGameState {
 
     /**
