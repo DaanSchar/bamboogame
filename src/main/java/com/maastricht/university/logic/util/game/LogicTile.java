@@ -59,4 +59,11 @@ public class LogicTile {
     public String toString() {
         return playerColor + "";
     }
+
+    @Override
+    public LogicTile clone() {
+        LogicTile newTile = new LogicTile(q, r);
+        newTile.setPlayerColour(playerColor);
+        return newTile;
+    }
 }
