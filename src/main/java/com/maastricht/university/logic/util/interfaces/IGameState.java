@@ -1,10 +1,5 @@
 package com.maastricht.university.logic.util.interfaces;
 
-import com.maastricht.university.logic.game.Board;
-import com.maastricht.university.logic.game.TileGroup;
-
-import java.util.List;
-
 /**
  * this interface makes sure that the frontend wont have access to anything we dont want
  * the frontend to have access to. we do this by giving this interface methods for
