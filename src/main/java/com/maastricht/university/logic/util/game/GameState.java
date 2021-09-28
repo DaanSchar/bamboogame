@@ -1,12 +1,13 @@
-package com.maastricht.university.logic;
+package com.maastricht.university.logic.util.game;
 
-import com.maastricht.university.logic.exceptions.IllegalMoveException;
-import com.maastricht.university.logic.exceptions.OutsideHexagonException;
+import com.maastricht.university.logic.util.exceptions.IllegalMoveException;
+import com.maastricht.university.logic.util.exceptions.OutsideHexagonException;
+import com.maastricht.university.logic.util.interfaces.IGameState;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class GameState {
+public class GameState implements IGameState {
 
     private Board board;
     private int playerTurn;

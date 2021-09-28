@@ -1,6 +1,4 @@
-import com.maastricht.university.logic.GameState;
-import com.maastricht.university.logic.exceptions.IllegalMoveException;
-import com.maastricht.university.logic.exceptions.OutsideHexagonException;
+import com.maastricht.university.logic.util.game.GameState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,6 @@
-package com.maastricht.university.logic;
+package com.maastricht.university.logic.util.game;
+import com.maastricht.university.logic.util.interfaces.IHexagon;
+
 import java.util.LinkedList;
 import java.util.List;
 

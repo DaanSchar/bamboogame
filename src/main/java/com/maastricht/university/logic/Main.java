@@ -1,7 +1,7 @@
 package com.maastricht.university.logic;
 
 
-import com.maastricht.university.logic.exceptions.IllegalMoveException;
+import com.maastricht.university.logic.util.game.GameState;
 
 public class Main {
 

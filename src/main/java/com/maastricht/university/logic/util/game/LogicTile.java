@@ -1,8 +1,4 @@
-package com.maastricht.university.logic;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+package com.maastricht.university.logic.util.game;
 
 public class LogicTile {
 

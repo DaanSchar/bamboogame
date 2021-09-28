@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.exceptions;
+package com.maastricht.university.logic.util.exceptions;
 
 public class OutsideHexagonException extends Exception{
 
