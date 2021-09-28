@@ -7,7 +7,7 @@ import com.maastricht.university.logic.util.interfaces.IGameState;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GameState implements IGameState {
+public class GameState implements IGameState{
 
     private Board board;
     private int playerTurn;
@@ -58,26 +58,14 @@ public class GameState implements IGameState {
         return true;
     }
 
-
     public Board getBoard() {
         return board;
     }
 
     /**
-     *
      * @return an int representing the player who's turn it is, which must be > 0
      */
     public int getPlayerTurn() { return playerTurn; }
-
-
-
-
-
-
-
-
-
-
 
     /**
      * returns the size of the group this tile will reside in once
