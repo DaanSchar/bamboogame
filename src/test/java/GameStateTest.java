@@ -158,6 +158,16 @@ public class GameStateTest {
         Assertions.assertEquals(3,state.getBoard().getGroups(2).size());
     }
 
+    @Test
+    public void assertPlayGamePart3() throws Exception{
+        Exception exception = Assertions.assertThrows(IllegalMoveException.class, () -> {
+            simulateGamePart1();
+            simulateGamePart2();
+            state.move(5, 0,1);
+        });
+        Assertions.assertTrue(exception.getMessage().contains("Move is Illegal"));
+    }
+
 
 
     // helper methods
