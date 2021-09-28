@@ -49,7 +49,6 @@ public class GameState implements IGameState {
         if (tile.getPlayerColor() != 0)
             return false;
 
-
         if (getNeighboringGroups(tile, playerColor).size() == 0)
             return true;
 
@@ -70,12 +69,6 @@ public class GameState implements IGameState {
      */
     public int getPlayerTurn() { return playerTurn; }
 
-    /**
-     * takes an int representing the player, which must be > 0,
-     * setting who's players turn it is to that player.
-     * @param playerColor
-     */
-    public void setPlayerTurn(int playerColor) { this.playerTurn = playerColor; }
 
 
 
