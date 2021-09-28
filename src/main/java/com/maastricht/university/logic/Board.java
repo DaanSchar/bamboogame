@@ -30,9 +30,16 @@ public class Board {
      * @param playerColor colour that can be used to colour the tile
      */
     public void move(int q, int r, int playerColor) {
-        tileMap.get(q, r).setPlayerColour(playerColor);
-        addGroup(new TileGroup(tileMap.get(q, r)));
-        updateGroups();
+        try {
+            if (playerColor > numberOfPlayers)
+                throw new IllegalArgumentException("playerColor is not a legal color");
+            tileMap.get(q, r).setPlayerColour(playerColor);
+            addGroup(new TileGroup(tileMap.get(q, r)));
+            updateGroups();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -108,6 +115,25 @@ public class Board {
         addGroup(newGroup);
     }
 
+    /**
+     * since getting the group of each neighbor results in having
+     * duplicate groups if 2 neighbors are in the same group, we
+     * have to filter this list for duplicates.
+     * @return list of unique groups of the neighbors with the playerColor of tile
+     */
+    public List<TileGroup> getNeighboringGroups(int q, int r, int playerColor) {
+        LogicTile tile = tileMap.get(q, r);
+        List<LogicTile> neighbors = tileMap.getNeighbours(q, r);
+        List<TileGroup> groups = new LinkedList<>();
+
+        for (LogicTile neighbor : neighbors)
+            if (getGroup(neighbor) != null)
+                if (getGroup(neighbor).getPlayerColor() == playerColor)
+                    groups.add(getGroup(neighbor));
+
+        return removeDuplicateGroups(groups);
+    }
+
 
 
 
@@ -136,25 +162,6 @@ public class Board {
                 tileMap.insert(q, r, new LogicTile( q, r));
     }
 
-    /**
-     * since getting the group of each neighbor results in having
-     * duplicate groups if 2 neighbors are in the same group, we
-     * have to filter this this list for duplicates.
-     * @return list of unique groups of the neighbors with the playerColor of tile
-     */
-    private List<TileGroup> getNeighboringGroups(int q, int r) {
-        LogicTile tile = tileMap.get(q, r);
-        List<LogicTile> neighbors = tileMap.getNeighbours(q, r);
-        List<TileGroup> groups = new LinkedList<>();
-
-        for (LogicTile neighbor : neighbors)
-            if (getGroup(neighbor) != null)
-                if (getGroup(neighbor).getPlayerColor() == tile.getPlayerColor())
-                    groups.add(getGroup(neighbor));
-
-        return removeDuplicateGroups(groups);
-    }
-
     private List<TileGroup> removeDuplicateGroups(List<TileGroup> groups) {
         for (int i = 0; i < groups.size(); i++)
             for (int j = i + 1; j < groups.size(); j++)
@@ -179,10 +186,10 @@ public class Board {
      */
     private void mergeNeighboringGroups(int q, int r) {
 
-        if (tileMap.get(q,r) == null)
+        if (tileMap.get(q,r) == null || tileMap.get(q,r).getPlayerColor()==0)
             return;
 
-        List<TileGroup> neighborGroup = getNeighboringGroups(q, r);
+        List<TileGroup> neighborGroup = getNeighboringGroups(q, r, tileMap.get(q, r).getPlayerColor());
 
         if (neighborGroup.size() > 0) {
             neighborGroup.add(getGroup(tileMap.get(q, r)));
