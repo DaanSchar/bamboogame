@@ -10,6 +10,7 @@ public class GameState {
 
     private Board board;
     private int playerTurn;
+    private int numberOfPlayers;
 
     /**
      * construct the gamestate
@@ -30,9 +31,12 @@ public class GameState {
             throw new IllegalMoveException("Move is Illegal");
         if (playerColor != playerTurn)
             throw new IllegalMoveException("It is not their turn.");
+        if (playerColor > numberOfPlayers)
+            throw new IllegalMoveException("there are only " + numberOfPlayers + " players.");
+        if (playerColor < 1)
+            throw new IllegalMoveException("player must be bigger than 0");
 
         board.move(q, r, playerColor);
-
     }
 
     /**
