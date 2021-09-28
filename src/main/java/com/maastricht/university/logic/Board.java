@@ -6,7 +6,6 @@ public class Board {
 
     private int boardSize;
 
-    private int playerTurn;
     private int numberOfPlayers;
 
     private List<TileGroup>[] groups;
@@ -87,19 +86,6 @@ public class Board {
 
         return groups[playerColor-1];
     }
-
-    /**
-     *
-     * @return an int representing the player who's turn it is, which must be > 0
-     */
-    public int getPlayerTurn() { return playerTurn; }
-
-    /**
-     * takes an int representing the player, which must be > 0,
-     * setting who's players turn it is to that player.
-     * @param playerColor
-     */
-    public void setPlayerTurn(int playerColor) { this.playerTurn = playerColor; }
 
     public IHexagon<LogicTile> getTileMap() {
         return this.tileMap;

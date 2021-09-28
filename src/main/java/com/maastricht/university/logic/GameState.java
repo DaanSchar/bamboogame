@@ -9,6 +9,7 @@ import java.util.List;
 public class GameState {
 
     private Board board;
+    private int playerTurn;
 
     /**
      * construct the gamestate
@@ -27,6 +28,8 @@ public class GameState {
             throw new OutsideHexagonException("Coordinates are outside tilemap, returned null");
         if (!isLegal(q, r, playerColor))
             throw new IllegalMoveException("Move is Illegal");
+        if (playerColor != playerTurn)
+            throw new IllegalMoveException("It is not their turn.");
 
         board.move(q, r, playerColor);
 
@@ -52,17 +55,23 @@ public class GameState {
         return true;
     }
 
-    /**
-     *
-     * @return player turn
-     */
-    public int getPlayerTurn() {
-        return board.getPlayerTurn();
-    }
 
     public Board getBoard() {
         return board;
     }
+
+    /**
+     *
+     * @return an int representing the player who's turn it is, which must be > 0
+     */
+    public int getPlayerTurn() { return playerTurn; }
+
+    /**
+     * takes an int representing the player, which must be > 0,
+     * setting who's players turn it is to that player.
+     * @param playerColor
+     */
+    public void setPlayerTurn(int playerColor) { this.playerTurn = playerColor; }
 
 
 
