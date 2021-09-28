@@ -1,6 +1,6 @@
 package com.maastricht.university.logic.util.interfaces;
 
-import com.maastricht.university.logic.util.game.Board;
+import com.maastricht.university.logic.game.Board;
 
 public interface IGameState {
 

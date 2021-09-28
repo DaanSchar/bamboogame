@@ -1,4 +1,4 @@
-import com.maastricht.university.logic.util.game.Hexagon;
+import com.maastricht.university.logic.game.Hexagon;
 import com.maastricht.university.logic.util.interfaces.IHexagon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

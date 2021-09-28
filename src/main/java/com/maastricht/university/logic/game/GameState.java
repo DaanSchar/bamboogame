@@ -1,10 +1,9 @@
-package com.maastricht.university.logic.util.game;
+package com.maastricht.university.logic.game;
 
 import com.maastricht.university.logic.util.exceptions.IllegalMoveException;
 import com.maastricht.university.logic.util.exceptions.OutsideHexagonException;
 import com.maastricht.university.logic.util.interfaces.IGameState;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class GameState implements IGameState{

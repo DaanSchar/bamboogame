@@ -1,4 +1,4 @@
-import com.maastricht.university.logic.util.game.GameState;
+import com.maastricht.university.logic.game.GameState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
