@@ -6,7 +6,7 @@ import com.maastricht.university.logic.util.interfaces.IGameState;
 
 import java.util.List;
 
-public class GameState implements IGameState{
+public class GameState implements IGameState {
 
     private Board board;
     private int playerTurn;
@@ -23,9 +23,7 @@ public class GameState implements IGameState{
         playerTurn = 1;
     }
 
-    /**
-     * performs a move if it is legal
-     */
+    @Override
     public void move(int q, int r, int playerColor) {
         try {
             findIllegalException(q,r,playerColor);
@@ -39,9 +37,10 @@ public class GameState implements IGameState{
     }
 
     /**
-     * method that check if the new player move is legal
-     * @return true or false depending on is legal move
+     * a player must have enough groups to make a legal move.
+     * a move must result in still having enough groups to justify the move's legality.
      */
+    @Override
     public boolean isLegal(int q, int r, int playerColor) {
         LogicTile tile = board.getTileMap().get(q, r);
 
@@ -57,14 +56,30 @@ public class GameState implements IGameState{
         return true;
     }
 
+    @Override
+    public int getPlayerTurn() { return playerTurn; }
+
+    @Override
+    public int getTotalGroups(int playerColor) {
+        return board.getGroups(playerColor).size();
+    }
+
+    @Override
+    public int getLargestGroupSize(int playerColor) {
+        List<TileGroup> groups = board.getGroups(playerColor);
+        int max = 0;
+
+        for (TileGroup group : groups)
+            if (group.getMembers().size() > max)
+                max = group.getMembers().size();
+
+        return max;
+    }
+
     public Board getBoard() {
         return board;
     }
 
-    /**
-     * @return an int representing the player who's turn it is, which must be > 0
-     */
-    public int getPlayerTurn() { return playerTurn; }
 
     /**
      * returns the size of the group this tile will reside in once

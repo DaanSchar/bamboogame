@@ -1,8 +1,7 @@
 package com.maastricht.university.frontend;
 
 
-import com.maastricht.university.logic.Hexagon;
-import com.maastricht.university.logic.LogicTile;
+import com.maastricht.university.logic.game.Hexagon;
 import javafx.scene.layout.Pane;
 
 public class TileMap {
