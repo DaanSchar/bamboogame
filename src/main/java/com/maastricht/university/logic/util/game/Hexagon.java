@@ -1,9 +1,11 @@
-package com.maastricht.university.logic;
+package com.maastricht.university.logic.util.game;
+
+import com.maastricht.university.logic.util.interfaces.IHexagon;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hexagon<T> implements IHexagon<T>{
+public class Hexagon<T> implements IHexagon<T> {
 
     /**
      * this class represent a 2d hexagonal structure represented by a 2d array.
@@ -129,5 +131,18 @@ public class Hexagon<T> implements IHexagon<T>{
         return q + r < size || q + r > 3*size;
     }
 
+    @Override
+    public String toString() {
+        String str = "";
 
+        for (T[] row : array) {
+            str += "\n";
+            for (T element : row)
+                if ( element == null)
+                    str += "[ ] ";
+                else
+                    str += "[" + element + "] ";
+        }
+        return str;
+    }
 }

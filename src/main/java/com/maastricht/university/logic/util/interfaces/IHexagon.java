@@ -1,4 +1,4 @@
-package com.maastricht.university.logic;
+package com.maastricht.university.logic.util.interfaces;
 
 import java.util.List;
 

@@ -1,5 +1,5 @@
-import com.maastricht.university.logic.Hexagon;
-import com.maastricht.university.logic.IHexagon;
+import com.maastricht.university.logic.util.game.Hexagon;
+import com.maastricht.university.logic.util.interfaces.IHexagon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -43,11 +43,11 @@ public class HexagonTest {
     public void cloneTest() {
         Random r = new Random();
 
-        class Point{
+        class Point implements Cloneable{
             int a;
             int b;
 
-            public Point(int a, int b) {
+            public Point(int a, int b){
                 this.a = a;
                 this.b = b;
             }
