@@ -11,20 +11,6 @@ public class TileGroup {
 
     private static int count = 0;
 
-    public TileGroup(List<LogicTile> members) {
-        try {
-            if (!membersAreSameColor(members))
-                throw new IllegalArgumentException("list of members are not of the same playerColor!");
-
-            this.members = members;
-            groupID = count++;
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-
     public TileGroup(LogicTile member) {
         this.playerColor = member.getPlayerColor();
         this.members = new LinkedList<>();
