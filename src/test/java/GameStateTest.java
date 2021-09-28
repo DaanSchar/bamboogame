@@ -130,6 +130,8 @@ public class GameStateTest {
         assertTotalGroups2WhenMerge(3,5);
     }
 
+    // simulate gameplay
+
     @Test
     public void assertPlayGamePart1a() throws Exception{
         simulateGamePart1();
