@@ -130,6 +130,32 @@ public class GameStateTest {
         assertTotalGroups2WhenMerge(3,5);
     }
 
+    @Test
+    public void assertPlayGamePart1a() throws Exception{
+        simulateGamePart1();
+        Assertions.assertEquals(3,state.getBoard().getGroups(1).size());
+    }
+
+    @Test
+    public void assertPlayGamePart1b() throws Exception{
+        simulateGamePart1();
+        Assertions.assertEquals(3,state.getBoard().getGroups(2).size());
+    }
+
+    @Test
+    public void assertPlayGamePart2a() throws Exception{
+        simulateGamePart1();
+        simulateGamePart2();
+        Assertions.assertEquals(3,state.getBoard().getGroups(1).size());
+    }
+
+    @Test
+    public void assertPlayGamePart2b() throws Exception{
+        simulateGamePart1();
+        simulateGamePart2();
+        Assertions.assertEquals(3,state.getBoard().getGroups(2).size());
+    }
+
 
 
     // helper methods
@@ -166,5 +192,23 @@ public class GameStateTest {
         Assertions.assertEquals(2, state.getBoard().getGroups(1).size());
     }
 
+    public void simulateGamePart1() throws Exception{
+        state.move(3,3, 1);
+        state.move(2,3, 2);
+
+        state.move(4,0, 1);
+        state.move(1,2, 2);
+
+        state.move(6,0, 1);
+        state.move(0,6, 2);
+    }
+
+    public void simulateGamePart2() throws Exception{
+        state.move(6,2,1);
+        state.move(4,5,2);
+
+        state.move(6,1,1);
+        state.move(1,3,2);
+    }
 
 }
