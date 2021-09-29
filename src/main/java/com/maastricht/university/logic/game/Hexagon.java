@@ -1,6 +1,7 @@
 package com.maastricht.university.logic.game;
 
 import com.maastricht.university.logic.util.interfaces.IHexagon;
+import com.rits.cloning.Cloner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,8 @@ public class Hexagon<T /*extends Cloneable*/> implements IHexagon<T> {
      * if we wanted to add some translations of the coordinates to have the center of the hexagon be 0,0 ,
      * but for now that doesnt seem really necessary.
      */
+
+    Cloner cloner=new Cloner();
 
     private int size;
     private int arraySize;
@@ -80,12 +83,8 @@ public class Hexagon<T /*extends Cloneable*/> implements IHexagon<T> {
 
         for (int i = 0; i < arraySize; i++) {
             for (int j = 0; j < arraySize; j++) {
-                copy.insert(i, j, this.get(i, j));
-                /*
-                T oldT = (T) this.get(i,j);
-                T newT = oldT.clone();
-                copy.insert(i, j, this.get(i, j).clone());
-                */
+                T clone = cloner.deepClone(this.get(i, j));
+                copy.insert(i, j, clone);
             }
         }
         return copy;
