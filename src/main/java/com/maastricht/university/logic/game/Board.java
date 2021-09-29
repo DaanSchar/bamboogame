@@ -80,12 +80,6 @@ public class Board {
 
     /**
      *
-     * @return the length of the board
-     */
-    public int getBoardSize() {return boardSize;}
-
-    /**
-     *
      * @param playerColor colour
      * @return the current groups which belong to the player of playerColor
      */
