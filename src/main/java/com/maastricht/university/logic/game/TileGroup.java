@@ -79,6 +79,18 @@ public class TileGroup {
         }
     }
 
+    //TODO: do we need to make the groupID the same too?
+    public TileGroup cloneFromTileMap(Hexagon<LogicTile> tileMap) {
+        TileGroup cloneTileGroup = new TileGroup(this.playerColor);
+
+        for(int i=0; i<members.size(); i++) {
+            LogicTile oldTile = members.get(i);
+            LogicTile newTile = tileMap.get(oldTile.getQ(), oldTile.getR());
+            cloneTileGroup.addMember(newTile);
+        }
+        return cloneTileGroup;
+    }
+
 
 
 

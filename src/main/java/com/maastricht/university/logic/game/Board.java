@@ -11,6 +11,7 @@ public class Board {
     private int numberOfPlayers;
 
     private List<TileGroup>[] groups;
+
     private Hexagon<LogicTile> tileMap;
 
     /**
@@ -23,7 +24,7 @@ public class Board {
         this.numberOfPlayers = numberOfPlayers;
 
         initGroups();
-        initBoard();
+        initTilemap();
     }
 
     /**
@@ -139,6 +140,21 @@ public class Board {
         return removeDuplicateGroups(groups);
     }
 
+    public void setTileMap(Hexagon<LogicTile> newTileMap) {
+        this.tileMap = newTileMap;
+    }
+
+    //TODO: this method isn't finished yet
+    @Override
+    public Board clone() {
+        Board cloneBoard = new Board(boardSize, numberOfPlayers);
+        Hexagon<LogicTile> cloneTileMap = (Hexagon<LogicTile>) this.tileMap.clone();
+
+
+
+        return cloneBoard;
+    }
+
 
 
 
@@ -159,7 +175,7 @@ public class Board {
             groups[i] = new LinkedList<TileGroup>();
     }
 
-    private void initBoard() {
+    private void initTilemap() {
         tileMap = new Hexagon<>(boardSize);
 
         for (int q = 0; q < tileMap.size(); q++)
