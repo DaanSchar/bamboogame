@@ -64,16 +64,14 @@ public class Main{
 
 
     public int p1groups(){
-        Factory factory = new Factory();
-        IGameState gameState = factory.getGameState();
+        IGameState gameState = Factory.getGameState();
 
         return gameState.getTotalGroups(1);
     }
 
 
     public int p2groups(){
-        Factory factory = new Factory();
-        IGameState gameState = factory.getGameState();
+        IGameState gameState = Factory.getGameState();
 
         return gameState.getTotalGroups(2);
     }
