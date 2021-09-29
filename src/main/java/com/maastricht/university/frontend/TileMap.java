@@ -50,7 +50,7 @@ public class TileMap {
 
         for (int i = 0; i < hexagon.size(); i++)
             for (int j = 0; j < hexagon.size(); j++)
-                hexagon.insert(i, j, new Tile(mapX + (i * TileSize) + (i + j * TileSize / 2),
+                hexagon.insert(i, j, new Tile(i,j ,mapX + (i * TileSize) + (i + j * TileSize / 2),
                         mapY + j * TileSize,
                         30,
                         j + i * dimension));
