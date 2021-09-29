@@ -24,4 +24,4 @@ test {
     useJUnitPlatform()
 }
 
-mainClassName = 'com.maastricht.university.frontend.Main'
+mainClassName = 'com.maastricht.university.frontend.MainMenu'

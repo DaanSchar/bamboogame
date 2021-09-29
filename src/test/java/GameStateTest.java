@@ -133,27 +133,27 @@ public class GameStateTest {
     @Test
     public void assertPlayGamePart1a() throws Exception{
         simulateGamePart1();
-        Assertions.assertEquals(3,state.getBoard().getGroups(1).size());
+        Assertions.assertEquals(3,state.getTotalGroups(1));
     }
 
     @Test
     public void assertPlayGamePart1b() throws Exception{
         simulateGamePart1();
-        Assertions.assertEquals(3,state.getBoard().getGroups(2).size());
+        Assertions.assertEquals(3,state.getTotalGroups(2));
     }
 
     @Test
     public void assertPlayGamePart2a() throws Exception{
         simulateGamePart1();
         simulateGamePart2();
-        Assertions.assertEquals(3,state.getBoard().getGroups(1).size());
+        Assertions.assertEquals(3,state.getTotalGroups(1));
     }
 
     @Test
     public void assertPlayGamePart2b() throws Exception{
         simulateGamePart1();
         simulateGamePart2();
-        Assertions.assertEquals(3,state.getBoard().getGroups(2).size());
+        Assertions.assertEquals(3,state.getTotalGroups(2));
     }
 
     @Test
@@ -175,7 +175,7 @@ public class GameStateTest {
 
     private void moveOutsideHexagonPlayer1(int q, int r) throws Exception{
         state.move(q, r, 1);
-        Assertions.assertEquals(0 ,state.getBoard().getGroups(1).size());
+        Assertions.assertEquals(0 ,state.getTotalGroups(1));
     }
 
     public void moveNextToEachOtherPlayer1(int p, int q) {
@@ -189,14 +189,14 @@ public class GameStateTest {
         state.move(q1,r1, 1);
         state.move(5,0,2);
         state.move(q2,r2, 1);
-        Assertions.assertEquals(2, state.getBoard().getGroups(1).size());
+        Assertions.assertEquals(2, state.getTotalGroups(1));
     }
 
     public void assertTotalGroups2WhenMerge(int q, int r) throws Exception{
         state.move(q,r, 1);
         state.move(q+1, r, 2);
         state.move(q-1,r, 1);
-        Assertions.assertEquals(2, state.getBoard().getGroups(1).size());
+        Assertions.assertEquals(2, state.getTotalGroups(1));
     }
 
     public void simulateGamePart1() throws Exception{
