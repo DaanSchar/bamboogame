@@ -1,8 +1,8 @@
 package com.maastricht.university.frontend;
 
 
-import com.maastricht.university.logic.util.game.Hexagon;
-import com.maastricht.university.logic.util.game.LogicTile;
+import com.maastricht.university.logic.game.Hexagon;
+import com.maastricht.university.logic.game.LogicTile;
 import javafx.scene.layout.Pane;
 
 public class TileMap {
@@ -49,15 +49,6 @@ public class TileMap {
 
         hexagon = new Hexagon<>(dimension/2);
 
-        /*
-        for (int i = 0; i < hexagon.size(); i++)
-            for (int j = 0; j < hexagon.size(); j++)
-                hexagon.insert(i, j, new Tile(mapX + (i * TileSize) + (i + j * TileSize / 2),
-                        mapY + j * TileSize,
-                        30,
-                        j + i * dimension));
-
-        */
         for (int i = 0; i < hexagon.size(); i++)
             for (int j = 0; j < hexagon.size(); j++)
                 hexagon.insert(i, j, new Tile(i,j ,mapX + (i * TileSize) + (i + j * TileSize / 2),
