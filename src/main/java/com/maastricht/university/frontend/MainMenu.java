@@ -24,7 +24,7 @@ public class MainMenu extends Application {
     private String tutorial = "https://www.youtube.com/embed/uVcDO8EmDCs";
     BorderPane r = new BorderPane();
     Scene scene = new Scene(r,width,height);
-    
+
     private BackgroundImage bImg = new BackgroundImage(bambooBcg,
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,

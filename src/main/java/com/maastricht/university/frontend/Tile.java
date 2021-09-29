@@ -2,7 +2,6 @@ package com.maastricht.university.frontend;
 
 import com.maastricht.university.logic.util.interfaces.IGameState;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 
 public class Tile {
@@ -49,12 +48,22 @@ public class Tile {
             if (playerColor == 2)
                 button.setColor("#E15554");
 
-            //TODO get the labels to update when no. of groups changes
             Main.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
             Main.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
 
+            showLegal(playerColor);
+
             System.out.println(game.getTotalGroups(playerColor));
         });
+    }
+    private void showLegal(int playerColor){
+        IGameState game = Factory.getGameState();
+        for(int i=0, j=0; i< size; i++) {
+            if(game.isLegal(i,j, playerColor)){
+                button.setColor("#00FF00");
+            }
+        }
+
     }
 
     public Button getButton() {
