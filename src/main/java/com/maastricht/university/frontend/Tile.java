@@ -32,14 +32,12 @@ public class Tile {
     // here we create a nice looking circular button
     private void initButton() {
         button = new HoverableButton(x, y, size, size);
-//        button.setColor("#333333");
+//        button.setColor("#121212");
         SVGPath circle = new SVGPath();
         circle.setContent("M25 20" +
                 "a5 5 0 1 1-10 0 " +
                 "5 5 0 1 1 10 0z");
         button.setShape(circle);
-        button.setText(Integer.toString(index));
-        button.setTextFill(Color.WHITE);
         setClickEvent();
     }
 
