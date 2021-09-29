@@ -1,5 +1,6 @@
 package com.maastricht.university.frontend;
 
+import com.maastricht.university.logic.util.interfaces.IGameState;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
@@ -45,12 +46,11 @@ public class Tile {
     // here we determine what happens when we click the button
     private void setClickEvent() {
         button.setOnMouseClicked(e -> {
-            System.out.println(this.index);
-            isClicked = !isClicked;
+            IGameState game = Factory.getGameState();
+            game.move(q,r,Factory.getGameState().getPlayerTurn());
 
-            if (isClicked)
-                Factory.getGameState().move(q,r,Factory.getGameState().getPlayerTurn());
-
+            String color = game.getPlayerColorOfTile(q,r) == 1? "#4d9de0" : "#E15554";
+            button.setColor(color);
         });
     }
 
