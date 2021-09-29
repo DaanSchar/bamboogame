@@ -37,7 +37,7 @@ public class Board {
                 throw new IllegalArgumentException("playerColor is not a legal color");
             tileMap.get(q, r).setPlayerColour(playerColor);
             addGroup(new TileGroup(tileMap.get(q, r)));
-            updateGroups(q, r);
+            mergeNeighboringGroups(q, r);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -168,15 +168,6 @@ public class Board {
                     groups.remove(i);
 
         return groups;
-    }
-
-    /**
-     * checks all tiles for any necessary actions
-     */
-    private void updateGroups(int q, int r) {
-//        for (int q = 0; q < tileMap.size(); q++)
-//            for (int r = 0; r < tileMap.size(); r++)
-                mergeNeighboringGroups(q, r);
     }
 
     /**
