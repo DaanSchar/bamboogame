@@ -37,7 +37,7 @@ public class Board {
                 throw new IllegalArgumentException("playerColor is not a legal color");
             tileMap.get(q, r).setPlayerColour(playerColor);
             addGroup(new TileGroup(tileMap.get(q, r)));
-            updateGroups();
+            updateGroups(q, r);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -128,6 +128,9 @@ public class Board {
         List<LogicTile> neighbors = tileMap.getNeighbours(q, r);
         List<TileGroup> groups = new LinkedList<>();
 
+        if (neighbors.size() == 0)
+            return groups;
+
         for (LogicTile neighbor : neighbors)
             if (getGroup(neighbor) != null)
                 if (getGroup(neighbor).getPlayerColor() == playerColor)
@@ -176,9 +179,9 @@ public class Board {
     /**
      * checks all tiles for any necessary actions
      */
-    private void updateGroups() {
-        for (int q = 0; q < tileMap.size(); q++)
-            for (int r = 0; r < tileMap.size(); r++)
+    private void updateGroups(int q, int r) {
+//        for (int q = 0; q < tileMap.size(); q++)
+//            for (int r = 0; r < tileMap.size(); r++)
                 mergeNeighboringGroups(q, r);
     }
 
@@ -187,6 +190,7 @@ public class Board {
      * merges them to one group
      */
     private void mergeNeighboringGroups(int q, int r) {
+        System.out.println("we like to do this often");
 
         if (tileMap.get(q,r) == null || tileMap.get(q,r).getPlayerColor()==0)
             return;

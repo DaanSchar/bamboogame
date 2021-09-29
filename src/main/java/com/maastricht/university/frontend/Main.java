@@ -1,6 +1,8 @@
 package com.maastricht.university.frontend;
 
 
+import com.maastricht.university.logic.game.GameState;
+import com.maastricht.university.logic.util.interfaces.IGameState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -60,14 +62,18 @@ public class Main{
         return scene;
     }
 
-    //TODO: this method needs to connect to a logic variable that stores the number of groups for p1
+
     public int p1groups(){
-        return 0;
+        IGameState gameState = Factory.getGameState();
+
+        return gameState.getTotalGroups(1);
     }
 
-    //TODO: this method needs to connect to a logic variable that stores the number of groups for p2
+
     public int p2groups(){
-        return 0;
+        IGameState gameState = Factory.getGameState();
+
+        return gameState.getTotalGroups(2);
     }
 
     public static void main(String[]args){

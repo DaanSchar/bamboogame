@@ -61,7 +61,7 @@ public class GameState implements IGameState {
 
     @Override
     public int getTotalGroups(int playerColor) {
-        return 0;
+        return board.getGroups(playerColor).size();
     }
 
     @Override
@@ -74,6 +74,11 @@ public class GameState implements IGameState {
                 max = group.getMembers().size();
 
         return max;
+    }
+
+    @Override
+    public int getPlayerColorOfTile(int q, int r) {
+        return board.getTileMap().get(q,r).getPlayerColor();
     }
 
     public Board getBoard() {
