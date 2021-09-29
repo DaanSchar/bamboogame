@@ -12,14 +12,18 @@ public class Tile {
     private double size;
     private double x;
     private double y;
+    private int q;
+    private int r;
 
     private boolean isClicked;
 
-    public Tile(double x, double y, double size, int index)  {
+    public Tile(int q, int r, double x, double y, double size, int index)  {
         this.index = index;
         this.size = size;
         this.x = x;
         this.y = y;
+        this.q = q;
+        this.r = r;
 
         initButton();
     }
@@ -45,9 +49,8 @@ public class Tile {
             isClicked = !isClicked;
 
             if (isClicked)
-                button.setColor("#4d9de0");
-            else
-                button.setColor("#E15554");
+                Factory.getGameState().move(q,r,Factory.getGameState().getPlayerTurn());
+
         });
     }
 
