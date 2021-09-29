@@ -9,17 +9,13 @@ public class Tile {
 
     private HoverableButton button;
 
-    private int index;
     private double size;
     private double x;
     private double y;
     private int q;
     private int r;
 
-    private boolean isClicked;
-
-    public Tile(int q, int r, double x, double y, double size, int index)  {
-        this.index = index;
+    public Tile(int q, int r, double x, double y, double size)  {
         this.size = size;
         this.x = x;
         this.y = y;
