@@ -47,8 +47,11 @@ public class Tile {
             IGameState game = Factory.getGameState();
             game.move(q,r,Factory.getGameState().getPlayerTurn());
 
-            String color = game.getPlayerColorOfTile(q,r) == 1? "#4d9de0" : "#E15554";
-            button.setColor(color);
+            int playerColor = game.getPlayerColorOfTile(q,r);
+            if (playerColor == 1)
+                button.setColor("#4d9de0");
+            if (playerColor == 2)
+                button.setColor("#E15554");
         });
     }
 
