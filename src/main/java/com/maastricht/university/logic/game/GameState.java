@@ -61,7 +61,7 @@ public class GameState implements IGameState {
 
     @Override
     public int getTotalGroups(int playerColor) {
-        return 0;
+        return board.getGroups(playerColor).size();
     }
 
     @Override

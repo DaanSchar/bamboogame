@@ -48,6 +48,7 @@ public class Tile {
                 button.setColor("#4d9de0");
             if (playerColor == 2)
                 button.setColor("#E15554");
+            System.out.println(game.getTotalGroups(playerColor));
         });
     }
 
