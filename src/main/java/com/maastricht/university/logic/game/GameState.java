@@ -27,9 +27,10 @@ public class GameState implements IGameState {
     public void move(int q, int r, int playerColor) {
         try {
             findIllegalException(q,r,playerColor);
-
             board.move(q, r, playerColor);
             playerTurn = getNextPlayer();
+            //check here
+
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("current player is still " + playerTurn);
@@ -80,7 +81,70 @@ public class GameState implements IGameState {
         return board;
     }
 
+    /**
+     * this method needs to return the winning player
+     * if no winner yet then we return false and if we have 1 winner then we return true
+     * @return
+     */
+    public boolean isGameOver() {
 
+        int c=numberOfPlayers;
+        for(int x=0; x<numberOfPlayers; x++) {
+
+           if(legalMoveLeft(x))
+           {
+               c--;
+           }
+           if(c==1)
+           {
+              return true;
+           }
+
+        }
+        return false;
+
+    }
+
+    //TODO: this works for 2 players,
+    // but if you have 3 players (or more) than it is possible that one of the other players has lost before this and only player 1 and 2 are playing still
+    // and this would make it possible for player 3 to still come out as winner, since playerturn does not yet recognize a lost player
+    // solution: store an boolean array, with a value for each player, whether they are still in the game (haven't lost yet)
+        // each time a move is made, a it's a players turn, but he doesn't have any moves left, he lost and his value will be set to false
+            // Do this in move()
+        // skip that value in playerTurn if it's false
+            // Do this in getNextPlayer()
+    public int winner() {
+       boolean x= isGameOver();
+
+        for(int i=1; i<=numberOfPlayers; i++) {
+            if (x && legalMoveLeft(i)) {
+                return i;
+            }
+        }
+        if(playerTurn>1 && x)
+        { int finalWinner= playerTurn-1;
+        return finalWinner;
+        }
+        if(playerTurn==1 && x)
+        {
+            return numberOfPlayers;
+        }
+        return 0;
+
+
+    }
+    //TODO: make sure coordinates are correct
+    public boolean legalMoveLeft(int playerColor) {
+        for (int i = 0; i < board.getBoardSize(); i++) {
+            for (int j = 0; j < board.getBoardSize(); j++) {
+                if (isLegal(i, j, playerColor)) {
+                    return true;
+                }
+            }
+        }
+
+            return false;
+    }
     /**
      * returns the size of the group this tile will reside in once
      * it gets colored
@@ -153,6 +217,8 @@ public class GameState implements IGameState {
             return 1;
         return nextPlayer;
     }
+
+
 
 
 }
