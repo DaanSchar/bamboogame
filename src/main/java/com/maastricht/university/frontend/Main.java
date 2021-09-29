@@ -30,8 +30,8 @@ public class Main{
             BackgroundSize.DEFAULT);
     public Background bGround = new Background(bImg);
 
-    public Label p1Text = new Label(Integer.toString(p1groups()));
-    public Label p2Text = new Label(Integer.toString(p2groups()));
+    public static Label p1Text = new Label(Integer.toString(p1groups()));
+    public static Label p2Text = new Label(Integer.toString(p2groups()));
 
     public Scene getScene(){
 
@@ -92,13 +92,13 @@ public class Main{
     }
 
 
-    public int p1groups(){
+    public static int p1groups(){
         IGameState gameState = Factory.getGameState();
 
         return gameState.getTotalGroups(1);
     }
 
-    public int p2groups(){
+    public static int p2groups(){
         IGameState gameState = Factory.getGameState();
 
         return gameState.getTotalGroups(2);

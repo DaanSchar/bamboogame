@@ -39,7 +39,6 @@ public class Tile {
 
     // here we determine what happens when we click the button
     private void setClickEvent() {
-        Main updateLabels = new Main();
         button.setOnMouseClicked(e -> {
             IGameState game = Factory.getGameState();
             game.move(q,r,Factory.getGameState().getPlayerTurn());
@@ -51,8 +50,8 @@ public class Tile {
                 button.setColor("#E15554");
 
             //TODO get the labels to update when no. of groups changes
-            updateLabels.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
-            updateLabels.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
+            Main.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
+            Main.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
 
             System.out.println(game.getTotalGroups(playerColor));
         });
