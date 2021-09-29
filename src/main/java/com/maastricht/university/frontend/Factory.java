@@ -5,9 +5,9 @@ import com.maastricht.university.logic.util.interfaces.IGameState;
 
 public class Factory {
 
-    private GameState state = new GameState(4,2);
+    private static GameState state = new GameState(4,2);
 
-    public IGameState getGameState() {
+    public static IGameState getGameState() {
         return state;
     }
 
