@@ -38,11 +38,12 @@ public class Tile {
 
     // here we determine what happens when we click the button
     private void setClickEvent() {
+
         button.setOnMouseClicked(e -> {
             IGameState game = Factory.getGameState();
             game.move(q,r,Factory.getGameState().getPlayerTurn());
-
             int playerColor = game.getPlayerColorOfTile(q,r);
+
             if (playerColor == 1)
                 button.setColor("#4d9de0");
             if (playerColor == 2)
@@ -51,11 +52,12 @@ public class Tile {
             Main.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
             Main.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
 
-            showLegal(playerColor);
 
             System.out.println(game.getTotalGroups(playerColor));
         });
+
     }
+    //TODO this doesnt work
     private void showLegal(int playerColor){
         IGameState game = Factory.getGameState();
         for(int i=0, j=0; i< size; i++) {
@@ -63,7 +65,6 @@ public class Tile {
                 button.setColor("#00FF00");
             }
         }
-
     }
 
     public Button getButton() {
