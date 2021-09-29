@@ -1,5 +1,6 @@
 package com.maastricht.university.frontend;
 
+import com.maastricht.university.logic.util.interfaces.IGameState;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
@@ -8,18 +9,18 @@ public class Tile implements Cloneable {
 
     private HoverableButton button;
 
-    private int index;
     private double size;
     private double x;
     private double y;
+    private int q;
+    private int r;
 
-    private boolean isClicked;
-
-    public Tile(double x, double y, double size, int index)  {
-        this.index = index;
+    public Tile(int q, int r, double x, double y, double size)  {
         this.size = size;
         this.x = x;
         this.y = y;
+        this.q = q;
+        this.r = r;
 
         initButton();
     }
@@ -27,27 +28,32 @@ public class Tile implements Cloneable {
     // here we create a nice looking circular button
     private void initButton() {
         button = new HoverableButton(x, y, size, size);
-//        button.setColor("#333333");
+//        button.setColor("#121212");
         SVGPath circle = new SVGPath();
         circle.setContent("M25 20" +
                 "a5 5 0 1 1-10 0 " +
                 "5 5 0 1 1 10 0z");
         button.setShape(circle);
-        button.setText(Integer.toString(index));
-        button.setTextFill(Color.WHITE);
         setClickEvent();
     }
 
     // here we determine what happens when we click the button
     private void setClickEvent() {
         button.setOnMouseClicked(e -> {
-            System.out.println(this.index);
-            isClicked = !isClicked;
+            IGameState game = Factory.getGameState();
+            game.move(q,r,Factory.getGameState().getPlayerTurn());
 
-            if (isClicked)
+            int playerColor = game.getPlayerColorOfTile(q,r);
+            if (playerColor == 1)
                 button.setColor("#4d9de0");
-            else
+            if (playerColor == 2)
                 button.setColor("#E15554");
+
+            //TODO get the labels to update when no. of groups changes
+            Main.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
+            Main.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
+
+            System.out.println(game.getTotalGroups(playerColor));
         });
     }
 

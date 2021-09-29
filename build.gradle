@@ -10,6 +10,7 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation 'io.github.kostaskougios:cloning:1.10.3'
 }
 
 
@@ -24,4 +25,4 @@ test {
     useJUnitPlatform()
 }
 
-mainClassName = 'com.maastricht.university.frontend.Main'
+mainClassName = 'com.maastricht.university.frontend.MainMenu'

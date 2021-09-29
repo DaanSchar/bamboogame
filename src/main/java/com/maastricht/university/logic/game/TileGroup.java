@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.util.game;
+package com.maastricht.university.logic.game;
 
 import java.util.LinkedList;
 import java.util.List;
