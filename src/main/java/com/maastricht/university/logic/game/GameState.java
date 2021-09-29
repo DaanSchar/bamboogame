@@ -17,7 +17,7 @@ public class GameState implements IGameState {
     /**
      * construct the gamestate
      * @param boardSize is the size of the board we are using, defined as the radius of the hexagon.
-     * @param numberOfPlayers number of players that the user typed
+     * @param numberOfPlayers number of players that play
      */
     public GameState(final int boardSize, final int numberOfPlayers) {
         this.board = new Board(boardSize, numberOfPlayers);
@@ -78,7 +78,7 @@ public class GameState implements IGameState {
      */
     private void findIllegalException(int q, int r, int playerColor) throws Exception {
         if (board.getTileMap().get(q, r) == null)
-            throw new OutsideHexagonException("Coordinates are outside tilemap, returned null");
+            throw new OutsideHexagonException("Coordinates are outside tilemap (hexagon)");
         if (!isLegal(q, r, playerColor))
             throw new IllegalMoveException("Move is Illegal");
         if (playerColor != playerTurn)

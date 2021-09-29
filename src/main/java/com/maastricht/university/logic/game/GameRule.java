@@ -1,12 +1,12 @@
 package com.maastricht.university.logic.game;
 
-import com.maastricht.university.logic.util.exceptions.IllegalMoveException;
-import com.maastricht.university.logic.util.exceptions.OutsideHexagonException;
-
 import java.util.List;
 
+/**
+ *  This class determines if a move, drawing a certain tile by a color,
+ *  is allowed or not.
+ */
 public class GameRule {
-
 
     private Board board;
 
