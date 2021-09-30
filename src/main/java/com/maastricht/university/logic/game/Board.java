@@ -142,7 +142,6 @@ public class Board {
         return boardSize;
     }
 
-
     @Override
     public Board clone() {
         Board cloneBoard = new Board(boardSize, numberOfPlayers);
