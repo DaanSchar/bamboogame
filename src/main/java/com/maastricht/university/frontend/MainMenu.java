@@ -10,7 +10,6 @@ import javafx.scene.layout.*;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-//push
 public class MainMenu extends Application {
 
     public ImageView humanView = new ImageView(new Image("/images/button_human.png"));
@@ -21,6 +20,9 @@ public class MainMenu extends Application {
 
     double width = 800;
     double height = 500;
+    BorderPane r = new BorderPane();
+    Scene scene = new Scene(r,width,height);
+
     public Image bambooBcg = new Image("/images/bamboo.jpeg", width, height, false, true);
     public String tutorial = "https://www.youtube.com/embed/uVcDO8EmDCs";
 
@@ -31,12 +33,12 @@ public class MainMenu extends Application {
             BackgroundSize.DEFAULT);
     public Background bGround = new Background(bImg);
 
+    public Stage backStage;
+
     @Override
     public void start(Stage stage) {
-        BorderPane r = new BorderPane();
-        Scene scene = new Scene(r,width,height);
+        backStage = stage;
         r.setBackground(bGround);
-
         stage.setScene(scene);
 
         //add title to scene
@@ -119,6 +121,7 @@ public class MainMenu extends Application {
         r.getChildren().add(computer);
         r.getChildren().add(exit);
         r.getChildren().add(rules);
+
 
         stage.show();
     }

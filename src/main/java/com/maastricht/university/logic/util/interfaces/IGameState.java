@@ -51,4 +51,13 @@ public interface IGameState {
      * @return size of the largest group a player, which is positive number
      */
     public int getLargestGroupSize(int playerColor);
+
+    /**
+     * return which player has colored this tile
+     *
+     * @param q vertical coordinate which must be inside the hexagon
+     * @param r horizontal coordinate which must be inside the hexagon
+     * @return identifcation of the player
+     */
+    public int getPlayerColorOfTile(int q, int r);
 }
