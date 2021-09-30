@@ -9,17 +9,20 @@ import java.util.List;
 public class GameState implements IGameState {
 
     private Board board;
+    private GameRule gameRules;
+
     private int playerTurn;
     private int numberOfPlayers;
 
     /**
      * construct the gamestate
-     * @param boardSize is the size of the board we are using, defined as the diameter of the hexagon.
-     * @param numberOfPlayers number of players that the user typed
+     * @param boardSize is the size of the board we are using, defined as the radius of the hexagon.
+     * @param numberOfPlayers number of players that play
      */
     public GameState(final int boardSize, final int numberOfPlayers) {
         this.board = new Board(boardSize, numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
+        this.gameRules = new GameRule(board);
         playerTurn = 1;
     }
 
@@ -36,24 +39,9 @@ public class GameState implements IGameState {
         }
     }
 
-    /**
-     * a player must have enough groups to make a legal move.
-     * a move must result in still having enough groups to justify the move's legality.
-     */
     @Override
     public boolean isLegal(int q, int r, int playerColor) {
-        LogicTile tile = board.getTileMap().get(q, r);
-
-        if (tile.getPlayerColor() != 0)
-            return false;
-
-        if (getNeighboringGroups(tile, playerColor).size() == 0)
-            return true;
-
-        if (getNewGroupSize(tile, playerColor) > getNewTotalGroups(tile, playerColor))
-            return false;
-
-        return true;
+        return gameRules.isLegal(q, r, playerColor);
     }
 
     @Override
@@ -152,7 +140,7 @@ public class GameState implements IGameState {
      */
     private void findIllegalException(int q, int r, int playerColor) throws Exception {
         if (board.getTileMap().get(q, r) == null)
-            throw new OutsideHexagonException("Coordinates are outside tilemap, returned null");
+            throw new OutsideHexagonException("Coordinates are outside tilemap (hexagon)");
         if (!isLegal(q, r, playerColor))
             throw new IllegalMoveException("Move is Illegal");
         if (playerColor != playerTurn)
