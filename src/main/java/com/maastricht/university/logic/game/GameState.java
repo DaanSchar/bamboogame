@@ -85,56 +85,6 @@ public class GameState implements IGameState {
         return cloneGameState;
     }
 
-
-    /**
-     * returns the size of the group this tile will reside in once
-     * it gets colored
-     * @param tile
-     * @return size of the to be created group
-     */
-    private int getNewGroupSize(LogicTile tile, int playerColor) {
-        List<TileGroup> groups = getNeighboringGroups(tile, playerColor);
-        int size = 0;
-
-        for (TileGroup group : groups)
-            size += group.getMembers().size();
-
-        return size + 1;
-    }
-
-    /**
-     * when we color a tile which is neighboring one or multiple groups,
-     * these groups will merge, decreasing the amount of total groups.
-     * @return total groups if tile were to be colored
-     */
-    private int getNewTotalGroups(LogicTile tile, int playerColor) {
-        int totalGroups = board.getGroups(playerColor).size();
-        int totalNeighboringGroups = getNeighboringGroups(tile, playerColor).size();
-        return totalGroups+1 - (totalNeighboringGroups);
-    }
-
-    /**
-     * since getting the group of each neighbor results in having
-     * duplicate groups if 2 neighbors are in the same group, we
-     * have to filter this this list for duplicates.
-     * @param tile
-     * @return list of unique groups of the neighbors of tile
-     */
-    private List<TileGroup> getNeighboringGroups(LogicTile tile, int playerColor) {
-        return board.getNeighboringGroups(tile.getQ(), tile.getR(), playerColor);
-    }
-
-
-    /**
-     * a neighbor of a tile is defined by its location in the hexagon structure.
-     * if a tile is adjacent to our tile, it is considered a neighbor.
-     * @param tile
-     * @return list of adjacent tiles
-     */
-    private List<LogicTile> getNeighbors(LogicTile tile) {
-        return board.getTileMap().getNeighbours(tile.getQ(), tile.getR());
-    }
-
     /**
      * throws the exception that need to be caught inside move()
      */
@@ -151,9 +101,6 @@ public class GameState implements IGameState {
             throw new IllegalMoveException("player must be bigger than 0");
     }
 
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
-    }
 
     private int getNextPlayer() {
         int nextPlayer = playerTurn+1;

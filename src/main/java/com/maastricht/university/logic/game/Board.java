@@ -138,6 +138,10 @@ public class Board {
         this.tileMap = newTileMap;
     }
 
+    public int getBoardSize() {
+        return boardSize;
+    }
+
 
     @Override
     public Board clone() {
