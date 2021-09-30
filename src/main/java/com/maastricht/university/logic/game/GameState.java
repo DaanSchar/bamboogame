@@ -73,6 +73,18 @@ public class GameState implements IGameState {
         return board;
     }
 
+    public void setBoard(Board newBoard) {
+        this.board = newBoard;
+    }
+
+    @Override
+    public GameState clone() {
+        GameState cloneGameState = new GameState(this.board.getBoardSize(), this.numberOfPlayers);
+        Board cloneBoard = board.clone();
+        cloneGameState.setBoard(cloneBoard);
+        return cloneGameState;
+    }
+
     /**
      * throws the exception that need to be caught inside move()
      */
@@ -88,6 +100,7 @@ public class GameState implements IGameState {
         if (playerColor < 1)
             throw new IllegalMoveException("player must be bigger than 0");
     }
+
 
     private int getNextPlayer() {
         int nextPlayer = playerTurn+1;

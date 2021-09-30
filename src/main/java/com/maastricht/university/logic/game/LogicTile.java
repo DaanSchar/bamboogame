@@ -1,6 +1,6 @@
 package com.maastricht.university.logic.game;
 
-public class LogicTile {
+public class LogicTile implements Cloneable {
 
     private int playerColor;
     private int q;
@@ -58,5 +58,12 @@ public class LogicTile {
     @Override
     public String toString() {
         return playerColor + "";
+    }
+
+    @Override
+    public LogicTile clone() {
+        LogicTile newTile = new LogicTile(q, r);
+        newTile.setPlayerColour(playerColor);
+        return newTile;
     }
 }

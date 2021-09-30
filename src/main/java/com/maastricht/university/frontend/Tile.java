@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 
-public class Tile {
+public class Tile implements Cloneable {
 
     private HoverableButton button;
 
