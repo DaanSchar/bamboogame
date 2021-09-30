@@ -144,14 +144,18 @@ public class Board {
         this.tileMap = newTileMap;
     }
 
-    //TODO: this method isn't finished yet
+
     @Override
     public Board clone() {
         Board cloneBoard = new Board(boardSize, numberOfPlayers);
         Hexagon<LogicTile> cloneTileMap = (Hexagon<LogicTile>) this.tileMap.clone();
 
-
-
+        for(int i=0; i<groups.length; i++) {
+            for(int j=0; j<groups[i].size(); j++) {
+                TileGroup cloneGroup = groups[i].get(j).cloneFromTileMap(cloneTileMap);
+                cloneBoard.addGroup(cloneGroup);
+            }
+        }
         return cloneBoard;
     }
 
