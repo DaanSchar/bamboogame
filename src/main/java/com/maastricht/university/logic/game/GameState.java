@@ -85,6 +85,17 @@ public class GameState implements IGameState {
         return board;
     }
 
+    public void setBoard(Board newBoard) {
+        this.board = newBoard;
+    }
+
+    @Override
+    public GameState clone() {
+        GameState cloneGameState = new GameState(this.board.getBoardSize(), this.numberOfPlayers);
+
+        return cloneGameState;
+    }
+
 
     /**
      * returns the size of the group this tile will reside in once
