@@ -94,6 +94,10 @@ public class Board {
         return this.tileMap;
     }
 
+    public int getBoardSize() {
+        return boardSize;
+    }
+
     /**
      * Merges groups together by adding the other groups into this one
      * @param groups the TileGroups that will be merged into this group
