@@ -13,7 +13,7 @@ public class GameState implements IGameState {
     private Board board;
     private int playerTurn;
     private int numberOfPlayers;
-     private Boolean[] actualPlayers;
+    private Boolean[] actualPlayers;
 
     /**
      * construct the gamestate
@@ -24,7 +24,10 @@ public class GameState implements IGameState {
     //public GameState(final int boardSize, final int numberOfPlayers)  {
         this.board = new Board(boardSize, numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
-       this.actualPlayers= new Boolean[numberOfPlayers];
+        this.actualPlayers = new Boolean[numberOfPlayers];
+
+        actualPlayers[0] = true;
+        actualPlayers[1] = true;
         playerTurn = 1;
     }
 
@@ -57,10 +60,7 @@ public class GameState implements IGameState {
     @Override
     public boolean isLegal(int q, int r, int playerColor) {
         LogicTile tile = board.getTileMap().get(q, r);
-        if(tile == null)
-        {
-            return false;
-        }
+
         if (tile.getPlayerColor() != 0)
             return false;
 
@@ -131,17 +131,19 @@ public class GameState implements IGameState {
         else
             return 0;
     }
+
     public boolean legalMovesLeft(int playerColor) {
         for (int i = 0; i < board.getBoardSize(); i++) {
             for (int j = 0; j < board.getBoardSize(); j++) {
-                if (isLegal(i, j, playerColor)) {
-                    return true;
-                }
+                if (board.getTileMap().get(i, j) != null)
+                    if (isLegal(i, j, playerColor))
+                        return true;
             }
         }
 
             return false;
     }
+
     /**
      * returns the size of the group this tile will reside in once
      * it gets colored
@@ -221,12 +223,12 @@ public class GameState implements IGameState {
             if(playerTurn>numberOfPlayers)
             {
 
-                playerTurn=1;
+                nextPlayer=1;
 
             }
         }
 
-        return playerTurn;
+        return nextPlayer;
     }
 
 
