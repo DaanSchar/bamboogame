@@ -9,17 +9,20 @@ import java.util.List;
 public class GameState implements IGameState {
 
     private Board board;
+    private GameRule gameRules;
+
     private int playerTurn;
     private int numberOfPlayers;
 
     /**
      * construct the gamestate
-     * @param boardSize is the size of the board we are using, defined as the diameter of the hexagon.
-     * @param numberOfPlayers number of players that the user typed
+     * @param boardSize is the size of the board we are using, defined as the radius of the hexagon.
+     * @param numberOfPlayers number of players that play
      */
     public GameState(final int boardSize, final int numberOfPlayers) {
         this.board = new Board(boardSize, numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
+        this.gameRules = new GameRule(board);
         playerTurn = 1;
     }
 
@@ -36,24 +39,9 @@ public class GameState implements IGameState {
         }
     }
 
-    /**
-     * a player must have enough groups to make a legal move.
-     * a move must result in still having enough groups to justify the move's legality.
-     */
     @Override
     public boolean isLegal(int q, int r, int playerColor) {
-        LogicTile tile = board.getTileMap().get(q, r);
-
-        if (tile.getPlayerColor() != 0)
-            return false;
-
-        if (getNeighboringGroups(tile, playerColor).size() == 0)
-            return true;
-
-        if (getNewGroupSize(tile, playerColor) > getNewTotalGroups(tile, playerColor))
-            return false;
-
-        return true;
+        return gameRules.isLegal(q, r, playerColor);
     }
 
     @Override
@@ -85,62 +73,12 @@ public class GameState implements IGameState {
         return board;
     }
 
-
-    /**
-     * returns the size of the group this tile will reside in once
-     * it gets colored
-     * @param tile
-     * @return size of the to be created group
-     */
-    private int getNewGroupSize(LogicTile tile, int playerColor) {
-        List<TileGroup> groups = getNeighboringGroups(tile, playerColor);
-        int size = 0;
-
-        for (TileGroup group : groups)
-            size += group.getMembers().size();
-
-        return size + 1;
-    }
-
-    /**
-     * when we color a tile which is neighboring one or multiple groups,
-     * these groups will merge, decreasing the amount of total groups.
-     * @return total groups if tile were to be colored
-     */
-    private int getNewTotalGroups(LogicTile tile, int playerColor) {
-        int totalGroups = board.getGroups(playerColor).size();
-        int totalNeighboringGroups = getNeighboringGroups(tile, playerColor).size();
-        return totalGroups+1 - (totalNeighboringGroups);
-    }
-
-    /**
-     * since getting the group of each neighbor results in having
-     * duplicate groups if 2 neighbors are in the same group, we
-     * have to filter this this list for duplicates.
-     * @param tile
-     * @return list of unique groups of the neighbors of tile
-     */
-    private List<TileGroup> getNeighboringGroups(LogicTile tile, int playerColor) {
-        return board.getNeighboringGroups(tile.getQ(), tile.getR(), playerColor);
-    }
-
-
-    /**
-     * a neighbor of a tile is defined by its location in the hexagon structure.
-     * if a tile is adjacent to our tile, it is considered a neighbor.
-     * @param tile
-     * @return list of adjacent tiles
-     */
-    private List<LogicTile> getNeighbors(LogicTile tile) {
-        return board.getTileMap().getNeighbours(tile.getQ(), tile.getR());
-    }
-
     /**
      * throws the exception that need to be caught inside move()
      */
     private void findIllegalException(int q, int r, int playerColor) throws Exception {
         if (board.getTileMap().get(q, r) == null)
-            throw new OutsideHexagonException("Coordinates are outside tilemap, returned null");
+            throw new OutsideHexagonException("Coordinates are outside tilemap (hexagon)");
         if (!isLegal(q, r, playerColor))
             throw new IllegalMoveException("Move is Illegal");
         if (playerColor != playerTurn)
