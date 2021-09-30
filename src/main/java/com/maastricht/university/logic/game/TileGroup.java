@@ -79,6 +79,10 @@ public class TileGroup {
         }
     }
 
+    public void setGroupID(int id) {
+        groupID = id;
+    }
+
     //TODO: do we need to make the groupID the same too?
     public TileGroup cloneFromTileMap(Hexagon<LogicTile> tileMap) {
         TileGroup cloneTileGroup = new TileGroup(this.playerColor);
@@ -88,6 +92,7 @@ public class TileGroup {
             LogicTile newTile = tileMap.get(oldTile.getQ(), oldTile.getR());
             cloneTileGroup.addMember(newTile);
         }
+        cloneTileGroup.setGroupID(this.groupID);
         return cloneTileGroup;
     }
 

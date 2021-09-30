@@ -6,7 +6,7 @@ import com.rits.cloning.Cloner;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hexagon<T /*extends Cloneable*/> implements IHexagon<T> {
+public class Hexagon<T> implements IHexagon<T> {
 
     /**
      * this class represent a 2d hexagonal structure represented by a 2d array.
@@ -34,8 +34,6 @@ public class Hexagon<T /*extends Cloneable*/> implements IHexagon<T> {
      * if we wanted to add some translations of the coordinates to have the center of the hexagon be 0,0 ,
      * but for now that doesnt seem really necessary.
      */
-
-    Cloner cloner=new Cloner();
 
     private int size;
     private int arraySize;
@@ -78,7 +76,7 @@ public class Hexagon<T /*extends Cloneable*/> implements IHexagon<T> {
 
     @Override
     public IHexagon<T> clone() {
-
+        Cloner cloner=new Cloner();
         IHexagon<T> copy = new Hexagon<T>(size);
 
         for (int i = 0; i < arraySize; i++) {

@@ -6,7 +6,7 @@ public class GameStateTest {
 
     private GameState state = new GameState(3,2);
 
-    //TODO: This should work, since the same player shouldn't be able to make multiple moves in a row
+    //TODO: This shouldn't work, since the same player shouldn't be able to make multiple moves in a row
 
     // valid moves
 
