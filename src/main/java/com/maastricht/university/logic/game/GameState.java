@@ -163,6 +163,10 @@ public class GameState implements IGameState {
             throw new IllegalMoveException("player must be bigger than 0");
     }
 
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
     private int getNextPlayer() {
         int nextPlayer = playerTurn+1;
 

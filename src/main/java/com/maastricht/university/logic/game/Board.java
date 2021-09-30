@@ -149,6 +149,7 @@ public class Board {
     public Board clone() {
         Board cloneBoard = new Board(boardSize, numberOfPlayers);
         Hexagon<LogicTile> cloneTileMap = (Hexagon<LogicTile>) this.tileMap.clone();
+        cloneBoard.setTileMap(cloneTileMap);
 
         for(int i=0; i<groups.length; i++) {
             for(int j=0; j<groups[i].size(); j++) {
