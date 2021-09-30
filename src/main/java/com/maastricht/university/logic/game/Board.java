@@ -175,8 +175,6 @@ public class Board {
      * merges them to one group
      */
     private void mergeNeighboringGroups(int q, int r) {
-        System.out.println("we like to do this often");
-
         if (tileMap.get(q,r) == null || tileMap.get(q,r).getPlayerColor()==0)
             return;
 

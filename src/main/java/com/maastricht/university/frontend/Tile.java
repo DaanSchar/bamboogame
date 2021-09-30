@@ -48,6 +48,11 @@ public class Tile {
                 button.setColor("#4d9de0");
             if (playerColor == 2)
                 button.setColor("#E15554");
+
+            //TODO get the labels to update when no. of groups changes
+            Main.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
+            Main.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
+
             System.out.println(game.getTotalGroups(playerColor));
         });
     }
