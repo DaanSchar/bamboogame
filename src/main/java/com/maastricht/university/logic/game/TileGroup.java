@@ -83,7 +83,6 @@ public class TileGroup {
         groupID = id;
     }
 
-    //TODO: do we need to make the groupID the same too?
     public TileGroup cloneFromTileMap(Hexagon<LogicTile> tileMap) {
         TileGroup cloneTileGroup = new TileGroup(this.playerColor);
 
