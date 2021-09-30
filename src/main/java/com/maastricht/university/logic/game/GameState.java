@@ -1,25 +1,30 @@
 package com.maastricht.university.logic.game;
 
+import com.maastricht.university.logic.util.exceptions.GameIsOverException;
 import com.maastricht.university.logic.util.exceptions.IllegalMoveException;
 import com.maastricht.university.logic.util.exceptions.OutsideHexagonException;
 import com.maastricht.university.logic.util.interfaces.IGameState;
 
 import java.util.List;
+import java.util.Arrays;
 
 public class GameState implements IGameState {
 
     private Board board;
     private int playerTurn;
     private int numberOfPlayers;
+     private Boolean[] actualPlayers;
 
     /**
      * construct the gamestate
      * @param boardSize is the size of the board we are using, defined as the diameter of the hexagon.
      * @param numberOfPlayers number of players that the user typed
      */
-    public GameState(final int boardSize, final int numberOfPlayers) {
+    public GameState(final int boardSize, final int numberOfPlayers){
+    //public GameState(final int boardSize, final int numberOfPlayers)  {
         this.board = new Board(boardSize, numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
+       this.actualPlayers= new Boolean[numberOfPlayers];
         playerTurn = 1;
     }
 
@@ -29,9 +34,17 @@ public class GameState implements IGameState {
             findIllegalException(q,r,playerColor);
             board.move(q, r, playerColor);
             playerTurn = getNextPlayer();
-            //check here
 
-        } catch (Exception e) {
+        // This makes it so that if playerColor is the winner (last person to make a move, and others aren't able to anymore)
+            // Than playerColor is the only one with value True in actualPlayers
+            while(!legalMovesLeft(playerTurn) && playerTurn!=playerColor)
+            {
+                actualPlayers[playerTurn-1]=false;
+                playerTurn=getNextPlayer();
+            }
+
+        }
+        catch (Exception e) {
             System.out.println(e);
             System.out.println("current player is still " + playerTurn);
         }
@@ -44,7 +57,10 @@ public class GameState implements IGameState {
     @Override
     public boolean isLegal(int q, int r, int playerColor) {
         LogicTile tile = board.getTileMap().get(q, r);
-
+        if(tile == null)
+        {
+            return false;
+        }
         if (tile.getPlayerColor() != 0)
             return false;
 
@@ -88,53 +104,29 @@ public class GameState implements IGameState {
      */
     public boolean isGameOver() {
 
-        int c=numberOfPlayers;
+        int countTrue=0;
         for(int x=0; x<numberOfPlayers; x++) {
 
-           if(legalMoveLeft(x))
+           if(actualPlayers[x]== true)
            {
-               c--;
+               countTrue++;
            }
-           if(c==1)
-           {
-              return true;
-           }
-
+        }
+        if(countTrue==1)
+        {
+            return true;
         }
         return false;
 
     }
 
-    //TODO: this works for 2 players,
-    // but if you have 3 players (or more) than it is possible that one of the other players has lost before this and only player 1 and 2 are playing still
-    // and this would make it possible for player 3 to still come out as winner, since playerturn does not yet recognize a lost player
-    // solution: store an boolean array, with a value for each player, whether they are still in the game (haven't lost yet)
-        // each time a move is made, a it's a players turn, but he doesn't have any moves left, he lost and his value will be set to false
-            // Do this in move()
-        // skip that value in playerTurn if it's false
-            // Do this in getNextPlayer()
     public int winner() {
-       boolean x= isGameOver();
-
-        for(int i=1; i<=numberOfPlayers; i++) {
-            if (x && legalMoveLeft(i)) {
-                return i;
-            }
-        }
-        if(playerTurn>1 && x)
-        { int finalWinner= playerTurn-1;
-        return finalWinner;
-        }
-        if(playerTurn==1 && x)
-        {
-            return numberOfPlayers;
-        }
-        return 0;
-
-
+        if(isGameOver())
+            return playerTurn;
+        else
+            return 0;
     }
-    //TODO: make sure coordinates are correct
-    public boolean legalMoveLeft(int playerColor) {
+    public boolean legalMovesLeft(int playerColor) {
         for (int i = 0; i < board.getBoardSize(); i++) {
             for (int j = 0; j < board.getBoardSize(); j++) {
                 if (isLegal(i, j, playerColor)) {
@@ -208,6 +200,8 @@ public class GameState implements IGameState {
             throw new IllegalMoveException("there are only " + numberOfPlayers + " players.");
         if (playerColor < 1)
             throw new IllegalMoveException("player must be bigger than 0");
+        if(isGameOver())
+            throw  new GameIsOverException("game is already over, " + playerTurn + " is the winner of the game");
     }
 
     private int getNextPlayer() {
@@ -215,7 +209,19 @@ public class GameState implements IGameState {
 
         if (nextPlayer > numberOfPlayers)
             return 1;
-        return nextPlayer;
+
+        while(!actualPlayers[playerTurn-1])
+        {
+            nextPlayer = playerTurn + 1;
+            if(playerTurn>numberOfPlayers)
+            {
+
+                playerTurn=1;
+
+            }
+        }
+
+        return playerTurn;
     }
 
 
