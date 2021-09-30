@@ -92,7 +92,8 @@ public class GameState implements IGameState {
     @Override
     public GameState clone() {
         GameState cloneGameState = new GameState(this.board.getBoardSize(), this.numberOfPlayers);
-
+        Board cloneBoard = board.clone();
+        cloneGameState.setBoard(cloneBoard);
         return cloneGameState;
     }
 
