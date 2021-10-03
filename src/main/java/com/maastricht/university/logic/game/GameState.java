@@ -28,8 +28,6 @@ public class GameState implements IGameState {
         this.actualPlayers = new Boolean[numberOfPlayers];
         this.gameRules = new GameRule(board);
 
-        actualPlayers[0] = true;
-        actualPlayers[1] = true;
         playerTurn = 1;
         for(int i=0; i<numberOfPlayers; i++)
             actualPlayers[i] = true;
