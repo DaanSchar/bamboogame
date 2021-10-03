@@ -133,6 +133,28 @@ public class GameStateTest {
     // simulate gameplay
 
     @Test
+    public void assertSimulateGamePart1() throws Exception {
+        simulateGamePart1();
+        state.move(3,3, 1);
+        state.move(2,3, 2);
+
+        state.move(4,0, 1);
+        state.move(1,2, 2);
+
+        state.move(6,0, 1);
+        state.move(0,6, 2);
+
+        Assertions.assertEquals(1, state.getBoard().getTileMap().get(3,3).getPlayerColor());
+        Assertions.assertEquals(2, state.getBoard().getTileMap().get(2,3).getPlayerColor());
+
+        Assertions.assertEquals(1, state.getBoard().getTileMap().get(4,0).getPlayerColor());
+        Assertions.assertEquals(2, state.getBoard().getTileMap().get(1,2).getPlayerColor());
+
+        Assertions.assertEquals(1, state.getBoard().getTileMap().get(6,0).getPlayerColor());
+        Assertions.assertEquals(2, state.getBoard().getTileMap().get(0,6).getPlayerColor());
+    }
+
+    @Test
     public void assertPlayGamePart1a() throws Exception{
         simulateGamePart1();
         Assertions.assertEquals(3,state.getTotalGroups(1));

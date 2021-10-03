@@ -42,9 +42,9 @@ public class GameState implements IGameState {
 
         // This makes it so that if playerColor is the winner (last person to make a move, and others aren't able to anymore)
             // Than playerColor is the only one with value True in actualPlayers
-            while(!legalMovesLeft(playerTurn) && playerTurn!=playerColor)
+            //while(!legalMovesLeft(playerTurn) && playerTurn!=playerColor)
+            while(!actualPlayers[playerTurn-1] && playerTurn!=playerColor)
             {
-                actualPlayers[playerTurn-1]=false;
                 playerTurn=getNextPlayer();
             }
 
