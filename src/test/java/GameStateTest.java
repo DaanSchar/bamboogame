@@ -119,12 +119,14 @@ public class GameStateTest {
     @Test
     public void assertTotalGroups2WhenMergeA() throws Exception {
         state.move(1, 2, 1);
+        state.move(2,2,2);
         assertTotalGroups2WhenMerge(3,4);
     }
 
     @Test
     public void assertTotalGroups2WhenMergeB() throws Exception {
         state.move(4, 3, 1);
+        state.move(2,2,2);
         assertTotalGroups2WhenMerge(3,5);
     }
 
