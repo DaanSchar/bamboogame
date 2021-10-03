@@ -153,7 +153,8 @@ public class GameState implements IGameState {
         int nextPlayer = playerTurn+1;
 
         if (nextPlayer > numberOfPlayers)
-            return 1;
+            playerTurn = 1;
+
 
         while(!actualPlayers[playerTurn-1])
         {

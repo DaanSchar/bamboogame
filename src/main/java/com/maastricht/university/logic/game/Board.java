@@ -84,7 +84,7 @@ public class Board {
      * @return the current groups which belong to the player of playerColor
      */
     public List<TileGroup> getGroups(int playerColor) {
-        if (playerColor == 0)
+        if (playerColor == 0 || playerColor > numberOfPlayers)
             return new LinkedList<>();
 
         return groups[playerColor-1];
