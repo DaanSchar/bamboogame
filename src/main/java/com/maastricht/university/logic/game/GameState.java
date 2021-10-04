@@ -104,7 +104,6 @@ public class GameState implements IGameState {
      * @return
      */
 
-    //TODO: ALSO CHECK IF CURRENTPLAYER IS DONE, SAME WAY AS IN MOVE
     public boolean isGameOver() {
         int countTrue=0;
         for(int x=0; x<numberOfPlayers; x++) {
