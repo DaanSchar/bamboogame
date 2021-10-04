@@ -194,7 +194,43 @@ public class GameStateTest {
         Assertions.assertEquals(2, state.getLargestGroupSize(1));
     }
 
+    // test winning condition
 
+    @Test
+    public void assertWinner1() {
+        GameState newState = new GameState(1, 2);
+
+        newState.move(2, 0, 1);
+        newState.move(2, 1, 2);
+
+        newState.move(1, 2, 1);
+        newState.move(1, 0, 2);
+
+        newState.move(0, 1, 1);
+        newState.move(0, 2, 2);
+
+        //newState.move(1, 1, 1);
+
+        Assertions.assertEquals(2, newState.winner());
+    }
+
+    @Test
+    public void assertWinner2() {
+        GameState newState = new GameState(1, 2);
+
+        newState.move(2, 0, 1);
+        newState.move(2, 1, 2);
+
+        newState.move(1, 2, 1);
+        newState.move(1, 0, 2);
+
+        newState.move(0, 1, 1);
+        newState.move(0, 2, 2);
+
+        newState.move(1, 1, 1);
+
+        Assertions.assertNotEquals(1, newState.getBoard().getTileMap().get(1, 1).getPlayerColor());
+    }
 
     // helper methods
 

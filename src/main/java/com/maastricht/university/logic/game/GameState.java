@@ -42,6 +42,7 @@ public class GameState implements IGameState {
 
             while(!legalMovesLeft(playerTurn) && playerTurn!=playerColor)
             {
+                actualPlayers[playerTurn-1] = false;
                 playerTurn=getNextPlayer();
             }
 
@@ -102,12 +103,14 @@ public class GameState implements IGameState {
      * if no winner yet then we return false and if we have 1 winner then we return true
      * @return
      */
+
+    //TODO: ALSO CHECK IF CURRENTPLAYER IS DONE, SAME WAY AS IN MOVE
     public boolean isGameOver() {
         int countTrue=0;
-        for(int x=0; x<numberOfPlayers; x++)
-            if(actualPlayers[x]== true)
+        for(int x=0; x<numberOfPlayers; x++) {
+            if (actualPlayers[x] == true)
                 countTrue++;
-
+        }
         if(countTrue==1)
             return true;
 
