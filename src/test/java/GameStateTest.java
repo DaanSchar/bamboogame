@@ -119,12 +119,14 @@ public class GameStateTest {
     @Test
     public void assertTotalGroups2WhenMergeA() {
         state.move(1, 2, 1);
+        state.move(6, 0, 2);
         assertTotalGroups2WhenMerge(3,4);
     }
 
     @Test
     public void assertTotalGroups2WhenMergeB()  {
         state.move(4, 3, 1);
+        state.move(6, 0, 2);
         assertTotalGroups2WhenMerge(3,5);
     }
 
@@ -192,7 +194,43 @@ public class GameStateTest {
         Assertions.assertEquals(2, state.getLargestGroupSize(1));
     }
 
+    // test winning condition
 
+    @Test
+    public void assertWinner1() {
+        GameState newState = new GameState(1, 2);
+
+        newState.move(2, 0, 1);
+        newState.move(2, 1, 2);
+
+        newState.move(1, 2, 1);
+        newState.move(1, 0, 2);
+
+        newState.move(0, 1, 1);
+        newState.move(0, 2, 2);
+
+        //newState.move(1, 1, 1);
+
+        Assertions.assertEquals(2, newState.winner());
+    }
+
+    @Test
+    public void assertWinner2() {
+        GameState newState = new GameState(1, 2);
+
+        newState.move(2, 0, 1);
+        newState.move(2, 1, 2);
+
+        newState.move(1, 2, 1);
+        newState.move(1, 0, 2);
+
+        newState.move(0, 1, 1);
+        newState.move(0, 2, 2);
+
+        newState.move(1, 1, 1);
+
+        Assertions.assertNotEquals(1, newState.getBoard().getTileMap().get(1, 1).getPlayerColor());
+    }
 
     // helper methods
 
@@ -215,7 +253,7 @@ public class GameStateTest {
 
     public void assertTotalGroups2(int q1, int r1, int q2, int r2) {
         state.move(q1,r1, 1);
-        state.move(5,0,2);
+        state.move(6,0,2);
         state.move(q2,r2, 1);
         Assertions.assertEquals(2, state.getTotalGroups(1));
     }
