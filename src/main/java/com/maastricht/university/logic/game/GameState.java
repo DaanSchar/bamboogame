@@ -89,6 +89,18 @@ public class GameState implements IGameState {
         return board;
     }
 
+    public void setBoard(Board newBoard) {
+        this.board = newBoard;
+    }
+
+    @Override
+    public GameState clone() {
+        GameState cloneGameState = new GameState(this.board.getBoardSize(), this.numberOfPlayers);
+        Board cloneBoard = board.clone();
+        cloneGameState.setBoard(cloneBoard);
+        return cloneGameState;
+    }
+
     /**
      * this method needs to return the winning player
      * if no winner yet then we return false and if we have 1 winner then we return true
@@ -148,6 +160,7 @@ public class GameState implements IGameState {
         if(isGameOver())
             throw  new GameIsOverException("game is already over, " + playerTurn + " is the winner of the game");
     }
+
 
     private int getNextPlayer() {
         int nextPlayer = playerTurn+1;

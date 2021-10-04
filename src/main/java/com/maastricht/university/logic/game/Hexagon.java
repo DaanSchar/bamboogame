@@ -1,6 +1,7 @@
 package com.maastricht.university.logic.game;
 
 import com.maastricht.university.logic.util.interfaces.IHexagon;
+import com.rits.cloning.Cloner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,15 +76,19 @@ public class Hexagon<T> implements IHexagon<T> {
 
     @Override
     public IHexagon<T> clone() {
-
+        Cloner cloner=new Cloner();
         IHexagon<T> copy = new Hexagon<T>(size);
 
-        for (int i = 0; i < arraySize; i++)
-            for (int j = 0; j < arraySize; j++)
-                copy.insert(i,j, this.get(i, j));
-
+        for (int i = 0; i < arraySize; i++) {
+            for (int j = 0; j < arraySize; j++) {
+                T clone = cloner.deepClone(this.get(i, j));
+                copy.insert(i, j, clone);
+            }
+        }
         return copy;
     }
+
+
 
     @Override
     public boolean contains(T entity) {

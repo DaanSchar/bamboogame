@@ -53,6 +53,22 @@ public class TileGroup {
         }
     }
 
+    public void setGroupID(int id) {
+        groupID = id;
+    }
+
+    public TileGroup cloneFromTileMap(Hexagon<LogicTile> tileMap) {
+        TileGroup cloneTileGroup = new TileGroup(this.playerColor);
+
+        for(int i=0; i<members.size(); i++) {
+            LogicTile oldTile = members.get(i);
+            LogicTile newTile = tileMap.get(oldTile.getQ(), oldTile.getR());
+            cloneTileGroup.addMember(newTile);
+        }
+        cloneTileGroup.setGroupID(this.groupID);
+        return cloneTileGroup;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
