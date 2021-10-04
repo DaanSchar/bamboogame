@@ -49,12 +49,19 @@ public class GameState implements IGameState {
 
     @Override
     public int getTotalGroups(int playerColor) {
-        return 0;
+        return board.getGroups(playerColor).size();
     }
 
     @Override
     public int getLargestGroupSize(int playerColor) {
-        return 0;
+        List<TileGroup> groups = board.getGroups(playerColor);
+        int max = 0;
+
+        for (TileGroup group : groups)
+            if (group.getMembers().size() > max)
+                max = group.getMembers().size();
+
+        return max;
     }
 
     @Override
