@@ -1,5 +1,6 @@
 package com.maastricht.university.logic.game;
 
+import com.maastricht.university.logic.util.exceptions.GameIsOverException;
 import com.maastricht.university.logic.util.exceptions.IllegalMoveException;
 import com.maastricht.university.logic.util.exceptions.OutsideHexagonException;
 import com.maastricht.university.logic.util.interfaces.IGameState;
@@ -13,6 +14,7 @@ public class GameState implements IGameState {
 
     private int playerTurn;
     private int numberOfPlayers;
+    private Boolean[] actualPlayers;
 
     /**
      * construct the gamestate
@@ -24,6 +26,10 @@ public class GameState implements IGameState {
         this.numberOfPlayers = numberOfPlayers;
         this.gameRules = new GameRule(board);
         playerTurn = 1;
+
+        this.actualPlayers = new Boolean[numberOfPlayers];
+        for(int i=0; i<numberOfPlayers; i++)
+            actualPlayers[i] = true;
     }
 
     @Override
@@ -33,6 +39,12 @@ public class GameState implements IGameState {
 
             board.move(q, r, playerColor);
             playerTurn = getNextPlayer();
+
+            while(!legalMovesLeft(playerTurn) && playerTurn!=playerColor)
+            {
+                playerTurn=getNextPlayer();
+            }
+
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("current player is still " + playerTurn);
@@ -86,6 +98,43 @@ public class GameState implements IGameState {
     }
 
     /**
+     * this method needs to return the winning player
+     * if no winner yet then we return false and if we have 1 winner then we return true
+     * @return
+     */
+    public boolean isGameOver() {
+        int countTrue=0;
+        for(int x=0; x<numberOfPlayers; x++)
+            if(actualPlayers[x]== true)
+                countTrue++;
+
+        if(countTrue==1)
+            return true;
+
+        return false;
+    }
+
+    public int winner() {
+        if(isGameOver())
+            return playerTurn;
+        else
+            return 0;
+    }
+
+    public boolean legalMovesLeft(int playerColor) {
+        int maxCoordinate = board.getBoardSize()*2+1;
+        for (int i = 0; i < maxCoordinate; i++) {
+            for (int j = 0; j < maxCoordinate; j++) {
+                if (board.getTileMap().get(i, j) != null)
+                    if (isLegal(i, j, playerColor))
+                        return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * throws the exception that need to be caught inside move()
      */
     private void findIllegalException(int q, int r, int playerColor) throws Exception {
@@ -99,6 +148,8 @@ public class GameState implements IGameState {
             throw new IllegalMoveException("there are only " + numberOfPlayers + " players.");
         if (playerColor < 1)
             throw new IllegalMoveException("player must be bigger than 0");
+        if(isGameOver())
+            throw  new GameIsOverException("game is already over, " + playerTurn + " is the winner of the game");
     }
 
 
@@ -106,7 +157,14 @@ public class GameState implements IGameState {
         int nextPlayer = playerTurn+1;
 
         if (nextPlayer > numberOfPlayers)
-            return 1;
+            nextPlayer = 1;
+
+        while(!actualPlayers[nextPlayer-1]) {
+            nextPlayer = nextPlayer + 1;
+            if(nextPlayer>numberOfPlayers)
+                nextPlayer=1;
+        }
+
         return nextPlayer;
     }
 
