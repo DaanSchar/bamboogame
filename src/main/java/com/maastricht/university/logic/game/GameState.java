@@ -116,6 +116,7 @@ public class GameState implements IGameState {
         return false;
     }
 
+    @Override
     public int winner() {
         if(isGameOver())
             return playerTurn;
