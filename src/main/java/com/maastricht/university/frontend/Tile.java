@@ -3,7 +3,7 @@ package com.maastricht.university.frontend;
 import com.maastricht.university.logic.util.interfaces.IGameState;
 import javafx.scene.shape.SVGPath;
 
-public class Tile {
+public class Tile implements Cloneable {
 
     private HoverableButton button;
 

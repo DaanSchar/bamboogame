@@ -3,6 +3,7 @@ package com.maastricht.university.frontend;
 
 import com.maastricht.university.logic.game.Hexagon;
 import com.maastricht.university.logic.util.interfaces.IGameState;
+import com.maastricht.university.logic.game.LogicTile;
 import javafx.scene.layout.Pane;
 
 public class TileMap {

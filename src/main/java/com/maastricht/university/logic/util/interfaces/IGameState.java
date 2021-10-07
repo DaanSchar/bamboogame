@@ -60,4 +60,11 @@ public interface IGameState {
      * @return identifcation of the player
      */
     public int getPlayerColorOfTile(int q, int r);
+
+    /**
+     * return the winner of the game
+     *
+     * @return identification of the player who has won, or 0 if no winner
+     */
+    public int winner();
 }

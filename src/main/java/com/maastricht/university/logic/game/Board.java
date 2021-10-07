@@ -11,6 +11,7 @@ public class Board {
     private int numberOfPlayers;
 
     private List<TileGroup>[] groups;
+
     private Hexagon<LogicTile> tileMap;
 
     /**
@@ -23,7 +24,7 @@ public class Board {
         this.numberOfPlayers = numberOfPlayers;
 
         initGroups();
-        initBoard();
+        initTilemap();
     }
 
     /**
@@ -37,7 +38,7 @@ public class Board {
                 throw new IllegalArgumentException("playerColor is not a legal color");
             tileMap.get(q, r).setPlayerColour(playerColor);
             addGroup(new TileGroup(tileMap.get(q, r)));
-            updateGroups(q, r);
+            mergeNeighboringGroups(q, r);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -77,12 +78,6 @@ public class Board {
     public void removeGroup(TileGroup group) {
         groups[group.getPlayerColor()-1].remove(group);
     }
-
-    /**
-     *
-     * @return the length of the board
-     */
-    public int getBoardSize() {return boardSize;}
 
     /**
      *
@@ -139,6 +134,29 @@ public class Board {
         return removeDuplicateGroups(groups);
     }
 
+    public void setTileMap(Hexagon<LogicTile> newTileMap) {
+        this.tileMap = newTileMap;
+    }
+
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    @Override
+    public Board clone() {
+        Board cloneBoard = new Board(boardSize, numberOfPlayers);
+        Hexagon<LogicTile> cloneTileMap = (Hexagon<LogicTile>) this.tileMap.clone();
+        cloneBoard.setTileMap(cloneTileMap);
+
+        for(int i=0; i<groups.length; i++) {
+            for(int j=0; j<groups[i].size(); j++) {
+                TileGroup cloneGroup = groups[i].get(j).cloneFromTileMap(cloneTileMap);
+                cloneBoard.addGroup(cloneGroup);
+            }
+        }
+        return cloneBoard;
+    }
+
 
 
 
@@ -159,7 +177,7 @@ public class Board {
             groups[i] = new LinkedList<TileGroup>();
     }
 
-    private void initBoard() {
+    private void initTilemap() {
         tileMap = new Hexagon<>(boardSize);
 
         for (int q = 0; q < tileMap.size(); q++)
@@ -174,13 +192,6 @@ public class Board {
                     groups.remove(i);
 
         return groups;
-    }
-
-    /**
-     * checks all tiles for any necessary actions
-     */
-    private void updateGroups(int q, int r) {
-        mergeNeighboringGroups(q, r);
     }
 
     /**

@@ -14,8 +14,8 @@ public class TileGroup {
     public TileGroup(LogicTile member) {
         this.playerColor = member.getPlayerColor();
         this.members = new LinkedList<>();
-        members.add(member);
 
+        members.add(member);
         groupID = count++;
     }
 
@@ -30,37 +30,11 @@ public class TileGroup {
     }
 
     /**
-     * Returns the ID of the group
-     * @return the ID of the group
-     */
-    public int getGroupID() {
-        return groupID;
-    }
-
-    /**
      * Returns all the LogicTiles in this group
      * @return all the LogicTiles in this group
      */
     public List<LogicTile> getMembers() {
-        return new LinkedList<LogicTile>(members);
-    }
-
-    /**
-     * Resets the list of LogicTiles in this group
-     * @param members the new list of LogicTiles
-     */
-    public void setMembers(List<LogicTile> members) {
-        try {
-            if (!membersAreSameColor(members))
-                throw new IllegalArgumentException("Members are not of the same PlayerColor");
-            if (members.get(0).getPlayerColor() != playerColor)
-                throw new IllegalArgumentException("Cant set tilelist as members of this group because the tile's playerColor do not match the groups playerColor");
-
-            this.members = members;
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        return new LinkedList<>(members);
     }
 
     /**
@@ -79,25 +53,20 @@ public class TileGroup {
         }
     }
 
+    public void setGroupID(int id) {
+        groupID = id;
+    }
 
+    public TileGroup cloneFromTileMap(Hexagon<LogicTile> tileMap) {
+        TileGroup cloneTileGroup = new TileGroup(this.playerColor);
 
-
-
-
-
-
-
-
-
-
-    /**
-     * checks if all members in a list are of the same playerColor
-     */
-    private boolean membersAreSameColor(List<LogicTile> members) {
-        for (LogicTile member : members)
-            if (member.getPlayerColor() != playerColor)
-                return false;
-        return false;
+        for(int i=0; i<members.size(); i++) {
+            LogicTile oldTile = members.get(i);
+            LogicTile newTile = tileMap.get(oldTile.getQ(), oldTile.getR());
+            cloneTileGroup.addMember(newTile);
+        }
+        cloneTileGroup.setGroupID(this.groupID);
+        return cloneTileGroup;
     }
 
     @Override
