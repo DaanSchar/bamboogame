@@ -44,6 +44,10 @@ public class TileMap {
         return tileMapPane;
     }
 
+    /**
+     * gives all tiles that are considered legal
+     * for the current player a certain color
+     */
     public void showLegalMoves() {
         for (int i = 0; i < dimension; i++)
             for (int j = 0; j < dimension; j++)
