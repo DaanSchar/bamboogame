@@ -1,7 +1,6 @@
 package com.maastricht.university.frontend;
 
 
-import com.maastricht.university.logic.game.GameState;
 import com.maastricht.university.logic.game.Hexagon;
 import com.maastricht.university.logic.util.interfaces.IGameState;
 import javafx.scene.layout.Pane;
@@ -9,38 +8,12 @@ import javafx.scene.layout.Pane;
 public class TileMap {
 
     private int dimension = 9;
+    private Hexagon<Tile> hexagon;
+
     private int mapX;
     private int mapY;
-    private int TileSize; //Everything is scaled by TileSize, 30 works well rn
-    Pane tileMapPane;
-
-    Hexagon<Tile> hexagon;
-
-
-    //Constructor generates a 2d array as shown in
-    //https://www.redblobgames.com/grids/hexagons/#map-storage
-    //access via x,y; Index is pretty meaningless rn
-    /**
-    public TileMap(int mapX, int mapY, int TileSize) {
-        this.mapX = mapX;
-        this.mapY = mapY;
-        this.TileSize = TileSize;
-        tileMap = new Tile[dimension][dimension];
-
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
-                if (i + j < 4 || i + j > 12)
-                    tileMap[i][j] = null;
-                else
-                    tileMap[i][j] = new Tile(mapX + (i * TileSize) + (i + j * TileSize / 2),
-                            mapY + j * TileSize,
-                            30,
-                            j + i * dimension);
-            }
-        }
-    }
-     */
-
+    private int TileSize;
+    private Pane tileMapPane;
 
     public TileMap(int dimension, int mapX, int mapY, int TileSize) {
         this.dimension = dimension;
@@ -52,16 +25,15 @@ public class TileMap {
 
         for (int i = 0; i < hexagon.size(); i++)
             for (int j = 0; j < hexagon.size(); j++)
-                hexagon.insert(i, j, new Tile(i,j ,mapX + (i * TileSize) + (i + j * TileSize / 2),
-                        mapY + j * TileSize,
-                        30));
-
-
+                hexagon.insert(i, j,
+                        new Tile(i, j,
+                                mapX + (i * TileSize) + (i + j * TileSize / 2),
+                                mapY + j * TileSize, 30)
+                );
     }
 
-    //Returns a Pane with the buttons
     public Pane getTileMapPane() {
-        tileMapPane = new Pane(); //getTileMapPane
+        tileMapPane = new Pane();
 
         for(int i = 0; i<dimension;i++) {
             for(int j = 0; j<dimension;j++) {
@@ -72,76 +44,29 @@ public class TileMap {
         return tileMapPane;
     }
 
-    public Hexagon<Tile> getTileMap() {
-        return hexagon;
-    }
-
-    public int getMapX() {
-        return mapX;
-    }
-
-    public int getMapY() {
-        return mapY;
-    }
-
-    //return the Tile at the specified x and y
-    //NOTE: this implementation is different from the logic's java/tile which uses 3d coordinates
-    //IF NECESSARY CREATE TRANSLATION BETWEEN 2D AND 3D COORDS
-    //https://www.redblobgames.com/grids/hexagons/#conversions
-    public Tile getTile(int x, int y) {
-        return hexagon.get(x,y);
-    }
-
-    public int getDimension() {
-        return dimension;
-    }
-
-    public void setDimension(int dimension) {
-        this.dimension = dimension;
-    }
-
-    public void setMapX(int mapX) {
-        this.mapX = mapX;
-    }
-
-    public void setMapY(int mapY) {
-        this.mapY = mapY;
-    }
-
-    public int getTileSize() {
-        return TileSize;
-    }
-
     public void showLegalMoves() {
+        for (int i = 0; i < dimension; i++)
+            for (int j = 0; j < dimension; j++)
+                if (hexagon.get(i,j) != null)
+                    determineTileColor(i, j);
+    }
+
+    private void determineTileColor(int q,int r) {
         IGameState state = Factory.getGameState();
 
-
-        int playerTurn;
-        if (state.getPlayerTurn() == 1)
-            playerTurn = 2;
+        if (state.isLegal(q,r,state.getPlayerTurn()))
+            setTileColor(q, r, TileColor.LEGAL.get());
         else
-            playerTurn = 1;
-
-//        this is not working yet how i want it
-        for(int i = 0; i<dimension;i++) {
-            for(int j = 0; j<dimension;j++) {
-                if(hexagon.get(i,j) != null)
-                    if (state.isLegal(i,j,playerTurn))
-                        hexagon.get(i,j).getButton().setColor("#38822c");
-                    else
-                        if (state.getPlayerColorOfTile(i,j) == 1)
-                            hexagon.get(i,j).getButton().setColor("#4d9de0");
-                        else if (state.getPlayerColorOfTile(i,j) == 2)
-                            hexagon.get(i,j).getButton().setColor("#E15554");
-                        else if (state.getPlayerColorOfTile(i,j) == 0)
-                            hexagon.get(i,j).getButton().setColor("#ffffff");
-            }
-        }
+            if (state.getPlayerColorOfTile(q,r) == 1)
+                setTileColor(q, r, TileColor.PLAYER1.get());
+            else if (state.getPlayerColorOfTile(q,r) == 2)
+                setTileColor(q, r,TileColor.PLAYER2.get() );
+            else if (state.getPlayerColorOfTile(q,r) == 0)
+                setTileColor(q, r, TileColor.NONE.get());
     }
 
-
-
-
-
+    private void setTileColor(int q, int r, String color) {
+        hexagon.get(q,r).getButton().setColor(color);
+    }
 
 }

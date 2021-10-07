@@ -1,7 +1,6 @@
 package com.maastricht.university.frontend;
 
 import com.maastricht.university.logic.util.interfaces.IGameState;
-import javafx.scene.control.Button;
 import javafx.scene.shape.SVGPath;
 
 public class Tile {
@@ -41,31 +40,19 @@ public class Tile {
 
         button.setOnMouseClicked(e -> {
             IGameState game = Factory.getGameState();
-            Factory.getTileMap().showLegalMoves();
             game.move(q,r,Factory.getGameState().getPlayerTurn());
+            Factory.getTileMap().showLegalMoves();
             int playerColor = game.getPlayerColorOfTile(q,r);
 
             if (playerColor == 1)
-                button.setColor("#4d9de0");
+                button.setColor(TileColor.PLAYER1.get());
             if (playerColor == 2)
-                button.setColor("#E15554");
+                button.setColor(TileColor.PLAYER2.get());
 
             Main.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
             Main.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
-
-
-            System.out.println(game.getTotalGroups(playerColor));
         });
 
-    }
-    //TODO this doesnt work
-    private void showLegal(int playerColor){
-        IGameState game = Factory.getGameState();
-        for(int i=0, j=0; i< size; i++) {
-            if(game.isLegal(i,j, playerColor)){
-                button.setColor("#00FF00");
-            }
-        }
     }
 
     public HoverableButton getButton() {
