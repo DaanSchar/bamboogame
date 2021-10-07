@@ -12,8 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class Main{
-    int width = 800;
-    int height = 500;
+    private int width = Factory.getScreenWidth();
+    private int height = Factory.getScreenHeight();
 
     private ImageView p1 = new ImageView(new Image("/images/playerone.png"));
     private ImageView p2 = new ImageView(new Image("/images/playertwo.png"));
@@ -31,7 +31,7 @@ public class Main{
 
     public Scene getScene(){
 
-        TileMap tilemap = new TileMap(9,width/4,height/6,30);
+        TileMap tilemap = Factory.getTileMap();
         Pane playground = tilemap.getTileMapPane();
 
         //add labels for player stats to screen

@@ -1,7 +1,9 @@
 package com.maastricht.university.frontend;
 
 
+import com.maastricht.university.logic.game.GameState;
 import com.maastricht.university.logic.game.Hexagon;
+import com.maastricht.university.logic.util.interfaces.IGameState;
 import javafx.scene.layout.Pane;
 
 public class TileMap {
@@ -108,6 +110,33 @@ public class TileMap {
 
     public int getTileSize() {
         return TileSize;
+    }
+
+    public void showLegalMoves() {
+        IGameState state = Factory.getGameState();
+
+
+        int playerTurn;
+        if (state.getPlayerTurn() == 1)
+            playerTurn = 2;
+        else
+            playerTurn = 1;
+
+//        this is not working yet how i want it
+        for(int i = 0; i<dimension;i++) {
+            for(int j = 0; j<dimension;j++) {
+                if(hexagon.get(i,j) != null)
+                    if (state.isLegal(i,j,playerTurn))
+                        hexagon.get(i,j).getButton().setColor("#38822c");
+                    else
+                        if (state.getPlayerColorOfTile(i,j) == 1)
+                            hexagon.get(i,j).getButton().setColor("#4d9de0");
+                        else if (state.getPlayerColorOfTile(i,j) == 2)
+                            hexagon.get(i,j).getButton().setColor("#E15554");
+                        else if (state.getPlayerColorOfTile(i,j) == 0)
+                            hexagon.get(i,j).getButton().setColor("#ffffff");
+            }
+        }
     }
 
 

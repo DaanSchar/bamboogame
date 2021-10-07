@@ -41,6 +41,7 @@ public class Tile {
 
         button.setOnMouseClicked(e -> {
             IGameState game = Factory.getGameState();
+            Factory.getTileMap().showLegalMoves();
             game.move(q,r,Factory.getGameState().getPlayerTurn());
             int playerColor = game.getPlayerColorOfTile(q,r);
 
@@ -67,7 +68,7 @@ public class Tile {
         }
     }
 
-    public Button getButton() {
+    public HoverableButton getButton() {
         return button;
     }
 }
