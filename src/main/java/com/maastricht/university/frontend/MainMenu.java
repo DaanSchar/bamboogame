@@ -12,26 +12,25 @@ import javafx.stage.Stage;
 
 public class MainMenu extends Application {
 
-    public ImageView humanView = new ImageView(new Image("/images/button_human.png"));
-    public ImageView pcView = new ImageView(new Image("/images/button_computer.png"));
-    public ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
-    public ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
-    public ImageView title = new ImageView(new Image("/images/bambooText.png"));
+    private ImageView humanView = new ImageView(new Image("/images/button_human.png"));
+    private ImageView pcView = new ImageView(new Image("/images/button_computer.png"));
+    private ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
+    private ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
+    private ImageView title = new ImageView(new Image("/images/bambooText.png"));
 
-    double width = 800;
-    double height = 500;
+    private double width = 800;
+    private double height = 500;
+    private Image bambooBcg = new Image("/images/bamboo.jpeg", width, height, false, true);
+    private String tutorial = "https://www.youtube.com/embed/uVcDO8EmDCs";
     BorderPane r = new BorderPane();
     Scene scene = new Scene(r,width,height);
 
-    public Image bambooBcg = new Image("/images/bamboo.jpeg", width, height, false, true);
-    public String tutorial = "https://www.youtube.com/embed/uVcDO8EmDCs";
-
-    public BackgroundImage bImg = new BackgroundImage(bambooBcg,
+    private BackgroundImage bImg = new BackgroundImage(bambooBcg,
             BackgroundRepeat.NO_REPEAT,
             BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
-    public Background bGround = new Background(bImg);
+    private Background bGround = new Background(bImg);
 
     public Stage backStage;
 
@@ -121,7 +120,6 @@ public class MainMenu extends Application {
         r.getChildren().add(computer);
         r.getChildren().add(exit);
         r.getChildren().add(rules);
-
 
         stage.show();
     }
