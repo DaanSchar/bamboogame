@@ -4,7 +4,7 @@ public enum TileColor {
 
     PLAYER1("#4d9de0"),
     PLAYER2("#E15554"),
-    LEGAL("#38822c"),
+    LEGAL("#7AE967"),
     NONE("#fff");
 
     private String color;
