@@ -1,4 +1,8 @@
-package com.maastricht.university.logic.game;
+package com.maastricht.university.logic.game.game;
+
+import com.maastricht.university.logic.game.components.Board;
+import com.maastricht.university.logic.game.components.LogicTile;
+import com.maastricht.university.logic.game.components.TileGroup;
 
 import java.util.List;
 

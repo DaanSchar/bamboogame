@@ -1,7 +1,7 @@
 package com.maastricht.university.logic;
 
 
-import com.maastricht.university.logic.game.GameState;
+import com.maastricht.university.logic.game.game.GameState;
 
 public class Main {
 

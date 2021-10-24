@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.game;
+package com.maastricht.university.logic.game.components;
 
 import com.maastricht.university.logic.util.interfaces.IHexagon;
 import com.rits.cloning.Cloner;

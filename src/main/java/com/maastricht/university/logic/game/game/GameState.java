@@ -1,5 +1,7 @@
-package com.maastricht.university.logic.game;
+package com.maastricht.university.logic.game.game;
 
+import com.maastricht.university.logic.game.components.Board;
+import com.maastricht.university.logic.game.components.TileGroup;
 import com.maastricht.university.logic.util.exceptions.GameIsOverException;
 import com.maastricht.university.logic.util.exceptions.IllegalMoveException;
 import com.maastricht.university.logic.util.exceptions.OutsideHexagonException;
@@ -126,6 +128,7 @@ public class GameState implements IGameState {
 
     public boolean legalMovesLeft(int playerColor) {
         int maxCoordinate = board.getBoardSize()*2+1;
+
         for (int i = 0; i < maxCoordinate; i++) {
             for (int j = 0; j < maxCoordinate; j++) {
                 if (board.getTileMap().get(i, j) != null)

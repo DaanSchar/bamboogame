@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.game;
+package com.maastricht.university.logic.game.components;
 
 public class LogicTile implements Cloneable {
 
