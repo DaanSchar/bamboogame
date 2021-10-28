@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class Main{
     private int width = Factory.getScreenWidth();
@@ -28,6 +29,7 @@ public class Main{
 
     public static Label p1Text = new Label(Integer.toString(p1groups()));
     public static Label p2Text = new Label(Integer.toString(p2groups()));
+    public static Label currentPlayer = new Label(currentPlayer());
 
     public Scene getScene(){
 
@@ -60,6 +62,12 @@ public class Main{
         p2Text.setTextFill(Color.WHITE);
         playground.getChildren().add(p2Text);
 
+        //display current player
+        currentPlayer.setLayoutX(340.0);
+        currentPlayer.setLayoutY(30.0);
+        currentPlayer.setFont(new Font("Barlow Condensed Bold", 25));
+        currentPlayer.setTextFill(Color.BLACK);
+        playground.getChildren().add(currentPlayer);
 
         HoverableButton exit = new HoverableButton(50, height - height/12, 20, 20);
         exitView.setFitHeight(40);
@@ -81,12 +89,24 @@ public class Main{
     }
 
     /**
+     * This method uses the GameState interface to return which player is currently playing
+     * @return A string with the current player
+     */
+    public static String currentPlayer(){
+        IGameState gameState = Factory.getGameState();
+        if(gameState.getPlayerTurn() == 1){
+            return "PLAYER 1";
+        }else{
+            return "PLAYER 2";
+        }
+    }
+
+    /**
      * This method uses the GameState interface to return the number of groups for player 1
      * @return number of groups for player 1
      */
     public static int p1groups(){
         IGameState gameState = Factory.getGameState();
-
         return gameState.getTotalGroups(1);
     }
     /**
@@ -95,10 +115,8 @@ public class Main{
      */
     public static int p2groups(){
         IGameState gameState = Factory.getGameState();
-
         return gameState.getTotalGroups(2);
     }
-
 
     public static void main(String[]args){
 

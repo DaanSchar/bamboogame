@@ -42,6 +42,7 @@ public class Tile implements Cloneable {
 
             setColorOnClick(game);
             updateTotalGroupsText(game);
+            updateCurrentPlayerText(game);
         });
     }
 
@@ -52,6 +53,10 @@ public class Tile implements Cloneable {
             button.setColor(TileColor.PLAYER1.get());
         if (playerColor == 2)
             button.setColor(TileColor.PLAYER2.get());
+    }
+
+    private void updateCurrentPlayerText(IGameState game){
+        Main.currentPlayer.setText(Main.currentPlayer());
     }
 
     private void updateTotalGroupsText(IGameState game){
