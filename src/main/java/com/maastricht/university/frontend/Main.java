@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class Main{
     private int width = Factory.getScreenWidth();
@@ -64,7 +65,7 @@ public class Main{
         //display current player
         currentPlayer.setLayoutX(340.0);
         currentPlayer.setLayoutY(30.0);
-        currentPlayer.setFont(new Font("Times New Roman", 25));
+        currentPlayer.setFont(new Font("Barlow Condensed Bold", 25));
         currentPlayer.setTextFill(Color.BLACK);
         playground.getChildren().add(currentPlayer);
 
