@@ -153,43 +153,10 @@ public class Main{
 
             r.getChildren().add(twoWin);
         }
-        /*
-        HoverableButton home = new HoverableButton(700, 450, 20, 20);
-        homeView.setFitHeight(40);
-        homeView.setFitWidth(80);
-        home.setGraphic(homeView);
-        r.getChildren().add(home);
-
-        home.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                MainMenu screen2 = new MainMenu();
-
-                screen2.backStage.setScene(screen2.scene);
-                screen2.backStage.show();
-            }
-        });
-
-        HoverableButton exit2 = new HoverableButton(50, sheight - sheight/12, 20, 20);
-        exitView.setFitHeight(40);
-        exitView.setFitWidth(80);
-        exit2.setGraphic(exitView);
-        r.getChildren().add(exit2);
-
-        //if the exit button is clicked, it will close the program
-        exit2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e)
-            {
-                System.exit(0);
-            }
-        });
-        */
 
         winnerStage.setScene(scene);
         winnerStage.show();
     }
-
-
 
     public static void main(String[]args){
 
