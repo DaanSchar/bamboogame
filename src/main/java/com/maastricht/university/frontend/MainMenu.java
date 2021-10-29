@@ -59,7 +59,6 @@ public class MainMenu extends Application {
 
                 stage.setScene(screen1.getScene());
                 stage.show();
-                System.out.println("This goes into the game :)");
             }
         });
 

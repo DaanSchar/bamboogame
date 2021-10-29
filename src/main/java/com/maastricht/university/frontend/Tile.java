@@ -1,5 +1,6 @@
 package com.maastricht.university.frontend;
 
+import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.util.interfaces.IGameState;
 import javafx.scene.shape.SVGPath;
 
@@ -43,6 +44,7 @@ public class Tile implements Cloneable {
             setColorOnClick(game);
             updateTotalGroupsText(game);
             updateCurrentPlayerText(game);
+            winner(game);
         });
     }
 
@@ -63,4 +65,12 @@ public class Tile implements Cloneable {
         Main.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
         Main.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
     }
+
+    private void winner(IGameState game){
+        if(game.winner() != 0){
+            Main.isWinner();
+        }
+    }
+
+
 }

@@ -105,7 +105,6 @@ public class GameState implements IGameState {
      * if no winner yet then we return false and if we have 1 winner then we return true
      * @return
      */
-
     public boolean isGameOver() {
         int countTrue=0;
         for(int x=0; x<numberOfPlayers; x++) {
