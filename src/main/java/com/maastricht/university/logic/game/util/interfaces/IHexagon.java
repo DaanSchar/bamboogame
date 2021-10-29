@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.util.interfaces;
+package com.maastricht.university.logic.game.util.interfaces;
 
 import java.util.List;
 

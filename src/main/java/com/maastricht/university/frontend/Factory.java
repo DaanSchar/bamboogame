@@ -1,7 +1,7 @@
 package com.maastricht.university.frontend;
 
 import com.maastricht.university.logic.game.game.GameState;
-import com.maastricht.university.logic.util.interfaces.IGameState;
+import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 public class Factory {
 

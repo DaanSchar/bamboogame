@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.util.interfaces;
+package com.maastricht.university.logic.game.util.interfaces;
 
 /**
  * this interface makes sure that the frontend wont have access to anything we dont want
