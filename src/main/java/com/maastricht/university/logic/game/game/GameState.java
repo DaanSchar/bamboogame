@@ -9,7 +9,7 @@ import com.maastricht.university.logic.util.interfaces.IGameState;
 
 import java.util.List;
 
-public class GameState implements IGameState {
+public class GameState implements IGameState, Comparable<GameState> {
 
     private Board board;
     private GameRule gameRules;
@@ -173,5 +173,9 @@ public class GameState implements IGameState {
         return nextPlayer;
     }
 
-
+    //TODO: implement score system for gameState
+    @Override
+    public int compareTo(GameState o) {
+        return 0;
+    }
 }
