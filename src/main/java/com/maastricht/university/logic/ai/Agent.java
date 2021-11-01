@@ -1,7 +1,9 @@
 package com.maastricht.university.logic.ai;
 
+import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Agent {
@@ -20,11 +22,13 @@ public class Agent {
         }
     }
 
+
     private void determineMove() {
         Random rand = new Random();
-        int q = rand.nextInt(9);
-        int r = rand.nextInt(9);
+        ArrayList<Move> moveList = gameState.getLegalMoves(2);//Im guessing agent is player 2?
+        int index = rand.nextInt(moveList.size());
+        Move move = moveList.get(index);
 
-        gameState.move(q, r, player);
+        gameState.move(move.getX(), move.getY(), player);
     }
 }
