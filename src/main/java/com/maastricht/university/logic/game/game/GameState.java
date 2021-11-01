@@ -1,11 +1,12 @@
 package com.maastricht.university.logic.game.game;
 
+import com.maastricht.university.logic.ai.Agent;
 import com.maastricht.university.logic.game.components.Board;
 import com.maastricht.university.logic.game.components.TileGroup;
-import com.maastricht.university.logic.util.exceptions.GameIsOverException;
-import com.maastricht.university.logic.util.exceptions.IllegalMoveException;
-import com.maastricht.university.logic.util.exceptions.OutsideHexagonException;
-import com.maastricht.university.logic.util.interfaces.IGameState;
+import com.maastricht.university.logic.game.util.exceptions.GameIsOverException;
+import com.maastricht.university.logic.game.util.exceptions.IllegalMoveException;
+import com.maastricht.university.logic.game.util.exceptions.OutsideHexagonException;
+import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class GameState implements IGameState {
         this.board = new Board(boardSize, numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
         this.gameRules = new GameRule(board);
-        playerTurn = 1;
+        this.playerTurn = 1;
 
         this.actualPlayers = new Boolean[numberOfPlayers];
         for(int i=0; i<numberOfPlayers; i++)
@@ -42,8 +43,7 @@ public class GameState implements IGameState {
             board.move(q, r, playerColor);
             playerTurn = getNextPlayer();
 
-            while(!legalMovesLeft(playerTurn) && playerTurn!=playerColor)
-            {
+            while(!legalMovesLeft(playerTurn) && playerTurn!=playerColor) {
                 actualPlayers[playerTurn-1] = false;
                 playerTurn=getNextPlayer();
             }
@@ -128,13 +128,11 @@ public class GameState implements IGameState {
     public boolean legalMovesLeft(int playerColor) {
         int maxCoordinate = board.getBoardSize()*2+1;
 
-        for (int i = 0; i < maxCoordinate; i++) {
-            for (int j = 0; j < maxCoordinate; j++) {
+        for (int i = 0; i < maxCoordinate; i++)
+            for (int j = 0; j < maxCoordinate; j++)
                 if (board.getTileMap().get(i, j) != null)
                     if (isLegal(i, j, playerColor))
                         return true;
-            }
-        }
 
         return false;
     }

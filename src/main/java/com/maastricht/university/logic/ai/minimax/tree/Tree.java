@@ -1,4 +1,4 @@
-package com.maastricht.university.minimax.tree;
+package com.maastricht.university.logic.ai.minimax.tree;
 
 public class Tree<E extends Comparable<E>> implements ITree<E> {
 

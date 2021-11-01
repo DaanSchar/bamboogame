@@ -1,7 +1,7 @@
 package com.maastricht.university.frontend;
 
-import com.maastricht.university.logic.game.game.GameState;
-import com.maastricht.university.logic.util.interfaces.IGameState;
+import com.maastricht.university.logic.ai.Agent;
+import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.scene.shape.SVGPath;
 
 public class Tile implements Cloneable {
@@ -37,24 +37,14 @@ public class Tile implements Cloneable {
     private void setClickEvent() {
         button.setOnMouseClicked(e -> {
             IGameState game = Factory.getGameState();
-
             game.move(q,r,Factory.getGameState().getPlayerTurn());
+
             Factory.getTileMap().showLegalMoves();
 
-            setColorOnClick(game);
             updateTotalGroupsText(game);
             updateCurrentPlayerText(game);
             winner(game);
         });
-    }
-
-    private void setColorOnClick(IGameState game) {
-        int playerColor = game.getPlayerColorOfTile(q,r);
-
-        if (playerColor == 1)
-            button.setColor(TileColor.PLAYER1.get());
-        if (playerColor == 2)
-            button.setColor(TileColor.PLAYER2.get());
     }
 
     private void updateCurrentPlayerText(IGameState game){

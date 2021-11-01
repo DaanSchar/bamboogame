@@ -1,6 +1,6 @@
 package com.maastricht.university.logic.game.components;
 
-import com.maastricht.university.logic.util.interfaces.IHexagon;
+import com.maastricht.university.logic.game.util.interfaces.IHexagon;
 import com.rits.cloning.Cloner;
 
 import java.util.ArrayList;
