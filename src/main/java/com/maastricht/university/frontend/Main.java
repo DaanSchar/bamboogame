@@ -22,7 +22,7 @@ public class Main{
     private ImageView p1 = new ImageView(new Image("/images/playerone.png"));
     private ImageView p2 = new ImageView(new Image("/images/playertwo.png"));
     private static ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
-    private static ImageView homeView = new ImageView(new Image("/images/home.png"));
+    private static ImageView homeView = new ImageView(new Image("/images/home_button.png"));
 
     private Image bambooBcg = new Image("/images/bamboo.jpeg", width, height, false, true);
     private BackgroundImage bImg = new BackgroundImage(bambooBcg,
@@ -38,6 +38,8 @@ public class Main{
 
     private static ImageView oneWin = new ImageView(new Image("/images/player_one_wins.gif"));
     private static ImageView twoWin = new ImageView(new Image("/images/player_two_wins.gif"));
+
+    private HoverableButton exit = new HoverableButton(50, height - height/12, 20, 20);
 
     public Scene getScene(){
 
@@ -77,7 +79,7 @@ public class Main{
         currentPlayer.setTextFill(Color.BLACK);
         playground.getChildren().add(currentPlayer);
 
-        HoverableButton exit = new HoverableButton(50, height - height/12, 20, 20);
+
         exitView.setFitHeight(40);
         exitView.setFitWidth(80);
         exit.setGraphic(exitView);
@@ -134,7 +136,7 @@ public class Main{
         IGameState gameState = Factory.getGameState();
 
         VBox r = new VBox();
-        Scene scene = new Scene(r,swidth,sheight);
+        Scene scene = new Scene(r,w,h);
 
         if(gameState.winner() == 1){
            oneWin.setLayoutX(swidth/2 + 10);
@@ -142,7 +144,7 @@ public class Main{
            oneWin.setFitWidth(w);
            oneWin.setFitHeight(h);
 
-           //r.getChildren().add(oneWin);
+           r.getChildren().add(oneWin);
 
         }else if(gameState.winner() == 2){
             twoWin.setLayoutX(swidth/2 + 10);
@@ -150,10 +152,10 @@ public class Main{
             twoWin.setFitWidth(w);
             twoWin.setFitHeight(h);
 
-            //r.getChildren().add(twoWin);
+            r.getChildren().add(twoWin);
         }
-
-        HoverableButton home = new HoverableButton(400, h, 20, 20);
+        //button is not moving!!!!!
+        HoverableButton home = new HoverableButton(h/7, h - 100, 20, 20);
         homeView.setFitHeight(40);
         homeView.setFitWidth(80);
         home.setGraphic(homeView);
@@ -162,31 +164,10 @@ public class Main{
         home.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                MainMenu screen2 = new MainMenu();
-
-                screen2.backStage.setScene(screen2.scene);
-                screen2.backStage.show();
+                m.start(m.backStage);
+                m.backStage.show();
             }
         });
-
-
-        HoverableButton exit2 = new HoverableButton(50, h, 20, 20);
-        exit2.setLayoutX(50);
-        exit2.setLayoutY(h);
-        exitView.setFitHeight(40);
-        exitView.setFitWidth(80);
-        exit2.setGraphic(exitView);
-        r.getChildren().add(exit2);
-
-        //if the exit button is clicked, it will close the program
-        exit2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e)
-            {
-                System.exit(0);
-            }
-        });
-        m.backStage.setScene(scene);
-        m.backStage.show();
 
         return scene;
     }

@@ -23,7 +23,7 @@ public class MainMenu extends Application {
     private Image bambooBcg = new Image("/images/bamboo.jpeg", width, height, false, true);
     private String tutorial = "https://www.youtube.com/embed/uVcDO8EmDCs";
     BorderPane r = new BorderPane();
-    Scene scene = new Scene(r,width,height);
+
 
     private BackgroundImage bImg = new BackgroundImage(bambooBcg,
             BackgroundRepeat.NO_REPEAT,
@@ -33,6 +33,7 @@ public class MainMenu extends Application {
     private Background bGround = new Background(bImg);
 
     public static Stage backStage;
+    Scene scene = new Scene(r,width,height);
 
     @Override
     public void start(Stage stage) {

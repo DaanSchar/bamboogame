@@ -67,7 +67,7 @@ public class Tile implements Cloneable {
     }
 
     private void winner(IGameState game){
-        if(game.winner() == 0){
+        if(game.winner() != 0){
             MainMenu.backStage.setScene(Main.isWinner());
         }
     }
