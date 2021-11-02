@@ -32,7 +32,7 @@ public class MainMenu extends Application {
             BackgroundSize.DEFAULT);
     private Background bGround = new Background(bImg);
 
-    public Stage backStage;
+    public static Stage backStage;
 
     @Override
     public void start(Stage stage) {

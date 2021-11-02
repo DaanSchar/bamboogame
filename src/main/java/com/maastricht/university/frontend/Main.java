@@ -1,10 +1,9 @@
 package com.maastricht.university.frontend;
 
-import com.maastricht.university.logic.game.game.GameState;
+
 import com.maastricht.university.logic.util.interfaces.IGameState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -12,9 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 
 public class Main{
     private int width = Factory.getScreenWidth();
@@ -130,32 +126,69 @@ public class Main{
         return gameState.getTotalGroups(2);
     }
 
-    public static void isWinner(){
+    public static Scene isWinner(){
+        MainMenu m = new MainMenu();
+
+        int w = 720;
+        int h = 405;
         IGameState gameState = Factory.getGameState();
 
         VBox r = new VBox();
-        Scene scene = new Scene(r,720,405);
-        Stage winnerStage = new Stage();
+        Scene scene = new Scene(r,swidth,sheight);
 
         if(gameState.winner() == 1){
            oneWin.setLayoutX(swidth/2 + 10);
            oneWin.setLayoutY(sheight/2);
-           oneWin.setFitWidth(720);
-           oneWin.setFitHeight(405);
+           oneWin.setFitWidth(w);
+           oneWin.setFitHeight(h);
 
-           r.getChildren().add(oneWin);
+           //r.getChildren().add(oneWin);
 
         }else if(gameState.winner() == 2){
             twoWin.setLayoutX(swidth/2 + 10);
             twoWin.setLayoutY(sheight/2);
-            twoWin.setFitWidth(720);
-            twoWin.setFitHeight(405);
+            twoWin.setFitWidth(w);
+            twoWin.setFitHeight(h);
 
-            r.getChildren().add(twoWin);
+            //r.getChildren().add(twoWin);
         }
 
-        winnerStage.setScene(scene);
-        winnerStage.show();
+        HoverableButton home = new HoverableButton(400, h, 20, 20);
+        homeView.setFitHeight(40);
+        homeView.setFitWidth(80);
+        home.setGraphic(homeView);
+        r.getChildren().add(home);
+
+        home.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MainMenu screen2 = new MainMenu();
+
+                screen2.backStage.setScene(screen2.scene);
+                screen2.backStage.show();
+            }
+        });
+
+
+        HoverableButton exit2 = new HoverableButton(50, h, 20, 20);
+        exit2.setLayoutX(50);
+        exit2.setLayoutY(h);
+        exitView.setFitHeight(40);
+        exitView.setFitWidth(80);
+        exit2.setGraphic(exitView);
+        r.getChildren().add(exit2);
+
+        //if the exit button is clicked, it will close the program
+        exit2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e)
+            {
+                System.exit(0);
+            }
+        });
+        m.backStage.setScene(scene);
+        m.backStage.show();
+
+        return scene;
     }
 
     public static void main(String[]args){
