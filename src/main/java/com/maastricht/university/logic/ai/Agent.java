@@ -25,7 +25,7 @@ public class Agent {
 
     private void determineMove() {
         Random rand = new Random();
-        ArrayList<Move> moveList = gameState.getLegalMoves(2);//Im guessing agent is player 2?
+        ArrayList<Move> moveList = gameState.getLegalMoves(player);
         int index = rand.nextInt(moveList.size());
         Move move = moveList.get(index);
 
