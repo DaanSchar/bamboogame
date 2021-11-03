@@ -10,6 +10,11 @@ import java.util.List;
 public interface ITreeNode<E> {
 
     /**
+     * @return depth of node in tree stored by this node.
+     */
+    int getDepth();
+
+    /**
      * @return Element stored by this node.
      */
     E getElement();
