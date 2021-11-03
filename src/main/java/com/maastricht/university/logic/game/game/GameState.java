@@ -8,6 +8,7 @@ import com.maastricht.university.logic.game.util.exceptions.IllegalMoveException
 import com.maastricht.university.logic.game.util.exceptions.OutsideHexagonException;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameState implements IGameState {
@@ -108,13 +109,10 @@ public class GameState implements IGameState {
     public boolean isGameOver() {
         int countTrue=0;
         for(int x=0; x<numberOfPlayers; x++) {
-            if (actualPlayers[x] == true)
+            if (actualPlayers[x])
                 countTrue++;
         }
-        if(countTrue==1)
-            return true;
-
-        return false;
+        return countTrue == 1;
     }
 
     @Override
@@ -169,6 +167,24 @@ public class GameState implements IGameState {
         }
 
         return nextPlayer;
+    }
+
+    public ArrayList<Move> getLegalMoves(int playerColor) {
+        ArrayList<Move> moveList = new ArrayList<Move>();
+        if(!legalMovesLeft(playerColor))
+            return null;
+
+        int maxCoordinate = board.getBoardSize()*2+1;
+
+        for (int i = 0; i < maxCoordinate; i++) {
+            for (int j = 0; j < maxCoordinate; j++) {
+                if (board.getTileMap().get(i, j) != null)
+                    if (isLegal(i, j, playerColor))
+                        moveList.add(new Move(i,j));
+            }
+        }
+
+    return moveList;
     }
 
 
