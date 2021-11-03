@@ -15,6 +15,10 @@ public class Factory {
         return state;
     }
 
+    public static void resetGameState() {
+        state = new GameState(4, 2);
+    }
+
     public static TileMap getTileMap() {
         return tilemap;
     }
