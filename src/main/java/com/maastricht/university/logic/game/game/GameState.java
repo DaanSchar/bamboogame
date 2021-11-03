@@ -140,6 +140,15 @@ public class GameState implements IGameState, Comparable<GameState> {
     }
 
     /**
+     * //TODO: Implement this method
+     * @param playerColor the color of the player
+     * @return a list containing all legal moves of player playercolor
+     */
+    public List<Integer[]> getLegalMoves(int playerColor) {
+        return null;
+    }
+
+    /**
      * throws the exception that need to be caught inside move()
      */
     private void findIllegalException(int q, int r, int playerColor) throws Exception {
