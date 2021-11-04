@@ -1,5 +1,6 @@
 package com.maastricht.university.frontend;
 
+import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.scene.shape.SVGPath;
 

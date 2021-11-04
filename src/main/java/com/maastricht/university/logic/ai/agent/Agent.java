@@ -17,7 +17,7 @@ public class Agent implements IAgent{
     }
 
     public void move() {
-        while (gameState.getPlayerTurn() == 2 && gameState.winner() == 0) {
+        while (gameState.getPlayerTurn() == player && gameState.winner() == 0) {
             determineMove();
         }
     }

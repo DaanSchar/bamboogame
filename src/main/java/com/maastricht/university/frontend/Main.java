@@ -1,5 +1,6 @@
 package com.maastricht.university.frontend;
 
+import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -88,12 +89,49 @@ public class Main{
             @Override public void handle(ActionEvent e)
             {
                 System.exit(0);
+
             }
         });
 
         playground.setBackground(bGround);
         Scene scene = new Scene(playground, width, height);
+
+        // CODE ADDED FOR 2 AI's RUNNING
+        createTimerThread();
+
         return scene;
+    }
+
+    public void createTimerThread() {
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        gameloop();
+                    }
+                },
+                1000
+        );
+    }
+
+    private void gameloop() {
+        while(Factory.getGameState().winner() == 0) {
+            runDoubleAi();
+        }
+        System.out.println("winner is " + Factory.getGameState().winner());
+    }
+
+    public void runDoubleAi() {
+        IGameState state =  Factory.getGameState();
+        Agent agent = new Agent(state, 1);
+        Agent agent2 = new Agent(state, 2);
+
+        agent.move();
+        Factory.getTileMap().showLegalMoves();
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+        agent2.move();
+        Factory.getTileMap().showLegalMoves();
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
     }
 
     /**
