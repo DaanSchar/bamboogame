@@ -1,6 +1,5 @@
 package com.maastricht.university.logic.game.game;
 
-import com.maastricht.university.logic.ai.Agent;
 import com.maastricht.university.logic.game.components.Board;
 import com.maastricht.university.logic.game.components.TileGroup;
 import com.maastricht.university.logic.game.util.exceptions.GameIsOverException;
