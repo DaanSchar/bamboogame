@@ -2,9 +2,6 @@ package com.maastricht.university.frontend;
 
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -15,14 +12,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class Main{
     private int width = Factory.getScreenWidth();
     private int height = Factory.getScreenHeight();
 
-    private static int swidth = Factory.getScreenWidth();
-    private static int sheight = Factory.getScreenHeight();
+    private static int sWidth = Factory.getScreenWidth();
+    private static int sHeight = Factory.getScreenHeight();
 
     private ImageView p1 = new ImageView(new Image("/images/playerone.png"));
     private ImageView p2 = new ImageView(new Image("/images/playertwo.png"));
@@ -90,10 +86,8 @@ public class Main{
 
         //if the exit button is clicked, it will close the program
         exit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e)
-            {
+            @Override public void handle(ActionEvent e) {
                 System.exit(0);
-
             }
         });
 
@@ -176,16 +170,16 @@ public class Main{
         Stage winnerStage = new Stage();
 
         if(gameState.winner() == 1){
-           oneWin.setLayoutX(swidth/2 + 10);
-           oneWin.setLayoutY(sheight/2);
+           oneWin.setLayoutX(sWidth /2 + 10);
+           oneWin.setLayoutY(sHeight /2);
            oneWin.setFitWidth(720);
            oneWin.setFitHeight(405);
 
            r.getChildren().add(oneWin);
 
         }else if(gameState.winner() == 2){
-            twoWin.setLayoutX(swidth/2 + 10);
-            twoWin.setLayoutY(sheight/2);
+            twoWin.setLayoutX(sWidth /2 + 10);
+            twoWin.setLayoutY(sHeight /2);
             twoWin.setFitWidth(720);
             twoWin.setFitHeight(405);
 
@@ -194,10 +188,6 @@ public class Main{
 
         winnerStage.setScene(scene);
         winnerStage.show();
-    }
-
-    public static void main(String[]args){
-
     }
 
 
