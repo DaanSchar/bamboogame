@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.ai;
+package com.maastricht.university.logic.ai.agent;
 
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
@@ -6,7 +6,7 @@ import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Agent {
+public class Agent implements IAgent{
 
     private IGameState gameState;
     private int player;
@@ -17,11 +17,10 @@ public class Agent {
     }
 
     public void move() {
-        while (gameState.getPlayerTurn() == 2 && gameState.winner() == 0) {
+        while (gameState.getPlayerTurn() == player && gameState.winner() == 0) {
             determineMove();
         }
     }
-
 
     private void determineMove() {
         Random rand = new Random();

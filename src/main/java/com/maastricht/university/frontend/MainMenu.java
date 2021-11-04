@@ -1,5 +1,6 @@
 package com.maastricht.university.frontend;
 
+import com.maastricht.university.frontend.components.HoverableButton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
