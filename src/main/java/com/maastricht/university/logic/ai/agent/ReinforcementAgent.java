@@ -9,4 +9,8 @@ public class ReinforcementAgent extends Agent {
     public ReinforcementAgent(IGameState gameState, int playerNumber) {
         super(gameState, playerNumber);
     }
+
+    public void move() {
+
+    }
 }

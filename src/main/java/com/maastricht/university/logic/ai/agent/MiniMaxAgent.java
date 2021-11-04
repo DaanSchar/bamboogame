@@ -8,4 +8,7 @@ public class MiniMaxAgent extends Agent{
         super(gameState, playerNumber);
     }
 
+    public void move() {
+
+    }
 }
