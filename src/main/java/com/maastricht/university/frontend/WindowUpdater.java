@@ -1,5 +1,9 @@
 package com.maastricht.university.frontend;
 
+import com.maastricht.university.frontend.components.HoverableButton;
+import com.maastricht.university.frontend.components.tile.Tile;
+import com.maastricht.university.frontend.components.tile.TileColor;
+import com.maastricht.university.frontend.components.tile.TileMap;
 import com.maastricht.university.logic.game.components.Hexagon;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.application.Platform;

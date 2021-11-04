@@ -1,9 +1,7 @@
-package com.maastricht.university.frontend;
+package com.maastricht.university.frontend.components.tile;
 
 
 import com.maastricht.university.logic.game.components.Hexagon;
-import com.maastricht.university.logic.game.util.interfaces.IGameState;
-import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 
 public class TileMap {
