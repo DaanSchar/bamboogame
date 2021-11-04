@@ -2,6 +2,9 @@ package com.maastricht.university.frontend;
 
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -12,6 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Main{
     private int width = Factory.getScreenWidth();
@@ -127,10 +131,10 @@ public class Main{
         Agent agent2 = new Agent(state, 2);
 
         agent.move();
-        Factory.getTileMap().showLegalMoves();
+        WindowUpdater.update();
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
         agent2.move();
-        Factory.getTileMap().showLegalMoves();
+        WindowUpdater.update();
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
     }
 

@@ -39,21 +39,10 @@ public class Tile implements Cloneable {
             IGameState game = Factory.getGameState();
             game.move(q,r,Factory.getGameState().getPlayerTurn());
 
-            Factory.getTileMap().showLegalMoves();
+            WindowUpdater.update();
 
-            updateTotalGroupsText(game);
-            updateCurrentPlayerText(game);
             winner(game);
         });
-    }
-
-    private void updateCurrentPlayerText(IGameState game){
-        Main.currentPlayer.setText(Main.currentPlayer());
-    }
-
-    private void updateTotalGroupsText(IGameState game){
-        Main.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
-        Main.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
     }
 
     private void winner(IGameState game){

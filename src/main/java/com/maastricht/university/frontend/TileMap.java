@@ -3,6 +3,7 @@ package com.maastricht.university.frontend;
 
 import com.maastricht.university.logic.game.components.Hexagon;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
+import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 
 public class TileMap {
@@ -44,41 +45,12 @@ public class TileMap {
         return tileMapPane;
     }
 
-    /**
-     * gives all tiles that are considered legal
-     * for the current player a certain color
-     */
-    public void showLegalMoves() {
-        for (int i = 0; i < dimension; i++)
-            for (int j = 0; j < dimension; j++)
-                if (hexagon.get(i,j) != null)
-                    determineTileColor(i, j);
+    public int getDimension() {
+        return this.dimension;
     }
 
-    public void updateTileColors() {
-        for (int i = 0; i < dimension; i++)
-            for (int j = 0; j < dimension; j++)
-                if (hexagon.get(i,j) != null)
-                    determineTileColor(i, j);
-    }
-
-    private void determineTileColor(int q,int r) {
-        IGameState state = Factory.getGameState();
-        int playerColor = state.getPlayerColorOfTile(q,r);
-
-        if (state.isLegal(q,r,state.getPlayerTurn()))
-            setTileColor(q, r, TileColor.LEGAL.get());
-        else
-            if (playerColor == 1)
-                setTileColor(q, r, TileColor.PLAYER1.get());
-            else if (playerColor == 2)
-                setTileColor(q, r,TileColor.PLAYER2.get() );
-            else if (playerColor == 0)
-                setTileColor(q, r, TileColor.NONE.get());
-    }
-
-    private void setTileColor(int q, int r, String color) {
-        hexagon.get(q,r).getButton().setColor(color);
+    public Hexagon<Tile> getHexagon() {
+        return this.hexagon;
     }
 
 }
