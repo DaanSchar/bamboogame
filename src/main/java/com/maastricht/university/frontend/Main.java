@@ -97,7 +97,7 @@ public class Main{
         Scene scene = new Scene(playground, width, height);
 
         // CODE ADDED FOR 2 AI's RUNNING
-        createTimerThread();
+        // createTimerThread(); // uncomment this line to have 2 ai's fight it out
 
         return scene;
     }
