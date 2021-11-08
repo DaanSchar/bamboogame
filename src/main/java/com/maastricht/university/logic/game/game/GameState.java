@@ -7,6 +7,7 @@ import com.maastricht.university.logic.util.exceptions.IllegalMoveException;
 import com.maastricht.university.logic.util.exceptions.OutsideHexagonException;
 import com.maastricht.university.logic.util.interfaces.IGameState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameState implements IGameState, Comparable<GameState> {
@@ -144,8 +145,22 @@ public class GameState implements IGameState, Comparable<GameState> {
      * @param playerColor the color of the player
      * @return a list containing all legal moves of player playercolor
      */
-    public List<Integer[]> getLegalMoves(int playerColor) {
-        return null;
+   List<Move> getLegalMoves(int playerColor) {
+        ArrayList<Move> moveList = new ArrayList<Move>();
+        if(!legalMovesLeft(playerColor))
+            return null;
+
+        int maxCoordinate = board.getBoardSize()*2+1;
+
+        for (int i = 0; i < maxCoordinate; i++) {
+            for (int j = 0; j < maxCoordinate; j++) {
+                if (board.getTileMap().get(i, j) != null)
+                    if (isLegal(i, j, playerColor))
+                        moveList.add(new Move(i,j));
+            }
+        }
+
+        return moveList;
     }
 
     /**
