@@ -138,7 +138,7 @@ public class GameState implements IGameState, Comparable<GameState> {
      * @param playerColor the color of the player
      * @return a list containing all legal moves of player playercolor
      */
-   public List<Move> getLegalMoves(int playerColor) {
+   public ArrayList<Move> getLegalMoves(int playerColor) {
         ArrayList<Move> moveList = new ArrayList<Move>();
         if(!legalMovesLeft(playerColor))
             return null;
