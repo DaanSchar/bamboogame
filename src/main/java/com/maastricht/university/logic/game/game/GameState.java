@@ -6,17 +6,18 @@ import com.maastricht.university.logic.game.util.exceptions.GameIsOverException;
 import com.maastricht.university.logic.game.util.exceptions.IllegalMoveException;
 import com.maastricht.university.logic.game.util.exceptions.OutsideHexagonException;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
+import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameState implements IGameState, Comparable<GameState> {
+public class GameState implements IGameState, IScoreSystem, Comparable<GameState> {
 
     private Board board;
     private GameRule gameRules;
 
     private int playerTurn;
-    private int numberOfPlayers;
+    private final int numberOfPlayers;
     private Boolean[] actualPlayers;
 
     /**
@@ -33,6 +34,10 @@ public class GameState implements IGameState, Comparable<GameState> {
         this.actualPlayers = new Boolean[numberOfPlayers];
         for(int i=0; i<numberOfPlayers; i++)
             actualPlayers[i] = true;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
     }
 
     @Override
@@ -193,6 +198,10 @@ public class GameState implements IGameState, Comparable<GameState> {
     @Override
     public int compareTo(GameState o) {
         return 0;
+    }
+
+    public int getPlayerScore(int player) {
+        return board.getGroups(player).size();
     }
 
 }

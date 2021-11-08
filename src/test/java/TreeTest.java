@@ -1,5 +1,6 @@
 import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.Tree;
+import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ public class TreeTest {
 
     @Test
     public void hasNoRoot() {
-        tree = new Tree<>();
+        tree = new Tree<>(2);
         Assertions.assertFalse(tree.hasRoot());
     }
 
@@ -64,9 +65,4 @@ public class TreeTest {
         tree.getRoot().addChild(3000300);
         Assertions.assertEquals(tree.getRoot().getMinChild().getElement(), -999);
     }
-
-
-
-
-
 }

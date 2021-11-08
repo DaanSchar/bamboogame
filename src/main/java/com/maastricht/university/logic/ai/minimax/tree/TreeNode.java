@@ -1,16 +1,20 @@
 package com.maastricht.university.logic.ai.minimax.tree;
 
+import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeNode<E extends Comparable<E>> implements ITreeNode<E> {
+public class TreeNode<E extends Comparable, IScoreSystem> implements ITreeNode<E> {
 
     private E element;
     private ITreeNode<E> parent;
     private ArrayList<ITreeNode<E>> children;
     private int depth;
+    private int numberOfPlayers;
+    private Integer[] scores;
 
-    public TreeNode(E element, ITreeNode<E> parent) {
+    public TreeNode(E element, ITreeNode<E> parent, int numberOfPlayers) {
         this.element = element;
         this.parent = parent;
         this.children = new ArrayList<>();
@@ -18,6 +22,20 @@ public class TreeNode<E extends Comparable<E>> implements ITreeNode<E> {
             this.depth = parent.getDepth() + 1;
         else
             this.depth = 1;
+        this.numberOfPlayers = numberOfPlayers;
+        scores = new Integer[numberOfPlayers];
+    }
+
+    public void setScore(int playerColour, int score) {
+        scores[playerColour+1] = score;
+    }
+
+    public int getScore(int playerColour) {
+        if(scores[playerColour-1] == null)
+            return -1;
+            //scores[playerColour-1] = element.getPlayerScore(playerColour);
+
+        return scores[playerColour-1];
     }
 
     public int getDepth() {return depth;}
@@ -39,7 +57,7 @@ public class TreeNode<E extends Comparable<E>> implements ITreeNode<E> {
     }
 
     public void addChild(E e) {
-        children.add(new TreeNode(e, this));
+        children.add(new TreeNode(e, this, numberOfPlayers));
     }
 
     public ITreeNode<E> getMaxChild() {
@@ -84,5 +102,4 @@ public class TreeNode<E extends Comparable<E>> implements ITreeNode<E> {
     private int compare(ITreeNode<E> a, ITreeNode<E> b) {
         return a.getElement().compareTo(b.getElement());
     }
-
 }

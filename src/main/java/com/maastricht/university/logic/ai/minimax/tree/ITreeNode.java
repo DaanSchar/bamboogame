@@ -10,6 +10,11 @@ import java.util.List;
 public interface ITreeNode<E> {
 
     /**
+     * @return score of a player of node in tree stored by this node.
+     */
+    int getScore(int playerColour);
+
+    /**
      * @return depth of node in tree stored by this node.
      */
     int getDepth();

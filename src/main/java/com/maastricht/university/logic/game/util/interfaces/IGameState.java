@@ -13,6 +13,12 @@ import java.util.List;
 public interface IGameState {
 
     /**
+     *
+     * @return the number of players
+     */
+    public int getNumberOfPlayers();
+
+    /**
      * performs a move, which will only execute when it is legal.
      * this is what you have to call whenever a player clicks on a tile.
      *

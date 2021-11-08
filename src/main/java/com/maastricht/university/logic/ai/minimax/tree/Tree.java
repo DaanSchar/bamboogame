@@ -1,17 +1,25 @@
 package com.maastricht.university.logic.ai.minimax.tree;
 
-public class Tree<E extends Comparable<E>> implements ITree<E> {
+import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 
-    private ITreeNode<E> root = new TreeNode<>(null, null);
+//TODO: either keep it like this, where E needs to implement IScoreSystem and loses generality
+// Or make it not implement it, and therefor make the user of the program keep adding the score itself before it can use it, keep generality, but less automization
+// Those are the two options
+public class Tree<E extends IScoreSystem> implements ITree<E> {
+
+    private ITreeNode<E> root;
     private ITreeNode<E> addedRoot;
+    private int numberOfPlayers;
 
-
-    public Tree(){
+    public Tree(int numberOfPlayers){
+        root = new TreeNode<E>(null, null, numberOfPlayers);
         addedRoot = null;
+        this.numberOfPlayers = numberOfPlayers;
     }
 
-    public Tree(E element) {
-        addedRoot = new TreeNode<E>(element, null);
+    public Tree(E element, int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+        addedRoot = new TreeNode<E>(element, null, numberOfPlayers);
     }
 
     public ITreeNode<E> getRoot() {
@@ -19,7 +27,7 @@ public class Tree<E extends Comparable<E>> implements ITree<E> {
     }
 
     public void addRoot(E e) {
-        addedRoot = new TreeNode<E>(e, root);
+        addedRoot = new TreeNode<E>(e, root, numberOfPlayers);
     }
 
     public boolean hasRoot() {

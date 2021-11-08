@@ -11,14 +11,14 @@ import java.util.List;
  */
 public class CreateTree {
 
-    ITree<GameState> tree = new Tree<GameState>();
+    ITree<GameState> tree;
 
     /**
      * Creates a full tree with specified root
      * @param state state of the root
      */
     public CreateTree(GameState state) {
-        tree = new Tree<GameState>(state);
+        tree = new Tree<GameState>(state, state.getNumberOfPlayers());
 
         ArrayList<ITreeNode<GameState>> frontiers = new ArrayList<ITreeNode<GameState>>();
         frontiers.add(tree.getRoot());
@@ -42,7 +42,7 @@ public class CreateTree {
      * @param depth depth of the desired tree
      */
     public CreateTree(GameState state, int depth) {
-        tree = new Tree<GameState>(state);
+        tree = new Tree<GameState>(state, state.getNumberOfPlayers());
 
         ArrayList<ITreeNode<GameState>> frontiers = new ArrayList<ITreeNode<GameState>>();
         frontiers.add(tree.getRoot());
