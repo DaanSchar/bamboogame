@@ -1,6 +1,5 @@
 package com.maastricht.university.logic.game.game;
 
-import com.maastricht.university.logic.ai.Agent;
 import com.maastricht.university.logic.game.components.Board;
 import com.maastricht.university.logic.game.components.TileGroup;
 import com.maastricht.university.logic.game.util.exceptions.GameIsOverException;
@@ -109,13 +108,10 @@ public class GameState implements IGameState, Comparable<GameState> {
     public boolean isGameOver() {
         int countTrue=0;
         for(int x=0; x<numberOfPlayers; x++) {
-            if (actualPlayers[x] == true)
+            if (actualPlayers[x])
                 countTrue++;
         }
-        if(countTrue==1)
-            return true;
-
-        return false;
+        return countTrue == 1;
     }
 
     @Override
@@ -198,4 +194,5 @@ public class GameState implements IGameState, Comparable<GameState> {
     public int compareTo(GameState o) {
         return 0;
     }
+
 }

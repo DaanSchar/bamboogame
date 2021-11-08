@@ -1,5 +1,8 @@
 package com.maastricht.university.frontend;
 
+import com.maastricht.university.frontend.components.HoverableButton;
+import com.maastricht.university.frontend.components.tile.TileMap;
+import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,8 +19,8 @@ public class Main{
     private int width = Factory.getScreenWidth();
     private int height = Factory.getScreenHeight();
 
-    private static int swidth = Factory.getScreenWidth();
-    private static int sheight = Factory.getScreenHeight();
+    private static int sWidth = Factory.getScreenWidth();
+    private static int sHeight = Factory.getScreenHeight();
 
     private ImageView p1 = new ImageView(new Image("/images/playerone.png"));
     private ImageView p2 = new ImageView(new Image("/images/playertwo.png"));
@@ -85,15 +88,50 @@ public class Main{
 
         //if the exit button is clicked, it will close the program
         exit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e)
-            {
+            @Override public void handle(ActionEvent e) {
                 System.exit(0);
             }
         });
 
         playground.setBackground(bGround);
         Scene scene = new Scene(playground, width, height);
+
+        // CODE ADDED FOR 2 AI's RUNNING
+        // createTimerThread(); // uncomment this line to have 2 ai's fight it out
+
         return scene;
+    }
+
+    public void createTimerThread() {
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        gameloop();
+                    }
+                },
+                1000
+        );
+    }
+
+    private void gameloop() {
+        while(Factory.getGameState().winner() == 0) {
+            runDoubleAi();
+        }
+        System.out.println("winner is " + Factory.getGameState().winner());
+    }
+
+    public void runDoubleAi() {
+        IGameState state =  Factory.getGameState();
+        Agent agent = new Agent(state, 1);
+        Agent agent2 = new Agent(state, 2);
+
+        agent.move();
+        WindowUpdater.update();
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+        agent2.move();
+        WindowUpdater.update();
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
     }
 
     /**
@@ -134,16 +172,16 @@ public class Main{
         Stage winnerStage = new Stage();
 
         if(gameState.winner() == 1){
-           oneWin.setLayoutX(swidth/2 + 10);
-           oneWin.setLayoutY(sheight/2);
+           oneWin.setLayoutX(sWidth /2 + 10);
+           oneWin.setLayoutY(sHeight /2);
            oneWin.setFitWidth(720);
            oneWin.setFitHeight(405);
 
            r.getChildren().add(oneWin);
 
         }else if(gameState.winner() == 2){
-            twoWin.setLayoutX(swidth/2 + 10);
-            twoWin.setLayoutY(sheight/2);
+            twoWin.setLayoutX(sWidth /2 + 10);
+            twoWin.setLayoutY(sHeight /2);
             twoWin.setFitWidth(720);
             twoWin.setFitHeight(405);
 
@@ -152,10 +190,6 @@ public class Main{
 
         winnerStage.setScene(scene);
         winnerStage.show();
-    }
-
-    public static void main(String[]args){
-
     }
 
 

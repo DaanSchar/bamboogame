@@ -1,5 +1,9 @@
 package com.maastricht.university.logic.game.util.interfaces;
 
+import com.maastricht.university.logic.game.game.Move;
+
+import java.util.ArrayList;
+
 /**
  * this interface makes sure that the frontend wont have access to anything we dont want
  * the frontend to have access to. we do this by giving this interface methods for
@@ -67,4 +71,6 @@ public interface IGameState {
      * @return identification of the player who has won, or 0 if no winner
      */
     public int winner();
+
+    public ArrayList<Move> getLegalMoves(int i);
 }

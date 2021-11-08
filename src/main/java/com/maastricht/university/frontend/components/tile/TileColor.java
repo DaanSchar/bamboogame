@@ -1,4 +1,4 @@
-package com.maastricht.university.frontend;
+package com.maastricht.university.frontend.components.tile;
 
 public enum TileColor {
 

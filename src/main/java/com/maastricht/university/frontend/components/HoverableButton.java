@@ -1,4 +1,4 @@
-package com.maastricht.university.frontend;
+package com.maastricht.university.frontend.components;
 
 import javafx.animation.ScaleTransition;
 import javafx.scene.control.Button;
