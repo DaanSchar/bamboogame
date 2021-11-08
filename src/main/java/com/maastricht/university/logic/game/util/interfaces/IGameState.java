@@ -3,6 +3,7 @@ package com.maastricht.university.logic.game.util.interfaces;
 import com.maastricht.university.logic.game.game.Move;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * this interface makes sure that the frontend wont have access to anything we dont want

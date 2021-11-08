@@ -10,7 +10,7 @@ import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameState implements IGameState {
+public class GameState implements IGameState, Comparable<GameState> {
 
     private Board board;
     private GameRule gameRules;
@@ -135,6 +135,28 @@ public class GameState implements IGameState {
     }
 
     /**
+     * @param playerColor the color of the player
+     * @return a list containing all legal moves of player playercolor
+     */
+   public ArrayList<Move> getLegalMoves(int playerColor) {
+        ArrayList<Move> moveList = new ArrayList<Move>();
+        if(!legalMovesLeft(playerColor))
+            return null;
+
+        int maxCoordinate = board.getBoardSize()*2+1;
+
+        for (int i = 0; i < maxCoordinate; i++) {
+            for (int j = 0; j < maxCoordinate; j++) {
+                if (board.getTileMap().get(i, j) != null)
+                    if (isLegal(i, j, playerColor))
+                        moveList.add(new Move(i,j));
+            }
+        }
+
+        return moveList;
+    }
+
+    /**
      * throws the exception that need to be caught inside move()
      */
     private void findIllegalException(int q, int r, int playerColor) throws Exception {
@@ -152,7 +174,6 @@ public class GameState implements IGameState {
             throw  new GameIsOverException("game is already over, " + playerTurn + " is the winner of the game");
     }
 
-
     private int getNextPlayer() {
         int nextPlayer = playerTurn+1;
 
@@ -168,23 +189,10 @@ public class GameState implements IGameState {
         return nextPlayer;
     }
 
-    public ArrayList<Move> getLegalMoves(int playerColor) {
-        ArrayList<Move> moveList = new ArrayList<Move>();
-        if(!legalMovesLeft(playerColor))
-            return null;
-
-        int maxCoordinate = board.getBoardSize()*2+1;
-
-        for (int i = 0; i < maxCoordinate; i++) {
-            for (int j = 0; j < maxCoordinate; j++) {
-                if (board.getTileMap().get(i, j) != null)
-                    if (isLegal(i, j, playerColor))
-                        moveList.add(new Move(i,j));
-            }
-        }
-
-    return moveList;
+    //TODO: implement score system for gameState
+    @Override
+    public int compareTo(GameState o) {
+        return 0;
     }
-
 
 }

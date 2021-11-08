@@ -8,12 +8,19 @@ public class TreeNode<E extends Comparable<E>> implements ITreeNode<E> {
     private E element;
     private ITreeNode<E> parent;
     private ArrayList<ITreeNode<E>> children;
+    private int depth;
 
     public TreeNode(E element, ITreeNode<E> parent) {
         this.element = element;
         this.parent = parent;
         this.children = new ArrayList<>();
+        if(parent != null)
+            this.depth = parent.getDepth() + 1;
+        else
+            this.depth = 1;
     }
+
+    public int getDepth() {return depth;}
 
     public E getElement() {
         return this.element;
