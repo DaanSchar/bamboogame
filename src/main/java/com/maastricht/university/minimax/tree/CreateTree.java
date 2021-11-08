@@ -1,6 +1,7 @@
 package com.maastricht.university.minimax.tree;
 
 import com.maastricht.university.logic.game.game.GameState;
+import com.maastricht.university.logic.game.game.Move;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,11 +66,11 @@ public class CreateTree {
 
     private void addChildren(ITreeNode<GameState> parent) {
         GameState parentState = parent.getElement();
-        List<Integer[]> moves = parentState.getLegalMoves(parentState.getPlayerTurn());
+        List<Move> moves = parentState.getLegalMoves(parentState.getPlayerTurn());
 
         for(int i=0; i<moves.size(); i++) {
             GameState childState = parentState.clone();
-            childState.move(moves.get(i)[0], moves.get(i)[1], childState.getPlayerTurn());
+            childState.move(moves.get(i).getX(), moves.get(i).getY(), childState.getPlayerTurn());
             parent.addChild(childState);
         }
     }

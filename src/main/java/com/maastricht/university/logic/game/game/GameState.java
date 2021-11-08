@@ -141,11 +141,10 @@ public class GameState implements IGameState, Comparable<GameState> {
     }
 
     /**
-     * //TODO: Implement this method
      * @param playerColor the color of the player
      * @return a list containing all legal moves of player playercolor
      */
-   List<Move> getLegalMoves(int playerColor) {
+   public List<Move> getLegalMoves(int playerColor) {
         ArrayList<Move> moveList = new ArrayList<Move>();
         if(!legalMovesLeft(playerColor))
             return null;
@@ -180,7 +179,6 @@ public class GameState implements IGameState, Comparable<GameState> {
         if(isGameOver())
             throw  new GameIsOverException("game is already over, " + playerTurn + " is the winner of the game");
     }
-
 
     private int getNextPlayer() {
         int nextPlayer = playerTurn+1;
