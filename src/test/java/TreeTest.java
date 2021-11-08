@@ -10,13 +10,13 @@ public class TreeTest {
 
     @Test
     public void assertRootElement() {
-        tree = new Tree<>(3);
+        tree = new Tree<>(3, 2);
         Assertions.assertEquals(tree.getRoot().getElement(), 3);
     }
 
     @Test
     public void hasRoot() {
-        tree = new Tree<>(3);
+        tree = new Tree<>(3, 2);
         Assertions.assertTrue(tree.hasRoot());
     }
 
@@ -28,7 +28,7 @@ public class TreeTest {
 
     @Test
     public void assertChildOfRoot() {
-        tree = new Tree<>(3);
+        tree = new Tree<>(3, 2);
         tree.getRoot().addChild(7);
 
         Assertions.assertEquals(tree.getRoot().getChildren().get(0).getElement(), 7);
@@ -36,21 +36,21 @@ public class TreeTest {
 
     @Test
     public void hasChildren() {
-        tree = new Tree<>(3);
+        tree = new Tree<>(3, 2);
         tree.getRoot().addChild(7);
         Assertions.assertTrue(tree.getRoot().hasChildren());
     }
 
     @Test
     public void childHasNoChildren() {
-        tree = new Tree<>(3);
+        tree = new Tree<>(3, 2);
         tree.getRoot().addChild(7);
         Assertions.assertFalse(tree.getRoot().getChildren().get(0).hasChildren());
     }
 
     @Test
     public void maxChild() {
-        tree = new Tree<>(3);
+        tree = new Tree<>(3, 2);
         tree.getRoot().addChild(-40);
         tree.getRoot().addChild(300);
         tree.getRoot().addChild(20);
@@ -59,7 +59,7 @@ public class TreeTest {
 
     @Test
     public void minChild() {
-        tree = new Tree<>(3);
+        tree = new Tree<>(3, 2);
         tree.getRoot().addChild(-999);
         tree.getRoot().addChild(20);
         tree.getRoot().addChild(3000300);

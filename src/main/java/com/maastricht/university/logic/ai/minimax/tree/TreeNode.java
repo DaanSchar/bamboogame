@@ -5,7 +5,7 @@ import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeNode<E extends Comparable, IScoreSystem> implements ITreeNode<E> {
+public class TreeNode<E extends Comparable/*, IScoreSystem*/> implements ITreeNode<E> {
 
     private E element;
     private ITreeNode<E> parent;
