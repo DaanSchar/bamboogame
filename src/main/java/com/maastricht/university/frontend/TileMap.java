@@ -2,7 +2,7 @@ package com.maastricht.university.frontend;
 
 
 import com.maastricht.university.logic.game.components.Hexagon;
-import com.maastricht.university.logic.util.interfaces.IGameState;
+import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.scene.layout.Pane;
 
 public class TileMap {
@@ -55,17 +55,25 @@ public class TileMap {
                     determineTileColor(i, j);
     }
 
+    public void updateTileColors() {
+        for (int i = 0; i < dimension; i++)
+            for (int j = 0; j < dimension; j++)
+                if (hexagon.get(i,j) != null)
+                    determineTileColor(i, j);
+    }
+
     private void determineTileColor(int q,int r) {
         IGameState state = Factory.getGameState();
+        int playerColor = state.getPlayerColorOfTile(q,r);
 
         if (state.isLegal(q,r,state.getPlayerTurn()))
             setTileColor(q, r, TileColor.LEGAL.get());
         else
-            if (state.getPlayerColorOfTile(q,r) == 1)
+            if (playerColor == 1)
                 setTileColor(q, r, TileColor.PLAYER1.get());
-            else if (state.getPlayerColorOfTile(q,r) == 2)
+            else if (playerColor == 2)
                 setTileColor(q, r,TileColor.PLAYER2.get() );
-            else if (state.getPlayerColorOfTile(q,r) == 0)
+            else if (playerColor == 0)
                 setTileColor(q, r, TileColor.NONE.get());
     }
 

@@ -1,5 +1,5 @@
 import com.maastricht.university.logic.game.components.Hexagon;
-import com.maastricht.university.logic.util.interfaces.IHexagon;
+import com.maastricht.university.logic.game.util.interfaces.IHexagon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

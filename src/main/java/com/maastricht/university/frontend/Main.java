@@ -1,10 +1,8 @@
 package com.maastricht.university.frontend;
 
-import com.maastricht.university.logic.game.game.GameState;
-import com.maastricht.university.logic.util.interfaces.IGameState;
+import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -12,8 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class Main{

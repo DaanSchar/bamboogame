@@ -1,4 +1,4 @@
-package com.maastricht.university.minimax.tree;
+package com.maastricht.university.logic.ai.minimax.tree;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,5 @@
-import com.maastricht.university.minimax.tree.ITree;
-import com.maastricht.university.minimax.tree.Tree;
+import com.maastricht.university.logic.ai.minimax.tree.ITree;
+import com.maastricht.university.logic.ai.minimax.tree.Tree;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
