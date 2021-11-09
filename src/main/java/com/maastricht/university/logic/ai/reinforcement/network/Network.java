@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Network {
 
-    public static final int NUM_INPUTS = 4;
+    public static final int NUM_INPUTS = 61;
     public static final double LOW_VALUE = 0;
     public static final double HIGH_VALUE = 2;
 
