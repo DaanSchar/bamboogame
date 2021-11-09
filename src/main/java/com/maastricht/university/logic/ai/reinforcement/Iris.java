@@ -34,6 +34,13 @@ import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Iris classifier
+ *
+ * example code for training a neural network to classify iris flowers
+ *
+ */
+
 public class Iris {
 
     private static Logger log = LoggerFactory.getLogger(Iris.class);
