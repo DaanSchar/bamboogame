@@ -7,7 +7,7 @@ import org.nd4j.linalg.factory.Nd4j;
 public class GameObservationSpace implements ObservationSpace<GameState> {
     @Override
     public String getName() {
-        return null;
+        return "GameObservationSpace";
     }
 
     @Override

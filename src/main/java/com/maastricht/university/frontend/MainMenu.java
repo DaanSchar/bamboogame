@@ -1,6 +1,7 @@
 package com.maastricht.university.frontend;
 
 import com.maastricht.university.frontend.components.HoverableButton;
+import com.maastricht.university.logic.ai.reinforcement.network.SnakeDl4j;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -57,7 +58,8 @@ public class MainMenu extends Application {
         human.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Main screen1 = new Main();
-
+                SnakeDl4j snake = new SnakeDl4j();
+                System.out.println("creating snake!");
                 stage.setScene(screen1.getScene());
                 stage.show();
             }
