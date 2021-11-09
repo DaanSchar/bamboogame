@@ -11,8 +11,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     implementation 'io.github.kostaskougios:cloning:1.10.3'
-//    implementation "org.deeplearning4j:deeplearning4j-core:1.0.0-M1.1"
-//    implementation "org.nd4j:nd4j-native-platform:1.0.0-M1.1"
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.2'
     implementation group: 'org.deeplearning4j', name: 'deeplearning4j-nn', version: '1.0.0-beta7'
     implementation group: 'org.deeplearning4j', name: 'rl4j', version: '1.0.0-beta7'
@@ -21,6 +19,9 @@ dependencies {
     implementation group: 'org.nd4j', name: 'nd4j-backends', version: '1.0.0-beta7'
     implementation group: 'org.nd4j', name: 'nd4j-cuda-10.1', version: '1.0.0-beta7'
     implementation group: 'org.nd4j', name: 'nd4j-native-platform', version: '1.0.0-beta7'
+    // https://mvnrepository.com/artifact/org.jfree/jfreechart
+    implementation group: 'org.jfree', name: 'jfreechart', version: '1.5.3'
+
 
 }
 
