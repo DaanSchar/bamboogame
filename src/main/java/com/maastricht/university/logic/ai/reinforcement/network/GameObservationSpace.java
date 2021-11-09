@@ -4,7 +4,7 @@ import org.deeplearning4j.rl4j.space.ObservationSpace;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 
-public class GameObservationSpace implements ObservationSpace<> {
+public class GameObservationSpace implements ObservationSpace<GameState> {
     @Override
     public String getName() {
         return null;
@@ -31,7 +31,5 @@ public class GameObservationSpace implements ObservationSpace<> {
             array[i] = value;
 
         return array;
-    }
-
     }
 }
