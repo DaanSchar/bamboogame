@@ -12,8 +12,6 @@ public class RewardCalculator {
         double reward = 1;
         reward += getDifferenceOfTotalGroups(gameState, getPotentialState(gameState, move, player), player);
 
-        System.out.println("Reward: " + reward);
-
         return reward;
     }
 

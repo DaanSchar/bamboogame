@@ -65,8 +65,6 @@ public class Environment implements MDP<GameState, Integer, DiscreteSpace> {
 
         double reward = RewardCalculator.get(game, move, 1);
 
-        System.out.println(reward);
-
         return new StepReply<>(observation, reward, isDone(), "SnakeDL4j");
     }
 
