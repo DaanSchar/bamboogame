@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.ai.reinforcement;
+package com.maastricht.university.logic.ai.reinforcement.example;
 
 import org.datavec.api.records.reader.RecordReader;
 import org.datavec.api.records.reader.impl.csv.CSVRecordReader;
