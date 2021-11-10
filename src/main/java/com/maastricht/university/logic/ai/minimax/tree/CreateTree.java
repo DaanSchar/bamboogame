@@ -35,7 +35,7 @@ public class CreateTree {
             }
             //set the score of the leaf TreeNode
             else {
-                parent.setScore(state.getPlayerTurn(), parent.getScore(state.getPlayerTurn()));
+                parent.setScore(parent.getScore());
             }
             frontiers.remove(0);
         }
@@ -63,7 +63,7 @@ public class CreateTree {
             }
             //set the score of the leaf TreeNode
             else {
-                parent.setScore(state.getPlayerTurn(), parent.getScore(state.getPlayerTurn()));
+                parent.setScore(parent.getScore());
             }
             frontiers.remove(0);
         }

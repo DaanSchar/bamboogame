@@ -25,7 +25,7 @@ public class TreeNode<E extends Comparable> implements ITreeNode<E> {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public void setScore(int playerColour, int score) {
+    public void setScore(int score) {
         score = score;
     }
 
@@ -35,7 +35,7 @@ public class TreeNode<E extends Comparable> implements ITreeNode<E> {
         return true;
     }
 
-    public int getScore(int playerColour) {
+    public int getScore() {
         if(score == null)
             return Integer.MIN_VALUE + 1;
 

@@ -12,14 +12,19 @@ public interface ITreeNode<E> {
     /**
      * @return score of a player of node in tree stored by this node.
      */
-    int getScore(int playerColour);
+    int getScore();
 
     /**
      *
-     * @param playerColour the player whose score to set
+     * @return whether the score is stored yet or not
+     */
+    boolean hasScore();
+
+    /**
+     *
      * @param score the score of the player
      */
-    void setScore(int playerColour, int score);
+    void setScore(int score);
 
     /**
      * @return depth of node in tree stored by this node.
