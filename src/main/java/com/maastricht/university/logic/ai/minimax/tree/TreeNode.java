@@ -1,5 +1,6 @@
 package com.maastricht.university.logic.ai.minimax.tree;
 
+import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 
 import java.util.ArrayList;
@@ -68,7 +69,6 @@ public class TreeNode<E extends Comparable> implements ITreeNode<E> {
         ITreeNode<E> maxChild = children.get(0);
 
         for (ITreeNode<E> child : children)
-            //TODO: replace this compare with getScore
             if (compare(child, maxChild) == 1)
                 maxChild = child;
 
@@ -79,7 +79,6 @@ public class TreeNode<E extends Comparable> implements ITreeNode<E> {
         ITreeNode<E> minChild = children.get(0);
 
         for (ITreeNode<E> child : children)
-            //TODO: replace this compare with getScore
             if (compare(child, minChild) == -1)
                 minChild = child;
 
@@ -99,13 +98,17 @@ public class TreeNode<E extends Comparable> implements ITreeNode<E> {
         this.children = new ArrayList<>();
     }
 
-    //TODO: replace compare with getScore
     /**
      * returns 1 if a > b.
      * return 0 if a == b.
      * returns -1 if a < b.
      */
     private int compare(ITreeNode<E> a, ITreeNode<E> b) {
-        return a.getElement().compareTo(b.getElement());
+        if (a.getScore() > b.getScore())
+            return 1;
+        else if (a.getScore() == b.getScore())
+            return 0;
+        else
+            return -1;
     }
 }
