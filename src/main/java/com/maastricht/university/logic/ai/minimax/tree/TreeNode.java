@@ -5,7 +5,7 @@ import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeNode<E extends Comparable/*, IScoreSystem*/> implements ITreeNode<E> {
+public class TreeNode<E extends Comparable> implements ITreeNode<E> {
 
     private E element;
     private ITreeNode<E> parent;
@@ -30,10 +30,15 @@ public class TreeNode<E extends Comparable/*, IScoreSystem*/> implements ITreeNo
         scores[playerColour+1] = score;
     }
 
+    public boolean hasScore(int playerColour) {
+        if(scores[playerColour-1] == null)
+            return false;
+        return true;
+    }
+
     public int getScore(int playerColour) {
         if(scores[playerColour-1] == null)
-            return -1;
-            //scores[playerColour-1] = element.getPlayerScore(playerColour);
+            return Integer.MIN_VALUE + 1;
 
         return scores[playerColour-1];
     }
@@ -93,7 +98,7 @@ public class TreeNode<E extends Comparable/*, IScoreSystem*/> implements ITreeNo
         this.children = new ArrayList<>();
     }
 
-
+    //TODO: replace compare with getScore
     /**
      * returns 1 if a > b.
      * return 0 if a == b.

@@ -194,14 +194,43 @@ public class GameState implements IGameState, IScoreSystem, Comparable<GameState
         return nextPlayer;
     }
 
-    //TODO: implement score system for gameState
+    //TODO: ONLY TEMPORARY FIX, remove this method once score is implememnted correctly in TreeNode
+    // always takes player 1 as maxplayer
     @Override
     public int compareTo(GameState o) {
-        return 0;
+        int a = getPlayerScore(2);
+        int b = o.getPlayerScore(2);
+        if(a > b)
+            return 1;
+        else if(a == b)
+            return 0;
+        else
+            return -1;
     }
 
+    //TODO: experiment with different score heuristics, try this one first
+    // make some things weigh more or less than others
+    // add/remove some things (maybe - number of groups opponent)
     public int getPlayerScore(int player) {
-        return board.getGroups(player).size();
-    }
+        // if the game is over, return either the max or min score based on whether player or opponent won
+        if(winner() != 0) {
+            if(winner() == player)
+                return Integer.MAX_VALUE;
+            else
+                return Integer.MIN_VALUE;
+        }
 
+        // + number of groups
+        int score = board.getGroups(player).size();
+
+        // + number of legal moves player
+        score += getLegalMoves(player).size();
+
+        // - number of legal moves opponent
+        if(player == 1)
+            score -= getLegalMoves(2).size();
+        else
+            score -= getLegalMoves(1).size();
+        return score;
+    }
 }

@@ -2,10 +2,7 @@ package com.maastricht.university.logic.ai.minimax.tree;
 
 import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 
-//TODO: either keep it like this, where E needs to implement IScoreSystem and loses generality
-// Or make it not implement it, and therefor make the user of the program keep adding the score itself before it can use it, keep generality, but less automization
-// Those are the two options
-public class Tree<E extends Comparable/*IScoreSystem*/> implements ITree<E> {
+public class Tree<E extends Comparable> implements ITree<E> {
 
     private ITreeNode<E> root;
     private ITreeNode<E> addedRoot;

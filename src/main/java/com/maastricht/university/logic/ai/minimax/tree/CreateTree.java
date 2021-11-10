@@ -15,6 +15,7 @@ public class CreateTree {
 
     /**
      * Creates a full tree with specified root
+     * adds score in all leafNodes
      * @param state state of the root
      */
     public CreateTree(GameState state) {
@@ -31,6 +32,10 @@ public class CreateTree {
                 List<ITreeNode<GameState>> children = parent.getChildren();
                 for (int j = 0; j < children.size(); j++)
                     frontiers.add(children.get(j));
+            }
+            //set the score of the leaf TreeNode
+            else {
+                parent.setScore(state.getPlayerTurn(), parent.getScore(state.getPlayerTurn()));
             }
             frontiers.remove(0);
         }
@@ -56,6 +61,10 @@ public class CreateTree {
                 for (int j = 0; j < children.size(); j++)
                     frontiers.add(children.get(j));
             }
+            //set the score of the leaf TreeNode
+            else {
+                parent.setScore(state.getPlayerTurn(), parent.getScore(state.getPlayerTurn()));
+            }
             frontiers.remove(0);
         }
     }
@@ -72,10 +81,4 @@ public class CreateTree {
             parent.addChild(childState);
         }
     }
-
-
-
-
-
-
 }

@@ -15,6 +15,13 @@ public interface ITreeNode<E> {
     int getScore(int playerColour);
 
     /**
+     *
+     * @param playerColour the player whose score to set
+     * @param score the score of the player
+     */
+    void setScore(int playerColour, int score);
+
+    /**
      * @return depth of node in tree stored by this node.
      */
     int getDepth();
