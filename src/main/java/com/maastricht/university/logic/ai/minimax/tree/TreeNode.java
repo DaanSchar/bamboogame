@@ -69,6 +69,7 @@ public class TreeNode<E extends Comparable> implements ITreeNode<E> {
         ITreeNode<E> maxChild = children.get(0);
 
         for (ITreeNode<E> child : children)
+            //TODO: replace this compare with getScore
             if (compare(child, maxChild) == 1)
                 maxChild = child;
 
@@ -79,6 +80,7 @@ public class TreeNode<E extends Comparable> implements ITreeNode<E> {
         ITreeNode<E> minChild = children.get(0);
 
         for (ITreeNode<E> child : children)
+            //TODO: replace this compare with getScore
             if (compare(child, minChild) == -1)
                 minChild = child;
 
