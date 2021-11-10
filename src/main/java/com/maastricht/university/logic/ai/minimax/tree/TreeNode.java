@@ -12,7 +12,7 @@ public class TreeNode<E extends Comparable> implements ITreeNode<E> {
     private ArrayList<ITreeNode<E>> children;
     private int depth;
     private int numberOfPlayers;
-    private Integer[] scores;
+    private Integer score;
 
     public TreeNode(E element, ITreeNode<E> parent, int numberOfPlayers) {
         this.element = element;
@@ -23,24 +23,23 @@ public class TreeNode<E extends Comparable> implements ITreeNode<E> {
         else
             this.depth = 1;
         this.numberOfPlayers = numberOfPlayers;
-        scores = new Integer[numberOfPlayers];
     }
 
     public void setScore(int playerColour, int score) {
-        scores[playerColour+1] = score;
+        score = score;
     }
 
-    public boolean hasScore(int playerColour) {
-        if(scores[playerColour-1] == null)
+    public boolean hasScore() {
+        if(score == null)
             return false;
         return true;
     }
 
     public int getScore(int playerColour) {
-        if(scores[playerColour-1] == null)
+        if(score == null)
             return Integer.MIN_VALUE + 1;
 
-        return scores[playerColour-1];
+        return score;
     }
 
     public int getDepth() {return depth;}
