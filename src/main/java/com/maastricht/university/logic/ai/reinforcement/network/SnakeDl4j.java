@@ -30,7 +30,7 @@ public class SnakeDl4j {
         String randomNetworkName = "src/main/resources/networks/network-" + System.currentTimeMillis() + ".zip";
 
         Environment mdp = new Environment();
-        QLearningDiscreteDense<NeuralGameState> dql = new QLearningDiscreteDense<NeuralGameState>(
+        QLearningDiscreteDense<NeuralGameState> dql = new QLearningDiscreteDense<>(
                 mdp,
                 Network.buildDQNFactory(),
                 Network.buildConfig()
@@ -45,7 +45,7 @@ public class SnakeDl4j {
             LOG.error(e.getMessage(), e);
         }
 
-        evaluateNetwork(randomNetworkName, new ReinforcementAgent(game, 2, "network-1636666442341.zip"));
+        evaluateNetwork(randomNetworkName, new ReinforcementAgent(game, 2, "src/main/resources/networks/network-1636666442341.zip"));
     }
 
     /**

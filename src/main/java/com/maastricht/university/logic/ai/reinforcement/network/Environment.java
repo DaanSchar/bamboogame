@@ -18,7 +18,7 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
     private DiscreteSpace actionSpace = new DiscreteSpace(Network.NUM_INPUTS);
     private GameState game = new GameState(4,2);
-    private Agent opponent = new ReinforcementAgent(game, 2, "network-1636666442341.zip"); // we can change the opponent we want to train against here
+    private Agent opponent = new ReinforcementAgent(game, 2, "src/main/resources/networks/network-1636666442341.zip"); // we can change the opponent we want to train against here
 
     /**
      * This is where both agents make a move
@@ -84,9 +84,9 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
     private List<Move> removeIllegalMoves(List<Move> moveList) {
         List<Move> legalList = new ArrayList<>();
 
-        for (int i = 0; i < moveList.size(); i++)
-            if (game.isLegal(moveList.get(i).getX(), moveList.get(i).getY(), 1))
-                legalList.add(moveList.get(i));
+        for (Move move : moveList)
+            if (game.isLegal(move.getX(), move.getY(), 1))
+                legalList.add(move);
 
         return legalList;
     }
