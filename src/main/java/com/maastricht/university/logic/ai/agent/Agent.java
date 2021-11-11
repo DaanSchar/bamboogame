@@ -26,10 +26,6 @@ public class Agent implements IAgent{
         return player;
     }
 
-    public void setGameState(IGameState gameState) {
-        this.gameState = gameState;
-    }
-
     private void determineMove() {
         Random rand = new Random();
         ArrayList<Move> moveList = gameState.getLegalMoves(player);
