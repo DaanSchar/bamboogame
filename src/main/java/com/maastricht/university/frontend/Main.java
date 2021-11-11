@@ -127,10 +127,10 @@ public class Main{
         Agent agent2 = new Agent(state, 2);
 
         agent.move();
-        WindowUpdater.update();
+        WindowUpdater.update(Factory.getGameState());
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
         agent2.move();
-        WindowUpdater.update();
+        WindowUpdater.update(Factory.getGameState());
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
     }
 
