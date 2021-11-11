@@ -6,26 +6,20 @@ import com.maastricht.university.logic.game.game.Move;
 public class RewardCalculator {
 
     public static double get(GameState gameState, Move move, int player) {
-        if (gameState.winner() == player)
+
+
+        if (gameState.winner() == player) {
+            System.out.println("winner!");
             return 100;
+        }
 
-        double reward = 1;
-        reward += getDifferenceOfTotalGroups(gameState, getPotentialState(gameState, move, player), player);
+        if (gameState.winner() != player && gameState.winner() != 0) {
+            System.out.println("loser!");
+            return -100;
+        }
 
-        return reward;
+        return 0;
     }
 
-    private static int getDifferenceOfTotalGroups(GameState stateA, GameState stateB, int player) {
-        int totalA = stateA.getTotalGroups(player);
-        int totalB = stateB.getTotalGroups(player);
 
-        return totalA - totalB;
-    }
-
-    private static GameState getPotentialState(GameState gameState, Move move, int player) {
-        GameState potentialState = gameState.clone();
-        potentialState.move(move.getX(), move.getY(), player);
-
-        return potentialState;
-    }
 }
