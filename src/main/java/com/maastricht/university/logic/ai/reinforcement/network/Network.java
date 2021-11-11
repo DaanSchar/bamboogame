@@ -37,7 +37,7 @@ public class Network {
         DQNDenseNetworkConfiguration build = DQNDenseNetworkConfiguration.builder()
                 .l2(0.001)
                 .updater(new RmsProp(0.000025))
-                .numHiddenNodes(300)
+                .numHiddenNodes(500)
                 .numLayers(2)
                 .build();
 
