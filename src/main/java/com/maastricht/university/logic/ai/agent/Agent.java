@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Agent implements IAgent{
 
-    private IGameState gameState;
+    public IGameState gameState;
     private int player;
 
     public Agent(IGameState gameState, final int playerNumber) {
@@ -20,6 +20,14 @@ public class Agent implements IAgent{
         while (gameState.getPlayerTurn() == player && gameState.winner() == 0) {
             determineMove();
         }
+    }
+
+    public int getPlayer() {
+        return player;
+    }
+
+    public void setGameState(IGameState gameState) {
+        this.gameState = gameState;
     }
 
     private void determineMove() {
