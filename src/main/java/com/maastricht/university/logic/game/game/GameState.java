@@ -1,5 +1,7 @@
 package com.maastricht.university.logic.game.game;
 
+import com.maastricht.university.frontend.Factory;
+import com.maastricht.university.frontend.WindowUpdater;
 import com.maastricht.university.logic.game.components.Board;
 import com.maastricht.university.logic.game.components.TileGroup;
 import com.maastricht.university.logic.game.util.exceptions.GameIsOverException;
@@ -18,6 +20,8 @@ public class GameState implements IGameState, Comparable<GameState> {
     private int playerTurn;
     private int numberOfPlayers;
     private Boolean[] actualPlayers;
+
+    private final boolean DEBUG = true;
 
     /**
      * construct the gamestate
@@ -49,9 +53,12 @@ public class GameState implements IGameState, Comparable<GameState> {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("current player is still " + playerTurn);
+            if (DEBUG) {
+                System.out.println(e);
+                System.out.println("current player is still " + playerTurn);
+            }
         }
+
     }
 
     @Override
