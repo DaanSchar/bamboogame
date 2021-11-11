@@ -44,7 +44,7 @@ import java.util.ArrayList;
 public class Iris {
 
     private static Logger log = LoggerFactory.getLogger(Iris.class);
-    private static String filename = "src/main/java/com/maastricht/university/logic/ai/reinforcement/iris.csv";
+    private static String filename = "src/main/java/com/maastricht/university/logic/ai/reinforcement/example/iris.csv";
 
     public static void main(String[] args) throws  Exception {
         DataSet allData = convertCsvToDataSet();
