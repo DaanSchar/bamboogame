@@ -4,11 +4,11 @@ import org.deeplearning4j.rl4j.space.Encodable;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 
-public class GameState implements Encodable {
+public class NeuralGameState implements Encodable {
 
     private double[] inputs;
 
-    public GameState(double[] inputs) {
+    public NeuralGameState(double[] inputs) {
         this.inputs = inputs;
     }
 
