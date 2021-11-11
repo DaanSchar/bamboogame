@@ -1,9 +1,10 @@
 package com.maastricht.university.logic.ai.reinforcement.network;
 
-import com.maastricht.university.frontend.Factory;
 import com.maastricht.university.logic.ai.agent.Agent;
+import com.maastricht.university.logic.ai.agent.ReinforcementAgent;
 import com.maastricht.university.logic.game.components.Hexagon;
 import com.maastricht.university.logic.game.components.LogicTile;
+import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
 import org.deeplearning4j.gym.StepReply;
 import org.deeplearning4j.rl4j.mdp.MDP;
@@ -13,59 +14,32 @@ import org.deeplearning4j.rl4j.space.ObservationSpace;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Environment implements MDP<GameState, Integer, DiscreteSpace> {
+public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace> {
 
-    private DiscreteSpace actionSpace = new DiscreteSpace(61);
-    private com.maastricht.university.logic.game.game.GameState game = (com.maastricht.university.logic.game.game.GameState) Factory.getGameState();
-
-    @Override
-    public ObservationSpace<GameState> getObservationSpace() {
-        return new GameObservationSpace();
-    }
+    private DiscreteSpace actionSpace = new DiscreteSpace(Network.NUM_INPUTS);
+    private GameState game = new GameState(4,2);
+    private Agent opponent = new ReinforcementAgent(game, 2, "network-1636666442341.zip");
 
     @Override
-    public DiscreteSpace getActionSpace() {
-        return actionSpace;
-    }
-
-    @Override
-    public GameState reset() {
-        Factory.resetGameState();
-        return new GameState(playerColorVector());
-    }
-
-    /**
-     * converts a 1D array of logic tiles to a 1D array of doubles
-     * representing the player color of the tile
-     */
-    private double[] playerColorVector() {
-        List<LogicTile> logicVector = game.getBoard().getTileMap().vector();
-        double[] vector = new double[logicVector.size()];
-
-        for (int i = 0; i < logicVector.size(); i++)
-            vector[i] = logicVector.get(i).getPlayerColor();
-
-        return vector;
-    }
-
-    @Override
-    public void close() {}
-
-    @Override
-    public StepReply<GameState> step(Integer integer) {
-        List<Move> moveList = ((Hexagon<LogicTile>)game.getBoard().getTileMap()).moveVector();
-        Move move = moveList.get(integer);
+    public StepReply<NeuralGameState> step(Integer integer) {
+        List<Move> moveList = getLegalMoves();
+        Move move = moveList.get(integer * moveList.size() / Network.NUM_INPUTS);
 
         game.move(move.getX(), move.getY(), 1);
-        Network.pause(100);
-        Agent agent = new Agent(game, 2);
-        agent.move();
-
-        GameState observation = new GameState(playerColorVector());
+        opponent.move();
 
         double reward = RewardCalculator.get(game, move, 1);
 
+        NeuralGameState observation = new NeuralGameState(game.getStateVector());
+
         return new StepReply<>(observation, reward, isDone(), "SnakeDL4j");
+    }
+
+    @Override
+    public NeuralGameState reset() {
+        game = new GameState(4,2);
+        opponent.setGameState(game);
+        return new NeuralGameState(game.getStateVector());
     }
 
     @Override
@@ -74,8 +48,43 @@ public class Environment implements MDP<GameState, Integer, DiscreteSpace> {
     }
 
     @Override
-    public MDP<GameState, Integer, DiscreteSpace> newInstance() {
-        Factory.resetGameState();
+    public ObservationSpace<NeuralGameState> getObservationSpace() {
+        return new GameObservationSpace();
+    }
+
+    @Override
+    public MDP<NeuralGameState, Integer, DiscreteSpace> newInstance() {
         return new Environment();
+    }
+
+    @Override
+    public DiscreteSpace getActionSpace() {
+        return actionSpace;
+    }
+
+    @Override
+    public void close() {}
+
+    /**
+     * Returns a list of moves that are legal
+     */
+    private List<Move> getLegalMoves() {
+        return removeIllegalMoves(
+                ((Hexagon<LogicTile>)game.getBoard().getTileMap())
+                        .moveVector()
+        );
+    }
+
+    /**
+     * removes illegal moves from a list of moves
+     */
+    private List<Move> removeIllegalMoves(List<Move> moveList) {
+        List<Move> legalList = new ArrayList<>();
+
+        for (int i = 0; i < moveList.size(); i++)
+            if (game.isLegal(moveList.get(i).getX(), moveList.get(i).getY(), 1))
+                legalList.add(moveList.get(i));
+
+        return legalList;
     }
 }
