@@ -20,8 +20,7 @@ public class SnakeDl4j {
 
     public SnakeDl4j()  {
 //        train();
-//        evaluateNetwork("network-1636666442341.zip", new ReinforcementAgent(game, 2, "network-1636660087593.zip"));
-        evaluateNetwork("src/main/resources/networks/network-1636669584251.zip", new ReinforcementAgent(game, 2, "network-1636660087593.zip"));
+        evaluateNetwork("src/main/resources/networks/network-1636666442341.zip", new Agent(game, 2));
     }
 
     private void train() {
