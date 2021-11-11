@@ -3,6 +3,7 @@ package com.maastricht.university.frontend;
 import com.maastricht.university.frontend.components.HoverableButton;
 import com.maastricht.university.frontend.components.tile.TileMap;
 import com.maastricht.university.logic.ai.agent.Agent;
+import com.maastricht.university.logic.ai.agent.ReinforcementAgent;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -97,7 +98,7 @@ public class Main{
         Scene scene = new Scene(playground, width, height);
 
         // CODE ADDED FOR 2 AI's RUNNING
-        // createTimerThread(); // uncomment this line to have 2 ai's fight it out
+        createTimerThread(); // uncomment this line to have 2 ai's fight it out
 
         return scene;
     }
@@ -123,15 +124,15 @@ public class Main{
 
     public void runDoubleAi() {
         IGameState state =  Factory.getGameState();
-        Agent agent = new Agent(state, 1);
-        Agent agent2 = new Agent(state, 2);
+        Agent agent = new ReinforcementAgent(state, 1, "src/main/resources/networks/network-1636669584251.zip");
+        Agent agent2 = new ReinforcementAgent(state, 2, "src/main/resources/networks/network-1636669584251.zip");
 
         agent.move();
         WindowUpdater.update(Factory.getGameState());
-        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+        try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
         agent2.move();
         WindowUpdater.update(Factory.getGameState());
-        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+        try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
     }
 
     /**
