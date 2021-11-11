@@ -19,10 +19,13 @@ public class SnakeDl4j {
     }
 
     public SnakeDl4j()  {
-//        train();
-        evaluateNetwork("src/main/resources/networks/network-1636666442341.zip", new Agent(game, 2));
+        train();
     }
 
+    /**
+     * Trains the network.
+     * (also evaluates it at the end)
+     */
     private void train() {
         String randomNetworkName = "src/main/resources/networks/network-" + System.currentTimeMillis() + ".zip";
 
@@ -53,7 +56,6 @@ public class SnakeDl4j {
         int totalGames = 200;
 
         Agent RLAgent = new ReinforcementAgent(game, 1, randomNetworkName);
-//        opponentAgent = new Agent(game, 2);
 
         for (int i = 0; i < totalGames; i++) {
             int score = 0;

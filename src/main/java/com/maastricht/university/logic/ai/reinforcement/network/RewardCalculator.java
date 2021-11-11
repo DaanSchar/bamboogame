@@ -1,12 +1,13 @@
 package com.maastricht.university.logic.ai.reinforcement.network;
 
 import com.maastricht.university.logic.game.game.GameState;
-import com.maastricht.university.logic.game.game.Move;
 
+/**
+ * Calculates the reward for a given game state.
+ */
 public class RewardCalculator {
 
-    public static double get(GameState gameState, Move move, int player) {
-
+    public static double get(GameState gameState, int player) {
 
         if (gameState.winner() == player) {
             System.out.println("winner!");

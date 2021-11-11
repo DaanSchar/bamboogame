@@ -124,8 +124,8 @@ public class Main{
 
     public void runDoubleAi() {
         IGameState state =  Factory.getGameState();
-        Agent agent = new ReinforcementAgent(state, 1, "src/main/resources/networks/network-1636669584251.zip");
-        Agent agent2 = new ReinforcementAgent(state, 2, "src/main/resources/networks/network-1636669584251.zip");
+        Agent agent = new ReinforcementAgent(state, 1, "src/main/resources/networks/network-1636668382311.zip");
+        Agent agent2 = new ReinforcementAgent(state, 2, "src/main/resources/networks/network-1636666442341.zip");
 
         agent.move();
         WindowUpdater.update(Factory.getGameState());

@@ -4,6 +4,11 @@ import org.deeplearning4j.rl4j.space.ObservationSpace;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 
+
+/**
+ * This class represents the observation space of the game ie the Domain of
+ * possible states (I think?).
+ */
 public class GameObservationSpace implements ObservationSpace<NeuralGameState> {
     @Override
     public String getName() {

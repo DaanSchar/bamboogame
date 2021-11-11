@@ -18,8 +18,12 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
     private DiscreteSpace actionSpace = new DiscreteSpace(Network.NUM_INPUTS);
     private GameState game = new GameState(4,2);
-    private Agent opponent = new ReinforcementAgent(game, 2, "network-1636666442341.zip");
+    private Agent opponent = new ReinforcementAgent(game, 2, "network-1636666442341.zip"); // we can change the opponent we want to train against here
 
+    /**
+     * This is where both agents make a move
+     * and the reward of that move get calculated.
+     */
     @Override
     public StepReply<NeuralGameState> step(Integer integer) {
         List<Move> moveList = getLegalMoves();
@@ -28,8 +32,7 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
         game.move(move.getX(), move.getY(), 1);
         opponent.move();
 
-        double reward = RewardCalculator.get(game, move, 1);
-
+        double reward = RewardCalculator.get(game, 1);
         NeuralGameState observation = new NeuralGameState(game.getStateVector());
 
         return new StepReply<>(observation, reward, isDone(), "SnakeDL4j");

@@ -9,6 +9,9 @@ import org.nd4j.linalg.learning.config.RmsProp;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Here we configure our neural network and dqn (RL) algorithm.
+ */
 public class Network {
 
     public static final int NUM_INPUTS = 61;
