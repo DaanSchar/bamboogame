@@ -78,7 +78,7 @@ public class CreateTree {
         for(int i=0; i<moves.size(); i++) {
             GameState childState = parentState.clone();
             childState.move(moves.get(i).getX(), moves.get(i).getY(), childState.getPlayerTurn());
-            parent.addChild(childState);
+            parent.addChild(childState, moves.get(i));
         }
     }
 }

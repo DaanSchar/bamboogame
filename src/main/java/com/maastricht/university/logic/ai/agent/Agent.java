@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class Agent implements IAgent{
 
-    public IGameState gameState;
-    public int player;
+    protected IGameState gameState;
+    protected int player;
 
     public Agent(IGameState gameState, final int playerNumber) {
         this.gameState = gameState;

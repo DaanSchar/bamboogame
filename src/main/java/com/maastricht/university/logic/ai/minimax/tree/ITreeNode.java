@@ -1,5 +1,7 @@
 package com.maastricht.university.logic.ai.minimax.tree;
 
+import com.maastricht.university.logic.game.game.Move;
+
 import java.util.List;
 
 /**
@@ -10,9 +12,21 @@ import java.util.List;
 public interface ITreeNode<E> {
 
     /**
+     *
+     * @return whether the last move made is stored
+     */
+    boolean hasLastMove();
+
+    /**
+     *
+     * @return last move done
+     */
+    Move getLastMove();
+
+    /**
      * @return score of a player of node in tree stored by this node.
      */
-    int getScore();
+    Integer getScore();
 
     /**
      *
@@ -24,7 +38,7 @@ public interface ITreeNode<E> {
      *
      * @param score the score of the player
      */
-    void setScore(int score);
+    void setScore(Integer score);
 
     /**
      * @return depth of node in tree stored by this node.
@@ -63,7 +77,7 @@ public interface ITreeNode<E> {
      * adds a child to node to this node.
      * @param element
      */
-    void addChild(E element);
+    void addChild(E element, Move lastMove);
 
     /**
      * compares all children to each other using the

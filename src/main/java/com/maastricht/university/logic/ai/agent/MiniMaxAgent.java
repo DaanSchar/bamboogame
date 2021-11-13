@@ -14,7 +14,7 @@ public class MiniMaxAgent extends Agent{
     }
 
     private boolean isMax(int player){
-        if(player == 2){
+        if(player == super.player){
             return true;
         }else
             return false;
