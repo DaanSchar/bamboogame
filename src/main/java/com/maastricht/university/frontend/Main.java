@@ -3,6 +3,7 @@ package com.maastricht.university.frontend;
 import com.maastricht.university.frontend.components.HoverableButton;
 import com.maastricht.university.frontend.components.tile.TileMap;
 import com.maastricht.university.logic.ai.agent.Agent;
+import com.maastricht.university.logic.ai.agent.MiniMaxAgent;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -97,7 +98,7 @@ public class Main{
         Scene scene = new Scene(playground, width, height);
 
         // CODE ADDED FOR 2 AI's RUNNING
-        // createTimerThread(); // uncomment this line to have 2 ai's fight it out
+        createTimerThread(); // uncomment this line to have 2 ai's fight it out
 
         return scene;
     }
@@ -116,11 +117,18 @@ public class Main{
 
     private void gameloop() {
         while(Factory.getGameState().winner() == 0) {
-            runDoubleAi();
+            //runDoubleAi();
+            runMiniMax();
         }
         System.out.println("winner is " + Factory.getGameState().winner());
     }
+    public void runMiniMax(){
+        IGameState state =  Factory.getGameState();
+        MiniMaxAgent agent = new MiniMaxAgent(state, 1);
 
+        agent.moveMiniMax();
+        WindowUpdater.update();
+    }
     public void runDoubleAi() {
         IGameState state =  Factory.getGameState();
         Agent agent = new Agent(state, 1);

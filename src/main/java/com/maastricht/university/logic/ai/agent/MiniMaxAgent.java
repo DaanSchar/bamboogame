@@ -1,7 +1,7 @@
 package com.maastricht.university.logic.ai.agent;
 
-import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
-import com.maastricht.university.logic.ai.minimax.tree.TreeNode;
+import com.maastricht.university.logic.ai.minimax.tree.*;
+import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import java.util.ArrayList;
@@ -21,23 +21,27 @@ public class MiniMaxAgent extends Agent{
         }else
             return false;
     }
-    private Move determineMove(TreeNode node) {
+    public void moveMiniMax(){
+        while (gameState.getPlayerTurn() == player && gameState.winner() == 0) {
+            determineMiniMaxMove();
+        }
+    }
+    private void determineMiniMaxMove() {
         ArrayList<Move> maxLegalMoves;
         ArrayList<Move> minLegalMoves;
         Move actualMove;
+        CreateTree newT = new CreateTree((GameState)gameState);
+        Tree tree = (Tree)newT.getTree();
 
         if (isMax(player)) {
             maxLegalMoves = gameState.getLegalMoves(player);
             minLegalMoves = gameState.getLegalMoves(1);
 
             commonLegal = legalMoves(maxLegalMoves, minLegalMoves);
-            actualMove = bestBranch(node);
-
+            actualMove = bestBranch(tree.getRoot().getMaxChild());
 
             if (commonLegal.contains(actualMove)) {
-                return actualMove;
-            }else{
-                //error?
+                gameState.move(actualMove.getX(),actualMove.getY(),player);
             }
 
         } else
@@ -45,15 +49,11 @@ public class MiniMaxAgent extends Agent{
             minLegalMoves = gameState.getLegalMoves(player);
 
             commonLegal = legalMoves(maxLegalMoves, minLegalMoves);
-            actualMove = bestBranch(node);
+            actualMove = bestBranch(tree.getRoot().getMinChild());
 
             if(commonLegal.contains(actualMove)){
-                return actualMove;
-            }else{
-                //error?
+                gameState.move(actualMove.getX(),actualMove.getY(),2);
             }
-
-            return null;
     }
 
     private ArrayList<Move> legalMoves(ArrayList<Move> max, ArrayList<Move> min){
@@ -66,7 +66,7 @@ public class MiniMaxAgent extends Agent{
 
         return legalMoves;
     }
-    private Move bestBranch(TreeNode node){
+    private Move bestBranch(ITreeNode node){
         ITreeNode n;
         if(isMax(player)){
             n = node.getMaxChild();
