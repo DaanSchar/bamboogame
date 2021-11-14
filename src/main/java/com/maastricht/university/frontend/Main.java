@@ -155,6 +155,7 @@ public class Main{
             r.getChildren().add(twoWin);
         }
         //button is not moving!!!!!
+        /*
         HoverableButton home = new HoverableButton(h/7, h - 100, 20, 20);
         homeView.setFitHeight(40);
         homeView.setFitWidth(80);
@@ -168,7 +169,7 @@ public class Main{
                 m.backStage.show();
             }
         });
-
+        */
         return scene;
     }
 
