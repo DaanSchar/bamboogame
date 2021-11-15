@@ -18,15 +18,18 @@ public class Network {
     public static final double LOW_VALUE = 0;
     public static final double HIGH_VALUE = 2;
 
+    private static final int stepsPerEpoch = 1000;
+    private static final int maxEpochs = 5000;
+
     public static QLearningConfiguration buildConfig() {
         return QLearningConfiguration.builder()
                 .seed(123L)
-                .maxEpochStep(200)
-                .maxStep(15000)
-                .expRepMaxSize(150000)
+                .maxEpochStep(stepsPerEpoch)
+                .maxStep(stepsPerEpoch * maxEpochs)
+                .expRepMaxSize(1500000)
                 .batchSize(128)
                 .targetDqnUpdateFreq(500)
-                .updateStart(10)
+                .updateStart(0)
                 .rewardFactor(0.01)
                 .gamma(0.99)
                 .errorClamp(1.0)
@@ -40,7 +43,7 @@ public class Network {
         DQNDenseNetworkConfiguration build = DQNDenseNetworkConfiguration.builder()
                 .l2(0.001)
                 .updater(new RmsProp(0.000025))
-                .numHiddenNodes(500)
+                .numHiddenNodes(100)
                 .numLayers(2)
                 .build();
 

@@ -27,6 +27,7 @@ public class SnakeDl4j {
      * (also evaluates it at the end)
      */
     private void train() {
+        System.out.println("Starting training");
         String randomNetworkName = "src/main/resources/networks/network-" + System.currentTimeMillis() + ".zip";
 
         Environment mdp = new Environment();
@@ -44,7 +45,7 @@ public class SnakeDl4j {
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
         }
-
+        System.out.println("Finished training");
         evaluateNetwork(randomNetworkName, new ReinforcementAgent(game, 2, "src/main/resources/networks/network-1636666442341.zip"));
     }
 
@@ -52,6 +53,7 @@ public class SnakeDl4j {
      * Evaluates the network on how good it is compared a different agent.
      */
     private void evaluateNetwork(String randomNetworkName, Agent opponentAgent) {
+        System.out.println("Starting evaluation");
         int totalScore = 0;
         int totalGames = 200;
 
