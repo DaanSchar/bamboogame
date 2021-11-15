@@ -1,5 +1,6 @@
 package com.maastricht.university.logic.ai.agent;
 
+import com.maastricht.university.logic.game.components.Board;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
@@ -30,11 +31,31 @@ public class Agent implements IAgent{
         this.gameState = gameState;
     }
 
-    private void determineMove() {
+    private void determineRandomMove() {
         Random rand = new Random();
         ArrayList<Move> moveList = gameState.getLegalMoves(player);
         int index = rand.nextInt(moveList.size());
         Move move = moveList.get(index);
+
+        gameState.move(move.getX(), move.getY(), player);
+    }
+
+    private void determineMove() {
+        Board board = gameState.getBoard();
+
+        Random rand = new Random();
+        ArrayList<Move> moveList = gameState.getLegalMoves(player);
+        ArrayList<Move> betterMoves = new ArrayList<>();
+
+        //If none of the moves has neighbouring groups of equal color its a non-connecting move
+        // hopefully better
+        for(Move m : moveList) {
+            if(board.getNeighboringGroups(m.getX(), m.getY(), player).size() == 0)
+                betterMoves.add(m);
+        }
+
+        int index = rand.nextInt(betterMoves.size());
+        Move move = betterMoves.get(index);
 
         gameState.move(move.getX(), move.getY(), player);
     }
