@@ -1,5 +1,6 @@
 package com.maastricht.university.logic.game.util.interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IHexagon<T>{
@@ -17,5 +18,7 @@ public interface IHexagon<T>{
     int size();
 
     List<T> getNeighbours(int x, int y);
+
+    List<T> vector();
 
 }

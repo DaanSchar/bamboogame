@@ -1,6 +1,9 @@
 package com.maastricht.university.logic.game.game;
 
+import com.maastricht.university.frontend.Factory;
+import com.maastricht.university.frontend.WindowUpdater;
 import com.maastricht.university.logic.game.components.Board;
+import com.maastricht.university.logic.game.components.LogicTile;
 import com.maastricht.university.logic.game.components.TileGroup;
 import com.maastricht.university.logic.game.util.exceptions.GameIsOverException;
 import com.maastricht.university.logic.game.util.exceptions.IllegalMoveException;
@@ -18,6 +21,8 @@ public class GameState implements IGameState, Comparable<GameState> {
     private int playerTurn;
     private int numberOfPlayers;
     private Boolean[] actualPlayers;
+
+    private final boolean DEBUG = true;
 
     /**
      * construct the gamestate
@@ -49,9 +54,12 @@ public class GameState implements IGameState, Comparable<GameState> {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("current player is still " + playerTurn);
+            if (DEBUG) {
+                System.out.println(e);
+                System.out.println("current player is still " + playerTurn);
+            }
         }
+
     }
 
     @Override
@@ -154,7 +162,18 @@ public class GameState implements IGameState, Comparable<GameState> {
         }
 
         return moveList;
-    }
+   }
+
+   public double[] getStateVector() {
+       List<LogicTile> logicVector = board.getTileMap().vector();
+       double[] vector = new double[logicVector.size()];
+
+       for (int i = 0; i < logicVector.size(); i++)
+           vector[i] = logicVector.get(i).getPlayerColor();
+
+       return vector;
+   }
+
 
     /**
      * throws the exception that need to be caught inside move()

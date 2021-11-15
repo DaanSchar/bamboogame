@@ -42,7 +42,7 @@ public class Tile implements Cloneable {
             IGameState game = Factory.getGameState();
             game.move(q,r,Factory.getGameState().getPlayerTurn());
 
-            WindowUpdater.update();
+            WindowUpdater.update(Factory.getGameState());
 
             winner(game);
         });

@@ -1,5 +1,7 @@
 package com.maastricht.university.logic.game.util.interfaces;
 
+import com.maastricht.university.logic.game.components.Board;
+import com.maastricht.university.logic.game.components.LogicTile;
 import com.maastricht.university.logic.game.game.Move;
 
 import java.util.ArrayList;
@@ -74,4 +76,6 @@ public interface IGameState {
     public int winner();
 
     public ArrayList<Move> getLegalMoves(int i);
+
+    public Board getBoard();
 }
