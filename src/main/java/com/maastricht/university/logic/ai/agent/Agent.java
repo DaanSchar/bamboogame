@@ -54,9 +54,15 @@ public class Agent implements IAgent{
                 betterMoves.add(m);
         }
 
-        int index = rand.nextInt(betterMoves.size());
-        Move move = betterMoves.get(index);
-
-        gameState.move(move.getX(), move.getY(), player);
+        if(betterMoves.size() != 0) {
+            int index = rand.nextInt(betterMoves.size());
+            Move move = betterMoves.get(index);
+            gameState.move(move.getX(), move.getY(), player);
+        }
+        else {
+            int index = rand.nextInt(moveList.size());
+            Move move = moveList.get(index);
+            gameState.move(move.getX(), move.getY(), player);
+        }
     }
 }
