@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Agent implements IAgent{
 
-    public IGameState gameState;
+    private IGameState gameState;
     private int player;
 
     public Agent(IGameState gameState, final int playerNumber) {
@@ -64,5 +64,9 @@ public class Agent implements IAgent{
             Move move = moveList.get(index);
             gameState.move(move.getX(), move.getY(), player);
         }
+    }
+
+    public IGameState getGameState() {
+        return gameState;
     }
 }
