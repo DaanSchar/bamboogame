@@ -10,50 +10,40 @@ import java.util.ArrayList;
 public class MiniMaxAgent extends Agent{
 
     public ArrayList<Move> commonLegal;
+    private int otherPlayer;
 
     public MiniMaxAgent(IGameState gameState, int playerNumber) {
+
         super(gameState, playerNumber);
+        if(super.player == 1) {
+            otherPlayer = 2;
+        }else
+            otherPlayer = 1;
     }
 
-    private boolean isMax(int player){
-        if(player == super.player){
-            return true;
-        }else
-            return false;
-    }
     public void moveMiniMax(){
         while (gameState.getPlayerTurn() == player && gameState.winner() == 0) {
             determineMiniMaxMove();
         }
     }
-    private void determineMiniMaxMove() {
+
+    public void determineMiniMaxMove() {
         ArrayList<Move> maxLegalMoves;
         ArrayList<Move> minLegalMoves;
         Move actualMove;
         CreateTree newT = new CreateTree((GameState)gameState);
         Tree tree = (Tree)newT.getTree();
 
-        if (isMax(player)) {
-            maxLegalMoves = gameState.getLegalMoves(player);
-            minLegalMoves = gameState.getLegalMoves(1);
+        maxLegalMoves = gameState.getLegalMoves(player);
+        minLegalMoves = gameState.getLegalMoves(otherPlayer);
 
-            commonLegal = legalMoves(maxLegalMoves, minLegalMoves);
-            actualMove = bestBranch(tree.getRoot().getMaxChild());
+        commonLegal = legalMoves(maxLegalMoves, minLegalMoves);
+        actualMove = bestBranch(tree.getRoot().getMaxChild());
 
-            if (commonLegal.contains(actualMove)) {
-                gameState.move(actualMove.getX(),actualMove.getY(),player);
-            }
+        if (commonLegal.contains(actualMove)) {
+            gameState.move(actualMove.getX(),actualMove.getY(),player);
+        }
 
-        } else
-            maxLegalMoves = gameState.getLegalMoves(2);
-            minLegalMoves = gameState.getLegalMoves(player);
-
-            commonLegal = legalMoves(maxLegalMoves, minLegalMoves);
-            actualMove = bestBranch(tree.getRoot().getMinChild());
-
-            if(commonLegal.contains(actualMove)){
-                gameState.move(actualMove.getX(),actualMove.getY(),2);
-            }
     }
 
     private ArrayList<Move> legalMoves(ArrayList<Move> max, ArrayList<Move> min){
@@ -67,13 +57,29 @@ public class MiniMaxAgent extends Agent{
         return legalMoves;
     }
     private Move bestBranch(ITreeNode node){
-        ITreeNode n;
-        if(isMax(player)){
-            n = node.getMaxChild();
-        } else
-            n = node.getMinChild();
+        int min;
+        int max;
 
-        return n.getLastMove();
+        return null;
+
+    }
+
+    private void depthFirstSearch(ITreeNode root){
+        ArrayList<ITreeNode> visited = new ArrayList<ITreeNode>();
+        visited.add(root);
+        int size = root.getChildren().size();
+        ITreeNode node;
+
+        while(root.hasChildren()){
+            for(int i=0; i<size; i++){
+                node = (ITreeNode)root.getChildren().get(i);
+
+                if(!visited.contains(node)){
+
+                    depthFirstSearch(node);
+                }
+            }
+        }
     }
 }
 

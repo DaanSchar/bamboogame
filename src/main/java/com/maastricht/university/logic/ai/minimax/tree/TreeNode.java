@@ -72,6 +72,18 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
         return this.children;
     }
 
+    public ITreeNode<E> getLeftChild(){
+        return this.children.get(0);
+    }
+
+    public ITreeNode<E> getRightChildren(){
+        int size = this.children.size();
+
+        for(int i=1; i<size; i++){
+            this.children.get(i);
+        }
+    }
+
     public void addChild(E e, Move lastMove) {
         children.add(new TreeNode(e, this, numberOfPlayers, lastMove));
     }
@@ -94,6 +106,17 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
                 minChild = child;
 
         return minChild;
+    }
+
+    public ArrayList<ITreeNode> getLeafNode(){
+        ArrayList<ITreeNode> leafNodes = new ArrayList<ITreeNode>();
+        ITreeNode tree;
+        for(ITreeNode n: tree){
+            if(!n.hasChildren()){
+                leafNodes.add(n);
+            }
+        }
+        return null;
     }
 
     public boolean hasChildren() {

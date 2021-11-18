@@ -2,6 +2,7 @@ package com.maastricht.university.logic.ai.minimax.tree;
 
 import com.maastricht.university.logic.game.game.Move;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,6 +73,18 @@ public interface ITreeNode<E> {
      * @return list of children nodes
      */
     List<ITreeNode<E>> getChildren();
+
+    /**
+     * returns the first child in the list
+     * @return
+     */
+    ITreeNode<E> getLeftChild();
+
+    /**
+     * this returns the leaf node of a branch
+     * @return one node
+     */
+    ArrayList<ITreeNode> getLeafNode();
 
     /**
      * adds a child to node to this node.
