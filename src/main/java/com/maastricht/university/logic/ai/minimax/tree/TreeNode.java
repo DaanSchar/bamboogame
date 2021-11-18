@@ -76,12 +76,13 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
         return this.children.get(0);
     }
 
-    public ITreeNode<E> getRightChildren(){
+    public ITreeNode<E> getRightChild(){
         int size = this.children.size();
 
-        for(int i=1; i<size; i++){
-            this.children.get(i);
-        }
+//        for(int i=1; i<size; i++){
+//            this.children.get(i);
+//        }
+        return this.children.get(size-1);
     }
 
     public void addChild(E e, Move lastMove) {
@@ -111,7 +112,7 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
     public ArrayList<ITreeNode> getLeafNode(){
         ArrayList<ITreeNode> leafNodes = new ArrayList<ITreeNode>();
         ITreeNode tree;
-        for(ITreeNode n: tree){
+        for(ITreeNode n: leafNodes){
             if(!n.hasChildren()){
                 leafNodes.add(n);
             }

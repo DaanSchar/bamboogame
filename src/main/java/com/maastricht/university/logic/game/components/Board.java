@@ -1,4 +1,5 @@
 package com.maastricht.university.logic.game.components;
+import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.util.interfaces.IHexagon;
 
 import java.util.LinkedList;
@@ -154,6 +155,7 @@ public class Board {
                 cloneBoard.addGroup(cloneGroup);
             }
         }
+
         return cloneBoard;
     }
 

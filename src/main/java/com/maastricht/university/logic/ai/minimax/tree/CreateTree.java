@@ -12,6 +12,7 @@ import java.util.List;
 public class CreateTree {
 
     ITree<GameState> tree;
+    public boolean DEBUG = false;
 
     /**
      * Creates a full tree with specified root
@@ -69,16 +70,33 @@ public class CreateTree {
         }
     }
 
+    public void depthSearch() {
+
+    }
+
     public ITree<GameState> getTree() {return tree;}
 
     private void addChildren(ITreeNode<GameState> parent) {
+        if(DEBUG)
+            System.out.println("A new call of 'addChildren'");
         GameState parentState = parent.getElement();
-        List<Move> moves = parentState.getLegalMoves(parentState.getPlayerTurn());
 
-        for(int i=0; i<moves.size(); i++) {
+        if(parent.getDepth() > 1) {
+            if(DEBUG) {
+                System.out.println("Last move parent:");
+                System.out.println("Move: (x=" + parent.getLastMove().getX() + ", y=" + parent.getLastMove().getY() + ")");
+            }
+        }
+        List<Move> moves = parentState.getLegalMoves(parentState.getPlayerTurn());
+        if(DEBUG)
+            System.out.println("amount of moves to try:" + moves.size());
+
+        for(Move move: moves) {
             GameState childState = parentState.clone();
-            childState.move(moves.get(i).getX(), moves.get(i).getY(), childState.getPlayerTurn());
-            parent.addChild(childState, moves.get(i));
+            if(DEBUG)
+                System.out.println("new Move: (x=" +move.getX()+ ", y=" +move.getY()+ ", c=" + childState.getPlayerTurn() + ")");
+            childState.move(move.getX(), move.getY(), childState.getPlayerTurn());
+            parent.addChild(childState, move);
         }
     }
 }

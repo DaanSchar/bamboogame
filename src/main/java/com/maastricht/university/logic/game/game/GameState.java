@@ -95,13 +95,17 @@ public class GameState implements IGameState, IScoreSystem, Comparable<GameState
 
     public void setBoard(Board newBoard) {
         this.board = newBoard;
+        this.gameRules = new GameRule(newBoard);
     }
+
+    public void setPlayerTurn(int player) {this.playerTurn = player; }
 
     @Override
     public GameState clone() {
         GameState cloneGameState = new GameState(this.board.getBoardSize(), this.numberOfPlayers);
         Board cloneBoard = board.clone();
         cloneGameState.setBoard(cloneBoard);
+        cloneGameState.setPlayerTurn(this.playerTurn);
         return cloneGameState;
     }
 
@@ -145,8 +149,8 @@ public class GameState implements IGameState, IScoreSystem, Comparable<GameState
      */
    public ArrayList<Move> getLegalMoves(int playerColor) {
         ArrayList<Move> moveList = new ArrayList<Move>();
-        if(!legalMovesLeft(playerColor))
-            return null;
+//        if(!legalMovesLeft(playerColor))
+//            return null;
 
         int maxCoordinate = board.getBoardSize()*2+1;
 
