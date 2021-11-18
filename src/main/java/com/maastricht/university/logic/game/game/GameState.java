@@ -1,7 +1,5 @@
 package com.maastricht.university.logic.game.game;
 
-import com.maastricht.university.frontend.Factory;
-import com.maastricht.university.frontend.WindowUpdater;
 import com.maastricht.university.logic.game.components.Board;
 import com.maastricht.university.logic.game.components.LogicTile;
 import com.maastricht.university.logic.game.components.TileGroup;
@@ -164,6 +162,10 @@ public class GameState implements IGameState, Comparable<GameState> {
         return moveList;
    }
 
+    /**
+     * @return a vector representing the state of the game ie
+     * a 1D array version of the tilemap
+     */
    public double[] getStateVector() {
        List<LogicTile> logicVector = board.getTileMap().vector();
        double[] vector = new double[logicVector.size()];
@@ -173,7 +175,6 @@ public class GameState implements IGameState, Comparable<GameState> {
 
        return vector;
    }
-
 
     /**
      * throws the exception that need to be caught inside move()

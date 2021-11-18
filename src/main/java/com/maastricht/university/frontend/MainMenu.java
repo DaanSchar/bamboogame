@@ -1,7 +1,6 @@
 package com.maastricht.university.frontend;
 
 import com.maastricht.university.frontend.components.HoverableButton;
-import com.maastricht.university.logic.ai.reinforcement.network.SnakeDl4j;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

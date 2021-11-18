@@ -98,7 +98,7 @@ public class Main{
         Scene scene = new Scene(playground, width, height);
 
         // CODE ADDED FOR 2 AI's RUNNING
-        createTimerThread(); // uncomment this line to have 2 ai's fight it out
+//        createTimerThread(); // uncomment this line to have 2 ai's fight it out
 
         return scene;
     }
@@ -124,15 +124,16 @@ public class Main{
 
     public void runDoubleAi() {
         IGameState state =  Factory.getGameState();
-        Agent agent = new ReinforcementAgent(state, 1, "src/main/resources/networks/network-1636668382311.zip");
-        Agent agent2 = new ReinforcementAgent(state, 2, "src/main/resources/networks/network-1636666442341.zip");
+        Agent agent = new ReinforcementAgent(state, 1, "src/main/resources/networks/network-1637108830642.zip");
+//        Agent agent2 = new ReinforcementAgent(state, 2, "src/main/resources/networks/network-1636666442341.zip");
+        Agent agent2 = new Agent(state, 2);
 
         agent.move();
         WindowUpdater.update(Factory.getGameState());
-        try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
+        try { Thread.sleep(300); } catch (InterruptedException e) { e.printStackTrace(); }
         agent2.move();
         WindowUpdater.update(Factory.getGameState());
-        try { Thread.sleep(100); } catch (InterruptedException e) { e.printStackTrace(); }
+        try { Thread.sleep(300); } catch (InterruptedException e) { e.printStackTrace(); }
     }
 
     /**

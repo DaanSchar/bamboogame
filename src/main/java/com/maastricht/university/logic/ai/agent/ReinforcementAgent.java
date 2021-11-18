@@ -1,6 +1,6 @@
 package com.maastricht.university.logic.ai.agent;
 
-import com.maastricht.university.logic.ai.reinforcement.network.NeuralGameState;
+import com.maastricht.university.logic.ai.reinforcement.environment.NeuralGameState;
 import com.maastricht.university.logic.ai.reinforcement.network.Network;
 import com.maastricht.university.logic.game.components.Hexagon;
 import com.maastricht.university.logic.game.components.LogicTile;
@@ -26,7 +26,7 @@ public class ReinforcementAgent extends Agent {
             return;
 
         Move move = getMove();
-        super.gameState.move(move.getX(), move.getY(), super.getPlayer());
+        getGameState().move(move.getX(), move.getY(), super.getPlayer());
     }
 
     /**
@@ -48,7 +48,7 @@ public class ReinforcementAgent extends Agent {
      * Loads and returns output layer of the network
      */
     private double[] getNetworkOutput() {
-        NeuralGameState state = new NeuralGameState(gameStateVector(super.gameState));
+        NeuralGameState state = new NeuralGameState(gameStateVector(getGameState()));
         INDArray output = multiLayerNetwork.output(state.getMatrix(), false);
 
         return output.data().asDouble();
@@ -86,7 +86,7 @@ public class ReinforcementAgent extends Agent {
      */
     private List<Move> getLegalMoves() {
         return removeIllegalMoves(
-                ((Hexagon<LogicTile>)super.gameState.getBoard().getTileMap())
+                ((Hexagon<LogicTile>)getGameState().getBoard().getTileMap())
                         .moveVector()
         );
     }
@@ -97,7 +97,7 @@ public class ReinforcementAgent extends Agent {
     private List<Move> removeIllegalMoves(List<Move> moveList) {
         List<Move> legalList = new ArrayList<>();
         for (int i = 0; i < moveList.size(); i++)
-            if (super.gameState.isLegal(moveList.get(i).getX(), moveList.get(i).getY(), super.getPlayer()))
+            if (getGameState().isLegal(moveList.get(i).getX(), moveList.get(i).getY(), super.getPlayer()))
                 legalList.add(moveList.get(i));
 
         return legalList;
