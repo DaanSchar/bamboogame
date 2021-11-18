@@ -7,20 +7,14 @@ import com.maastricht.university.logic.game.game.GameState;
  */
 public class RewardCalculator {
 
-    public static double get(GameState gameState, int player) {
-
-        if (gameState.winner() == player) {
-            System.out.println("winner!");
+    public static double getWinReward(GameState gameState, int player) {
+        if (gameState.winner() == player)
             return 100;
-        }
 
-        if (gameState.winner() != player && gameState.winner() != 0) {
-            System.out.println("loser!");
+        if (gameState.winner() != player && gameState.winner() != 0)
             return -100;
-        }
 
-        return 0;
+        return  0;
     }
-
 
 }

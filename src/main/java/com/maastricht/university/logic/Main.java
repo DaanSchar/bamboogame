@@ -1,23 +1,12 @@
 package com.maastricht.university.logic;
 
 
-import com.maastricht.university.logic.game.game.GameState;
+import com.maastricht.university.logic.ai.reinforcement.network.Train;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception  {
-        GameState state = new GameState(2,2);
-
-
-        state.move(0, 3, 1);
-
-
-
-        state.move(0, 4, 1);
-
-
-        System.out.println(state.getBoard().getTileMap());
-
+    public static void main(String[] args) {
+        Train.train();
     }
 }
 

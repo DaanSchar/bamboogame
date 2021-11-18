@@ -4,6 +4,9 @@ import com.maastricht.university.frontend.Factory;
 import com.maastricht.university.frontend.Main;
 import com.maastricht.university.frontend.WindowUpdater;
 import com.maastricht.university.frontend.components.HoverableButton;
+import com.maastricht.university.logic.ai.agent.Agent;
+import com.maastricht.university.logic.ai.agent.ReinforcementAgent;
+import com.maastricht.university.logic.ai.reinforcement.network.Network;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.scene.shape.SVGPath;
 
@@ -42,6 +45,8 @@ public class Tile implements Cloneable {
             IGameState game = Factory.getGameState();
             game.move(q,r,Factory.getGameState().getPlayerTurn());
 
+            Agent agent = new ReinforcementAgent(game, 2, "src/main/resources/networks/network-74-12L.zip");
+            agent.move();
             WindowUpdater.update(Factory.getGameState());
 
             winner(game);
