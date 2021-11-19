@@ -38,7 +38,7 @@ public class MiniMaxAgent extends Agent{
         minLegalMoves = gameState.getLegalMoves(otherPlayer);
 
         commonLegal = legalMoves(maxLegalMoves, minLegalMoves);
-        actualMove = bestBranch(tree.getRoot().getMaxChild());
+        actualMove = null;//bestBranch(tree.getRoot().getMaxChild());
 
         if (commonLegal.contains(actualMove)) {
             gameState.move(actualMove.getX(),actualMove.getY(),player);
@@ -56,14 +56,35 @@ public class MiniMaxAgent extends Agent{
 
         return legalMoves;
     }
-    private Move bestBranch(ITreeNode node){
-        int min;
-        int max;
 
-        return null;
+    /**
+     * The will return the optimal move for the maximizing player
+     * @param node The current node (gameState)
+     * @param depth How many positions ahead do we want to search
+     * @return The value of the optimal branch
+     */
+    private int optimal(ITreeNode node, int depth, boolean isMax){
+        int min = 1000000;
+        int max = -1000000;
+        int evaluation;
 
+        if(depth == 0 || gameState.isGameOver()){
+            return node.getScore();
+        }
+        if(isMax) {
+            for(int i=0; i<node.getChildren().size(); i++){
+                evaluation = optimal((ITreeNode)node.getChildren().get(i),depth-1, false);
+                max = Math.max(max,evaluation);
+            }
+        }else
+            for(int i=0; i<node.getChildren().size(); i++){
+                evaluation = optimal((ITreeNode)node.getChildren().get(i),depth-1, true);
+                min = Math.min(min,evaluation);
+            }
+
+        return max;
     }
-
+    /*
     private void depthFirstSearch(ITreeNode root){
         ArrayList<ITreeNode> visited = new ArrayList<ITreeNode>();
         visited.add(root);
@@ -81,5 +102,6 @@ public class MiniMaxAgent extends Agent{
             }
         }
     }
+     */
 }
 

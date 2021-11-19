@@ -58,6 +58,11 @@ public interface IGameState {
     public int getTotalGroups(int playerColor);
 
     /**
+     *
+     * @return a true or false value for whether or not the game is over
+     */
+    public boolean isGameOver();
+    /**
      * @param playerColor identification of the player, which must be > 0
      * @return size of the largest group a player, which is positive number
      */
