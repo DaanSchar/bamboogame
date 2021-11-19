@@ -27,6 +27,16 @@ public class MiniMaxAgent extends Agent{
         }
     }
 
+    private ArrayList<Move> legalMoves(ArrayList<Move> max, ArrayList<Move> min){
+        ArrayList<Move> legalMoves = new ArrayList<Move>();
+        for (Move moveMin : min) {
+            if (max.contains(moveMin)) {
+                legalMoves.add(moveMin);
+            }
+        }
+        return legalMoves;
+    }
+
     public void determineMiniMaxMove() {
         ArrayList<Move> maxLegalMoves;
         ArrayList<Move> minLegalMoves;
@@ -44,17 +54,6 @@ public class MiniMaxAgent extends Agent{
             gameState.move(actualMove.getX(),actualMove.getY(),player);
         }
 
-    }
-
-    private ArrayList<Move> legalMoves(ArrayList<Move> max, ArrayList<Move> min){
-        ArrayList<Move> legalMoves = new ArrayList<Move>();
-        for (Move moveMin : min) {
-            if (max.contains(moveMin)) {
-                legalMoves.add(moveMin);
-            }
-        }
-
-        return legalMoves;
     }
 
     /**
@@ -75,7 +74,10 @@ public class MiniMaxAgent extends Agent{
             for(int i=0; i<node.getChildren().size(); i++){
                 evaluation = optimal((ITreeNode)node.getChildren().get(i),depth-1, false);
                 max = Math.max(max,evaluation);
+                return max;
             }
+            //this else statement may be redundant, I'm not sure because the minimax tree needs to compute both
+            //the min and max values in order to find the optimal
         }else
             for(int i=0; i<node.getChildren().size(); i++){
                 evaluation = optimal((ITreeNode)node.getChildren().get(i),depth-1, true);

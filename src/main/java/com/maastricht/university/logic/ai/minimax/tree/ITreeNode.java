@@ -75,18 +75,6 @@ public interface ITreeNode<E> {
     List<ITreeNode<E>> getChildren();
 
     /**
-     * returns the first child in the list
-     * @return
-     */
-    ITreeNode<E> getLeftChild();
-
-    /**
-     * this returns the leaf node of a branch
-     * @return one node
-     */
-    ArrayList<ITreeNode> getLeafNode();
-
-    /**
      * adds a child to node to this node.
      * @param element
      */
