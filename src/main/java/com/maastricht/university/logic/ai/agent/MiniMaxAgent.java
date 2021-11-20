@@ -23,7 +23,8 @@ public class MiniMaxAgent extends Agent{
 
     public void moveMiniMax(){
         while (gameState.getPlayerTurn() == player && gameState.winner() == 0) {
-            determineMiniMaxMove();
+            Move maxMove = determineMiniMaxMove();
+            gameState.move(maxMove.getX(), maxMove.getY(), player);
         }
     }
 
@@ -37,7 +38,7 @@ public class MiniMaxAgent extends Agent{
         return legalMoves;
     }
 
-    public void determineMiniMaxMove() {
+    public Move determineMiniMaxMove() {
         /*
         ArrayList<Move> maxLegalMoves;
         ArrayList<Move> minLegalMoves;
@@ -59,7 +60,8 @@ public class MiniMaxAgent extends Agent{
         Tree tree = (Tree)newT.getTree();
         ITreeNode root = tree.getRoot();
         Move bestMove = root.getMaxChild().getLastMove();
-        gameState.move(bestMove.getX(), bestMove.getY(), player);
+        //gameState.move(bestMove.getX(), bestMove.getY(), player);
+        return bestMove;
     }
 
     /**
