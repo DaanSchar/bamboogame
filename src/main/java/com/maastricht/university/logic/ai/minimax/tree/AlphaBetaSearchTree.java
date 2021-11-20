@@ -38,6 +38,9 @@ public class AlphaBetaSearchTree {
             node.addChild(newState, move);
             ITreeNode<GameState> newNode = (ITreeNode<GameState>) node.getChildren().get(i);
             value = Math.max(value, minValue(newNode, alpha, beta, depth-1));
+
+            newNode.setScore(value);
+
             if(value >= beta)
                 return value;
             alpha = Math.max(alpha, value);
@@ -58,8 +61,10 @@ public class AlphaBetaSearchTree {
             newState.move(move.getX(), move.getY(), minPlayer);
             node.addChild(newState, move);
             ITreeNode<GameState> newNode = (ITreeNode<GameState>) node.getChildren().get(i);
-
             value = Math.min(value, maxValue(newNode, alpha, beta, depth-1));
+
+            newNode.setScore(value);
+
             if(value <= alpha)
                 return value;
             beta = Math.min(beta, value);

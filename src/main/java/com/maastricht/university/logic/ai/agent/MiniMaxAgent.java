@@ -62,11 +62,15 @@ public class MiniMaxAgent extends Agent{
             gameState.move(actualMove.getX(),actualMove.getY(),player);
         }
          */
+        /*
         CreateTree newT = new CreateTree((GameState) gameState, 5);
         Tree tree = (Tree)newT.getTree();
         ITreeNode root = tree.getRoot();
         Move bestMove = root.getMaxChild().getLastMove();
         //gameState.move(bestMove.getX(), bestMove.getY(), player);
+        */
+        Move bestMove = searchTree.search((GameState) gameState, player, Integer.MAX_VALUE);
+        gameState.move(bestMove.getX(), bestMove.getY(), player);
         return bestMove;
     }
 
