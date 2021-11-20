@@ -1,5 +1,6 @@
 package com.maastricht.university.logic.ai.minimax.tree;
 
+import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
@@ -10,7 +11,7 @@ public class Tree<E extends Comparable<? super E>> implements ITree<E> {
     private ITreeNode<E> addedRoot;
     private int numberOfPlayers;
 
-    public Tree(IGameState state, int numberOfPlayers){
+    public Tree(int numberOfPlayers){
         root = new TreeNode<E>(null, null, numberOfPlayers, null);
         addedRoot = null;
         this.numberOfPlayers = numberOfPlayers;
