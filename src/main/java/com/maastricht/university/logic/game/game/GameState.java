@@ -11,7 +11,7 @@ import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameState implements IGameState, IScoreSystem, Comparable<GameState> {
+public class GameState implements IGameState, Comparable<GameState>, IScoreSystem {
 
     private Board board;
     private GameRule gameRules;
