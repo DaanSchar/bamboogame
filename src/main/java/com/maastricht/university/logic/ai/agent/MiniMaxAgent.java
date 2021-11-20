@@ -38,6 +38,7 @@ public class MiniMaxAgent extends Agent{
     }
 
     public void determineMiniMaxMove() {
+        /*
         ArrayList<Move> maxLegalMoves;
         ArrayList<Move> minLegalMoves;
         Move actualMove;
@@ -53,7 +54,12 @@ public class MiniMaxAgent extends Agent{
         if (commonLegal.contains(actualMove)) {
             gameState.move(actualMove.getX(),actualMove.getY(),player);
         }
-
+         */
+        CreateTree newT = new CreateTree((GameState)gameState);
+        Tree tree = (Tree)newT.getTree();
+        ITreeNode root = tree.getRoot();
+        Move bestMove = root.getMaxChild().getLastMove();
+        gameState.move(bestMove.getX(), bestMove.getY(), player);
     }
 
     /**
