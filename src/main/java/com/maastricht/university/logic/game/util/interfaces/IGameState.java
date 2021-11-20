@@ -10,13 +10,20 @@ import java.util.List;
  * the frontend to have access to. we do this by giving this interface methods for
  * everything that the frontend might need as primitive types, which are not mutable.
  */
-public interface IGameState {
+public interface IGameState extends Comparable {
 
     /**
      *
      * @return the number of players
      */
     public int getNumberOfPlayers();
+
+    /**
+     * Uses and heuristic to calculate the score of a player
+     * @param player the player whose score gets calculated
+     * @return the score of the player
+     */
+    public int getPlayerScore(int player);
 
     /**
      * performs a move, which will only execute when it is legal.
@@ -85,4 +92,6 @@ public interface IGameState {
     public int winner();
 
     public ArrayList<Move> getLegalMoves(int i);
+
+    public IGameState clone();
 }

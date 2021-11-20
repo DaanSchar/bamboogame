@@ -49,8 +49,10 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
 
     public Integer getScore() {
         if(score == null)
-            return Integer.MIN_VALUE + 1;
-
+            if(depth%2 == 1) //if odd depth, so parent is Minimizer
+                return Integer.MAX_VALUE - 1;
+            else
+                return Integer.MIN_VALUE + 1;
         return score;
     }
 

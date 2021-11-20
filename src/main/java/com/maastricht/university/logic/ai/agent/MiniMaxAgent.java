@@ -12,6 +12,8 @@ public class MiniMaxAgent extends Agent{
     public ArrayList<Move> commonLegal;
     private int otherPlayer;
 
+    private AlphaBetaSearchTree searchTree = new AlphaBetaSearchTree();
+
     public MiniMaxAgent(IGameState gameState, int playerNumber) {
 
         super(gameState, playerNumber);
@@ -19,13 +21,17 @@ public class MiniMaxAgent extends Agent{
             otherPlayer = 2;
         }else
             otherPlayer = 1;
+
     }
 
     public void moveMiniMax(){
         while (gameState.getPlayerTurn() == player && gameState.winner() == 0) {
-            Move maxMove = determineMiniMaxMove();
-            gameState.move(maxMove.getX(), maxMove.getY(), player);
+            //Move maxMove = determineMiniMaxMove();
+            //gameState.move(maxMove.getX(), maxMove.getY(), player);
+            Move bestMove = searchTree.search((GameState) gameState, player, Integer.MAX_VALUE);
+            gameState.move(bestMove.getX(), bestMove.getY(), player);
         }
+
     }
 
     private ArrayList<Move> legalMoves(ArrayList<Move> max, ArrayList<Move> min){
@@ -56,7 +62,7 @@ public class MiniMaxAgent extends Agent{
             gameState.move(actualMove.getX(),actualMove.getY(),player);
         }
          */
-        CreateTree newT = new CreateTree((GameState)gameState);
+        CreateTree newT = new CreateTree((GameState) gameState, 5);
         Tree tree = (Tree)newT.getTree();
         ITreeNode root = tree.getRoot();
         Move bestMove = root.getMaxChild().getLastMove();
@@ -71,8 +77,8 @@ public class MiniMaxAgent extends Agent{
      * @return The value of the optimal branch
      */
     private int optimal(ITreeNode node, int depth, boolean isMax){
-        int min = 1000000;
-        int max = -1000000;
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
         int evaluation;
 
         if(depth == 0 || gameState.isGameOver()){
@@ -82,15 +88,19 @@ public class MiniMaxAgent extends Agent{
             for(int i=0; i<node.getChildren().size(); i++){
                 evaluation = optimal((ITreeNode)node.getChildren().get(i),depth-1, false);
                 max = Math.max(max,evaluation);
-                return max;
             }
+            node.setScore(max);
+            return max;
             //this else statement may be redundant, I'm not sure because the minimax tree needs to compute both
             //the min and max values in order to find the optimal
-        }else
-            for(int i=0; i<node.getChildren().size(); i++){
-                evaluation = optimal((ITreeNode)node.getChildren().get(i),depth-1, true);
-                min = Math.min(min,evaluation);
+        }else {
+            for (int i = 0; i < node.getChildren().size(); i++) {
+                evaluation = optimal((ITreeNode) node.getChildren().get(i), depth - 1, true);
+                min = Math.min(min, evaluation);
             }
+            node.setScore(min);
+            //return min;
+        }
 
         return max;
     }
