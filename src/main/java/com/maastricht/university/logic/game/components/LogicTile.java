@@ -63,7 +63,7 @@ public class LogicTile implements Cloneable {
     @Override
     public LogicTile clone() {
         LogicTile newTile = new LogicTile(q, r);
-        newTile.setPlayerColour(playerColor);
+        newTile.setPlayerColour(this.playerColor);
         return newTile;
     }
 }

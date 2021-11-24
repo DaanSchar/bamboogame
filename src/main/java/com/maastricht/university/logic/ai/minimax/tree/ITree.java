@@ -1,5 +1,7 @@
 package com.maastricht.university.logic.ai.minimax.tree;
 
+import com.maastricht.university.logic.game.game.Move;
+
 /**
  * Tree Data structure.
  * Always has a null node root at the start which has the
@@ -17,7 +19,7 @@ public interface ITree<E> {
      * This will overwrite the current root if the tree
      * already has a root.
      */
-    public void addRoot(E e);
+    public void addRoot(E e, Move lastMove);
 
     /**
      * @return boolean stating if tree possesses a root

@@ -18,15 +18,15 @@ public class WindowUpdater {
 
     private static void updateCurrentPlayerLabel(IGameState state) {
         Platform.runLater(() -> {
-            Main.currentPlayer.setText(Integer.toString(state.getPlayerTurn()));
+            MiniMax.currentPlayer.setText(MiniMax.currentPlayer());
         });
     }
 
     private static void updateTotalGroupsLabel(IGameState state) {
         Platform.runLater(() -> {
             IGameState game = Factory.getGameState();
-            Main.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
-            Main.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
+            MiniMax.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
+            MiniMax.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
         });
     }
 

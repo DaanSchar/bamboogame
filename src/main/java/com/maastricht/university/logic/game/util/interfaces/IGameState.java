@@ -1,7 +1,6 @@
 package com.maastricht.university.logic.game.util.interfaces;
 
 import com.maastricht.university.logic.game.components.Board;
-import com.maastricht.university.logic.game.components.LogicTile;
 import com.maastricht.university.logic.game.game.Move;
 
 import java.util.ArrayList;
@@ -13,6 +12,19 @@ import java.util.List;
  * everything that the frontend might need as primitive types, which are not mutable.
  */
 public interface IGameState {
+
+    /**
+     *
+     * @return the number of players
+     */
+    public int getNumberOfPlayers();
+
+    /**
+     * Uses and heuristic to calculate the score of a player
+     * @param player the player whose score gets calculated
+     * @return the score of the player
+     */
+    public int getPlayerScore(int player);
 
     /**
      * performs a move, which will only execute when it is legal.
@@ -54,6 +66,11 @@ public interface IGameState {
     public int getTotalGroups(int playerColor);
 
     /**
+     *
+     * @return a true or false value for whether or not the game is over
+     */
+    public boolean isGameOver();
+    /**
      * @param playerColor identification of the player, which must be > 0
      * @return size of the largest group a player, which is positive number
      */
@@ -77,5 +94,9 @@ public interface IGameState {
 
     public ArrayList<Move> getLegalMoves(int i);
 
+    //public Board getBoard();
+
     public Board getBoard();
+
+    public IGameState clone();
 }

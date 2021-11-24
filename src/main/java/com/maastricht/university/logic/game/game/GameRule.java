@@ -34,6 +34,8 @@ public class GameRule {
         if (getNewGroupSize(tile, playerColor) > getNewTotalGroups(tile, playerColor))
             return false;
 
+        //TODO: also check if other groups don't become bigger than the new totalGroups
+
         return true;
     }
 

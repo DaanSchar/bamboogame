@@ -11,14 +11,16 @@ import java.util.List;
  */
 public class CreateTree {
 
-    ITree<GameState> tree = new Tree<GameState>();
+    ITree<GameState> tree;
+    public boolean DEBUG = false;
 
     /**
      * Creates a full tree with specified root
+     * adds score in all leafNodes
      * @param state state of the root
      */
     public CreateTree(GameState state) {
-        tree = new Tree<GameState>(state);
+        tree = new Tree<GameState>(state, state.getNumberOfPlayers());
 
         ArrayList<ITreeNode<GameState>> frontiers = new ArrayList<ITreeNode<GameState>>();
         frontiers.add(tree.getRoot());
@@ -32,6 +34,10 @@ public class CreateTree {
                 for (int j = 0; j < children.size(); j++)
                     frontiers.add(children.get(j));
             }
+            //set the score of the leaf TreeNode
+            else {
+                parent.setScore(parent.getScore());
+            }
             frontiers.remove(0);
         }
     }
@@ -42,7 +48,7 @@ public class CreateTree {
      * @param depth depth of the desired tree
      */
     public CreateTree(GameState state, int depth) {
-        tree = new Tree<GameState>(state);
+        tree = new Tree<GameState>(state, state.getNumberOfPlayers());
 
         ArrayList<ITreeNode<GameState>> frontiers = new ArrayList<ITreeNode<GameState>>();
         frontiers.add(tree.getRoot());
@@ -56,26 +62,41 @@ public class CreateTree {
                 for (int j = 0; j < children.size(); j++)
                     frontiers.add(children.get(j));
             }
+            //set the score of the leaf TreeNode
+            else {
+                parent.setScore(parent.getScore());
+            }
             frontiers.remove(0);
         }
+    }
+
+    public void depthSearch() {
+
     }
 
     public ITree<GameState> getTree() {return tree;}
 
     private void addChildren(ITreeNode<GameState> parent) {
+        if(DEBUG)
+            System.out.println("A new call of 'addChildren'");
         GameState parentState = parent.getElement();
-        List<Move> moves = parentState.getLegalMoves(parentState.getPlayerTurn());
 
-        for(int i=0; i<moves.size(); i++) {
+        if(parent.getDepth() > 1) {
+            if(DEBUG) {
+                System.out.println("Last move parent:");
+                System.out.println("Move: (x=" + parent.getLastMove().getX() + ", y=" + parent.getLastMove().getY() + ")");
+            }
+        }
+        List<Move> moves = parentState.getLegalMoves(parentState.getPlayerTurn());
+        if(DEBUG)
+            System.out.println("amount of moves to try:" + moves.size());
+
+        for(Move move: moves) {
             GameState childState = parentState.clone();
-            childState.move(moves.get(i).getX(), moves.get(i).getY(), childState.getPlayerTurn());
-            parent.addChild(childState);
+            if(DEBUG)
+                System.out.println("new Move: (x=" +move.getX()+ ", y=" +move.getY()+ ", c=" + childState.getPlayerTurn() + ")");
+            childState.move(move.getX(), move.getY(), childState.getPlayerTurn());
+            parent.addChild(childState, move);
         }
     }
-
-
-
-
-
-
 }

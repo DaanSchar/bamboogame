@@ -1,25 +1,33 @@
 package com.maastricht.university.logic.ai.minimax.tree;
 
-public class Tree<E extends Comparable<E>> implements ITree<E> {
+import com.maastricht.university.logic.game.game.GameState;
+import com.maastricht.university.logic.game.game.Move;
+import com.maastricht.university.logic.game.util.interfaces.IGameState;
+import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 
-    private ITreeNode<E> root = new TreeNode<>(null, null);
+public class Tree<E extends Comparable<? super E>> implements ITree<E> {
+
+    private ITreeNode<E> root;
     private ITreeNode<E> addedRoot;
+    private int numberOfPlayers;
 
-
-    public Tree(){
+    public Tree(int numberOfPlayers){
+        root = new TreeNode<E>(null, null, numberOfPlayers, null);
         addedRoot = null;
+        this.numberOfPlayers = numberOfPlayers;
     }
 
-    public Tree(E element) {
-        addedRoot = new TreeNode<E>(element, null);
+    public Tree(E element, int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+        addedRoot = new TreeNode<E>(element, null, numberOfPlayers, null);
     }
 
     public ITreeNode<E> getRoot() {
         return this.addedRoot;
     }
 
-    public void addRoot(E e) {
-        addedRoot = new TreeNode<E>(e, root);
+    public void addRoot(E e, Move lastMove) {
+        addedRoot = new TreeNode<E>(e, root, numberOfPlayers, lastMove);
     }
 
     public boolean hasRoot() {

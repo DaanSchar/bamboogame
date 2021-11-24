@@ -7,17 +7,18 @@ import com.maastricht.university.logic.game.util.exceptions.GameIsOverException;
 import com.maastricht.university.logic.game.util.exceptions.IllegalMoveException;
 import com.maastricht.university.logic.game.util.exceptions.OutsideHexagonException;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
+import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameState implements IGameState, Comparable<GameState> {
+public class GameState implements IGameState, Comparable<GameState>, IScoreSystem {
 
     private Board board;
     private GameRule gameRules;
 
     private int playerTurn;
-    private int numberOfPlayers;
+    private final int numberOfPlayers;
     private Boolean[] actualPlayers;
 
     private final boolean DEBUG = true;
@@ -36,6 +37,10 @@ public class GameState implements IGameState, Comparable<GameState> {
         this.actualPlayers = new Boolean[numberOfPlayers];
         for(int i=0; i<numberOfPlayers; i++)
             actualPlayers[i] = true;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
     }
 
     @Override
@@ -91,18 +96,22 @@ public class GameState implements IGameState, Comparable<GameState> {
     }
 
     public Board getBoard() {
-        return board;
+        return this.board;
     }
 
     public void setBoard(Board newBoard) {
         this.board = newBoard;
+        this.gameRules = new GameRule(newBoard);
     }
+
+    public void setPlayerTurn(int player) {this.playerTurn = player; }
 
     @Override
     public GameState clone() {
         GameState cloneGameState = new GameState(this.board.getBoardSize(), this.numberOfPlayers);
         Board cloneBoard = board.clone();
         cloneGameState.setBoard(cloneBoard);
+        cloneGameState.setPlayerTurn(this.playerTurn);
         return cloneGameState;
     }
 
@@ -111,6 +120,7 @@ public class GameState implements IGameState, Comparable<GameState> {
      * if no winner yet then we return false and if we have 1 winner then we return true
      * @return
      */
+    @Override
     public boolean isGameOver() {
         int countTrue=0;
         for(int x=0; x<numberOfPlayers; x++) {
@@ -146,8 +156,8 @@ public class GameState implements IGameState, Comparable<GameState> {
      */
    public ArrayList<Move> getLegalMoves(int playerColor) {
         ArrayList<Move> moveList = new ArrayList<Move>();
-        if(!legalMovesLeft(playerColor))
-            return null;
+//        if(!legalMovesLeft(playerColor))
+//            return null;
 
         int maxCoordinate = board.getBoardSize()*2+1;
 
@@ -209,10 +219,48 @@ public class GameState implements IGameState, Comparable<GameState> {
         return nextPlayer;
     }
 
-    //TODO: implement score system for gameState
+    // Shouldn't be used if treeNode score is used correctly, but is a decent fallback
+    // always has player 2 as maxPlayer
     @Override
     public int compareTo(GameState o) {
-        return 0;
+        int a = getPlayerScore(2);
+        int b = o.getPlayerScore(2);
+        if(a > b)
+            return 1;
+        else if(a == b)
+            return 0;
+        else
+            return -1;
     }
 
+    //TODO: experiment with different score heuristics, try this one first
+    // make some things weigh more or less than others
+    // add/remove some things (maybe - number of groups opponent)
+    public int getPlayerScore(int player) {
+        // if the game is over, return either the max or min score based on whether player or opponent won
+        if(winner() != 0) {
+            if(winner() == player) {
+                //System.out.println("Calculated Score: " + Integer.MAX_VALUE);
+                return Integer.MAX_VALUE;
+            }
+            else{
+                //System.out.println("Calculated Score: " + Integer.MIN_VALUE);
+                return Integer.MIN_VALUE;
+            }
+        }
+
+        // + number of groups
+        int score = 5*board.getGroups(player).size();
+
+        // + number of legal moves player
+        score += getLegalMoves(player).size();
+
+        // - number of legal moves opponent
+        if(player == 1)
+            score -= getLegalMoves(2).size();
+        else
+            score -= getLegalMoves(1).size();
+        //System.out.println("Calculated Score: " +score);
+        return score;
+    }
 }

@@ -1,16 +1,23 @@
 package com.maastricht.university.logic.ai.minimax.tree;
 
+import com.maastricht.university.logic.game.game.GameState;
+import com.maastricht.university.logic.game.game.Move;
+import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeNode<E extends Comparable<E>> implements ITreeNode<E> {
+public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
 
     private E element;
     private ITreeNode<E> parent;
     private ArrayList<ITreeNode<E>> children;
     private int depth;
+    private int numberOfPlayers;
+    public Integer score;
+    private Move lastMove;
 
-    public TreeNode(E element, ITreeNode<E> parent) {
+    public TreeNode(E element, ITreeNode<E> parent, int numberOfPlayers, Move lastMove) {
         this.element = element;
         this.parent = parent;
         this.children = new ArrayList<>();
@@ -18,6 +25,35 @@ public class TreeNode<E extends Comparable<E>> implements ITreeNode<E> {
             this.depth = parent.getDepth() + 1;
         else
             this.depth = 1;
+        this.numberOfPlayers = numberOfPlayers;
+        this.lastMove = lastMove;
+    }
+
+    public boolean hasLastMove() {
+        if(lastMove == null)
+            return false;
+        return true;
+    }
+
+    public Move getLastMove() { return lastMove; }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public boolean hasScore() {
+        if(score == null)
+            return false;
+        return true;
+    }
+
+    public Integer getScore() {
+        if(score == null)
+            if(depth%2 == 1) //if odd depth, so parent is Minimizer
+                return Integer.MAX_VALUE - 1;
+            else
+                return Integer.MIN_VALUE + 1;
+        return this.score;
     }
 
     public int getDepth() {return depth;}
@@ -38,8 +74,8 @@ public class TreeNode<E extends Comparable<E>> implements ITreeNode<E> {
         return this.children;
     }
 
-    public void addChild(E e) {
-        children.add(new TreeNode(e, this));
+    public void addChild(E e, Move lastMove) {
+        children.add(new TreeNode(e, this, numberOfPlayers, lastMove));
     }
 
     public ITreeNode<E> getMaxChild() {
@@ -75,14 +111,20 @@ public class TreeNode<E extends Comparable<E>> implements ITreeNode<E> {
         this.children = new ArrayList<>();
     }
 
-
     /**
      * returns 1 if a > b.
      * return 0 if a == b.
      * returns -1 if a < b.
      */
     private int compare(ITreeNode<E> a, ITreeNode<E> b) {
-        return a.getElement().compareTo(b.getElement());
+        if(!a.hasScore() || !b.hasScore()) {
+            return a.getElement().compareTo(b.getElement());
+        }
+        if (a.getScore() > b.getScore())
+            return 1;
+        else if (a.getScore() == b.getScore())
+            return 0;
+        else
+            return -1;
     }
-
 }

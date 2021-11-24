@@ -34,6 +34,7 @@ public class MainMenu extends Application {
     private Background bGround = new Background(bImg);
 
     public Stage backStage;
+    public String mode;
 
     @Override
     public void start(Stage stage) {
@@ -71,15 +72,13 @@ public class MainMenu extends Application {
         //TODO: make this button go to the game (phase 2)
         computer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                MiniMax screen = new MiniMax();
+                stage.setScene(screen.getScene());
+                stage.show();
                 System.out.println("This goes into the game :)");
             }
         });
 
-        computer.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                System.out.println("This goes into the game :)");
-            }
-        });
 
         HoverableButton exit = new HoverableButton(50, height - height/16, 20, 20);
         exitView.setFitHeight(40);

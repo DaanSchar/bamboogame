@@ -3,14 +3,13 @@ package com.maastricht.university.logic.ai.agent;
 import com.maastricht.university.logic.game.components.Board;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
-
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Agent implements IAgent{
 
-    private IGameState gameState;
-    private int player;
+    protected IGameState gameState;
+    protected int player;
 
     public Agent(IGameState gameState, final int playerNumber) {
         this.gameState = gameState;
@@ -37,6 +36,7 @@ public class Agent implements IAgent{
         int index = rand.nextInt(moveList.size());
         Move move = moveList.get(index);
 
+        System.out.println("Move: (" +move.getX()+ ", " +move.getY()+ ", " +player+ ")");
         gameState.move(move.getX(), move.getY(), player);
     }
 
