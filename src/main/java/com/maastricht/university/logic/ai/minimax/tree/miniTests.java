@@ -16,7 +16,7 @@ public class miniTests {
         node.setScore(5);
         System.out.println(node.hasScore());
         System.out.println(node.getScore());
-        System.out.println();
+        System.out.println(((TreeNode<?>) node).score);
         System.out.println();
         System.out.println();
 

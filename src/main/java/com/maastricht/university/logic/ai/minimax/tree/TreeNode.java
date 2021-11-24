@@ -14,7 +14,7 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
     private ArrayList<ITreeNode<E>> children;
     private int depth;
     private int numberOfPlayers;
-    private Integer score;
+    public Integer score;
     private Move lastMove;
 
     public TreeNode(E element, ITreeNode<E> parent, int numberOfPlayers, Move lastMove) {
@@ -38,7 +38,7 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
     public Move getLastMove() { return lastMove; }
 
     public void setScore(Integer score) {
-        score = score;
+        this.score = score;
     }
 
     public boolean hasScore() {
@@ -53,7 +53,7 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
                 return Integer.MAX_VALUE - 1;
             else
                 return Integer.MIN_VALUE + 1;
-        return score;
+        return this.score;
     }
 
     public int getDepth() {return depth;}

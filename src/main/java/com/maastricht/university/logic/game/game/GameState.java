@@ -220,11 +220,11 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
         // if the game is over, return either the max or min score based on whether player or opponent won
         if(winner() != 0) {
             if(winner() == player) {
-                System.out.println("Calculated Score: " + Integer.MAX_VALUE);
+                //System.out.println("Calculated Score: " + Integer.MAX_VALUE);
                 return Integer.MAX_VALUE;
             }
             else{
-                System.out.println("Calculated Score: " + Integer.MIN_VALUE);
+                //System.out.println("Calculated Score: " + Integer.MIN_VALUE);
                 return Integer.MIN_VALUE;
             }
         }
@@ -236,11 +236,11 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
         score += getLegalMoves(player).size();
 
         // - number of legal moves opponent
-//        if(player == 1)
-//            score -= getLegalMoves(2).size();
-//        else
-//            score -= getLegalMoves(1).size();
-        System.out.println("Calculated Score: " +score);
+        if(player == 1)
+            score -= getLegalMoves(2).size();
+        else
+            score -= getLegalMoves(1).size();
+        //System.out.println("Calculated Score: " +score);
         return score;
     }
 }
