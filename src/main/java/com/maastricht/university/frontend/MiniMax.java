@@ -105,7 +105,7 @@ public class MiniMax extends Main{
      */
     public void runMiniMax(){
         IGameState state =  Factory.getGameState();
-        AlphaBetaAgent agent = new AlphaBetaAgent(state, 2);
+        AlphaBetaAgent agent = new AlphaBetaAgent(state, 2, Integer.MAX_VALUE);
 
         agent.move();
         WindowUpdater.update();

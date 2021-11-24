@@ -12,18 +12,21 @@ import java.util.List;
 public class AlphaBetaAgent extends Agent{
 
     protected final int minPlayer;
+    protected int maxDepth;
 
-    public AlphaBetaAgent(IGameState gameState, int playerNumber) {
+    public AlphaBetaAgent(IGameState gameState, int playerNumber, int maxDepth) {
         super(gameState, playerNumber);
         if(player == 1) {
             minPlayer = 2;
         }else
             minPlayer = 1;
+        this.maxDepth = maxDepth;
     }
 
     @Override
     public void move() {
         Move move = search(Integer.MAX_VALUE);
+        System.out.println("Move: (" +move.getX()+ ", " +move.getY()+ ", " +player+ ")");
         gameState.move(move.getX(), move.getY(), player);
     }
 
