@@ -96,7 +96,7 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
     }
 
     public Board getBoard() {
-        return board;
+        return this.board;
     }
 
     public void setBoard(Board newBoard) {
@@ -219,8 +219,8 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
         return nextPlayer;
     }
 
-    //TODO: ONLY TEMPORARY FIX, remove this method once score is implememnted correctly in TreeNode
-    // always takes player 2 as maxplayer
+    // Shouldn't be used if treeNode score is used correctly, but is a decent fallback
+    // always has player 2 as maxPlayer
     @Override
     public int compareTo(GameState o) {
         int a = getPlayerScore(2);

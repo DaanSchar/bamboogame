@@ -109,7 +109,7 @@ public class MiniMax extends Main{
         AlphaBetaAgent agent = new AlphaBetaAgent(state, 2, 5);
 
         agent.move();
-        WindowUpdater.update();
+        WindowUpdater.update(state);
         try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
 
     }
@@ -120,10 +120,10 @@ public class MiniMax extends Main{
         Agent agent = new Agent(state, 1);
 
         agent.move();
-        WindowUpdater.update();
+        WindowUpdater.update(state);
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
         agent2.move();
-        WindowUpdater.update();
+        WindowUpdater.update(state);
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
     }
 
@@ -137,10 +137,10 @@ public class MiniMax extends Main{
         Agent agent2 = new Agent(state, 2);
 
         agent.move();
-        WindowUpdater.update();
+        WindowUpdater.update(state);
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
         agent2.move();
-        WindowUpdater.update();
+        WindowUpdater.update(state);
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
     }
 
