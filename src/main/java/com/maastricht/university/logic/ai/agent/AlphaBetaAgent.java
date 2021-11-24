@@ -25,7 +25,7 @@ public class AlphaBetaAgent extends Agent{
 
     @Override
     public void move() {
-        Move move = search(Integer.MAX_VALUE);
+        Move move = search(this.maxDepth);
         System.out.println("Move: (" +move.getX()+ ", " +move.getY()+ ", " +player+ ")");
         gameState.move(move.getX(), move.getY(), player);
     }
@@ -34,14 +34,17 @@ public class AlphaBetaAgent extends Agent{
         ITree<GameState> tree = new Tree<GameState>((GameState) gameState, 2);
         ITreeNode<GameState> root = tree.getRoot();
         int score = maxValue(root, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
+        System.out.println("MaxScore: " + root.getMaxChild().getScore());
+        System.out.println("MinScore: " + root.getMinChild().getScore());
         return root.getMaxChild().getLastMove();
     }
 
     private int maxValue(ITreeNode node, int alpha, int beta, int depth){
         GameState state = (GameState) node.getElement();
-        if(state.isGameOver() || depth==0)
+        if(state.isGameOver() || depth==0) {
+            node.setScore(state.getPlayerScore(player));
             return state.getPlayerScore(player);
-
+        }
         int value = Integer.MIN_VALUE;
         List<Move> moves = state.getLegalMoves(player);
         for(int i=0; i<moves.size(); i++) {
@@ -63,9 +66,10 @@ public class AlphaBetaAgent extends Agent{
 
     private int minValue(ITreeNode node, int alpha, int beta, int depth){
         GameState state = (GameState) node.getElement();
-        if(state.isGameOver() || depth==0)
+        if(state.isGameOver() || depth==0) {
+            node.setScore(state.getPlayerScore(player));
             return state.getPlayerScore(player);
-
+        }
         int value = Integer.MAX_VALUE;
         List<Move> moves = state.getLegalMoves(minPlayer);
         for(int i=0; i<moves.size(); i++) {

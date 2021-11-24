@@ -118,9 +118,10 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
      */
     private int compare(ITreeNode<E> a, ITreeNode<E> b) {
         if(!a.hasScore() || !b.hasScore()) {
+            System.out.println("no score stored");
             return a.getElement().compareTo(b.getElement());
         }
-
+        System.out.println("score stored");
         if (a.getScore() > b.getScore())
             return 1;
         else if (a.getScore() == b.getScore())

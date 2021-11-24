@@ -93,8 +93,9 @@ public class MiniMax extends Main{
      */
     private void gameloop() {
         while(Factory.getGameState().winner() == 0) {
-            runDoubleAi();
+            //runDoubleAi();
             //runMiniMax();
+            runAlphaBeta_vs_random();
         }
         isWinner();
         System.out.println("winner is " + Factory.getGameState().winner());
@@ -105,12 +106,25 @@ public class MiniMax extends Main{
      */
     public void runMiniMax(){
         IGameState state =  Factory.getGameState();
-        AlphaBetaAgent agent = new AlphaBetaAgent(state, 2, Integer.MAX_VALUE);
+        AlphaBetaAgent agent = new AlphaBetaAgent(state, 2, 5);
 
         agent.move();
         WindowUpdater.update();
         try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
 
+    }
+
+    public void runAlphaBeta_vs_random() {
+        IGameState state =  Factory.getGameState();
+        AlphaBetaAgent agent2 = new AlphaBetaAgent(state, 2, 4);
+        Agent agent = new Agent(state, 1);
+
+        agent.move();
+        WindowUpdater.update();
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+        agent2.move();
+        WindowUpdater.update();
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
     }
 
     /**

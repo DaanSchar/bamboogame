@@ -11,7 +11,16 @@ public class miniTests {
     public static void main(String[] args) {
 
         GameState gameState = new GameState(1, 2);
-        AlphaBetaAgent agent2 = new AlphaBetaAgent(gameState, 2, 5);
+
+        ITreeNode node = new TreeNode(gameState.clone(), null, 2, null);
+        node.setScore(5);
+        System.out.println(node.hasScore());
+        System.out.println(node.getScore());
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        AlphaBetaAgent agent2 = new AlphaBetaAgent(gameState, 2, 3);
         Agent agent1 = new Agent(gameState, 1);
 
         while(!gameState.isGameOver()) {

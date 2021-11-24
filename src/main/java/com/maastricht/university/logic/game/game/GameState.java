@@ -200,7 +200,7 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
     }
 
     //TODO: ONLY TEMPORARY FIX, remove this method once score is implememnted correctly in TreeNode
-    // always takes player 1 as maxplayer
+    // always takes player 2 as maxplayer
     @Override
     public int compareTo(GameState o) {
         int a = getPlayerScore(2);
@@ -219,23 +219,28 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
     public int getPlayerScore(int player) {
         // if the game is over, return either the max or min score based on whether player or opponent won
         if(winner() != 0) {
-            if(winner() == player)
+            if(winner() == player) {
+                System.out.println("Calculated Score: " + Integer.MAX_VALUE);
                 return Integer.MAX_VALUE;
-            else
+            }
+            else{
+                System.out.println("Calculated Score: " + Integer.MIN_VALUE);
                 return Integer.MIN_VALUE;
+            }
         }
 
         // + number of groups
-        int score = board.getGroups(player).size();
+        int score = 5*board.getGroups(player).size();
 
         // + number of legal moves player
         score += getLegalMoves(player).size();
 
         // - number of legal moves opponent
-        if(player == 1)
-            score -= getLegalMoves(2).size();
-        else
-            score -= getLegalMoves(1).size();
+//        if(player == 1)
+//            score -= getLegalMoves(2).size();
+//        else
+//            score -= getLegalMoves(1).size();
+        System.out.println("Calculated Score: " +score);
         return score;
     }
 }
