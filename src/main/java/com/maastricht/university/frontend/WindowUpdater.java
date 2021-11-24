@@ -10,19 +10,19 @@ import javafx.application.Platform;
 
 public class WindowUpdater {
 
-    public static void update() {
-        updateTileColors();
-        updateCurrentPlayerLabel();
-        updateTotalGroupsLabel();
+    public static void update(IGameState state) {
+        updateTileColors(state);
+        updateCurrentPlayerLabel(state);
+        updateTotalGroupsLabel(state);
     }
 
-    private static void updateCurrentPlayerLabel() {
+    private static void updateCurrentPlayerLabel(IGameState state) {
         Platform.runLater(() -> {
             MiniMax.currentPlayer.setText(MiniMax.currentPlayer());
         });
     }
 
-    private static void updateTotalGroupsLabel() {
+    private static void updateTotalGroupsLabel(IGameState state) {
         Platform.runLater(() -> {
             IGameState game = Factory.getGameState();
             MiniMax.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
@@ -30,17 +30,17 @@ public class WindowUpdater {
         });
     }
 
-    public static void updateTileColors() {
+    public static void updateTileColors(IGameState state) {
         TileMap tileMap = Factory.getTileMap();
 
         for (int i = 0; i < tileMap.getDimension(); i++)
             for (int j = 0; j < tileMap.getDimension(); j++)
                 if (tileMap.getHexagon().get(i,j) != null)
-                    determineTileColor(i, j, tileMap.getHexagon());
+                    determineTileColor(i, j, tileMap.getHexagon(), state);
     }
 
-    private static void determineTileColor(int q, int r, Hexagon<Tile> hexagon) {
-        IGameState state = Factory.getGameState();
+    private static void determineTileColor(int q, int r, Hexagon<Tile> hexagon, IGameState state) {
+//        IGameState state = Factory.getGameState();
         int playerColor = state.getPlayerColorOfTile(q,r);
         HoverableButton tileButton = hexagon.get(q,r).getButton();
 

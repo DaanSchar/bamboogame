@@ -93,5 +93,7 @@ public interface IGameState {
 
     public ArrayList<Move> getLegalMoves(int i);
 
+    public Board getBoard();
+
     public IGameState clone();
 }

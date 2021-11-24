@@ -1,5 +1,6 @@
 package com.maastricht.university.logic.game.components;
 
+import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IHexagon;
 import com.rits.cloning.Cloner;
 
@@ -124,6 +125,29 @@ public class Hexagon<T> implements IHexagon<T> {
             neighbors.remove(null);
 
         return neighbors;
+    }
+
+    @Override
+    public List<T> vector() {
+        ArrayList<T> vector = new ArrayList<>();
+
+        for (int i = 0; i < arraySize; i++)
+            for (int j = 0; j < arraySize; j++)
+                if (get(i, j) != null)
+                    vector.add(get(i, j));
+
+        return vector;
+    }
+
+    public List<Move> moveVector() {
+        ArrayList<Move> vector = new ArrayList<>();
+
+        for (int i = 0; i < arraySize; i++)
+            for (int j = 0; j < arraySize; j++)
+                if (get(i, j) != null)
+                    vector.add(new Move(i, j));
+
+        return vector;
     }
 
     private boolean isOutsideHexagon(int q, int r) {
