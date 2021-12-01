@@ -4,6 +4,7 @@ import com.maastricht.university.frontend.components.HoverableButton;
 import com.maastricht.university.frontend.components.tile.TileMap;
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
+import com.maastricht.university.logic.ai.agent.SemiRandomABAgent;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -95,7 +96,8 @@ public class MiniMax extends Main{
         while(Factory.getGameState().winner() == 0) {
             //runDoubleAi();
             //runMiniMax();
-            runAlphaBeta_vs_random();
+            //runAlphaBeta_vs_random();
+            SemiAB_vs_random();
         }
         isWinner();
         System.out.println("winner is " + Factory.getGameState().winner());
@@ -135,6 +137,19 @@ public class MiniMax extends Main{
         IGameState state =  Factory.getGameState();
         Agent agent = new Agent(state, 1);
         Agent agent2 = new Agent(state, 2);
+
+        agent.move();
+        WindowUpdater.update(state);
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+        agent2.move();
+        WindowUpdater.update(state);
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+    }
+
+    public void SemiAB_vs_random() {
+        IGameState state =  Factory.getGameState();
+        Agent agent2 = new SemiRandomABAgent(state, 2, 4);
+        Agent agent = new Agent(state, 1);
 
         agent.move();
         WindowUpdater.update(state);
