@@ -34,7 +34,14 @@ public class GameRule {
         if (getNewGroupSize(tile, playerColor) > getNewTotalGroups(tile, playerColor))
             return false;
 
-        //TODO: also check if other groups don't become bigger than the new totalGroups
+        //check if other groups don't become bigger than the new totalGroups
+        if (getNeighboringGroups(tile, playerColor).size() > 1) {
+            List<TileGroup> groups = board.getGroups(playerColor);
+            for (int i = 0; i < groups.size(); i++) {
+                if (groups.get(i).getMembers().size() > getNewTotalGroups(tile, playerColor))
+                    return false;
+            }
+        }
 
         return true;
     }
