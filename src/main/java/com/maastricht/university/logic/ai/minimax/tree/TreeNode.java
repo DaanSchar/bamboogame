@@ -42,13 +42,13 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
     }
 
     public boolean hasScore() {
-        if(score == null)
+        if(this.score == null)
             return false;
         return true;
     }
 
     public Integer getScore() {
-        if(score == null)
+        if(this.score == null)
             if(depth%2 == 1) //if odd depth, so parent is Minimizer
                 return Integer.MAX_VALUE - 1;
             else
@@ -56,7 +56,7 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
         return this.score;
     }
 
-    public int getDepth() {return depth;}
+    public int getDepth() {return this.depth;}
 
     public E getElement() {
         return this.element;
@@ -75,7 +75,7 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
     }
 
     public void addChild(E e, Move lastMove) {
-        children.add(new TreeNode(e, this, numberOfPlayers, lastMove));
+        children.add(new TreeNode(e, this, this.numberOfPlayers, lastMove));
     }
 
     public ITreeNode<E> getMaxChild() {

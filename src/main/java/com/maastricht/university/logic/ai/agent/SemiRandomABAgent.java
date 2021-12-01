@@ -42,8 +42,8 @@ public class SemiRandomABAgent extends Agent{
     private int maxValue(ITreeNode node, int alpha, int beta, int depth){
         GameState state = (GameState) node.getElement();
         if(state.isGameOver() || depth==0) {
-            node.setScore(state.getPlayerScore(player));
-            return state.getPlayerScore(player);
+            node.setScore((int) (100 * Math.random() * state.getPlayerScore(player)));
+            return node.getScore();
         }
         int value = Integer.MIN_VALUE;
         List<Move> moves = state.getLegalMoves(player);
@@ -54,9 +54,6 @@ public class SemiRandomABAgent extends Agent{
             node.addChild(newState, move);
             ITreeNode<GameState> newNode = (ITreeNode<GameState>) node.getChildren().get(i);
             value = Math.max(value, minValue(newNode, alpha, beta, depth-1));
-
-            // Randomly adjust value a bit
-            value = (int) Math.random() * value;
 
             newNode.setScore(value);
 
@@ -70,8 +67,8 @@ public class SemiRandomABAgent extends Agent{
     private int minValue(ITreeNode node, int alpha, int beta, int depth){
         GameState state = (GameState) node.getElement();
         if(state.isGameOver() || depth==0) {
-            node.setScore(state.getPlayerScore(player));
-            return state.getPlayerScore(player);
+            node.setScore((int) (100 * Math.random() * state.getPlayerScore(player)));
+            return node.getScore();
         }
         int value = Integer.MAX_VALUE;
         List<Move> moves = state.getLegalMoves(minPlayer);
@@ -82,9 +79,6 @@ public class SemiRandomABAgent extends Agent{
             node.addChild(newState, move);
             ITreeNode<GameState> newNode = (ITreeNode<GameState>) node.getChildren().get(i);
             value = Math.min(value, maxValue(newNode, alpha, beta, depth-1));
-
-            // Randomly adjust value a bit
-            value = (int) Math.random() * value;
 
             newNode.setScore(value);
 
