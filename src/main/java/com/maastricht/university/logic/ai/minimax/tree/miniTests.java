@@ -10,7 +10,13 @@ public class miniTests {
 
     public static void main(String[] args) {
 
-        GameState gameState = new GameState(1, 2);
+        GameState gameState = new GameState(2, 2);
+
+        TreeNode node = new TreeNode(gameState, null, 2, null);
+        node.setScore(14);
+        System.out.println(node.hasScore());
+        System.out.println(node.getScore());
+        System.out.println((int) Math.random() * node.getScore());
 
         AlphaBetaAgent agent2 = new AlphaBetaAgent(gameState, 2, 3);
         Agent agent1 = new Agent(gameState, 1);
