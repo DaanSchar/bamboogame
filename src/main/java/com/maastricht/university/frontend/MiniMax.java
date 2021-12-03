@@ -124,6 +124,12 @@ public class MiniMax extends Main{
         agent.move();
         WindowUpdater.update(state);
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+
+        if (Factory.getGameState().winner() != 0) {
+            isWinner();
+            System.out.println("winner is " + Factory.getGameState().winner());
+        }
+
         agent2.move();
         WindowUpdater.update(state);
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
@@ -141,6 +147,12 @@ public class MiniMax extends Main{
         agent.move();
         WindowUpdater.update(state);
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+
+        if (Factory.getGameState().winner() != 0) {
+            isWinner();
+            System.out.println("winner is " + Factory.getGameState().winner());
+        }
+
         agent2.move();
         WindowUpdater.update(state);
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
@@ -154,6 +166,12 @@ public class MiniMax extends Main{
         agent.move();
         WindowUpdater.update(state);
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+
+        if (Factory.getGameState().winner() != 0) {
+            isWinner();
+            System.out.println("winner is " + Factory.getGameState().winner());
+        }
+
         agent2.move();
         WindowUpdater.update(state);
         try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
