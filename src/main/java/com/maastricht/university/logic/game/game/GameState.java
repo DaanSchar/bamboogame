@@ -256,10 +256,15 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
         score += getLegalMoves(player).size();
 
         // - number of legal moves opponent
-        if(player == 1)
+        // - 5 * number of groups opponent
+        if(player == 1) {
             score -= getLegalMoves(2).size();
-        else
+            score -= 5*board.getGroups(2).size();
+        }
+        else {
             score -= getLegalMoves(1).size();
+            score -= 5 * board.getGroups(1).size();
+        }
         //System.out.println("Calculated Score: " +score);
         return score;
     }
