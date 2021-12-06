@@ -20,7 +20,7 @@ public class Compare_AIs {
         int winAB = 0;
         for(int i=0; i<times; i++) {
             IGameState state =  new GameState(4, 2);
-            String randomNetworkName = "src/main/resources/networks/network-45.zip"; // + System.currentTimeMillis() + ".zip";
+            String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip"; // + System.currentTimeMillis() + ".zip";
             ReinforcementAgent agent1 = new ReinforcementAgent(state, 1, randomNetworkName);
             AlphaBetaAgent agent2 = new AlphaBetaAgent(state, 2, 4);
             while(state.winner()==0) {
