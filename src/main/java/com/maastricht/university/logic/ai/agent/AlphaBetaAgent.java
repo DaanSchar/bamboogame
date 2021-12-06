@@ -45,7 +45,7 @@ public class AlphaBetaAgent extends Agent{
         GameState state = (GameState) node.getElement();
         if(state.isGameOver() || depth==0) {
             node.setScore(state.getPlayerScore(player));
-            return state.getPlayerScore(player);
+            return node.getScore();
         }
         int value = Integer.MIN_VALUE;
         List<Move> moves = state.getLegalMoves(player);
@@ -70,7 +70,7 @@ public class AlphaBetaAgent extends Agent{
         GameState state = (GameState) node.getElement();
         if(state.isGameOver() || depth==0) {
             node.setScore(state.getPlayerScore(player));
-            return state.getPlayerScore(player);
+            return node.getScore();
         }
         int value = Integer.MAX_VALUE;
         List<Move> moves = state.getLegalMoves(minPlayer);
