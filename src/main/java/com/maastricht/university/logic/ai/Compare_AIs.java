@@ -11,7 +11,7 @@ import com.maastricht.university.logic.game.util.interfaces.IGameState;
 public class Compare_AIs {
 
     public static void main(String[] args) {
-        runAlphaBeta_vs_RL(5);
+        runAlphaBeta_vs_RL(100);
     }
 
     public static void runAlphaBeta_vs_RL(int times) {
@@ -39,6 +39,8 @@ public class Compare_AIs {
             System.out.println("winner = " +winner);
             System.out.println("winrate Reinforcement: " + (winRL/(winAB+winRL)));
             System.out.println("winrate alpha-beta:    " + (winAB/(winAB+winRL)));
+            System.out.println("games played: " + i+1);
+            System.out.println();
         }
 
 
