@@ -39,7 +39,7 @@ public class Compare_AIs {
             System.out.println("winner = " +winner);
             System.out.println("winrate Reinforcement: " + (winRL/(winAB+winRL)));
             System.out.println("winrate alpha-beta:    " + (winAB/(winAB+winRL)));
-            System.out.println("games played: " + i+1);
+            System.out.println("games played: " + (i+1));
             System.out.println();
         }
 

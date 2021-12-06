@@ -27,7 +27,7 @@ public class AlphaBetaAgent extends Agent{
     public void move() {
         if (this.gameState.winner() ==0) {
             Move move = search(this.maxDepth);
-            //System.out.println("Move: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
+            System.out.println("Move: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
             gameState.move(move.getX(), move.getY(), player);
         }
     }
