@@ -18,6 +18,8 @@ public class MainMenu extends Application {
     private ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
     private ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
     private ImageView title = new ImageView(new Image("/images/bambooText.png"));
+    private ImageView minimax = new ImageView(new Image("/images/v_minimax.png"));
+    private ImageView rl = new ImageView(new Image("/images/v_RL.png"));
 
     private double width = 800;
     private double height = 500;
@@ -34,7 +36,6 @@ public class MainMenu extends Application {
     private Background bGround = new Background(bImg);
 
     public Stage backStage;
-    public String mode;
 
     @Override
     public void start(Stage stage) {
@@ -64,13 +65,14 @@ public class MainMenu extends Application {
             }
         });
 
-        HoverableButton computer = new HoverableButton(width / 2, height - height/3, 20, 20);
-        pcView.setFitHeight(75);
-        pcView.setFitWidth(170);
-        computer.setGraphic(pcView);
+        //height - height/3
+        //width / 2
+        HoverableButton comp_Mini = new HoverableButton(width / 2, height - height/3, 20, 20);
+        pcView.setFitHeight(20);
+        pcView.setFitWidth(20);
+        comp_Mini.setGraphic(minimax);
 
-        //TODO: make this button go to the game (phase 2)
-        computer.setOnAction(new EventHandler<ActionEvent>() {
+        comp_Mini.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 MiniMax screen = new MiniMax();
                 stage.setScene(screen.getScene());
@@ -79,6 +81,23 @@ public class MainMenu extends Application {
             }
         });
 
+        /*
+        HoverableButton comp_RL = new HoverableButton(width / 2, height - height/3.5, 20, 20);
+        pcView.setFitHeight(20);
+        pcView.setFitWidth(20);
+        comp_RL.setGraphic(rl);
+
+
+        comp_RL.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                MiniMax screen = new MiniMax();
+                stage.setScene(screen.getScene());
+                stage.show();
+                System.out.println("This goes into the game :)");
+            }
+        });
+
+         */
 
         HoverableButton exit = new HoverableButton(50, height - height/16, 20, 20);
         exitView.setFitHeight(40);
@@ -116,7 +135,8 @@ public class MainMenu extends Application {
 
         //add to scene
         r.getChildren().add(human);
-        r.getChildren().add(computer);
+        r.getChildren().add(comp_Mini);
+        //r.getChildren().add(comp_RL);
         r.getChildren().add(exit);
         r.getChildren().add(rules);
 
