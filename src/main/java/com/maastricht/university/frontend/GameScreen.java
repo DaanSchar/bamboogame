@@ -36,8 +36,8 @@ public class GameScreen {
     public static Label p2GroupsLabel = new Label("0");
     public static Label currentPlayer = new Label("1");
 
-    public static ImageView oneWin = new ImageView(new Image("/images/player_one_wins.gif"));
-    public static ImageView twoWin = new ImageView(new Image("/images/player_two_wins.gif"));
+    public static ImageView p1WinnerPopUp = new ImageView(new Image("/images/player_one_wins.gif"));
+    public static ImageView p2WinnerPopUp = new ImageView(new Image("/images/player_two_wins.gif"));
 
     public TileMap tilemap = Factory.getTileMap();
     public Pane playground = tilemap.getTileMapPane();
@@ -68,12 +68,37 @@ public class GameScreen {
         IGameState gameState = Factory.getGameState();
 
         if (gameState.winner() == 1)
-            r.getChildren().add(oneWin);
+            r.getChildren().add(p1WinnerPopUp);
         else if (gameState.winner() == 2)
-            r.getChildren().add(twoWin);
+            r.getChildren().add(p2WinnerPopUp);
 
         winnerStage.setScene(scene);
         winnerStage.show();
+    }
+
+    /**
+     * Overrides the p1Text label with the current number of groups for player 1
+     */
+    public static void updatePlayerLabels(IGameState state) {
+        p1GroupsLabel.setText(Integer.toString(state.getTotalGroups(1)));
+        p2GroupsLabel.setText(Integer.toString(state.getTotalGroups(2)));
+    }
+
+    /**
+     * Overrides the current player label with the current player
+     */
+    public static void updateCurrentPlayerLabel(IGameState state) {
+        currentPlayer.setText(currentPlayer(state));
+    }
+
+    /**
+     * This method uses the GameState interface to return which player is currently playing
+     * @return A string with the current player
+     */
+    public static String currentPlayer(IGameState state){
+        String player = state.getPlayerTurn() == 1 ? "Player 1" : "Player 2";
+
+        return player;
     }
 
     private void createPlayerLabels() {
@@ -127,48 +152,18 @@ public class GameScreen {
         playground.getChildren().add(exit);
     }
 
-
-    /**
-     * Overrides the p1Text label with the current number of groups for player 1
-     */
-    public static void updatePlayerLabels(IGameState state) {
-        p1GroupsLabel.setText(Integer.toString(state.getTotalGroups(1)));
-        p2GroupsLabel.setText(Integer.toString(state.getTotalGroups(2)));
-    }
-
-    /**
-     * Overrides the current player label with the current player
-     */
-    public static void updateCurrentPlayerLabel(IGameState state) {
-        currentPlayer.setText(currentPlayer(state));
-    }
-
-    /**
-     * This method uses the GameState interface to return which player is currently playing
-     * @return A string with the current player
-     */
-    public static String currentPlayer(IGameState state){
-        String player = state.getPlayerTurn() == 1 ? "Player 1" : "Player 2";
-
-        return player;
-    }
-
-    /**
-     * creates the winner pop up that will be shown
-     * ones a winner is determined
-     */
     private static void createWinnerPopUp() {
         // win screen for player 1
-        oneWin.setLayoutX(width /2 + 10);
-        oneWin.setLayoutY(height /2);
-        oneWin.setFitWidth(720);
-        oneWin.setFitHeight(405);
+        p1WinnerPopUp.setLayoutX(width /2 + 10);
+        p1WinnerPopUp.setLayoutY(height /2);
+        p1WinnerPopUp.setFitWidth(720);
+        p1WinnerPopUp.setFitHeight(405);
 
         // win screen for player 2
-        twoWin.setLayoutX(width /2 + 10);
-        twoWin.setLayoutY(height /2);
-        twoWin.setFitWidth(720);
-        twoWin.setFitHeight(405);
+        p2WinnerPopUp.setLayoutX(width /2 + 10);
+        p2WinnerPopUp.setLayoutY(height /2);
+        p2WinnerPopUp.setFitWidth(720);
+        p2WinnerPopUp.setFitHeight(405);
     }
 
 
