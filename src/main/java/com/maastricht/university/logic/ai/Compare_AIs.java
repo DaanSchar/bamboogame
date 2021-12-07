@@ -12,13 +12,13 @@ public class Compare_AIs {
     private static boolean DEBUG = false;
 
     public static void main(String[] args) {
-        //runAlphaBeta_vs_RL(100000);
-        //double[][] moveTime = compare_AB_Minimax(100, 1, 3);
-        double[] moveTime = getTime_depth_AB(100, 4, 6);
+        //runAlphaBetaVsRL(100000);
+        //double[][] moveTime = compareABMinimax(100, 1, 3);
+        double[] moveTime = getTimeDepthAB(100, 4, 6);
         System.out.println(moveTime);
     }
 
-    public static double[] getTime_depth_AB(int minMoves, int minDepth, int maxDepth) {
+    public static double[] getTimeDepthAB(int minMoves, int minDepth, int maxDepth) {
         String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip"; // + System.currentTimeMillis() + ".zip";
         Date date = new Date();
         double[] moveTime = new double[maxDepth-minDepth+1];
@@ -57,7 +57,7 @@ public class Compare_AIs {
         return moveTime;
     }
 
-    public static double[][] compare_AB_Minimax(int minMoves, int minDepth, int maxDepth) {
+    public static double[][] compareABMinimax(int minMoves, int minDepth, int maxDepth) {
         String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip"; // + System.currentTimeMillis() + ".zip";
         Date date = new Date();
         double[][] moveTime = new double[2][maxDepth-minDepth+1];
@@ -123,7 +123,7 @@ public class Compare_AIs {
         return moveTime;
     }
 
-    public static void runAlphaBeta_vs_RL(int times) {
+    public static void runAlphaBetaVsRL(int times) {
 
         double winRL = 0;
         double winAB = 0;
