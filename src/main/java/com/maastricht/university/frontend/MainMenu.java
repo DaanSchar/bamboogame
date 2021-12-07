@@ -37,6 +37,11 @@ public class MainMenu extends Application {
 
     public Stage backStage;
 
+    public Scene getHomeScene(Stage stage){
+        start(stage);
+        return scene;
+    }
+
     @Override
     public void start(Stage stage) {
         backStage = stage;
@@ -79,7 +84,6 @@ public class MainMenu extends Application {
                 stage.show();
             }
         });
-
 
         HoverableButton comp_NN = new HoverableButton(width / 2, height - height/4.5, 20, 20);
         nn.setFitHeight(75);
