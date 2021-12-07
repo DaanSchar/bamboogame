@@ -25,10 +25,18 @@ public class Agent implements IAgent{
         }
     }
 
+    /**
+     *
+     * @return the player the agent is
+     */
     public int getPlayer() {
         return player;
     }
 
+    /**
+     * Set the gameState the agent operates in
+     * @param gameState the new gameState
+     */
     public void setGameState(IGameState gameState) {
         this.gameState = gameState;
     }
