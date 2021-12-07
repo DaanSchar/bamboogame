@@ -81,7 +81,7 @@ public class AlphaBetaAgent2 extends Agent {
             newNode.setScore(value);
 
             if(node.getDepth() > 2) {
-                node.removeChild(0);
+                newNode.removeChild(0);
             }
 
             // Prune
@@ -126,7 +126,7 @@ public class AlphaBetaAgent2 extends Agent {
             newNode.setScore(value);
 
             if(node.getDepth() > 2) {
-                node.removeChild(0);
+                newNode.removeChild(0);
             }
 
             // Prune
