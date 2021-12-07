@@ -43,17 +43,25 @@ public class Tile implements Cloneable {
     private void setClickEvent() {
         button.setOnMouseClicked(e -> {
             IGameState game = Factory.getGameState();
-            game.move(q,r,Factory.getGameState().getPlayerTurn());
 
-            Agent agent = new ReinforcementAgent(game, 2, "src/main/resources/networks/network-74-12L.zip");
-            agent.move();
+            if (Factory.getGameMode() == 0) {
+                System.out.println("bruh");
+                game.move(q, r, game.getPlayerTurn());
+            }
+
+            if (Factory.getGameMode() == 1) {
+                game.move(q, r, 1);
+                Agent agent = Factory.getAgent(Factory.getAgentType());
+                agent.move();
+            }
+
             WindowUpdater.update(Factory.getGameState());
 
             winner(game);
         });
     }
 
-    private void winner(IGameState game){
+    private void winner(IGameState game) {
         if(game.winner() != 0){
             Main.isWinner();
         }

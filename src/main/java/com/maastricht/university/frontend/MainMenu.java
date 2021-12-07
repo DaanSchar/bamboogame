@@ -57,9 +57,9 @@ public class MainMenu extends Application {
 
         human.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                Main screen1 = new Main();
-                System.out.println("creating snake!");
-                stage.setScene(screen1.getScene());
+                Factory.setGameMode(0);
+                Main screen = new Main();
+                stage.setScene(screen.getScene());
                 stage.show();
             }
         });
@@ -72,7 +72,9 @@ public class MainMenu extends Application {
         //TODO: make this button go to the game (phase 2)
         computer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                MiniMax screen = new MiniMax();
+                Factory.setGameMode(1);
+                Factory.setAgentType(0);
+                Main screen = new Main();
                 stage.setScene(screen.getScene());
                 stage.show();
                 System.out.println("This goes into the game :)");
