@@ -51,6 +51,7 @@ public class GameScreen {
         createGroupLabels();
         createCurrentPlayerLabel();
         createExitButton();
+        createHomeButton();
         playground.setBackground(bGround);
 
         return scene;
@@ -150,6 +151,26 @@ public class GameScreen {
         });
 
         playground.getChildren().add(exit);
+    }
+
+    private void createHomeButton() {
+        HoverableButton home = new HoverableButton(50, height - height/5.5, 20, 20);
+        homeView.setFitHeight(40);
+        homeView.setFitWidth(80);
+        home.setGraphic(homeView);
+
+        home.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                Factory.resetGameState();
+                MainMenu menu = new MainMenu();
+                Stage menuStage = new Stage();
+
+                menuStage.setScene(menu.getHomeScene(menuStage));
+
+            }
+        });
+
+        playground.getChildren().add(home);
     }
 
     private static void createWinnerPopUp() {
