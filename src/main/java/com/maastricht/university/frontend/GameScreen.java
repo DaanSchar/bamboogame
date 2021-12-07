@@ -164,7 +164,7 @@ public class GameScreen {
                 Factory.resetGameState();
                 MainMenu menu = new MainMenu();
                 Stage menuStage = new Stage();
-
+                WindowUpdater.update(Factory.getGameState());
                 menuStage.setScene(menu.getHomeScene(menuStage));
 
             }
