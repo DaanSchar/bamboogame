@@ -21,7 +21,7 @@ public class MiniMax extends Main{
 
     @Override
     public Scene getScene(){
-        createTimerThread();
+//        createTimerThread();
         //add labels for player stats to screen
         p1.setLayoutX(-width /4);
         p1.setLayoutY(-height/4);

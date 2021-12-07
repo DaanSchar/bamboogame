@@ -9,7 +9,6 @@ import com.maastricht.university.logic.ai.minimax.tree.Tree;
 public class miniTests {
 
     public static void main(String[] args) {
-
         GameState gameState = new GameState(2, 2);
 
         TreeNode node = new TreeNode(gameState, null, 2, null);
