@@ -78,6 +78,11 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
         children.add(new TreeNode(e, this, this.numberOfPlayers, lastMove));
     }
 
+    public void removeChild(int index) { children.remove(index); }
+
+    @Override
+    public void clearChildren() { children.clear(); }
+
     public ITreeNode<E> getMaxChild() {
         ITreeNode<E> maxChild = children.get(0);
 

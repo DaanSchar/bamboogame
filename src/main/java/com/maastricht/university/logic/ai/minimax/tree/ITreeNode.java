@@ -75,10 +75,21 @@ public interface ITreeNode<E> {
     List<ITreeNode<E>> getChildren();
 
     /**
-     * adds a child to node to this node.
+     * adds a childNode to this node.
      * @param element
      */
     void addChild(E element, Move lastMove);
+
+    /**
+     * removes a childNode from this node.
+     * @param index index in list of removed child
+     */
+    void removeChild(int index);
+
+    /**
+     * removes all children from this node
+     */
+    void clearChildren();
 
     /**
      * compares all children to each other using the
