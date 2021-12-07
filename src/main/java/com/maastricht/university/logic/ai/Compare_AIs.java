@@ -1,9 +1,6 @@
 package com.maastricht.university.logic.ai;
 
-import com.maastricht.university.frontend.Factory;
-import com.maastricht.university.frontend.WindowUpdater;
 import com.maastricht.university.logic.ai.agent.*;
-import com.maastricht.university.logic.ai.minimax.tree.AlphaBetaSearchTree;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
@@ -89,65 +86,6 @@ public class Compare_AIs {
         return moveTime;
     }
 
-
-        /*for (int i = 0; i < times; i++) {
-            IGameState state = new GameState(4, 2);
-            MiniMaxAgent agent1 = new MiniMaxAgent(state, 1, 4);
-            AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, 4);
-            AlphaBetaSearchTree agent2b = new AlphaBetaSearchTree();
-            while (state.winner() == 0) {
-                moves++;
-                agent1.move();
-                long milisec = System.currentTimeMillis();
-                Move move2a = agent2a.search(4);
-                float timeTaken = System.currentTimeMillis() - milisec;
-                timeABa += timeTaken;
-                if(DEBUG) {
-                    System.out.println("Move 2a: (" + move2a.getX() + ", " + move2a.getY() + ")");
-                    System.out.println("time taken a : " + timeTaken +" milisec");
-                }
-                milisec = System.currentTimeMillis();
-                Move move2b = agent2b.search((GameState) state, 2, 4);
-                timeTaken = System.currentTimeMillis() - milisec;
-                timeABb += timeTaken;
-                if(DEBUG) {
-                    System.out.println("Move 2b: (" + move2b.getX() + ", " + move2b.getY() + ")");
-                    System.out.println("time taken b : " + timeTaken +" milisec");
-                    System.out.println();
-                }
-
-                state.move(move2a.getX(), move2b.getY(), 2);
-                if (move2a.getX() != move2b.getX() || move2a.getY() != move2b.getY()) {
-                    System.out.println();
-                    System.out.println("--------------------NOT THE SAME MOVE----------------------------");
-                    System.out.println("Move 2a: (" + move2a.getX() + ", " + move2a.getY() + ")");
-                    System.out.println("Move 2b: (" + move2b.getX() + ", " + move2b.getY() + ")");
-                    System.out.println("--------------------NOT THE SAME MOVE----------------------------");
-                    System.out.println();
-                }
-            }
-            String winner;
-            if (state.winner() == 1) {
-                winner = "Random agent";
-                winRan += 1;
-            } else {
-                winner = "alpha-beta agent";
-                winAB += 1;
-            }
-            System.out.println();
-            System.out.println("winner = " +winner);
-            System.out.println("winrate Random:     " + (winRan/(winAB+winRan)));
-            System.out.println("winrate alpha-beta: " + (winAB/(winAB+winRan)));
-            System.out.println("games played: " + (i+1));
-            System.out.println("time agent sec/move:    " + ((timeABa/1000)/moves));
-            System.out.println("time tree sec/move:     " + ((timeABb/1000)/moves));
-            System.out.println("moves played: " + moves);
-            System.out.println();
-        }
-        */
-
-
-
     public static void runAlphaBeta_vs_RL(int times) {
 
         double winRL = 0;
@@ -177,7 +115,5 @@ public class Compare_AIs {
             System.out.println("games played: " + (i+1));
             System.out.println();
         }
-
-
     }
 }
