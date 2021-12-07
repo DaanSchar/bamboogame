@@ -59,7 +59,7 @@ public class MainMenu extends Application {
         human.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Factory.setGameMode(0);
-                Main screen = new Main();
+                GameScreen screen = new GameScreen();
                 stage.setScene(screen.getScene());
                 stage.show();
             }
@@ -72,10 +72,11 @@ public class MainMenu extends Application {
 
         comp_Mini.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                MiniMax screen = new MiniMax();
+                Factory.setGameMode(1);
+                Factory.setAgentType(1);
+                GameScreen screen = new GameScreen();
                 stage.setScene(screen.getScene());
                 stage.show();
-                System.out.println("This goes into the game :)");
             }
         });
 
@@ -89,10 +90,9 @@ public class MainMenu extends Application {
             @Override public void handle(ActionEvent e) {
                 Factory.setGameMode(1);
                 Factory.setAgentType(0);
-                Main screen = new Main();
+                GameScreen screen = new GameScreen();
                 stage.setScene(screen.getScene());
                 stage.show();
-                System.out.println("This goes into the game :)");
             }
         });
 
