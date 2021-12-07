@@ -13,8 +13,48 @@ public class Compare_AIs {
 
     public static void main(String[] args) {
         //runAlphaBeta_vs_RL(100000);
-        double[][] moveTime = compare_AB_Minimax(100, 1, 3);
+        //double[][] moveTime = compare_AB_Minimax(100, 1, 3);
+        double[] moveTime = getTime_depth_AB(100, 4, 6);
         System.out.println(moveTime);
+    }
+
+    public static double[] getTime_depth_AB(int minMoves, int minDepth, int maxDepth) {
+        String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip"; // + System.currentTimeMillis() + ".zip";
+        Date date = new Date();
+        double[] moveTime = new double[maxDepth-minDepth+1];
+
+        // for every depth
+        for (int depth = minDepth; depth <= maxDepth; depth++) {
+            double timeAB = 0;
+            int moves = 0;
+            // run games while not enough data yet
+            while (moves < minMoves) {
+                //play a game
+                IGameState state = new GameState(4, 2);
+                RandomAgent agent1 = new RandomAgent(state, 1);
+                AlphaBetaAgent agent2 = new AlphaBetaAgent(state, 2, depth);
+                // keep going until the game is finished
+                while (state.winner() == 0) {
+                    moves++;
+                    agent1.move();
+                    double milisec = System.currentTimeMillis();
+                    agent2.move();
+                    double timeTaken = System.currentTimeMillis() - milisec;
+                    timeAB += timeTaken;
+                }
+                if (state.winner() != 0) {
+                    moveTime[depth-minDepth] = (timeAB / 1000) / moves;
+                }
+
+                System.out.println();
+                //System.out.println("games played: " + (i+1));
+                System.out.println("depth: " + depth);
+                System.out.println("time AB sec/move:          " + ((timeAB / 1000) / moves));
+                System.out.println("moves played: " + moves);
+                System.out.println();
+            }
+        }
+        return moveTime;
     }
 
     public static double[][] compare_AB_Minimax(int minMoves, int minDepth, int maxDepth) {
@@ -22,15 +62,13 @@ public class Compare_AIs {
         Date date = new Date();
         double[][] moveTime = new double[2][maxDepth-minDepth+1];
 
-        boolean gameOver = false;
         // for every depth
         for (int depth = minDepth; depth <= maxDepth; depth++) {
-            float timeAB = 0;
-            float timeMM = 0;
+            double timeAB = 0;
+            double timeMM = 0;
             int moves = 0;
             // run games while not enough data yet
             while (moves < minMoves) {
-                gameOver = false;
                 //play a game
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
@@ -40,9 +78,9 @@ public class Compare_AIs {
                 while (state.winner() == 0) {
                     moves++;
                     agent1.move();
-                    long milisec = System.currentTimeMillis();
+                    double milisec = System.currentTimeMillis();
                     Move move2a = agent2a.search(depth);
-                    float timeTaken = System.currentTimeMillis() - milisec;
+                    double timeTaken = System.currentTimeMillis() - milisec;
                     timeAB += timeTaken;
                     if (DEBUG) {
                         System.out.println("Move 2a: (" + move2a.getX() + ", " + move2a.getY() + ")");
@@ -69,7 +107,6 @@ public class Compare_AIs {
                     }
                 }
                 if (state.winner() != 0) {
-                    gameOver = true;
                     moveTime[0][depth-minDepth] = (timeAB / 1000) / moves;
                     moveTime[1][depth-minDepth] = (timeMM / 1000) / moves;
                 }
