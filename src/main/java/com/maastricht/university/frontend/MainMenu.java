@@ -57,6 +57,7 @@ public class MainMenu extends Application {
 
         human.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                Factory.setGameMode(0);
                 Main screen1 = new Main();
                 stage.setScene(screen1.getScene());
                 stage.show();
@@ -71,6 +72,7 @@ public class MainMenu extends Application {
         //TODO: make this button go to the game (phase 2)
         computer.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                Factory.setGameMode(1);
                 MiniMax screen = new MiniMax();
                 stage.setScene(screen.getScene());
                 stage.show();
