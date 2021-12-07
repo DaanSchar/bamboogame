@@ -2,18 +2,17 @@ package com.maastricht.university.logic.ai.minimax.tree;
 
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
-import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.List;
 
 public class AlphaBetaSearchTree {
 
-    private int maxPlayer;
+    private int player;
     private int minPlayer;
 
 
     public Move search(GameState state, int maxPlayer, int depth) {
-        this.maxPlayer = maxPlayer;
+        this.player = maxPlayer;
         if(maxPlayer==2)
             this.minPlayer = 1;
         else
@@ -27,14 +26,14 @@ public class AlphaBetaSearchTree {
     private int maxValue(ITreeNode node, int alpha, int beta, int depth){
         GameState state = (GameState) node.getElement();
         if(state.isGameOver() || depth==0)
-            return state.getPlayerScore(maxPlayer);
+            return state.getPlayerScore(player);
 
         int value = Integer.MIN_VALUE;
-        List<Move> moves = state.getLegalMoves(maxPlayer);
+        List<Move> moves = state.getLegalMoves(player);
         for(int i=0; i<moves.size(); i++) {
             Move move = moves.get(i);
             GameState newState = state.clone();
-            newState.move(move.getX(), move.getY(), maxPlayer);
+            newState.move(move.getX(), move.getY(), player);
             node.addChild(newState, move);
             ITreeNode<GameState> newNode = (ITreeNode<GameState>) node.getChildren().get(i);
             value = Math.max(value, minValue(newNode, alpha, beta, depth-1));
@@ -51,7 +50,7 @@ public class AlphaBetaSearchTree {
     private int minValue(ITreeNode node, int alpha, int beta, int depth){
         GameState state = (GameState) node.getElement();
         if(state.isGameOver() || depth==0)
-            return state.getPlayerScore(maxPlayer);
+            return state.getPlayerScore(player);
 
         int value = Integer.MAX_VALUE;
         List<Move> moves = state.getLegalMoves(minPlayer);

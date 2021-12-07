@@ -5,127 +5,81 @@ import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class MiniMaxAgent extends Agent{
+public class MiniMaxAgent extends Agent {
 
-    public ArrayList<Move> commonLegal;
-    private int otherPlayer;
+    protected final int minPlayer;
+    protected int maxDepth;
 
-    private AlphaBetaSearchTree searchTree = new AlphaBetaSearchTree();
-
-    public MiniMaxAgent(IGameState gameState, int playerNumber) {
-
+    public MiniMaxAgent(IGameState gameState, int playerNumber, int maxDepth) {
         super(gameState, playerNumber);
-        if(super.player == 1) {
-            otherPlayer = 2;
-        }else
-            otherPlayer = 1;
-
+        if (player == 1) {
+            minPlayer = 2;
+        } else
+            minPlayer = 1;
+        this.maxDepth = maxDepth;
     }
 
-    public void moveMiniMax(){
-        while (gameState.getPlayerTurn() == player && gameState.winner() == 0) {
-            //Move maxMove = determineMiniMaxMove();
-            //gameState.move(maxMove.getX(), maxMove.getY(), player);
-            Move bestMove = searchTree.search((GameState) gameState, player, Integer.MAX_VALUE);
-            gameState.move(bestMove.getX(), bestMove.getY(), player);
+    @Override
+    public void move() {
+        if (this.gameState.winner() == 0) {
+            Move move = search(this.maxDepth);
+            //System.out.println("Move: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
+            gameState.move(move.getX(), move.getY(), player);
         }
-
     }
 
-    private ArrayList<Move> legalMoves(ArrayList<Move> max, ArrayList<Move> min){
-        ArrayList<Move> legalMoves = new ArrayList<Move>();
-        for (Move moveMin : min) {
-            if (max.contains(moveMin)) {
-                legalMoves.add(moveMin);
-            }
-        }
-        return legalMoves;
+    public Move search(int depth) {
+        ITree<GameState> tree = new Tree<GameState>((GameState) gameState, 2);
+        ITreeNode<GameState> root = tree.getRoot();
+        int score = maxValue(root, depth);
+        //System.out.println("MaxScore: " + root.getMaxChild().getScore());
+        //System.out.println("MinScore: " + root.getMinChild().getScore());
+        return root.getMaxChild().getLastMove();
     }
 
-    public Move determineMiniMaxMove() {
-        /*
-        ArrayList<Move> maxLegalMoves;
-        ArrayList<Move> minLegalMoves;
-        Move actualMove;
-        CreateTree newT = new CreateTree((GameState)gameState);
-        Tree tree = (Tree)newT.getTree();
-
-        maxLegalMoves = gameState.getLegalMoves(player);
-        minLegalMoves = gameState.getLegalMoves(otherPlayer);
-
-        commonLegal = legalMoves(maxLegalMoves, minLegalMoves);
-        actualMove = null;//bestBranch(tree.getRoot().getMaxChild());
-
-        if (commonLegal.contains(actualMove)) {
-            gameState.move(actualMove.getX(),actualMove.getY(),player);
-        }
-         */
-        /*
-        CreateTree newT = new CreateTree((GameState) gameState, 5);
-        Tree tree = (Tree)newT.getTree();
-        ITreeNode root = tree.getRoot();
-        Move bestMove = root.getMaxChild().getLastMove();
-        //gameState.move(bestMove.getX(), bestMove.getY(), player);
-        */
-        Move bestMove = searchTree.search((GameState) gameState, player, Integer.MAX_VALUE);
-        gameState.move(bestMove.getX(), bestMove.getY(), player);
-        return bestMove;
-    }
-
-    /**
-     * The will return the optimal move for the maximizing player
-     * @param node The current node (gameState)
-     * @param depth How many positions ahead do we want to search
-     * @return The value of the optimal branch
-     */
-    private int optimal(ITreeNode node, int depth, boolean isMax){
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        int evaluation;
-
-        if(depth == 0 || gameState.isGameOver()){
+    private int maxValue(ITreeNode node, int depth) {
+        GameState state = (GameState) node.getElement();
+        if (state.isGameOver() || depth == 0) {
+            node.setScore(state.getPlayerScore(player));
             return node.getScore();
         }
-        if(isMax) {
-            for(int i=0; i<node.getChildren().size(); i++){
-                evaluation = optimal((ITreeNode)node.getChildren().get(i),depth-1, false);
-                max = Math.max(max,evaluation);
-            }
-            node.setScore(max);
-            return max;
-            //this else statement may be redundant, I'm not sure because the minimax tree needs to compute both
-            //the min and max values in order to find the optimal
-        }else {
-            for (int i = 0; i < node.getChildren().size(); i++) {
-                evaluation = optimal((ITreeNode) node.getChildren().get(i), depth - 1, true);
-                min = Math.min(min, evaluation);
-            }
-            node.setScore(min);
-            //return min;
+        int value = Integer.MIN_VALUE;
+        List<Move> moves = state.getLegalMoves(player);
+        for (int i = 0; i < moves.size(); i++) {
+            Move move = moves.get(i);
+            GameState newState = state.clone();
+            newState.move(move.getX(), move.getY(), player);
+            node.addChild(newState, move);
+            ITreeNode<GameState> newNode = (ITreeNode<GameState>) node.getChildren().get(i);
+            value = Math.max(value, minValue(newNode, depth - 1));
+
+            newNode.setScore(value);
+
         }
-
-        return max;
+        return value;
     }
-    /*
-    private void depthFirstSearch(ITreeNode root){
-        ArrayList<ITreeNode> visited = new ArrayList<ITreeNode>();
-        visited.add(root);
-        int size = root.getChildren().size();
-        ITreeNode node;
 
-        while(root.hasChildren()){
-            for(int i=0; i<size; i++){
-                node = (ITreeNode)root.getChildren().get(i);
-
-                if(!visited.contains(node)){
-
-                    depthFirstSearch(node);
-                }
-            }
+    private int minValue(ITreeNode node, int depth) {
+        GameState state = (GameState) node.getElement();
+        if (state.isGameOver() || depth == 0) {
+            node.setScore(state.getPlayerScore(player));
+            return node.getScore();
         }
+        int value = Integer.MAX_VALUE;
+        List<Move> moves = state.getLegalMoves(minPlayer);
+        for (int i = 0; i < moves.size(); i++) {
+            Move move = moves.get(i);
+            GameState newState = state.clone();
+            newState.move(move.getX(), move.getY(), minPlayer);
+            node.addChild(newState, move);
+            ITreeNode<GameState> newNode = (ITreeNode<GameState>) node.getChildren().get(i);
+            value = Math.min(value, maxValue(newNode,depth - 1));
+
+            newNode.setScore(value);
+        }
+        return value;
     }
-     */
 }
-
