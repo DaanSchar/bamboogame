@@ -19,7 +19,7 @@ public class MainMenu extends Application {
     private ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
     private ImageView title = new ImageView(new Image("/images/bambooText.png"));
     private ImageView minimax = new ImageView(new Image("/images/v_minimax.png"));
-    private ImageView rl = new ImageView(new Image("/images/v_RL.png"));
+    private ImageView nn = new ImageView(new Image("/images/v_NN.png"));
 
     private double width = 800;
     private double height = 500;
@@ -65,11 +65,9 @@ public class MainMenu extends Application {
             }
         });
 
-        //height - height/3
-        //width / 2
-        HoverableButton comp_Mini = new HoverableButton(width / 2, height - height/3, 20, 20);
-        pcView.setFitHeight(20);
-        pcView.setFitWidth(20);
+        HoverableButton comp_Mini = new HoverableButton(width / 2, height-height/2.4, 20, 20);
+        minimax.setFitHeight(75);
+        minimax.setFitWidth(170);
         comp_Mini.setGraphic(minimax);
 
         comp_Mini.setOnAction(new EventHandler<ActionEvent>() {
@@ -81,14 +79,13 @@ public class MainMenu extends Application {
             }
         });
 
-        /*
-        HoverableButton comp_RL = new HoverableButton(width / 2, height - height/3.5, 20, 20);
-        pcView.setFitHeight(20);
-        pcView.setFitWidth(20);
-        comp_RL.setGraphic(rl);
 
+        HoverableButton comp_NN = new HoverableButton(width / 2, height - height/4.5, 20, 20);
+        nn.setFitHeight(75);
+        nn.setFitWidth(170);
+        comp_NN.setGraphic(nn);
 
-        comp_RL.setOnAction(new EventHandler<ActionEvent>() {
+        comp_NN.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 MiniMax screen = new MiniMax();
                 stage.setScene(screen.getScene());
@@ -97,7 +94,6 @@ public class MainMenu extends Application {
             }
         });
 
-         */
 
         HoverableButton exit = new HoverableButton(50, height - height/16, 20, 20);
         exitView.setFitHeight(40);
@@ -136,7 +132,7 @@ public class MainMenu extends Application {
         //add to scene
         r.getChildren().add(human);
         r.getChildren().add(comp_Mini);
-        //r.getChildren().add(comp_RL);
+        r.getChildren().add(comp_NN);
         r.getChildren().add(exit);
         r.getChildren().add(rules);
 
