@@ -12,12 +12,18 @@ public class RandomAgent extends Agent {
         super(gameState, playerNumber);
     }
 
+    /**
+     * Make a random legal move
+     */
     public void move() {
         while (getGameState().getPlayerTurn() == super.getPlayer() && getGameState().winner() == 0) {
             determineRandomMove();
         }
     }
 
+    /**
+     * Make a random legal move
+     */
     private void determineRandomMove() {
         Random rand = new Random();
         ArrayList<Move> moveList = getGameState().getLegalMoves(getPlayer());

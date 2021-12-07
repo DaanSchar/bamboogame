@@ -16,20 +16,34 @@ public class Agent implements IAgent{
         this.player = playerNumber;
     }
 
+    /**
+     * Make a move
+     */
     public void move() {
         while (gameState.getPlayerTurn() == player && gameState.winner() == 0) {
             determineMove();
         }
     }
 
+    /**
+     *
+     * @return the player the agent is
+     */
     public int getPlayer() {
         return player;
     }
 
+    /**
+     * Set the gameState the agent operates in
+     * @param gameState the new gameState
+     */
     public void setGameState(IGameState gameState) {
         this.gameState = gameState;
     }
 
+    /**
+     * Make a random legal move
+     */
     private void determineRandomMove() {
         Random rand = new Random();
         ArrayList<Move> moveList = gameState.getLegalMoves(player);
@@ -40,6 +54,9 @@ public class Agent implements IAgent{
         gameState.move(move.getX(), move.getY(), player);
     }
 
+    /**
+     * Make a move that doesn't join groups together (if possible), otherwise random
+     */
     private void determineMove() {
         Board board = gameState.getBoard();
 
@@ -66,6 +83,10 @@ public class Agent implements IAgent{
         }
     }
 
+    /**
+     *
+     * @return current state of game
+     */
     public IGameState getGameState() {
         return gameState;
     }

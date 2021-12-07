@@ -70,12 +70,16 @@ public class CreateTree {
         }
     }
 
-    public void depthSearch() {
-
-    }
-
+    /**
+     *
+     * @return the SearchTree
+     */
     public ITree<GameState> getTree() {return tree;}
 
+    /**
+     * add all possible children to a nodes
+     * @param parent the node the children are added too
+     */
     private void addChildren(ITreeNode<GameState> parent) {
         if(DEBUG)
             System.out.println("A new call of 'addChildren'");

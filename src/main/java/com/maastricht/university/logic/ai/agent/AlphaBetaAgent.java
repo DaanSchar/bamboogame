@@ -23,6 +23,9 @@ public class AlphaBetaAgent extends Agent{
         this.maxDepth = maxDepth;
     }
 
+    /**
+     * Make the best move
+     */
     @Override
     public void move() {
         if (this.gameState.winner() ==0) {
@@ -32,21 +35,32 @@ public class AlphaBetaAgent extends Agent{
         }
     }
 
+    /**
+     * search for the best move
+     * @param depth max depth of the tree
+     * @return the best move
+     */
     public Move search(int depth) {
         ITree<GameState> tree = new Tree<GameState>((GameState) gameState, 2);
         ITreeNode<GameState> root = tree.getRoot();
         int score = maxValue(root, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
-        //System.out.println("MaxScore: " + root.getMaxChild().getScore());
-        //System.out.println("MinScore: " + root.getMinChild().getScore());
         return root.getMaxChild().getLastMove();
     }
 
+    /**
+     * computes the maxValue of the branch and adds all children to the tree
+     * @param node  root of branch
+     * @param depth max depth of this branch
+     * @return the maxValue of the branch
+     */
     private int maxValue(ITreeNode node, int alpha, int beta, int depth){
         GameState state = (GameState) node.getElement();
+        // if a leaf node, return the current score
         if(state.isGameOver() || depth==0) {
             node.setScore(state.getPlayerScore(player));
             return node.getScore();
         }
+        // if not a leaf node, get maxValue of all children
         int value = Integer.MIN_VALUE;
         List<Move> moves = state.getLegalMoves(player);
         for(int i=0; i<moves.size(); i++) {
@@ -59,6 +73,7 @@ public class AlphaBetaAgent extends Agent{
 
             newNode.setScore(value);
 
+            // Prune
             if(value >= beta)
                 return value;
             alpha = Math.max(alpha, value);
@@ -66,12 +81,20 @@ public class AlphaBetaAgent extends Agent{
         return value;
     }
 
+    /**
+     * computes the minValue of the branch and adds all children to the tree
+     * @param node  root of branch
+     * @param depth max depth of this branch
+     * @return the minValue of the branch
+     */
     private int minValue(ITreeNode node, int alpha, int beta, int depth){
         GameState state = (GameState) node.getElement();
+        // if a leaf node, return the current score
         if(state.isGameOver() || depth==0) {
             node.setScore(state.getPlayerScore(player));
             return node.getScore();
         }
+        // if not a leaf node, get minValue of all children
         int value = Integer.MAX_VALUE;
         List<Move> moves = state.getLegalMoves(minPlayer);
         for(int i=0; i<moves.size(); i++) {
@@ -84,6 +107,7 @@ public class AlphaBetaAgent extends Agent{
 
             newNode.setScore(value);
 
+            // Prune
             if(value <= alpha)
                 return value;
             beta = Math.min(beta, value);
