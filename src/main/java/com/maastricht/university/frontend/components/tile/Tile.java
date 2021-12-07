@@ -51,7 +51,7 @@ public class Tile implements Cloneable {
 
             if (Factory.getGameMode() == 1) {
                 game.move(q, r, 1);
-                Agent agent = new ReinforcementAgent(game, 2, "src/main/resources/networks/network-74-12L.zip");
+                Agent agent = Factory.getAgent(Factory.getAgentType());
                 agent.move();
             }
 
