@@ -12,23 +12,13 @@ public class WindowUpdater {
 
     public static void update(IGameState state) {
         updateTileColors(state);
-        updateCurrentPlayerLabel(state);
-        updateTotalGroupsLabel(state);
-    }
 
-    private static void updateCurrentPlayerLabel(IGameState state) {
         Platform.runLater(() -> {
-            Main.currentPlayer.setText(Main.currentPlayer());
+            GameScreen.updateCurrentPlayerLabel(state);
+            GameScreen.updatePlayerLabels(state);
         });
     }
 
-    private static void updateTotalGroupsLabel(IGameState state) {
-        Platform.runLater(() -> {
-            IGameState game = Factory.getGameState();
-            Main.p1Text.setText(Integer.toString(game.getTotalGroups(1)));
-            Main.p2Text.setText(Integer.toString(game.getTotalGroups(2)));
-        });
-    }
 
     public static void updateTileColors(IGameState state) {
         TileMap tileMap = Factory.getTileMap();
@@ -40,7 +30,6 @@ public class WindowUpdater {
     }
 
     private static void determineTileColor(int q, int r, Hexagon<Tile> hexagon, IGameState state) {
-//        IGameState state = Factory.getGameState();
         int playerColor = state.getPlayerColorOfTile(q,r);
         HoverableButton tileButton = hexagon.get(q,r).getButton();
 

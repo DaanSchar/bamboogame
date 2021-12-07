@@ -1,12 +1,10 @@
 package com.maastricht.university.frontend.components.tile;
 
 import com.maastricht.university.frontend.Factory;
-import com.maastricht.university.frontend.Main;
+import com.maastricht.university.frontend.GameScreen;
 import com.maastricht.university.frontend.WindowUpdater;
 import com.maastricht.university.frontend.components.HoverableButton;
 import com.maastricht.university.logic.ai.agent.Agent;
-import com.maastricht.university.logic.ai.agent.ReinforcementAgent;
-import com.maastricht.university.logic.ai.reinforcement.network.Network;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.scene.shape.SVGPath;
 
@@ -61,7 +59,7 @@ public class Tile implements Cloneable {
 
     private void winner(IGameState game) {
         if(game.winner() != 0){
-            Main.isWinner();
+            GameScreen.showWinnerPopUp();
         }
     }
 
