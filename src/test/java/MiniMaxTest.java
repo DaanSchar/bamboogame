@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 public class MiniMaxTest {
     GameState gameState = new GameState(3,2);
-    MiniMaxAgent agentPlayer1 = new MiniMaxAgent(gameState,1);
-    MiniMaxAgent agentPlayer2 = new MiniMaxAgent(gameState,2);
+    MiniMaxAgent agentPlayer1 = new MiniMaxAgent(gameState,1, 4);
+    MiniMaxAgent agentPlayer2 = new MiniMaxAgent(gameState,2, 4);
     ITree<Integer> tree;
 
     @Test
