@@ -154,4 +154,41 @@ public class Main {
         winnerStage.setScene(scene);
         winnerStage.show();
     }
+
+
+
+
+
+
+
+
+
+
+    // -------------- bot vs bot stuff ----------------
+
+    /**
+     * This method creates a timer thread that begins the gameloop and makes the agent wait to play.
+     */
+    public void createTimerThread() {
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        try{ Thread.sleep(5000); } catch(InterruptedException e) { e.printStackTrace(); }
+                        gameloop();
+                    }
+                },
+                1000
+        );
+    }
+
+    /**
+     * This calls the agent while there is no winner
+     */
+    private void gameloop() {
+        while(Factory.getGameState().winner() == 0) {
+            // run both agents here
+        }
+        isWinner();
+    }
 }
