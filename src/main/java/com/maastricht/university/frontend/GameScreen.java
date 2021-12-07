@@ -51,7 +51,7 @@ public class GameScreen {
         createGroupLabels();
         createCurrentPlayerLabel();
         createExitButton();
-        createHomeButton();
+        //createHomeButton(); disabled for now, as it is bugged.
         playground.setBackground(bGround);
 
         return scene;
