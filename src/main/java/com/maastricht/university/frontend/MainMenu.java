@@ -59,7 +59,7 @@ public class MainMenu extends Application {
         human.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Factory.setGameMode(0);
-                Main screen = new Main();
+                GameScreen screen = new GameScreen();
                 stage.setScene(screen.getScene());
                 stage.show();
             }
@@ -74,7 +74,7 @@ public class MainMenu extends Application {
             @Override public void handle(ActionEvent e) {
                 Factory.setGameMode(1);
                 Factory.setAgentType(1);
-                Main screen = new Main();
+                GameScreen screen = new GameScreen();
                 stage.setScene(screen.getScene());
                 stage.show();
             }
@@ -90,7 +90,7 @@ public class MainMenu extends Application {
             @Override public void handle(ActionEvent e) {
                 Factory.setGameMode(1);
                 Factory.setAgentType(0);
-                Main screen = new Main();
+                GameScreen screen = new GameScreen();
                 stage.setScene(screen.getScene());
                 stage.show();
             }
