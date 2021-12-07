@@ -45,7 +45,7 @@ public class Tile implements Cloneable {
             IGameState game = Factory.getGameState();
 
             if (Factory.getGameMode() == 0) {
-                System.out.println("bruh");
+                //System.out.println("bruh");
                 game.move(q, r, game.getPlayerTurn());
             }
 
