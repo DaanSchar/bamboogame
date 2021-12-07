@@ -58,7 +58,6 @@ public class MainMenu extends Application {
         human.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Main screen1 = new Main();
-                System.out.println("creating snake!");
                 stage.setScene(screen1.getScene());
                 stage.show();
             }
