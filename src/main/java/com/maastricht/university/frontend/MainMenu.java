@@ -18,6 +18,8 @@ public class MainMenu extends Application {
     private ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
     private ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
     private ImageView title = new ImageView(new Image("/images/bambooText.png"));
+    private ImageView minimax = new ImageView(new Image("/images/v_minimax.png"));
+    private ImageView nn = new ImageView(new Image("/images/v_NN.png"));
 
     private double width = 800;
     private double height = 500;
@@ -34,7 +36,6 @@ public class MainMenu extends Application {
     private Background bGround = new Background(bImg);
 
     public Stage backStage;
-    public String mode;
 
     @Override
     public void start(Stage stage) {
@@ -64,13 +65,27 @@ public class MainMenu extends Application {
             }
         });
 
-        HoverableButton computer = new HoverableButton(width / 2, height - height/3, 20, 20);
-        pcView.setFitHeight(75);
-        pcView.setFitWidth(170);
-        computer.setGraphic(pcView);
+        HoverableButton comp_Mini = new HoverableButton(width / 2, height-height/2.4, 20, 20);
+        minimax.setFitHeight(75);
+        minimax.setFitWidth(170);
+        comp_Mini.setGraphic(minimax);
 
-        //TODO: make this button go to the game (phase 2)
-        computer.setOnAction(new EventHandler<ActionEvent>() {
+        comp_Mini.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                MiniMax screen = new MiniMax();
+                stage.setScene(screen.getScene());
+                stage.show();
+                System.out.println("This goes into the game :)");
+            }
+        });
+
+
+        HoverableButton comp_NN = new HoverableButton(width / 2, height - height/4.5, 20, 20);
+        nn.setFitHeight(75);
+        nn.setFitWidth(170);
+        comp_NN.setGraphic(nn);
+
+        comp_NN.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Factory.setGameMode(1);
                 Factory.setAgentType(0);
@@ -118,7 +133,8 @@ public class MainMenu extends Application {
 
         //add to scene
         r.getChildren().add(human);
-        r.getChildren().add(computer);
+        r.getChildren().add(comp_Mini);
+        r.getChildren().add(comp_NN);
         r.getChildren().add(exit);
         r.getChildren().add(rules);
 
