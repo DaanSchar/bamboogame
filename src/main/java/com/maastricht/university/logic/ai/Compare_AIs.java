@@ -36,15 +36,15 @@ public class Compare_AIs {
                 gameOver = false;
                 //play a game
                 IGameState state = new GameState(4, 2);
-                MiniMaxAgent agent1 = new MiniMaxAgent(state, 1, depth);
+                RandomAgent agent1 = new RandomAgent(state, 1);
                 AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth);
-                AlphaBetaSearchTree agent2b = new AlphaBetaSearchTree();
+                MiniMaxAgent agent2b = new MiniMaxAgent(state, 2, depth);
                 // keep going until the game is finished
                 while (state.winner() == 0) {
                     moves++;
                     agent1.move();
                     long milisec = System.currentTimeMillis();
-                    Move move2a = agent2a.search(4);
+                    Move move2a = agent2a.search(depth);
                     float timeTaken = System.currentTimeMillis() - milisec;
                     timeAB += timeTaken;
                     if (DEBUG) {
@@ -52,7 +52,7 @@ public class Compare_AIs {
                         System.out.println("time taken a : " + timeTaken + " milisec");
                     }
                     milisec = System.currentTimeMillis();
-                    Move move2b = agent2b.search((GameState) state, 2, 4);
+                    Move move2b = agent2b.search(depth);
                     timeTaken = System.currentTimeMillis() - milisec;
                     timeMM += timeTaken;
                     if (DEBUG) {
