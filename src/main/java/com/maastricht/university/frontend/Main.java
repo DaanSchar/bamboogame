@@ -1,7 +1,6 @@
 package com.maastricht.university.frontend;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 public class Main extends Application {
