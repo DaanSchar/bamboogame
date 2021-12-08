@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 
 public class TileMap {
 
-    private int dimension;
+    private final int dimension;
     private final Hexagon<Tile> hexagon;
 
     public TileMap(int dimension, int mapX, int mapY, int TileSize) {
