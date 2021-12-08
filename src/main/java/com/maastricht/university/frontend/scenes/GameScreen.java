@@ -1,10 +1,11 @@
-package com.maastricht.university.frontend;
+package com.maastricht.university.frontend.scenes;
 
+import com.maastricht.university.frontend.Factory;
+import com.maastricht.university.frontend.WindowUpdater;
 import com.maastricht.university.frontend.components.HoverableButton;
-import com.maastricht.university.frontend.components.tile.TileMap;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -19,41 +20,35 @@ public class GameScreen {
     public static int width = Factory.getScreenWidth();
     public static int height = Factory.getScreenHeight();
 
+    public Image backgroundImage = new Image("/images/bamboo.jpeg", width, height, false, true);
+
     public ImageView player1Box = new ImageView(new Image("/images/playerone.png"));
     public ImageView player2Box = new ImageView(new Image("/images/playertwo.png"));
-    public static ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
-    public static ImageView homeView = new ImageView(new Image("/images/home.png"));
-
-    public Image bambooBcg = new Image("/images/bamboo.jpeg", width, height, false, true);
-    public BackgroundImage bImg = new BackgroundImage(bambooBcg,
-            BackgroundRepeat.NO_REPEAT,
-            BackgroundRepeat.NO_REPEAT,
-            BackgroundPosition.DEFAULT,
-            BackgroundSize.DEFAULT);
-    public Background bGround = new Background(bImg);
 
     public static Label p1GroupsLabel = new Label("0");
     public static Label p2GroupsLabel = new Label("0");
-    public static Label currentPlayer = new Label("1");
+    public static Label currentPlayer = new Label("Player 1");
 
     public static ImageView p1WinnerPopUp = new ImageView(new Image("/images/player_one_wins.gif"));
     public static ImageView p2WinnerPopUp = new ImageView(new Image("/images/player_two_wins.gif"));
 
-    public TileMap tilemap = Factory.getTileMap();
-    public Pane playground = tilemap.getTileMapPane();
+    public static ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
+    public static ImageView homeView = new ImageView(new Image("/images/home.png"));
+
+    public Pane playground = Factory.getTileMap().getTileMapPane();
     public Scene scene = new Scene(playground, width, height);
 
-    /**
-     * returns the game screen scene
-     */
-    public Scene getScene(){
+
+    public GameScreen() {
+        createBackground();
         createPlayerLabels();
         createGroupLabels();
         createCurrentPlayerLabel();
         createExitButton();
-        //createHomeButton(); disabled for now, as it is bugged.
-        playground.setBackground(bGround);
+        createHomeButton();
+    }
 
+    public Scene getScene(){
         return scene;
     }
 
@@ -97,22 +92,31 @@ public class GameScreen {
      * @return A string with the current player
      */
     public static String currentPlayer(IGameState state){
-        String player = state.getPlayerTurn() == 1 ? "Player 1" : "Player 2";
+        return state.getPlayerTurn() == 1 ? "Player 1" : "Player 2";
+    }
 
-        return player;
+    private void createBackground() {
+        BackgroundImage bImg = new BackgroundImage(
+                backgroundImage,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT
+        );
+        playground.setBackground(new Background(bImg));
     }
 
     private void createPlayerLabels() {
-        player1Box.setLayoutX(-width /4);
-        player1Box.setLayoutY(-height/4);
-        player1Box.setFitWidth(width/1.35);
-        player1Box.setFitHeight(width/2);
+        player1Box.setLayoutX(-width /4f);
+        player1Box.setLayoutY(-height/4f);
+        player1Box.setFitWidth(width/1.35f);
+        player1Box.setFitHeight(width/2f);
         playground.getChildren().add(player1Box);
 
-        player2Box.setLayoutX(width/2);
-        player2Box.setLayoutY(-height/4);
-        player2Box.setFitWidth(width/1.35);
-        player2Box.setFitHeight(width/2);
+        player2Box.setLayoutX(width/2f);
+        player2Box.setLayoutY(-height/4f);
+        player2Box.setFitWidth(width/1.35f);
+        player2Box.setFitHeight(width/2f);
         playground.getChildren().add(player2Box);
     }
 
@@ -139,16 +143,12 @@ public class GameScreen {
     }
 
     private void createExitButton() {
-        HoverableButton exit = new HoverableButton(50, height - height/12, 20, 20);
+        HoverableButton exit = new HoverableButton(50, height - height/12f, 20, 20);
         exitView.setFitHeight(40);
         exitView.setFitWidth(80);
         exit.setGraphic(exitView);
 
-        exit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                System.exit(0); // closes the application
-            }
-        });
+        exit.setOnAction(e -> System.exit(0));
 
         playground.getChildren().add(exit);
     }
@@ -159,15 +159,10 @@ public class GameScreen {
         homeView.setFitWidth(80);
         home.setGraphic(homeView);
 
-        home.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                Factory.resetGameState();
-                MainMenu menu = new MainMenu();
-                Stage menuStage = new Stage();
-                WindowUpdater.update(Factory.getGameState());
-                menuStage.setScene(menu.getHomeScene(menuStage));
-
-            }
+        home.setOnAction(e -> {
+            Factory.resetGameState();
+            WindowUpdater.update(Factory.getGameState());
+            moveToMenuScene(e);
         });
 
         playground.getChildren().add(home);
@@ -175,16 +170,31 @@ public class GameScreen {
 
     private static void createWinnerPopUp() {
         // win screen for player 1
-        p1WinnerPopUp.setLayoutX(width /2 + 10);
-        p1WinnerPopUp.setLayoutY(height /2);
+        p1WinnerPopUp.setLayoutX(width /2f + 10);
+        p1WinnerPopUp.setLayoutY(height /2f);
         p1WinnerPopUp.setFitWidth(720);
         p1WinnerPopUp.setFitHeight(405);
 
         // win screen for player 2
-        p2WinnerPopUp.setLayoutX(width /2 + 10);
-        p2WinnerPopUp.setLayoutY(height /2);
+        p2WinnerPopUp.setLayoutX(width /2f + 10);
+        p2WinnerPopUp.setLayoutY(height /2f);
         p2WinnerPopUp.setFitWidth(720);
         p2WinnerPopUp.setFitHeight(405);
+    }
+
+    private void moveToMenuScene(ActionEvent e) {
+        Stage stage = getStageFromAction(e);
+        stage.setScene(Factory.getMenuScene());
+        stage.show();
+    }
+
+    /**
+     * Gets the stage from the action event.
+     * An action event contains a reference to the stage. this
+     * way we can get the stage from anywhere where an action occurs
+     */
+    private Stage getStageFromAction(ActionEvent e) {
+        return (Stage) ((Node)e.getSource()).getScene().getWindow();
     }
 
 

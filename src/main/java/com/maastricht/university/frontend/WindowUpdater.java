@@ -4,6 +4,7 @@ import com.maastricht.university.frontend.components.HoverableButton;
 import com.maastricht.university.frontend.components.tile.Tile;
 import com.maastricht.university.frontend.components.tile.TileColor;
 import com.maastricht.university.frontend.components.tile.TileMap;
+import com.maastricht.university.frontend.scenes.GameScreen;
 import com.maastricht.university.logic.game.components.Hexagon;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.application.Platform;
@@ -34,14 +35,14 @@ public class WindowUpdater {
         HoverableButton tileButton = hexagon.get(q,r).getButton();
 
         if (state.isLegal(q,r,state.getPlayerTurn()))
-            tileButton.setColor(TileColor.LEGAL.get());
+            tileButton.setColor(TileColor.LEGAL);
         else
             if (playerColor == 1)
-                tileButton.setColor(TileColor.PLAYER1.get());
+                tileButton.setColor(TileColor.PLAYER1);
             else if (playerColor == 2)
-                tileButton.setColor(TileColor.PLAYER2.get());
+                tileButton.setColor(TileColor.PLAYER2);
             else if (playerColor == 0)
-                tileButton.setColor(TileColor.NONE.get());
+                tileButton.setColor(TileColor.NONE);
     }
 
 

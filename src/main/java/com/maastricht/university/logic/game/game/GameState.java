@@ -18,7 +18,7 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
     private GameRule gameRules;
 
     private int playerTurn;
-    private final int numberOfPlayers;
+    private int numberOfPlayers;
     private Boolean[] actualPlayers;
 
     private final boolean DEBUG = true;
@@ -29,6 +29,13 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
      * @param numberOfPlayers number of players that play
      */
     public GameState(final int boardSize, final int numberOfPlayers) {
+        init(boardSize, numberOfPlayers);
+    }
+
+    /**
+     * instantiates the game state
+     */
+    public void init(final int boardSize, final int numberOfPlayers) {
         this.board = new Board(boardSize, numberOfPlayers);
         this.numberOfPlayers = numberOfPlayers;
         this.gameRules = new GameRule(board);
@@ -38,6 +45,8 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
         for(int i=0; i<numberOfPlayers; i++)
             actualPlayers[i] = true;
     }
+
+
 
     public int getNumberOfPlayers() {
         return numberOfPlayers;
@@ -118,7 +127,6 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
     /**
      * this method needs to return the winning player
      * if no winner yet then we return false and if we have 1 winner then we return true
-     * @return
      */
     @Override
     public boolean isGameOver() {
@@ -155,9 +163,7 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
      * @return a list containing all legal moves of player playercolor
      */
    public ArrayList<Move> getLegalMoves(int playerColor) {
-        ArrayList<Move> moveList = new ArrayList<Move>();
-//        if(!legalMovesLeft(playerColor))
-//            return null;
+        ArrayList<Move> moveList = new ArrayList<>();
 
         int maxCoordinate = board.getBoardSize()*2+1;
 
@@ -225,12 +231,8 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
     public int compareTo(GameState o) {
         int a = getPlayerScore(2);
         int b = o.getPlayerScore(2);
-        if(a > b)
-            return 1;
-        else if(a == b)
-            return 0;
-        else
-            return -1;
+
+        return Integer.compare(a, b);
     }
 
     //TODO: experiment with different score heuristics, try this one first

@@ -24,24 +24,16 @@ public class HoverableButton extends Button {
 
 
     private void hoverEnter() {
-        super.setOnMouseEntered(e -> {
-            sizeTransition(1.1, 1.1, 0.05);
-        });
+        super.setOnMouseEntered(e -> sizeTransition(1.1, 1.1, 0.05));
     }
 
     private void hoverExit() {
-        super.setOnMouseExited(e -> {
-            sizeTransition(1, 1, 0.2);
-        });
+        super.setOnMouseExited(e -> sizeTransition(1, 1, 0.2));
     }
 
     private void clickEvent() {
-        super.setOnMousePressed(e -> {
-            sizeTransition(1.15, 1.15, 0.05);
-        });
-        super.setOnMouseReleased(e -> {
-            sizeTransition(1.1, 1.1, 0.15);
-        });
+        super.setOnMousePressed(e -> sizeTransition(1.15, 1.15, 0.05));
+        super.setOnMouseReleased(e -> sizeTransition(1.1, 1.1, 0.15));
     }
 
     // nice looking animation for transitioning between sizes

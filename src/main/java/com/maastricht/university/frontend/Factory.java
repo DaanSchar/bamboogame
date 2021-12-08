@@ -1,37 +1,44 @@
 package com.maastricht.university.frontend;
 
 import com.maastricht.university.frontend.components.tile.TileMap;
+import com.maastricht.university.frontend.scenes.GameScreen;
+import com.maastricht.university.frontend.scenes.Menu;
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
 import com.maastricht.university.logic.ai.agent.ReinforcementAgent;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
+import javafx.scene.Scene;
 
 public class Factory {
 
-    private static int SCREEN_WIDTH = 800;
-    private static int SCREEN_HEIGHT = 500;
+    private static final int SCREEN_WIDTH = 800;
+    private static final int SCREEN_HEIGHT = 500;
 
     // GameMode 0 = Human vs Human
     // GameMode 1 = Human vs AI
     private static int GameMode = 0;
 
     // agent 0 = Reinforcement
-    // agent 1 = AlphaBetaPruning
+    // agent 1 = AlphaBeta
     private static int agentType = 0;
 
-    private static GameState state = new GameState(4,2);
-    private static TileMap tilemap = new TileMap(9, SCREEN_WIDTH /4,SCREEN_HEIGHT/6,30);
+    private static final GameState state = new GameState(4,2);
+    private static final TileMap tilemap = new TileMap(9, SCREEN_WIDTH /4,SCREEN_HEIGHT/6,30);
 
-    private static Agent ReinforcementAgent = new ReinforcementAgent(state, 2, "src/main/resources/networks/network-74-12L.zip");
-    private static Agent abAgent = new AlphaBetaAgent(state, 2, 4);
+    private static final Agent ReinforcementAgent = new ReinforcementAgent(state, 2, "src/main/resources/networks/network-74-12L.zip");
+    private static final Agent abAgent = new AlphaBetaAgent(state, 2, 4);
+
+    private static final Menu menu = new Menu();
+    private static final GameScreen gameScreen = new GameScreen();
+
 
     public static IGameState getGameState() {
         return state;
     }
 
     public static void resetGameState() {
-        state = new GameState(4, 2);
+        state.init(4, 2);
     }
 
     public static TileMap getTileMap() {
@@ -60,6 +67,14 @@ public class Factory {
 
     public static void setAgentType(int agentType) {
         Factory.agentType = agentType;
+    }
+
+    public static Scene getMenuScene() {
+        return menu.getScene();
+    }
+
+    public static Scene getGameScene() {
+        return gameScreen.getScene();
     }
 
     public static Agent getAgent(int agentType) {
