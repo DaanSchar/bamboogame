@@ -28,7 +28,7 @@ public class Tile {
 
     private void initButton(double x, double y, double size) {
         button = new HoverableButton(x, y, size, size);
-        button.setColor(TileColor.NONE.get());
+        button.setColor(TileColor.NONE);
         SVGPath circle = new SVGPath();
         circle.setContent("M25 20" +
                 "a5 5 0 1 1-10 0 " +

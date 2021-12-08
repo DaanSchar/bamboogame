@@ -1,19 +1,11 @@
 package com.maastricht.university.frontend.components.tile;
 
-public enum TileColor {
+public class TileColor {
 
-    PLAYER1("#4d9de0"),
-    PLAYER2("#E15554"),
-    LEGAL("#7AE967"),
-    NONE("#fff");
+    public static final String PLAYER1 = "#4d9de0";
+    public static final String PLAYER2 = "#E15554";
+    public static final String LEGAL = "#7AE967";
+    public static final String NONE = "#fff";
 
-    private final String color;
-
-    TileColor(String color){
-        this.color = color;
-    }
-
-    public String get() {
-        return this.color;
-    }
 }
+
