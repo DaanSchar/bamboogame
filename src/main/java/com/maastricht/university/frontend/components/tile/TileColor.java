@@ -7,7 +7,7 @@ public enum TileColor {
     LEGAL("#7AE967"),
     NONE("#fff");
 
-    private String color;
+    private final String color;
 
     TileColor(String color){
         this.color = color;
