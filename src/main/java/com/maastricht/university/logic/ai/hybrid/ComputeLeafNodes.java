@@ -55,7 +55,7 @@ public class ComputeLeafNodes {
      * only possible if already searched the tree!
      * @return leafNodes all the leaf nodes
      */
-    public List<ITreeNode> getLeafNodes(int depth) {
+    public List<ITreeNode> getLeafNodes() {
         return this.leafNodes;
     }
 

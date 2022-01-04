@@ -20,6 +20,7 @@ public class LearningAgent extends Agent {
         super(gameState, playerNumber);
 
         ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, 4);
+        leafNodes = computeLeafNodes.getLeafNodes();
     }
 
     public ITreeNode<IGameState> getNextNode() {
