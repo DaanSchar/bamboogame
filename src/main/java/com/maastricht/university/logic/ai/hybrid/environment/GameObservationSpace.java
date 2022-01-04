@@ -1,4 +1,5 @@
-package com.maastricht.university.logic.ai.reinforcement.environment;
+package com.maastricht.university.logic.ai.hybrid.environment;
+
 
 import com.maastricht.university.logic.ai.hybrid.network.Network;
 import org.deeplearning4j.rl4j.space.ObservationSpace;
@@ -7,11 +8,6 @@ import org.nd4j.linalg.factory.Nd4j;
 
 import java.util.Arrays;
 
-
-/**
- * This class represents the observation space of the game ie the Domain of
- * possible states (I think?).
- */
 public class GameObservationSpace implements ObservationSpace<NeuralGameState> {
     @Override
     public String getName() {
