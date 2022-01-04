@@ -1,5 +1,6 @@
 package com.maastricht.university.logic.ai.agent;
 
+import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 public class LearningAgent extends Agent {
@@ -8,8 +9,11 @@ public class LearningAgent extends Agent {
         super(gameState, playerNumber);
     }
 
-    public void setNextLeaf(int score) {
-        // set the score of the next leaf
+    public ITreeNode<IGameState> getNextLeaf() {
+        // get the node which we want to compute the score of
+
+        // return next null leaf of the tree
+        return null;
     }
 
     public void move() {

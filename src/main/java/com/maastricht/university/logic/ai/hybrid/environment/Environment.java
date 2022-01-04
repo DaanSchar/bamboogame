@@ -3,8 +3,10 @@ package com.maastricht.university.logic.ai.hybrid.environment;
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.LearningAgent;
 import com.maastricht.university.logic.ai.agent.RandomAgent;
+import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.ai.reinforcement.network.RewardCalculator;
 import com.maastricht.university.logic.game.game.GameState;
+import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import org.deeplearning4j.gym.StepReply;
 import org.deeplearning4j.rl4j.mdp.MDP;
 import org.deeplearning4j.rl4j.space.DiscreteSpace;
@@ -22,12 +24,15 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
     @Override
     public StepReply<NeuralGameState> step(Integer integer) {
         // TODO: make this step function iteratively set the score of leaves of a minimax tree.
-        learningAgent.setNextLeaf(integer);
-        learningAgent.move();
-        double score = RewardCalculator.getWinReward(game, 1);
+        ITreeNode<IGameState> node = learningAgent.getNextLeaf();
+        node.setScore(integer);
 
-        return null;
-
+        return new StepReply<>(new NeuralGameState(
+                ((GameState)node.getElement()).getStateVector()),
+                RewardCalculator.getWinReward(game, 1),
+                isDone(),
+                null
+        );
     }
 
     @Override
