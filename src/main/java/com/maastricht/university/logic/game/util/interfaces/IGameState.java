@@ -11,7 +11,7 @@ import java.util.List;
  * the frontend to have access to. we do this by giving this interface methods for
  * everything that the frontend might need as primitive types, which are not mutable.
  */
-public interface IGameState extends Comparable{
+public interface IGameState{
 
     /**
      *
