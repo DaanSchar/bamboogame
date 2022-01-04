@@ -16,7 +16,6 @@ public class AlphaBetaAgent extends Agent{
     protected final int minPlayer;
     protected int maxDepth;
     protected IEvaluationFunction evaluation;
-    protected List<ITreeNode> leafNodes = new LinkedList<>();
 
     public AlphaBetaAgent(IGameState gameState, int playerNumber, int maxDepth, IEvaluationFunction evaluation) {
         super(gameState, playerNumber);
@@ -41,23 +40,11 @@ public class AlphaBetaAgent extends Agent{
     }
 
     /**
-     * Get all the leaf nodes
-     * only possible if already searched the tree!
-     * @return leafNodes all the leaf nodes
-     */
-    public List<ITreeNode> getLeafNodes(int depth) {
-        if(this.leafNodes.size()==0)
-            search(depth);
-        return this.leafNodes;
-    }
-
-    /**
      * search for the best move
      * @param depth max depth of the tree
      * @return the best move
      */
     public Move search(int depth) {
-        leafNodes = new LinkedList<>();
         ITree<GameState> tree = new Tree<GameState>((GameState) gameState, 2);
         ITreeNode<GameState> root = tree.getRoot();
         int score = maxValue(root, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
@@ -76,7 +63,6 @@ public class AlphaBetaAgent extends Agent{
         // if a leaf node, return the current score
         if(state.isGameOver() || depth==0) {
             node.setScore(evaluation.getPlayerScore(state, player));
-            leafNodes.add(node);
             return node.getScore();
         }
         // if not a leaf node, get maxValue of all children
@@ -111,7 +97,6 @@ public class AlphaBetaAgent extends Agent{
         // if a leaf node, return the current score
         if(state.isGameOver() || depth==0) {
             node.setScore(evaluation.getPlayerScore(state, player));
-            leafNodes.add(node);
             return node.getScore();
         }
         // if not a leaf node, get minValue of all children
