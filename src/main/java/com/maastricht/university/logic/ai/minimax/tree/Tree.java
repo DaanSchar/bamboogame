@@ -1,9 +1,6 @@
 package com.maastricht.university.logic.ai.minimax.tree;
 
-import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
-import com.maastricht.university.logic.game.util.interfaces.IGameState;
-import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 
 public class Tree<E extends Comparable<? super E>> implements ITree<E> {
 

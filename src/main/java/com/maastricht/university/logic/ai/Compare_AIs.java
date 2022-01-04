@@ -1,8 +1,10 @@
 package com.maastricht.university.logic.ai;
 
 import com.maastricht.university.logic.ai.agent.*;
+import com.maastricht.university.logic.game.game.Evaluation1;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
+import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.Date;
@@ -33,7 +35,7 @@ public class Compare_AIs {
                 //play a game
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
-                AlphaBetaAgent agent2 = new AlphaBetaAgent(state, 2, depth);
+                AlphaBetaAgent agent2 = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
                 // keep going until the game is finished
                 while (state.winner() == 0) {
                     moves++;
@@ -73,8 +75,8 @@ public class Compare_AIs {
                 //play a game
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
-                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth);
-                AlphaBetaAgent2 agent2b = new AlphaBetaAgent2(state, 2, depth);
+                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
+                AlphaBetaAgent2 agent2b = new AlphaBetaAgent2(state, 2, depth, (IEvaluationFunction) new Evaluation1());
                 // keep going until the game is finished
                 while (state.winner() == 0) {
                     moves++;
@@ -139,7 +141,7 @@ public class Compare_AIs {
                 //play a game
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
-                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth);
+                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
                 MiniMaxAgent agent2b = new MiniMaxAgent(state, 2, depth);
                 // keep going until the game is finished
                 while (state.winner() == 0) {

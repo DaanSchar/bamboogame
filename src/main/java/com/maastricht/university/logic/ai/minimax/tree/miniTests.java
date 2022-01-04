@@ -2,9 +2,11 @@ package com.maastricht.university.logic.ai.minimax.tree;
 
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
+import com.maastricht.university.logic.game.game.Evaluation1;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.Tree;
+import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 
 public class miniTests {
 
@@ -17,7 +19,7 @@ public class miniTests {
         System.out.println(node.getScore());
         System.out.println((int) Math.random() * node.getScore());
 
-        AlphaBetaAgent agent2 = new AlphaBetaAgent(gameState, 2, 3);
+        AlphaBetaAgent agent2 = new AlphaBetaAgent(gameState, 2, 3, (IEvaluationFunction) new Evaluation1());
         Agent agent1 = new Agent(gameState, 1);
 
         while(!gameState.isGameOver()) {
