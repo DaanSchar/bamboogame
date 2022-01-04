@@ -1,8 +1,6 @@
 package com.maastricht.university.logic.ai.minimax.tree;
 
-import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
-import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 
 import java.util.ArrayList;
 import java.util.List;

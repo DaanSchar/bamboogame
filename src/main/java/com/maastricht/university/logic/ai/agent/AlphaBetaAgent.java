@@ -5,6 +5,7 @@ import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.ai.minimax.tree.Tree;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
+import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.List;
@@ -13,14 +14,16 @@ public class AlphaBetaAgent extends Agent{
 
     protected final int minPlayer;
     protected int maxDepth;
+    protected IEvaluationFunction evaluation;
 
-    public AlphaBetaAgent(IGameState gameState, int playerNumber, int maxDepth) {
+    public AlphaBetaAgent(IGameState gameState, int playerNumber, int maxDepth, IEvaluationFunction evaluation) {
         super(gameState, playerNumber);
         if(player == 1) {
             minPlayer = 2;
         }else
             minPlayer = 1;
         this.maxDepth = maxDepth;
+        this.evaluation = evaluation;
     }
 
     /**
@@ -49,6 +52,7 @@ public class AlphaBetaAgent extends Agent{
 
     /**
      * computes the maxValue of the branch and adds all children to the tree
+     *
      * @param node  root of branch
      * @param depth max depth of this branch
      * @return the maxValue of the branch
@@ -57,7 +61,7 @@ public class AlphaBetaAgent extends Agent{
         GameState state = (GameState) node.getElement();
         // if a leaf node, return the current score
         if(state.isGameOver() || depth==0) {
-            node.setScore(state.getPlayerScore(player));
+            node.setScore(evaluation.getPlayerScore(state, player));
             return node.getScore();
         }
         // if not a leaf node, get maxValue of all children
@@ -91,7 +95,7 @@ public class AlphaBetaAgent extends Agent{
         GameState state = (GameState) node.getElement();
         // if a leaf node, return the current score
         if(state.isGameOver() || depth==0) {
-            node.setScore(state.getPlayerScore(player));
+            node.setScore(evaluation.getPlayerScore(state, player));
             return node.getScore();
         }
         // if not a leaf node, get minValue of all children

@@ -7,12 +7,11 @@ import com.maastricht.university.logic.game.util.exceptions.GameIsOverException;
 import com.maastricht.university.logic.game.util.exceptions.IllegalMoveException;
 import com.maastricht.university.logic.game.util.exceptions.OutsideHexagonException;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
-import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameState implements IGameState, Comparable<GameState>, IScoreSystem {
+public class GameState implements IGameState, Comparable<GameState> {
 
     private Board board;
     private GameRule gameRules;
@@ -235,9 +234,6 @@ public class GameState implements IGameState, Comparable<GameState>, IScoreSyste
         return Integer.compare(a, b);
     }
 
-    //TODO: experiment with different score heuristics, try this one first
-    // make some things weigh more or less than others
-    // add/remove some things (maybe - number of groups opponent)
     public int getPlayerScore(int player) {
         // if the game is over, return either the max or min score based on whether player or opponent won
         if(winner() != 0) {

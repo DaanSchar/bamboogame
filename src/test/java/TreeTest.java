@@ -1,6 +1,5 @@
 import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.Tree;
-import com.maastricht.university.logic.game.util.interfaces.IScoreSystem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
