@@ -29,7 +29,7 @@ public class LearningAgent extends Agent {
     }
 
     public boolean isNull() {
-        //returns true if one of the leaves of the tree is null
+        //returns true if one of the leaves of the tree is null/not computed
         return false;
     }
 
