@@ -45,7 +45,11 @@ public class AlphaBetaAgent extends Agent{
      * only possible if already searched the tree!
      * @return leafNodes all the leaf nodes
      */
-    public List<ITreeNode> getLeafNodes() { return leafNodes; }
+    public List<ITreeNode> getLeafNodes(int depth) {
+        if(this.leafNodes.size()==0)
+            search(depth);
+        return this.leafNodes;
+    }
 
     /**
      * search for the best move
