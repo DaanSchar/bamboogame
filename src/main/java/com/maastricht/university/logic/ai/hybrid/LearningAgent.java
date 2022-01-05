@@ -1,11 +1,9 @@
 package com.maastricht.university.logic.ai.hybrid;
 
 import com.maastricht.university.logic.ai.agent.Agent;
-import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
 import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.game.game.Evaluation1;
-import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;

@@ -35,7 +35,8 @@ public class Search {
      * @return the best move
      */
     public Move searchTree(int depth){
-        ITreeNode root = tree.getRoot();
+        ITree<GameState> currentTree = tree;
+        ITreeNode root = currentTree.getRoot();
         int score = maxValue(root, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
 
         return root.getMaxChild().getLastMove();
