@@ -32,7 +32,7 @@ public class Evaluation {
 
             LOG.info("Score of iteration '{}' was '{}'", i, score);
         }
-        LOG.info("Finished evaluation of the network, average score was '{}'", totalScore/TOTAL_GAMES);
+        LOG.info("Finished evaluation , average score was '{}', winrate is '{}' ", totalScore/TOTAL_GAMES, 50 + totalScore/TOTAL_GAMES/2);
     }
 
     /**

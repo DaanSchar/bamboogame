@@ -44,7 +44,7 @@ public class Network {
                 .l2(0.001)
                 .updater(new RmsProp(0.000025))
                 .numHiddenNodes(61)
-                .numLayers(1)
+                .numLayers(2)
                 .learningRate(0.01)
                 .build();
 
