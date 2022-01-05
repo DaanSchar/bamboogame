@@ -6,6 +6,7 @@ import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.game.game.Evaluation1;
 import com.maastricht.university.logic.game.game.GameState;
+import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
@@ -15,6 +16,8 @@ public class LearningAgent extends Agent {
 
     ITree<IGameState> tree;
     List<ITreeNode> leafNodes;
+    IEvaluationFunction eval;
+    int depth = 2;
 
     public LearningAgent(IGameState gameState, int playerNumber) {
         super(gameState, playerNumber);
@@ -59,7 +62,11 @@ public class LearningAgent extends Agent {
 
     public void move() {
         // if the whole tree has been computed, explore the tree and chose the most optimal move
-
+        Search search = new Search(gameState, depth, eval);
+        if(this.gameState.winner() == 0){
+            Move move = search.searchTree(depth);
+            gameState.move(move.getX(),move.getY(), player);
+        }
     }
 
 }
