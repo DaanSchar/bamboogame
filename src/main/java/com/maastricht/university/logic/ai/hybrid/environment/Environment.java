@@ -10,6 +10,8 @@ import org.deeplearning4j.rl4j.mdp.MDP;
 import org.deeplearning4j.rl4j.space.DiscreteSpace;
 import org.deeplearning4j.rl4j.space.ObservationSpace;
 
+import java.util.Arrays;
+
 public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace> {
 
     private final int maxScore = 50;
@@ -22,17 +24,24 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
     @Override
     public StepReply<NeuralGameState> step(Integer integer) {
         // TODO: make this step function iteratively set the score of leaves of a minimax tree.
-
+        // has to make an initial move to not be zero.
         GameState nextState;
         boolean isDoneComputingTree = !learningAgent.isNull();
 
         if (isDoneComputingTree) {
             learningAgent.move();
             nextState = game;
+            System.out.println("computing tree");
+        } else if (learningAgent.isInitialMove()) {
+            learningAgent.firstMove();
+            nextState = game;
+            System.out.println(Arrays.toString(nextState.getStateVector()));
         } else {
             learningAgent.getCurrentNode().setScore(integer);
             nextState = (GameState) learningAgent.getNextNode().getElement();
+            System.out.println("learning agent move");
         }
+
 
         return new StepReply<>(new NeuralGameState(
                 nextState.getStateVector()),

@@ -13,19 +13,21 @@ import java.util.List;
 
 public class LearningAgent extends Agent {
 
-    ITree<IGameState> tree;
-    List<ITreeNode> leafNodes;
+    private List<ITreeNode> leafNodes;
+
+    private boolean isFirstMove;
 
     public LearningAgent(IGameState gameState, int playerNumber) {
         super(gameState, playerNumber);
+        this.isFirstMove = true;
 
         ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, 4);
         leafNodes = computeLeafNodes.getLeafNodes();
+        System.out.println(leafNodes);
     }
 
     public ITreeNode<IGameState> getNextNode() {
         // get the node that comes after the current node,
-
         // we need the gamestate of this node,
         // as it serves as the input of the network for the next step.
         for(int i=0; i<leafNodes.size(); i++) {
@@ -51,10 +53,22 @@ public class LearningAgent extends Agent {
     public boolean isNull() {
         //returns true if one of the leaves of the tree is null/not computed
         for(int i=0; i<leafNodes.size(); i++) {
-            if(!leafNodes.get(i).hasScore())
+            if(!leafNodes.get(i).hasScore()) {
                 return true;
+            } else {
+                System.out.println("Node " + i + " has score " + leafNodes.get(i).getScore());
+            }
         }
         return false;
+    }
+
+    public boolean isInitialMove() {
+        return isFirstMove;
+    }
+
+    public void firstMove() {
+        isFirstMove = false;
+        gameState.move(3, 3, super.player);
     }
 
     public void move() {
