@@ -19,7 +19,7 @@ public class Network {
     public static final double HIGH_VALUE = 2;
 
     private static final int stepsPerEpoch = 29;
-    private static final int maxEpochs = 500;
+    private static final int maxEpochs = 1000;
 
     public static QLearningConfiguration buildConfig() {
         return QLearningConfiguration.builder()
@@ -44,7 +44,7 @@ public class Network {
                 .l2(0.001)
                 .updater(new RmsProp(0.000025))
                 .numHiddenNodes(61)
-                .numLayers(2)
+                .numLayers(1)
                 .learningRate(0.01)
                 .build();
 

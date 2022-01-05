@@ -23,7 +23,7 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
     private DiscreteSpace actionSpace = new DiscreteSpace(Network.NUM_INPUTS);
     private GameState game = new GameState(4,2);
-    private Agent opponent = new AlphaBetaAgent(game, 2, 2, (IEvaluationFunction) new Evaluation1());// we can change the opponent we want to train against here
+    private Agent opponent = new AlphaBetaAgent(game, 2, 2, new Evaluation1());// we can change the opponent we want to train against here
 
     /**
      * This is where both agents make a move

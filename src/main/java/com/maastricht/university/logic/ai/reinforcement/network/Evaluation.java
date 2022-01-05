@@ -1,8 +1,10 @@
 package com.maastricht.university.logic.ai.reinforcement.network;
 
 import com.maastricht.university.logic.ai.agent.Agent;
+import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
 import com.maastricht.university.logic.ai.agent.RandomAgent;
 import com.maastricht.university.logic.ai.agent.ReinforcementAgent;
+import com.maastricht.university.logic.game.game.Evaluation1;
 import com.maastricht.university.logic.game.game.GameState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +15,7 @@ public class Evaluation {
     private static final Logger LOG = LoggerFactory.getLogger(Evaluation.class);
 
     private static final int TOTAL_GAMES = 1000;
-    private static Agent opponentAgent = new RandomAgent(game, 2);
+    private static Agent opponentAgent = new AlphaBetaAgent(game, 2, 2, new Evaluation1());
 
     /**
      * Evaluates the network on how good it is compared a different agent.
