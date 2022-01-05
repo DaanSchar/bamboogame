@@ -39,9 +39,10 @@ public class ComputeLeafNodes {
             }
             //add the children to the leafNodes list
             else {
-                List<ITreeNode<GameState>> kids = parent.getChildren();
-                for(ITreeNode node: kids)
-                    leafNodes.add(node);
+                leafNodes.add(parent);
+//                List<ITreeNode<GameState>> kids = parent.getChildren();
+//                for(ITreeNode node: kids)
+//                    leafNodes.add(node);
             }
             frontiers.remove(0);
         }
