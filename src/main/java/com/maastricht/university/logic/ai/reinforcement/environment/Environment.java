@@ -1,13 +1,16 @@
 package com.maastricht.university.logic.ai.reinforcement.environment;
 
 import com.maastricht.university.logic.ai.agent.Agent;
+import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
 import com.maastricht.university.logic.ai.agent.RandomAgent;
 import com.maastricht.university.logic.ai.reinforcement.network.Network;
 import com.maastricht.university.logic.ai.reinforcement.network.RewardCalculator;
 import com.maastricht.university.logic.game.components.Hexagon;
 import com.maastricht.university.logic.game.components.LogicTile;
+import com.maastricht.university.logic.game.game.Evaluation1;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
+import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import org.deeplearning4j.gym.StepReply;
 import org.deeplearning4j.rl4j.mdp.MDP;
 import org.deeplearning4j.rl4j.space.DiscreteSpace;
@@ -20,7 +23,7 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
     private DiscreteSpace actionSpace = new DiscreteSpace(Network.NUM_INPUTS);
     private GameState game = new GameState(4,2);
-    private Agent opponent = new RandomAgent(game, 2);// we can change the opponent we want to train against here
+    private Agent opponent = new AlphaBetaAgent(game, 2, 2, (IEvaluationFunction) new Evaluation1());// we can change the opponent we want to train against here
 
     /**
      * This is where both agents make a move
