@@ -22,6 +22,7 @@ public class Agent implements IAgent{
     public void move() {
         while (gameState.getPlayerTurn() == player && gameState.winner() == 0) {
             determineMove();
+
         }
     }
 
@@ -75,11 +76,13 @@ public class Agent implements IAgent{
             int index = rand.nextInt(betterMoves.size());
             Move move = betterMoves.get(index);
             gameState.move(move.getX(), move.getY(), player);
+            System.out.println("Move: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
         }
         else {
             int index = rand.nextInt(moveList.size());
             Move move = moveList.get(index);
             gameState.move(move.getX(), move.getY(), player);
+            System.out.println("Move: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
         }
     }
 

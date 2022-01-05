@@ -39,7 +39,6 @@ public class Search {
         int score = maxValue(root, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
 
         return root.getMaxChild().getLastMove();
-
     }
 
     /**

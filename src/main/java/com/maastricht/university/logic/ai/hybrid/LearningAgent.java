@@ -24,6 +24,7 @@ public class LearningAgent extends Agent {
 
         ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, 4);
         leafNodes = computeLeafNodes.getLeafNodes();
+        eval = new Evaluation1();
     }
 
     public ITreeNode<IGameState> getNextNode() {
@@ -59,12 +60,13 @@ public class LearningAgent extends Agent {
         }
         return false;
     }
-
+    @Override
     public void move() {
         // if the whole tree has been computed, explore the tree and chose the most optimal move
         Search search = new Search(gameState, depth, eval);
         if(this.gameState.winner() == 0){
             Move move = search.searchTree(depth);
+            System.out.println("Move for Learning: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
             gameState.move(move.getX(),move.getY(), player);
         }
     }
