@@ -23,7 +23,6 @@ public class LearningAgent extends Agent {
 
         ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, 4);
         leafNodes = computeLeafNodes.getLeafNodes();
-        System.out.println(leafNodes);
     }
 
     public ITreeNode<IGameState> getNextNode() {
@@ -53,11 +52,8 @@ public class LearningAgent extends Agent {
     public boolean isNull() {
         //returns true if one of the leaves of the tree is null/not computed
         for(int i=0; i<leafNodes.size(); i++) {
-            if(!leafNodes.get(i).hasScore()) {
+            if(!leafNodes.get(i).hasScore())
                 return true;
-            } else {
-                System.out.println("Node " + i + " has score " + leafNodes.get(i).getScore());
-            }
         }
         return false;
     }

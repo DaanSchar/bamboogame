@@ -19,7 +19,7 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
     private DiscreteSpace actionSpace = new DiscreteSpace(maxScore);
     private GameState game = new GameState(4,2);
     private Agent opponent = new RandomAgent(game, 2);
-    private LearningAgent learningAgent = new LearningAgent(game, 2);
+    private LearningAgent learningAgent = new LearningAgent(game, 1);
 
     @Override
     public StepReply<NeuralGameState> step(Integer integer) {
@@ -32,14 +32,14 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
             learningAgent.move();
             nextState = game;
             System.out.println("computing tree");
+            opponent.move();
         } else if (learningAgent.isInitialMove()) {
             learningAgent.firstMove();
             nextState = game;
-            System.out.println(Arrays.toString(nextState.getStateVector()));
+            opponent.move();
         } else {
             learningAgent.getCurrentNode().setScore(integer);
             nextState = (GameState) learningAgent.getNextNode().getElement();
-            System.out.println("learning agent move");
         }
 
 
