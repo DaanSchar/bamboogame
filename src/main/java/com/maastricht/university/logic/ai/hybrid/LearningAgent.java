@@ -14,13 +14,15 @@ public class LearningAgent extends Agent {
     private List<ITreeNode> leafNodes;
     ITree<GameState> tree;
     private boolean isFirstMove;
+    private final int depth = 2;
 
     public LearningAgent(IGameState gameState, int playerNumber) {
         super(gameState, playerNumber);
         this.isFirstMove = true;
 
-        ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, 4);
+        ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, depth);
         leafNodes = computeLeafNodes.getLeafNodes();
+        tree = computeLeafNodes.getTree();
     }
 
     public ITreeNode<IGameState> getNextNode() {
@@ -62,7 +64,9 @@ public class LearningAgent extends Agent {
 
     public void firstMove() {
         isFirstMove = false;
-        gameState.move(3, 3, super.player);
+        System.out.println(gameState.getPlayerTurn());
+        System.out.println(player);
+        gameState.move(3, 3, player);
     }
 
     @Override
@@ -77,9 +81,13 @@ public class LearningAgent extends Agent {
     }
 
     public void rebuildTree() {
-        ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, 4);
+        ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, depth);
         leafNodes = computeLeafNodes.getLeafNodes();
         tree = computeLeafNodes.getTree();
+    }
+
+    public void setFirstMove(boolean isFirstMove) {
+        this.isFirstMove = isFirstMove;
     }
 
 }

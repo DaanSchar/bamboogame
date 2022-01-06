@@ -9,6 +9,7 @@ import com.maastricht.university.logic.game.util.exceptions.OutsideHexagonExcept
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameState implements IGameState, Comparable<GameState> {
@@ -44,8 +45,6 @@ public class GameState implements IGameState, Comparable<GameState> {
         for(int i=0; i<numberOfPlayers; i++)
             actualPlayers[i] = true;
     }
-
-
 
     public int getNumberOfPlayers() {
         return numberOfPlayers;
