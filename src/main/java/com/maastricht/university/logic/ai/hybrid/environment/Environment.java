@@ -27,8 +27,8 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
         GameState nextState;
 
         if (learningAgent.isMovable()) {
-            opponent.move();
             learningAgent.move();
+            opponent.move();
             learningAgent.initTree();
             nextState = game;
         } else {
@@ -65,6 +65,8 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
         learningAgent.setGameState(game);
         opponent.setGameState(game);
+
+        opponent.move();
 
         return new NeuralGameState(game.getStateVector());
     }
