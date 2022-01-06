@@ -25,16 +25,11 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
     @Override
     public StepReply<NeuralGameState> step(Integer integer) {
         GameState nextState;
-        boolean isDoneComputingTree = !learningAgent.isNull();
 
-        if (learningAgent.isInitialMove()) {
-            opponent.move();
-            learningAgent.firstMove();
-            nextState = game;
-        } else if (isDoneComputingTree) {
+        if (learningAgent.isMovable()) {
             opponent.move();
             learningAgent.move();
-            learningAgent.rebuildTree();
+            learningAgent.initTree();
             nextState = game;
         } else {
             learningAgent.getCurrentNode().setScore(integer);
@@ -66,13 +61,10 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
     @Override
     public NeuralGameState reset() {
-        System.out.println("reset");
-
         game = new GameState(4,2);
 
         learningAgent.setGameState(game);
         opponent.setGameState(game);
-        learningAgent.setFirstMove(true);
 
         return new NeuralGameState(game.getStateVector());
     }
