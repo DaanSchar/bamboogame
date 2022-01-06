@@ -66,6 +66,8 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
         learningAgent.reset(game);
         opponent.reset(game);
 
+        opponent.move();
+
         return new NeuralGameState(game.getStateVector());
     }
 

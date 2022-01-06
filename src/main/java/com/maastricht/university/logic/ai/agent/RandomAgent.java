@@ -29,7 +29,7 @@ public class RandomAgent extends Agent {
         ArrayList<Move> moveList = getGameState().getLegalMoves(getPlayer());
         int index = rand.nextInt(moveList.size());
         Move move = moveList.get(index);
-
+        System.out.println("Move: (" + move.getX() + ", " + move.getY() + ", " + getPlayer() + ")");
         getGameState().move(move.getX(), move.getY(), getPlayer());
     }
 
