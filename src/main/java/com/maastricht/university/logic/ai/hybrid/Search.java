@@ -12,18 +12,12 @@ public class Search {
     public ITree tree;
     public int player;
     public final int minPlayer;
-    public int maxDepth;
 
-    public Search(IGameState gameState, int maxDepth){
-        ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, 4);
-        tree = computeLeafNodes.getTree();
-
+    public Search(int player) {
         if(player == 1) {
             minPlayer = 2;
         }else
             minPlayer = 1;
-        this.maxDepth = maxDepth;
-
     }
 
     /**
@@ -54,7 +48,6 @@ public class Search {
             // keep storing the highest value only
             value = Math.max(value, minValue((ITreeNode) children.get(i), alpha, beta));
         }
-
         node.setScore(value);
 
         // Prune
@@ -63,7 +56,6 @@ public class Search {
         alpha = Math.max(alpha, value);
 
         return value;
-
     }
 
     /**
