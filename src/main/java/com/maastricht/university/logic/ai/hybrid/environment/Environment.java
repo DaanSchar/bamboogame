@@ -18,8 +18,8 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
     private DiscreteSpace actionSpace = new DiscreteSpace(maxScore);
     private GameState game = new GameState(4, 2);
-    private Agent opponent = new RandomAgent(game, 1);
-    private LearningAgent learningAgent = new LearningAgent(game, 2);
+    private Agent opponent = new RandomAgent(game, 2);
+    private LearningAgent learningAgent = new LearningAgent(game, 1);
 
 
     @Override
@@ -27,8 +27,8 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
         GameState nextState;
 
         if (learningAgent.isMovable()) {
-            opponent.move();
             learningAgent.move();
+            opponent.move();
             learningAgent.initTree();
             nextState = game;
         } else {
@@ -63,8 +63,8 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
     public NeuralGameState reset() {
         game = new GameState(4,2);
 
-        learningAgent.setGameState(game);
-        opponent.setGameState(game);
+        learningAgent.reset(game);
+        opponent.reset(game);
 
         return new NeuralGameState(game.getStateVector());
     }

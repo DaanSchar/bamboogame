@@ -13,12 +13,10 @@ public class LearningAgent extends Agent {
 
     private List<ITreeNode> leafNodes;
     ITree<GameState> tree;
-    private boolean isFirstMove;
     private final int depth = 2;
 
     public LearningAgent(IGameState gameState, int playerNumber) {
         super(gameState, playerNumber);
-        this.isFirstMove = true;
 
         initTree();
     }
@@ -53,21 +51,20 @@ public class LearningAgent extends Agent {
 
         if (!hasNullNode()) {
             Move move = search.searchTree(tree.getRoot());
-            System.out.println("Move for Learning: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
             gameState.move(move.getX(), move.getY(), player);
         }
 
+    }
+
+    public void reset(IGameState gameState) {
+        setGameState(gameState);
+        initTree();
     }
 
     public void initTree() {
         ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, depth);
         leafNodes = computeLeafNodes.getLeafNodes();
         tree = computeLeafNodes.getTree();
-    }
-
-    public void setGameState(IGameState gameState) {
-        super.setGameState(gameState);
-        initTree();
     }
 
     private boolean hasNullNode() {

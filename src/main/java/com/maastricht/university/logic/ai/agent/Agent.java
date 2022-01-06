@@ -10,10 +10,12 @@ public class Agent implements IAgent{
 
     protected IGameState gameState;
     protected int player;
+    protected boolean isFirstMove;
 
     public Agent(IGameState gameState, final int playerNumber) {
         this.gameState = gameState;
         this.player = playerNumber;
+        this.isFirstMove = true;
     }
 
     /**
@@ -22,7 +24,6 @@ public class Agent implements IAgent{
     public void move() {
         while (gameState.getPlayerTurn() == player && gameState.winner() == 0) {
             determineMove();
-
         }
     }
 
@@ -40,6 +41,11 @@ public class Agent implements IAgent{
      */
     public void setGameState(IGameState gameState) {
         this.gameState = gameState;
+    }
+
+    public void reset(IGameState gameState) {
+        setGameState(gameState);
+        isFirstMove = true;
     }
 
     /**
@@ -92,5 +98,9 @@ public class Agent implements IAgent{
      */
     public IGameState getGameState() {
         return gameState;
+    }
+
+    public boolean isFirstMove() {
+        return isFirstMove;
     }
 }
