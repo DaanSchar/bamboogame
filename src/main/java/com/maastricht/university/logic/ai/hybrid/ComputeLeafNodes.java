@@ -8,10 +8,12 @@ import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ComputeLeafNodes {
+
     ITree<GameState> tree;
     protected List<ITreeNode> leafNodes = new LinkedList<>();
 
@@ -23,7 +25,7 @@ public class ComputeLeafNodes {
     public ComputeLeafNodes(IGameState state, int depth) {
         tree = new Tree<GameState>((GameState) state, 2);
 
-        ArrayList<ITreeNode<GameState>> frontiers = new ArrayList<ITreeNode<GameState>>();
+        ArrayList<ITreeNode<GameState>> frontiers = new ArrayList<>();
         frontiers.add(tree.getRoot());
 
         while(frontiers.size() != 0) {
@@ -37,9 +39,10 @@ public class ComputeLeafNodes {
             }
             //add the children to the leafNodes list
             else {
-                List<ITreeNode<GameState>> kids = parent.getChildren();
-                for(ITreeNode node: kids)
-                    leafNodes.add(node);
+                leafNodes.add(parent);
+//                List<ITreeNode<GameState>> kids = parent.getChildren();
+//                for(ITreeNode node: kids)
+//                    leafNodes.add(node);
             }
             frontiers.remove(0);
         }
@@ -76,4 +79,5 @@ public class ComputeLeafNodes {
             parent.addChild(childState, move);
         }
     }
+
 }

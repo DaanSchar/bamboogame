@@ -55,4 +55,5 @@ public class ReinforceEval implements IEvaluationFunction {
 
         return maxValueIndex;
     }
+
 }
