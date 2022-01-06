@@ -4,10 +4,11 @@ import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
-import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class Search {
     public ITree tree;
@@ -31,16 +32,37 @@ public class Search {
      * search for the best move
      * @return the best move
      */
-    public Move searchTree(){
-        ITree<GameState> currentTree = tree;
-        ITreeNode root = currentTree.getRoot();
-
-        if(root.hasChildren()){
+    public Move searchTree(ITreeNode root){
+        //if the children exist and they have a score
+        if(root.hasChildren() && checkNotNull(root.getChildren())){
             maxValue(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
 
+        }else{
+            ITreeNode node = (ITreeNode) root.getChildren().get(0);
+
+            if(checkNotNull(node.getChildren())){
+                maxValue(node,Integer.MIN_VALUE,Integer.MAX_VALUE);
+            }
         }
 
+
         return root.getMaxChild().getLastMove();
+    }
+
+    /**
+     * Check if the children of a node have a score
+     * @param children List of children of a node
+     * @return true if all children have a score, false if one or more don't
+     */
+    private boolean checkNotNull(List<ITreeNode> children){
+        ArrayList<ITreeNode> list = new ArrayList<>();
+        for(int i=0; i< children.size() ; i++){
+            ITreeNode child = children.get(i);
+            if(child.hasScore()){
+                list.add(child);
+            }
+        }
+        return list.equals(children);
     }
 
     /**

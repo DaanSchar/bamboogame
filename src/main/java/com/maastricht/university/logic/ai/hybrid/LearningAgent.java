@@ -4,6 +4,7 @@ import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.game.game.Evaluation1;
+import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class LearningAgent extends Agent {
 
-    ITree<IGameState> tree;
+    ITree<GameState> tree;
     List<ITreeNode> leafNodes;
     IEvaluationFunction eval;
     int depth = 2;
@@ -22,6 +23,7 @@ public class LearningAgent extends Agent {
 
         ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, 4);
         leafNodes = computeLeafNodes.getLeafNodes();
+        tree = computeLeafNodes.getTree();
         eval = new Evaluation1();
     }
 
@@ -66,7 +68,7 @@ public class LearningAgent extends Agent {
             assert(leafNodes.get(i) == null);
         }
         if(this.gameState.winner() == 0){
-            Move move = search.searchTree();
+            Move move = search.searchTree(tree.getRoot());
             System.out.println("Move for Learning: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
             gameState.move(move.getX(),move.getY(), player);
         }
