@@ -8,6 +8,7 @@ import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class AlphaBetaAgent extends Agent{

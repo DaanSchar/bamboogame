@@ -1,8 +1,9 @@
 package com.maastricht.university.logic.game.game;
 
+import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
-public class Evaluation1 {
+public class Evaluation1 implements IEvaluationFunction {
 
     public int getPlayerScore(IGameState state, int player) {
         // if the game is over, return either the max or min score based on whether player or opponent won

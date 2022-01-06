@@ -4,7 +4,6 @@ import com.maastricht.university.logic.ai.minimax.tree.*;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,7 +39,7 @@ public class MiniMaxAgent extends Agent {
      * @return the best move
      */
     public Move search(int depth) {
-        ITree<GameState> tree = new Tree<GameState>((GameState) gameState, 2);
+        ITree<GameState> tree = new Tree<>((GameState) gameState, 2);
         ITreeNode<GameState> root = tree.getRoot();
         int score = maxValue(root, depth);
         return root.getMaxChild().getLastMove();

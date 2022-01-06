@@ -1,4 +1,5 @@
 package com.maastricht.university.logic.ai.agent;
+
 import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.ai.minimax.tree.Tree;
@@ -44,7 +45,7 @@ public class AlphaBetaAgent2 extends Agent {
      * @return the best move
      */
     public Move search(int depth) {
-        ITree<GameState> tree = new Tree<GameState>((GameState) gameState, 2);
+        ITree<GameState> tree = new Tree<>((GameState) gameState, 2);
         ITreeNode<GameState> root = tree.getRoot();
         int score = maxValue(root, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
         return root.getMaxChild().getLastMove();

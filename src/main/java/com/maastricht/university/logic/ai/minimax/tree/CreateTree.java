@@ -34,10 +34,6 @@ public class CreateTree {
                 for (int j = 0; j < children.size(); j++)
                     frontiers.add(children.get(j));
             }
-            //set the score of the leaf TreeNode
-            else {
-                parent.setScore(parent.getScore());
-            }
             frontiers.remove(0);
         }
     }
@@ -61,10 +57,6 @@ public class CreateTree {
                 List<ITreeNode<GameState>> children = parent.getChildren();
                 for (int j = 0; j < children.size(); j++)
                     frontiers.add(children.get(j));
-            }
-            //set the score of the leaf TreeNode
-            else {
-                parent.setScore(parent.getScore());
             }
             frontiers.remove(0);
         }
