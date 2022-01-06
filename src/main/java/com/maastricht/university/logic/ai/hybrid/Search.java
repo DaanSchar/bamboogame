@@ -8,7 +8,6 @@ import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Search {
     public ITree tree;
     public int player;
@@ -33,35 +32,38 @@ public class Search {
      */
     public Move searchTree(ITreeNode root){
         ITreeNode node;
-        //if the children exist and they have a score
-        if(root.hasChildren() && checkNotNull(root.getChildren())){
-            maxValue(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
-            return root.getMaxChild().getLastMove();
-        }else{
-            node = (ITreeNode) root.getChildren().get(0);
-
-            if(checkNotNull(node.getChildren())){
-                maxValue(node,Integer.MIN_VALUE,Integer.MAX_VALUE);
-            }
-        }
-
-        return node.getMaxChild().getLastMove();
+        int score = maxValue(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return root.getMaxChild().getLastMove();
     }
 
     /**
-     * Check if the children of a node have a score
-     * @param children List of children of a node
-     * @return true if all children have a score, false if one or more don't
+     * computes the maxValue of the branch and adds all children to the tree
+     *
+     * @param node  root of branch
+     * @return the maxValue of the branch
      */
-    private boolean checkNotNull(List<ITreeNode> children){
-        ArrayList<ITreeNode> list = new ArrayList<>();
-        for(int i=0; i< children.size() ; i++){
-            ITreeNode child = children.get(i);
-            if(child.hasScore()){
-                list.add(child);
-            }
+    private int maxValue(ITreeNode node, int alpha, int beta) {
+        // if the node has a score, return it
+        if (node.hasScore())
+            return node.getScore();
+
+        int value = Integer.MIN_VALUE;
+        // go over all children
+        List children = node.getChildren();
+        for (int i = 0; i < children.size(); i++) {
+            // keep storing the highest value only
+            value = Math.max(value, minValue((ITreeNode) children.get(i), alpha, beta));
         }
-        return list.equals(children);
+
+        node.setScore(value);
+
+        // Prune
+        if(value >= beta)
+            return value;
+        alpha = Math.max(alpha, value);
+
+        return value;
+
     }
 
     /**
@@ -94,14 +96,19 @@ public class Search {
      * @return the minValue of the branch
      */
     private int minValue(ITreeNode node, int alpha, int beta){
-        GameState state = (GameState) node.getElement();
-        int value = Integer.MAX_VALUE;
-        //if it is a leaf node, return current node's score
-        if(state.isGameOver()){
+        // if the node has a score, return it
+        if (node.hasScore())
             return node.getScore();
+
+        int value = Integer.MAX_VALUE;
+        // go over all children
+        List children = node.getChildren();
+        for (int i = 0; i < children.size(); i++) {
+            // keep storing the highest value only
+            value = Math.min(value, maxValue((ITreeNode) children.get(i), alpha, beta));
         }
 
-        value = Math.max(value, maxValue(node.getMinChild(), alpha, beta));
+        node.setScore(value);
 
         // Prune
         if (value <= alpha)
