@@ -25,8 +25,7 @@ public class Search {
      * @return the best move
      */
     public Move searchTree(ITreeNode root){
-        ITreeNode node;
-        int score = maxValue(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        maxValue(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
         return root.getMaxChild().getLastMove();
     }
 

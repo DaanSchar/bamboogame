@@ -28,5 +28,6 @@ public class searchTest {
 //        ITreeNode root = tree.getRoot();
 //        System.out.println(root.getDepth());
     }
+
 }
 
