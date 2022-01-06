@@ -72,13 +72,13 @@ public class Search {
      */
     private int maxValue(ITreeNode node, int alpha, int beta){
         GameState state = (GameState) node.getElement();
-        int value;
+        int value = Integer.MIN_VALUE;
         //if it is a leaf node, return current node's score
         if(state.isGameOver()){
             return node.getScore();
         }
 
-        value = node.getMaxChild().getScore();
+        value = Math.max(value, minValue(node.getMaxChild(), alpha, beta));
 
         // Prune
         if(value >= beta)
@@ -95,13 +95,13 @@ public class Search {
      */
     private int minValue(ITreeNode node, int alpha, int beta){
         GameState state = (GameState) node.getElement();
-        int value;
+        int value = Integer.MAX_VALUE;
         //if it is a leaf node, return current node's score
         if(state.isGameOver()){
             return node.getScore();
         }
 
-        value = node.getMinChild().getScore();
+        value = Math.max(value, maxValue(node.getMinChild(), alpha, beta));
 
         // Prune
         if (value <= alpha)
