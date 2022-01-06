@@ -19,7 +19,7 @@ public class Network {
     public static final double HIGH_VALUE = 2;
 
     private static final int stepsPerEpoch = 29;
-    private static final int maxEpochs = 1000;
+    private static final int maxEpochs = 3000;
 
     public static QLearningConfiguration buildConfig() {
         return QLearningConfiguration.builder()
