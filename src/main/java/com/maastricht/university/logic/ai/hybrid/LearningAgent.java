@@ -53,7 +53,6 @@ public class LearningAgent extends Agent {
 
         if (!hasNullNode()) {
             Move move = search.searchTree(tree.getRoot());
-            System.out.println("Move for Learning: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
             gameState.move(move.getX(), move.getY(), player);
         }
 
