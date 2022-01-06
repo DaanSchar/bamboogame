@@ -69,7 +69,7 @@ public class LearningAgent extends Agent {
     public void move() {
         // if the whole tree has been computed, explore the tree and chose the most optimal move
         Search search = new Search(player);
-        if(isNull()) {
+        if(!isNull()) {
             Move move = search.searchTree(tree.getRoot());
             System.out.println("Move for Learning: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
             gameState.move(move.getX(), move.getY(), player);
