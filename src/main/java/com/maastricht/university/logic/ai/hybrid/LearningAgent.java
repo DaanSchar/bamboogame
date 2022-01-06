@@ -60,6 +60,7 @@ public class LearningAgent extends Agent {
         }
         return false;
     }
+
     @Override
     public void move() {
         // if the whole tree has been computed, explore the tree and chose the most optimal move
@@ -72,6 +73,10 @@ public class LearningAgent extends Agent {
             System.out.println("Move for Learning: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
             gameState.move(move.getX(),move.getY(), player);
         }
+    }
+
+    public void rebuildTree() {
+
     }
 
 }
