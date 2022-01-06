@@ -67,31 +67,7 @@ public class Search {
     }
 
     /**
-     * computes the maxValue of the branch and adds all children to the tree
      *
-     * @param node  root of branch
-     * @return the maxValue of the branch
-     */
-    private int maxValue(ITreeNode node, int alpha, int beta){
-        GameState state = (GameState) node.getElement();
-        int value = Integer.MIN_VALUE;
-        //if it is a leaf node, return current node's score
-        if(state.isGameOver()){
-            return node.getScore();
-        }
-
-        value = Math.max(value, minValue(node.getMaxChild(), alpha, beta));
-
-        // Prune
-        if(value >= beta)
-            return value;
-        alpha = Math.max(alpha, value);
-
-        return value;
-    }
-
-    /**
-     * computes the minValue of the branch and adds all children to the tree
      * @param node  root of branch
      * @return the minValue of the branch
      */
