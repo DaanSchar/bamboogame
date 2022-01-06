@@ -5,7 +5,6 @@ import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,20 +32,20 @@ public class Search {
      * @return the best move
      */
     public Move searchTree(ITreeNode root){
+        ITreeNode node;
         //if the children exist and they have a score
         if(root.hasChildren() && checkNotNull(root.getChildren())){
             maxValue(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
-
+            return root.getMaxChild().getLastMove();
         }else{
-            ITreeNode node = (ITreeNode) root.getChildren().get(0);
+            node = (ITreeNode) root.getChildren().get(0);
 
             if(checkNotNull(node.getChildren())){
                 maxValue(node,Integer.MIN_VALUE,Integer.MAX_VALUE);
             }
         }
 
-
-        return root.getMaxChild().getLastMove();
+        return node.getMaxChild().getLastMove();
     }
 
     /**
