@@ -28,6 +28,8 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
         if (isDoneComputingTree) {
             learningAgent.move();
+            opponent.move();
+            learningAgent.rebuildTree();
             nextState = game;
         } else {
             learningAgent.getCurrentNode().setScore(integer);
