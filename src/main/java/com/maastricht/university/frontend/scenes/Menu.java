@@ -10,6 +10,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+
+import java.io.File;
 
 public class Menu {
 
@@ -27,7 +32,8 @@ public class Menu {
     private final ImageView nnView = new ImageView(new Image("/images/v_NN.png"));
     private final ImageView exitView = new ImageView(new Image("/images/button_exit.png"));
     private final ImageView rulesView = new ImageView(new Image("/images/button_rules.png"));
-
+    private final ImageView musicView = new ImageView(new Image("/images/MUSIC2.png"));
+    private final ImageView hybridView = new ImageView(new Image("/images/button_hybrid.png"));
 
     public Menu() {
         createBackground();
@@ -37,6 +43,8 @@ public class Menu {
         createNNButton();
         createExitButton();
         createRulesButton();
+        createMusicButton();
+        createHybridButton();
     }
 
     public Scene getScene() {
@@ -64,8 +72,8 @@ public class Menu {
 
     private void createHumanVHumanButton() {
         HoverableButton human = new HoverableButton(width/2,height/2.5 , 20, 20);
-        humanView.setFitHeight(75);
-        humanView.setFitWidth(170);
+        humanView.setFitHeight(55);
+        humanView.setFitWidth(150);
         human.setGraphic(humanView);
 
         human.setOnAction(e -> {
@@ -77,9 +85,9 @@ public class Menu {
     }
 
     private void createMiniMaxButton() {
-        HoverableButton minimaxButton = new HoverableButton(width / 2, height-height/2.4, 20, 20);
-        minimaxView.setFitHeight(75);
-        minimaxView.setFitWidth(170);
+        HoverableButton minimaxButton = new HoverableButton(width / 2, (height-height/2.4)-20, 20, 20);
+        minimaxView.setFitHeight(55);
+        minimaxView.setFitWidth(150);
         minimaxButton.setGraphic(minimaxView);
 
         minimaxButton.setOnAction(e -> {
@@ -92,9 +100,9 @@ public class Menu {
     }
 
     private void createNNButton() {
-        HoverableButton nnButton = new HoverableButton(width / 2, height - height/4.5, 20, 20);
-        nnView.setFitHeight(75);
-        nnView.setFitWidth(170);
+        HoverableButton nnButton = new HoverableButton(width / 2, (height - height/4.5)-45, 20, 20);
+        nnView.setFitHeight(55);
+        nnView.setFitWidth(150);
         nnButton.setGraphic(nnView);
 
         nnButton.setOnAction(e -> {
@@ -105,7 +113,20 @@ public class Menu {
 
         borderPane.getChildren().add(nnButton);
     }
+    private void createHybridButton() {
+        HoverableButton hyButton = new HoverableButton(width / 2, (height - height/6.5)-5, 20, 20);
+        hybridView.setFitHeight(55);
+        hybridView.setFitWidth(150);
+        hyButton.setGraphic(hybridView);
 
+        hyButton.setOnAction(e -> {
+            Factory.setGameMode(1);
+            Factory.setAgentType(2);
+            moveToGameScreen(e);
+        });
+
+        borderPane.getChildren().add(hyButton);
+    }
     private void createExitButton() {
         HoverableButton exit = new HoverableButton(50, height - height/16, 20, 20);
         exitView.setFitHeight(40);
@@ -125,6 +146,24 @@ public class Menu {
         rules.setOnAction(e -> showRulesPopUp());
 
         borderPane.getChildren().add(rules);
+    }
+
+    private void createMusicButton() {
+        HoverableButton music = new HoverableButton(width - width / 16, (height / 16)+50, 20, 20);
+        musicView.setFitHeight(40);
+        musicView.setFitWidth(80);
+        music.setGraphic(musicView);
+
+        music.setOnAction(e -> {
+            String path = "src/main/resources/music/music.mp3";
+            Media media = new Media(new File(path).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setAutoPlay(true);
+            mediaPlayer.play();
+        });
+
+        borderPane.getChildren().add(music);
+
     }
 
     private void showRulesPopUp() {

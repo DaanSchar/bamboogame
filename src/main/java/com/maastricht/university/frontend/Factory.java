@@ -5,6 +5,7 @@ import com.maastricht.university.frontend.scenes.GameScreen;
 import com.maastricht.university.frontend.scenes.Menu;
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
+import com.maastricht.university.logic.ai.agent.AlphaBetaAgent2;
 import com.maastricht.university.logic.ai.agent.ReinforcementAgent;
 import com.maastricht.university.logic.game.game.Evaluation1;
 import com.maastricht.university.logic.game.game.GameState;
@@ -23,6 +24,7 @@ public class Factory {
 
     // agent 0 = Reinforcement
     // agent 1 = AlphaBeta
+    // agent 2 = Hybrid
     private static int agentType = 0;
 
     private static final GameState state = new GameState(4,2);
@@ -30,6 +32,7 @@ public class Factory {
 
     private static final Agent ReinforcementAgent = new ReinforcementAgent(state, 2, "src/main/resources/networks/network-74-12L.zip");
     private static final Agent abAgent = new AlphaBetaAgent(state, 2, 4, (IEvaluationFunction) new Evaluation1());
+    private static final Agent abAgent2 = new AlphaBetaAgent2(state,2,4,(IEvaluationFunction) new Evaluation1());
 
     private static final Menu menu = new Menu();
     private static final GameScreen gameScreen = new GameScreen();
@@ -84,6 +87,8 @@ public class Factory {
             return ReinforcementAgent;
         else if (agentType == 1)
             return abAgent;
+        else if(agentType == 2)
+            return abAgent2;
 
         return null;
     }
