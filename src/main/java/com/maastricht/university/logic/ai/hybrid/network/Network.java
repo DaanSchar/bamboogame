@@ -20,7 +20,7 @@ public class Network {
 
     public static QLearningConfiguration buildConfig() {
         return QLearningConfiguration.builder()
-                .seed(1233L)
+                .seed(123L)
                 .maxEpochStep(stepsPerEpoch)
                 .maxStep(stepsPerEpoch * maxEpochs)
                 .expRepMaxSize(1500000)
@@ -28,7 +28,7 @@ public class Network {
                 .targetDqnUpdateFreq(900)
                 .updateStart(10)
                 .rewardFactor(0.01)
-                .gamma(1.0)
+                .gamma(0.99)
                 .errorClamp(1.0)
                 .minEpsilon(0.1f)
                 .epsilonNbStep(1000)
