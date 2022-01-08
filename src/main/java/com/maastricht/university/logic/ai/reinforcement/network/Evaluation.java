@@ -12,7 +12,7 @@ public class Evaluation {
     private static GameState game = new GameState(4,2);
     private static final Logger LOG = LoggerFactory.getLogger(Evaluation.class);
 
-    private static final int TOTAL_GAMES = 1000;
+    private static final int TOTAL_GAMES = 100;
     private static Agent opponentAgent = new RandomAgent(game, 2);
 
     /**
@@ -35,17 +35,34 @@ public class Evaluation {
         LOG.info("Finished evaluation of the network, average score was '{}'", totalScore/TOTAL_GAMES);
     }
 
+    public static void evaluateNetwork(Agent agent1, Agent agent2) {
+        LOG.info("Evaluating network: ");
+        int totalScore = 0;
+
+        agent1.setGameState(game);
+        agent2.setGameState(game);
+
+        for (int i = 0; i < TOTAL_GAMES; i++) {
+            int score = playGame(agent1, agent2);
+            totalScore += score;
+            resetGame(agent1, agent2);
+
+            LOG.info("Score of iteration '{}' was '{}'", i, score);
+        }
+        LOG.info("Finished evaluation of the network, average score was '{}'", totalScore/TOTAL_GAMES);
+    }
+
     /**
      * Plays a game between the two agents.
      * returns the score of the game.
      */
-    private static int playGame(Agent RLAgent, Agent opponentAgent) {
+    private static int playGame(Agent a1, Agent a2) {
         int score = 0;
 
         while (!game.isGameOver()) {
             try {
-                RLAgent.move();
-                opponentAgent.move();
+                a1.move();
+                a2.move();
                 score = getGameScore();
             } catch (final Exception e) {
                 LOG.error(e.getMessage(), e);
@@ -70,10 +87,10 @@ public class Evaluation {
     /**
      * Resets the game.
      */
-    private static void resetGame(Agent RLAgent, Agent opponentAgent) {
+    private static void resetGame(Agent a1, Agent a2) {
         game = new GameState(4, 2);
-        RLAgent.setGameState(game);
-        opponentAgent.setGameState(game);
+        a1.reset(game);
+        a2.reset(game);
     }
 
 }

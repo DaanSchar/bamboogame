@@ -99,7 +99,7 @@ public class Menu {
 
         nnButton.setOnAction(e -> {
             Factory.setGameMode(1);
-            Factory.setAgentType(0);
+            Factory.setAgentType(2);
             moveToGameScreen(e);
         });
 
