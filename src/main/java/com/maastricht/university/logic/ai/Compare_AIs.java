@@ -22,7 +22,7 @@ public class Compare_AIs {
     }
 
     public static double[] getTimeDepthAB(int minMoves, int minDepth, int maxDepth) {
-        String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip"; // + System.currentTimeMillis() + ".zip";
+        String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip";
         Date date = new Date();
         double[] moveTime = new double[maxDepth-minDepth+1];
 
