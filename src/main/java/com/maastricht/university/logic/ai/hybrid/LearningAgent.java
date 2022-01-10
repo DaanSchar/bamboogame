@@ -38,8 +38,12 @@ public class LearningAgent extends Agent {
         return null;
     }
 
+//    public boolean isMovable() {
+//        return !hasNullNode() || isFirstMove;
+//    }
+
     public boolean isMovable() {
-        return !hasNullNode() || isFirstMove;
+        return !hasNullNode();
     }
 
     @Override

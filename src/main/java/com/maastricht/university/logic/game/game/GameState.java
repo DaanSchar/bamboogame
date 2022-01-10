@@ -22,6 +22,8 @@ public class GameState implements IGameState, Comparable<GameState> {
 
     private final boolean DEBUG = true;
 
+    private Move lastMove;
+
     /**
      * construct the gamestate
      * @param boardSize is the size of the board we are using, defined as the radius of the hexagon.
@@ -55,6 +57,7 @@ public class GameState implements IGameState, Comparable<GameState> {
             findIllegalException(q,r,playerColor);
 
             board.move(q, r, playerColor);
+            lastMove = new Move(q,r);
             playerTurn = getNextPlayer();
 
             while(!legalMovesLeft(playerTurn) && playerTurn!=playerColor) {
@@ -188,6 +191,10 @@ public class GameState implements IGameState, Comparable<GameState> {
 
        return vector;
    }
+
+    public Move getLastMove() {
+        return lastMove;
+    }
 
     /**
      * throws the exception that need to be caught inside move()

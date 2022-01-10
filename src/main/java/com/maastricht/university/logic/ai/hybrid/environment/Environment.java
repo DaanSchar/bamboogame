@@ -20,17 +20,28 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
     private DiscreteSpace actionSpace = new DiscreteSpace(maxScore);
     private GameState game = new GameState(4, 2);
+//    private Agent opponent = new RandomAgent(game, 2);
+//    private LearningAgent learningAgent = new LearningAgent(game, 1);
     private Agent opponent = new AlphaBetaAgent(game, 1, 2, new Evaluation1());
     private LearningAgent learningAgent = new LearningAgent(game, 2);
 
+    private boolean debug = false;
 
     @Override
     public StepReply<NeuralGameState> step(Integer integer) {
         GameState nextState;
 
         if (learningAgent.isMovable()) {
+            if(debug)
+                System.out.println("hybrid tries to make a move");
             learningAgent.move();
+            if(debug) {
+                System.out.println("Move: " + game.getLastMove().getX() + ", " + game.getLastMove().getY());
+                System.out.println("opponent tries to make a move");
+            }
             opponent.move();
+            if(debug)
+                System.out.println("Move: " + game.getLastMove().getX() +", " + game.getLastMove().getY());
             learningAgent.initTree();
             nextState = game;
         } else {
@@ -65,10 +76,15 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
     public NeuralGameState reset() {
         game = new GameState(4,2);
 
-        learningAgent.reset(game);
         opponent.reset(game);
 
+        if(debug)
+            System.out.println("opponent tries to make a move");
         opponent.move();
+        if(debug)
+            System.out.println("Move: " + game.getLastMove().getX() +", " + game.getLastMove().getY());
+
+        learningAgent.reset(game);
 
         return new NeuralGameState(game.getStateVector());
     }
