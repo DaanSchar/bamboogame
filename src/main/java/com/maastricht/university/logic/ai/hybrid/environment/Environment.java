@@ -16,7 +16,7 @@ import org.deeplearning4j.rl4j.space.ObservationSpace;
 
 public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace> {
 
-    private final int maxScore = 50;
+    private final int maxScore = 100;
 
     private DiscreteSpace actionSpace = new DiscreteSpace(maxScore);
     private GameState game = new GameState(4, 2);

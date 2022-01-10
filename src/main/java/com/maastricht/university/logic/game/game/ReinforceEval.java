@@ -13,13 +13,18 @@ import java.util.List;
 public class ReinforceEval implements IEvaluationFunction {
 
     private MultiLayerNetwork multiLayerNetwork;
+    private final String location = "src/main/resources/networks/";
 
     public ReinforceEval(String networkFile) {
-        this.multiLayerNetwork = Network.loadNetwork(networkFile);
+        this.multiLayerNetwork = Network.loadNetwork(location + networkFile);
     }
 
     @Override
     public int getPlayerScore(IGameState state, int player) {
+        if (state.isGameOver())
+            if (state.winner() == player)
+                return Integer.MAX_VALUE;
+
         return getScore(state);
     }
 

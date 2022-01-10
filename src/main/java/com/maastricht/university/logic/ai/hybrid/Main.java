@@ -2,7 +2,6 @@ package com.maastricht.university.logic.ai.hybrid;
 
 
 import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
-import com.maastricht.university.logic.ai.agent.RandomAgent;
 import com.maastricht.university.logic.ai.hybrid.network.Train;
 import com.maastricht.university.logic.ai.reinforcement.network.Evaluation;
 import com.maastricht.university.logic.game.game.Evaluation1;
@@ -11,8 +10,8 @@ import com.maastricht.university.logic.game.game.ReinforceEval;
 
 public class Main {
     public static void main(String[] args) {
-//        train();
-        evaluate();
+        train();
+//        evaluate();
     }
 
     static void train() {
@@ -23,9 +22,19 @@ public class Main {
 
     static void evaluate() {
         Evaluation.evaluateNetwork(
-                new AlphaBetaAgent(new GameState(4, 2), 1, 2, new Evaluation1()),
+                new AlphaBetaAgent(
+                        new GameState(4, 2),
+                        1,
+                        2,
+                        new Evaluation1()
+                ),
+                new AlphaBetaAgent(
+                        new GameState(4, 2),
+                        2,
+                        2,
+                        new ReinforceEval("network-hybrid-1641779000574.zip")
+                )
 //                new RandomAgent(new GameState(4, 2), 1),
-                new AlphaBetaAgent(new GameState(4, 2), 2, 2, new ReinforceEval("src/main/resources/networks/network-hybrid-1200-100.zip"))
         );
     }
 }
