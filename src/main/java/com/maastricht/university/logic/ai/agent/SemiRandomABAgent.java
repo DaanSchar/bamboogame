@@ -5,6 +5,7 @@ import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.ai.minimax.tree.Tree;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
+import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.List;
@@ -13,8 +14,9 @@ public class SemiRandomABAgent extends Agent{
 
     protected final int minPlayer;
     protected int maxDepth;
+    private boolean debug = false;
 
-    public SemiRandomABAgent(IGameState gameState, int playerNumber, int maxDepth) {
+    public SemiRandomABAgent(IGameState gameState, int playerNumber, int maxDepth, IEvaluationFunction evaluation) {
         super(gameState, playerNumber);
         if(player == 1) {
             minPlayer = 2;
@@ -27,7 +29,8 @@ public class SemiRandomABAgent extends Agent{
     public void move() {
         if (this.gameState.winner() ==0) {
             Move move = search(this.maxDepth);
-            System.out.println("Move: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
+            if(debug)
+                System.out.println("Move: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
             gameState.move(move.getX(), move.getY(), player);
         }
     }

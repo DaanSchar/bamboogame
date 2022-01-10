@@ -23,9 +23,9 @@ public class Main {
 
     static void evaluate() {
         Evaluation.evaluateNetwork(
-                new AlphaBetaAgent(new GameState(4, 2), 1, 2, new Evaluation1()),
-//                new RandomAgent(new GameState(4, 2), 1),
-                new AlphaBetaAgent(new GameState(4, 2), 2, 2, new ReinforceEval("src/main/resources/networks/network-hybrid-1200-100.zip"))
+//                new AlphaBetaAgent(new GameState(4, 2), 1, 2, new Evaluation1()),
+                new RandomAgent(new GameState(4, 2), 1),
+                new AlphaBetaAgent(new GameState(4, 2), 2, 2, new ReinforceEval("src/main/resources/networks/network-hybrid-semiAB-1200-50.zip"))
         );
     }
 }
