@@ -22,7 +22,7 @@ public class Compare_AIs {
     }
 
     public static double[] getTimeDepthAB(int minMoves, int minDepth, int maxDepth) {
-        String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip"; // + System.currentTimeMillis() + ".zip";
+        String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip";
         Date date = new Date();
         double[] moveTime = new double[maxDepth-minDepth+1];
 
@@ -200,7 +200,7 @@ public class Compare_AIs {
             IGameState state =  new GameState(4, 2);
             String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip"; // + System.currentTimeMillis() + ".zip";
             ReinforcementAgent agent1 = new ReinforcementAgent(state, 1, randomNetworkName);
-            SemiRandomABAgent agent2 = new SemiRandomABAgent(state, 2, 4);
+            SemiRandomABAgent agent2 = new SemiRandomABAgent(state, 2, 4, new Evaluation1());
             while(state.winner()==0) {
                 agent1.move();
                 agent2.move();

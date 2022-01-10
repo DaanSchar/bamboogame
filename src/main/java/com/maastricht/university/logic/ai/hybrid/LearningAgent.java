@@ -13,73 +13,70 @@ public class LearningAgent extends Agent {
 
     private List<ITreeNode> leafNodes;
     ITree<GameState> tree;
-    private boolean isFirstMove;
+    private final int depth = 2;
 
     public LearningAgent(IGameState gameState, int playerNumber) {
         super(gameState, playerNumber);
-        this.isFirstMove = true;
 
-        ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, 4);
-        leafNodes = computeLeafNodes.getLeafNodes();
+        initTree();
     }
 
     public ITreeNode<IGameState> getNextNode() {
-        // get the node that comes after the current node,
-        // we need the gamestate of this node,
-        // as it serves as the input of the network for the next step.
-        for(int i=0; i<leafNodes.size(); i++) {
-            if(!leafNodes.get(i).hasScore()) {
-                if(i+1<leafNodes.size())
+        for (int i=0; i < leafNodes.size(); i++)
+            if (!leafNodes.get(i).hasScore())
+                if ( (i+1) < leafNodes.size() )
                     return leafNodes.get(i + 1);
-            }
-        }
+
         return null;
     }
 
     public ITreeNode<IGameState> getCurrentNode() {
-        // get the node which we want to compute the score of,
-
-        // return next null leaf of the tree, aka a node that hasn't been assigned a score
-        for(int i=0; i<leafNodes.size(); i++) {
+        for(int i=0; i<leafNodes.size(); i++)
             if(!leafNodes.get(i).hasScore())
                 return leafNodes.get(i);
-        }
+
         return null;
     }
 
-    public boolean isNull() {
-        //returns true if one of the leaves of the tree is null/not computed
-        for(int i=0; i<leafNodes.size(); i++) {
-            if(!leafNodes.get(i).hasScore())
-                return true;
-        }
-        return false;
-    }
+//    public boolean isMovable() {
+//        return !hasNullNode() || isFirstMove;
+//    }
 
-    public boolean isInitialMove() {
-        return isFirstMove;
-    }
-
-    public void firstMove() {
-        isFirstMove = false;
-        gameState.move(3, 3, super.player);
+    public boolean isMovable() {
+        return !hasNullNode();
     }
 
     @Override
     public void move() {
-        // if the whole tree has been computed, explore the tree and chose the most optimal move
+        if (isFirstMove)
+            isFirstMove = false;
+
         Search search = new Search(player);
-        if(!isNull()) {
+
+        if (!hasNullNode()) {
             Move move = search.searchTree(tree.getRoot());
-            System.out.println("Move for Learning: (" + move.getX() + ", " + move.getY() + ", " + player + ")");
             gameState.move(move.getX(), move.getY(), player);
         }
+
     }
 
-    public void rebuildTree() {
-        ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, 4);
+    public void reset(IGameState gameState) {
+        setGameState(gameState);
+        initTree();
+    }
+
+    public void initTree() {
+        ComputeLeafNodes computeLeafNodes = new ComputeLeafNodes(gameState, depth);
         leafNodes = computeLeafNodes.getLeafNodes();
         tree = computeLeafNodes.getTree();
+    }
+
+    private boolean hasNullNode() {
+        for (int i=0; i<leafNodes.size(); i++)
+            if (!leafNodes.get(i).hasScore())
+                return true;
+
+        return false;
     }
 
 }

@@ -79,5 +79,4 @@ public class ComputeLeafNodes {
             parent.addChild(childState, move);
         }
     }
-
 }
