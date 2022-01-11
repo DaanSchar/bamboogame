@@ -11,12 +11,12 @@ import java.io.IOException;
 
 public class Network {
 
-    public static final int NUM_INPUTS = 61;
+    public static final int NUM_INPUTS = 4;
     public static final double LOW_VALUE = 0;
-    public static final double HIGH_VALUE = 2;
+    public static final double HIGH_VALUE = 20;
 
-    private static final int stepsPerEpoch = 1200;
-    private static final int maxEpochs = 400;
+    public static final int stepsPerEpoch = 1200;
+    public static final int maxEpochs = 1000;
 
     public static QLearningConfiguration buildConfig() {
         return QLearningConfiguration.builder()
@@ -40,7 +40,7 @@ public class Network {
         DQNDenseNetworkConfiguration build = DQNDenseNetworkConfiguration.builder()
                 .l2(0.001)
                 .updater(new RmsProp(0.000025))
-                .numHiddenNodes(NUM_INPUTS)
+                .numHiddenNodes(NUM_INPUTS*4)
                 .numLayers(1)
                 .learningRate(0.01)
                 .build();

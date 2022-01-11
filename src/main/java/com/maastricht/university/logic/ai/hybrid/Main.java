@@ -6,14 +6,13 @@ import com.maastricht.university.logic.ai.agent.RandomAgent;
 import com.maastricht.university.logic.ai.hybrid.network.Train;
 import com.maastricht.university.logic.ai.minimax.functions.RandomEval;
 import com.maastricht.university.logic.ai.reinforcement.network.Evaluation;
-import com.maastricht.university.logic.ai.minimax.functions.StandardEval;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.ai.minimax.functions.ReinforceEval;
 
 public class Main {
     public static void main(String[] args) {
-        train();
-//        evaluate();
+//        train();
+        evaluate();
     }
 
     static void train() {
@@ -23,7 +22,7 @@ public class Main {
     }
 
     static void evaluate() {
-        String networkName = "src/main/resources/networks/evaluationNetwork/newNetwork/network-hybrid-score-0.01-99.zip";
+        String networkName = "src/main/resources/networks/evaluationNetwork/newNetwork/network-hybrid-score-learningRate-maxEpochs1641922835642.zip";
         Evaluation.evaluateNetwork(
                 new AlphaBetaAgent(
                         new GameState(4, 2),
