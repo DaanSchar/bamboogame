@@ -1,6 +1,5 @@
-package com.maastricht.university.logic.game.game;
+package com.maastricht.university.logic.ai.minimax.functions;
 
-import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 public class EvaluationAddRandomness implements IEvaluationFunction {

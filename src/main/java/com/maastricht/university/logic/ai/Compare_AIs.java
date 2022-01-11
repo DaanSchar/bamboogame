@@ -142,7 +142,7 @@ public class Compare_AIs {
                 //play a game
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
-                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
+                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new StandardEval());
                 MiniMaxAgent agent2b = new MiniMaxAgent(state, 2, depth);
                 // keep going until the game is finished
                 while (state.winner() == 0) {
@@ -201,7 +201,7 @@ public class Compare_AIs {
             IGameState state =  new GameState(4, 2);
             String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip"; // + System.currentTimeMillis() + ".zip";
             ReinforcementAgent agent1 = new ReinforcementAgent(state, 1, randomNetworkName);
-            SemiRandomABAgent agent2 = new SemiRandomABAgent(state, 2, 4, new Evaluation1());
+            SemiRandomABAgent agent2 = new SemiRandomABAgent(state, 2, 4, (IEvaluationFunction) new StandardEval());
             while(state.winner()==0) {
                 agent1.move();
                 agent2.move();
