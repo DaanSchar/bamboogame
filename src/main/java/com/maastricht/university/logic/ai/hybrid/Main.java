@@ -12,9 +12,9 @@ import com.maastricht.university.logic.ai.minimax.functions.ReinforceEval;
 
 public class Main {
     public static void main(String[] args) {
-        train();
+//        train();
 //        evaluate();
-//        evaluateRandom();
+        evaluateRandom();
     }
 
     static void train() {
