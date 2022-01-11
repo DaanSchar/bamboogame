@@ -23,7 +23,9 @@ public class Train {
      */
     public static void train() {
         LOG.info("Start training network");
-        String randomNetworkName = "src/main/resources/networks/evaluationNetwork/newNetwork/network-hybrid-score-learningRate-maxEpochs" + System.currentTimeMillis() + ".zip";
+        int numberName = (int) System.currentTimeMillis();
+        String randomNetworkName = "src/main/resources/networks/evaluationNetwork/newNetwork/network-hybrid-score-learningRate-maxEpochs" + numberName + ".zip";
+        String testNetworkName = "evaluationNetwork/newNetwork/network-hybrid-score-learningRate-maxEpochs" + numberName + ".zip";
 
         Environment mdp = new Environment();
         QLearningDiscreteDense<NeuralGameState> dql = new QLearningDiscreteDense<>(
@@ -54,7 +56,7 @@ public class Train {
                         game,
                         2,
                         2,
-                        new ReinforceEval("evaluationNetwork/newNetwork/" + randomNetworkName)
+                        new ReinforceEval(testNetworkName)
                 )
         );
     }
