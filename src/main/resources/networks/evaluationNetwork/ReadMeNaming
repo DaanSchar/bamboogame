@@ -1,15 +1,21 @@
 The way I have named all my networks (or most of them at least), is this way:
 
-"network-hybrid-" accuracy "-" learningRate "-" maxEpochs ".zip"
+"network-hybrid-" accuracy AB randomized standardEval "-"accuracy AB random "-" learningRate "-" maxEpochs ".zip"
 
 if you want to name yours different, that's fine too (although I do think we should agree on one standard, so let's discuss that next time),
 but please don't use numbers in the same place but of different values. As that would be confusing.
 
 I haven't added the accuracy to all networks yet though, but I'm working on it
 
+------------------------------------------------------------
+IF ONLY ONE SCORE IS ADDED, IT SHOULD BE THE "AB RANDOM" ONE
+------------------------------------------------------------
 
-accuracy:
-    run the evaluate() method in Main.java
+accuracy AB random:
+    run the evaluate() method in Main.java with the right evaluation function
+
+accuracy AB randomized standardEval:
+    run the evaluate() method in Main.java with the right evaluation function
 
 learningRate:
     Network.java, line 45

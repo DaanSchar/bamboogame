@@ -25,7 +25,7 @@ public class Main {
 
     static void evaluate() {
         GameState game = new GameState(4, 2);
-        String networkName = "evaluationNetwork/newNetwork/network-hybrid-95-0.02-50.zip";
+        String networkName = "evaluationNetwork/newNetwork/network-hybrid-95-0.02-200.zip";
         Evaluation.evaluateNetwork(
                 new AlphaBetaAgent(
                         game,
