@@ -25,7 +25,7 @@ public class Main {
 
     static void evaluate() {
         GameState game = new GameState(4, 2);
-        String networkName = "evaluationNetwork/newNetwork/network-hybrid-95-0.02-200.zip";
+        String networkName = "evaluationNetwork/newNetwork/network-hybrid-95-score2-0.02-200.zip";
         Evaluation.evaluateNetwork(
                 new AlphaBetaAgent(
                         game,
@@ -44,7 +44,7 @@ public class Main {
 
     static void evaluateRandom() {
         GameState game = new GameState(4, 2);
-        String networkName = "evaluationNetwork/newNetwork/network-hybrid-95-0.01-50.zip";
+        String networkName = "evaluationNetwork/newNetwork/network-hybrid-95-score2-0.01-50.zip";
         Evaluation.evaluateNetwork(
                 new RandomAgent(
                         game,
