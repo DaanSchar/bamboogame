@@ -1,6 +1,5 @@
 package com.maastricht.university.logic.ai.hybrid;
 
-
 import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
 import com.maastricht.university.logic.ai.agent.RandomAgent;
 import com.maastricht.university.logic.ai.hybrid.network.Train;
@@ -12,8 +11,8 @@ import com.maastricht.university.logic.ai.minimax.functions.ReinforceEval;
 
 public class Main {
     public static void main(String[] args) {
-//        train();
-        evaluate();
+        train();
+  //      evaluate();
 //        evaluateRandom();
     }
 
