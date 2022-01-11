@@ -1,10 +1,10 @@
 package com.maastricht.university.logic.ai;
 
 import com.maastricht.university.logic.ai.agent.*;
-import com.maastricht.university.logic.game.game.Evaluation1;
+import com.maastricht.university.logic.ai.minimax.functions.StandardEval;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
-import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
+import com.maastricht.university.logic.ai.minimax.functions.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.Date;
@@ -35,7 +35,7 @@ public class Compare_AIs {
                 //play a game
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
-                AlphaBetaAgent agent2 = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
+                AlphaBetaAgent agent2 = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new StandardEval());
                 // keep going until the game is finished
                 while (state.winner() == 0) {
                     moves++;
@@ -75,9 +75,9 @@ public class Compare_AIs {
                 //play a game
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
-                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
+                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new StandardEval());
                 //TODO: put the semi-random evaluation function in agent2b
-                AlphaBetaAgent agent2b = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
+                AlphaBetaAgent agent2b = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new StandardEval());
                 // keep going until the game is finished
                 while (state.winner() == 0) {
                     moves++;

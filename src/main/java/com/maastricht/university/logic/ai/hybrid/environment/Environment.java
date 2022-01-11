@@ -4,10 +4,9 @@ import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
 import com.maastricht.university.logic.ai.agent.SemiRandomABAgent;
 import com.maastricht.university.logic.ai.hybrid.LearningAgent;
-import com.maastricht.university.logic.ai.agent.RandomAgent;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.ai.reinforcement.network.RewardCalculator;
-import com.maastricht.university.logic.game.game.Evaluation1;
+import com.maastricht.university.logic.ai.minimax.functions.StandardEval;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import org.deeplearning4j.gym.StepReply;
@@ -21,10 +20,7 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
     private DiscreteSpace actionSpace = new DiscreteSpace(maxScore);
     private GameState game = new GameState(4, 2);
-//    private Agent opponent = new RandomAgent(game, 2);
-//    private LearningAgent learningAgent = new LearningAgent(game, 1);
-    private Agent opponent = new AlphaBetaAgent(game, 1, 2, new Evaluation1());
-//    private Agent opponent = new SemiRandomABAgent(game, 1, 2, new Evaluation1());
+    private Agent opponent = new AlphaBetaAgent(game, 1, 2, new StandardEval());
     private LearningAgent learningAgent = new LearningAgent(game, 2);
 
     private boolean debug = false;
