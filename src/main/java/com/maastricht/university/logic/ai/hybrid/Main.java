@@ -12,8 +12,8 @@ import com.maastricht.university.logic.ai.minimax.functions.ReinforceEval;
 
 public class Main {
     public static void main(String[] args) {
-//        train();
-        evaluate();
+        train();
+//        evaluate();
 //        evaluateRandom();
     }
 
