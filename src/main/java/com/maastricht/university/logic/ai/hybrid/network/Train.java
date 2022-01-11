@@ -54,7 +54,7 @@ public class Train {
                         game,
                         2,
                         2,
-                        new ReinforceEval(randomNetworkName)
+                        new ReinforceEval("evaluationNetwork/newNetwork/" + randomNetworkName)
                 )
         );
     }

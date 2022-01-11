@@ -42,7 +42,7 @@ public class Network {
                 .updater(new RmsProp(0.000025))
                 .numHiddenNodes(NUM_INPUTS)
                 .numLayers(1)
-                .learningRate(0.01)
+                .learningRate(0.02)
                 .build();
 
         return new DQNFactoryStdDense(build);
