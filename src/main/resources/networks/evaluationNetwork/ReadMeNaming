@@ -1,0 +1,21 @@
+The way I have named all my networks (or most of them at least), is this way:
+
+"network-hybrid-" accuracy "-" opponentType "-" learningRate "-" maxEpochs ".zip"
+
+if you want to name yours different, that's fine too (although I do think we should agree on one standard, so let's discuss that next time),
+but please don't use numbers in the same place but of different values. As that would be confusing.
+
+I haven't added the accuracy to all networks yet though, but I'm working on it
+
+
+opponentType:
+    Network.java, line 26/27
+
+accuracy:
+    run the evaluate() method in Main.java
+
+learningRate:
+    Network.java, line 45
+
+maxEpochs:
+    Network.java, line 19

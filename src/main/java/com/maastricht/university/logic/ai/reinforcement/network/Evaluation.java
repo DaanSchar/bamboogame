@@ -12,7 +12,7 @@ public class Evaluation {
     private static GameState game = new GameState(4,2);
     private static final Logger LOG = LoggerFactory.getLogger(Evaluation.class);
 
-    private static final int TOTAL_GAMES = 100;
+    private static final int TOTAL_GAMES = 500;
     private static Agent opponentAgent = new RandomAgent(game, 2);
 
     /**

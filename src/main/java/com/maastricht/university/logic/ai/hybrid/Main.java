@@ -2,6 +2,7 @@ package com.maastricht.university.logic.ai.hybrid;
 
 
 import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
+import com.maastricht.university.logic.ai.agent.RandomAgent;
 import com.maastricht.university.logic.ai.hybrid.network.Train;
 import com.maastricht.university.logic.ai.minimax.functions.RandomEval;
 import com.maastricht.university.logic.ai.reinforcement.network.Evaluation;
@@ -22,6 +23,7 @@ public class Main {
     }
 
     static void evaluate() {
+        String networkName = "src/main/resources/networks/evaluationNetwork/oldNetwork/network-hybrid-score-semiAB-0.01-99.zip";
         Evaluation.evaluateNetwork(
                 new AlphaBetaAgent(
                         new GameState(4, 2),
@@ -33,7 +35,7 @@ public class Main {
                         new GameState(4, 2),
                         2,
                         2,
-                        new ReinforceEval("daan/network-hybrid-1641862235709.zip")
+                        new ReinforceEval(networkName)
                 )
         );
     }

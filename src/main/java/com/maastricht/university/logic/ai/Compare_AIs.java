@@ -76,7 +76,8 @@ public class Compare_AIs {
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
                 AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new StandardEval());
-                AlphaBetaAgent2 agent2b = new AlphaBetaAgent2(state, 2, depth, (IEvaluationFunction) new StandardEval());
+                //TODO: put the semi-random evaluation function in agent2b
+                AlphaBetaAgent agent2b = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new StandardEval());
                 // keep going until the game is finished
                 while (state.winner() == 0) {
                     moves++;
@@ -200,7 +201,7 @@ public class Compare_AIs {
             IGameState state =  new GameState(4, 2);
             String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip"; // + System.currentTimeMillis() + ".zip";
             ReinforcementAgent agent1 = new ReinforcementAgent(state, 1, randomNetworkName);
-            SemiRandomABAgent agent2 = new SemiRandomABAgent(state, 2, 4, new Evaluation1());
+            SemiRandomABAgent agent2 = new SemiRandomABAgent(state, 2, 4, (IEvaluationFunction) new StandardEval());
             while(state.winner()==0) {
                 agent1.move();
                 agent2.move();
