@@ -1,10 +1,10 @@
 package com.maastricht.university.logic.ai;
 
 import com.maastricht.university.logic.ai.agent.*;
-import com.maastricht.university.logic.game.game.Evaluation1;
+import com.maastricht.university.logic.ai.minimax.functions.StandardEval;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
-import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
+import com.maastricht.university.logic.ai.minimax.functions.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.Date;
@@ -35,7 +35,7 @@ public class Compare_AIs {
                 //play a game
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
-                AlphaBetaAgent agent2 = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
+                AlphaBetaAgent agent2 = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new StandardEval());
                 // keep going until the game is finished
                 while (state.winner() == 0) {
                     moves++;
@@ -75,8 +75,9 @@ public class Compare_AIs {
                 //play a game
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
-                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
-                AlphaBetaAgent2 agent2b = new AlphaBetaAgent2(state, 2, depth, (IEvaluationFunction) new Evaluation1());
+                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new StandardEval());
+                //TODO: put the semi-random evaluation function in agent2b
+                AlphaBetaAgent agent2b = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new StandardEval());
                 // keep going until the game is finished
                 while (state.winner() == 0) {
                     moves++;
@@ -141,7 +142,7 @@ public class Compare_AIs {
                 //play a game
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
-                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
+                AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new StandardEval());
                 MiniMaxAgent agent2b = new MiniMaxAgent(state, 2, depth);
                 // keep going until the game is finished
                 while (state.winner() == 0) {
@@ -200,7 +201,7 @@ public class Compare_AIs {
             IGameState state =  new GameState(4, 2);
             String randomNetworkName = "src/main/resources/networks/network-81-1-1-1E.zip"; // + System.currentTimeMillis() + ".zip";
             ReinforcementAgent agent1 = new ReinforcementAgent(state, 1, randomNetworkName);
-            SemiRandomABAgent agent2 = new SemiRandomABAgent(state, 2, 4, new Evaluation1());
+            SemiRandomABAgent agent2 = new SemiRandomABAgent(state, 2, 4, (IEvaluationFunction) new StandardEval());
             while(state.winner()==0) {
                 agent1.move();
                 agent2.move();

@@ -44,13 +44,14 @@ public class Evaluation {
 
         for (int i = 0; i < TOTAL_GAMES; i++) {
             int score = playGame(agent1, agent2);
-            if(score>0)
-                totalScore += score;
+
+            totalScore += score;
             resetGame(agent1, agent2);
 
             LOG.info("Score of iteration '{}' was '{}'", i, score);
         }
         LOG.info("Finished evaluation of the network, average score was '{}'", totalScore/TOTAL_GAMES);
+        System.out.println(totalScore);
     }
 
     /**

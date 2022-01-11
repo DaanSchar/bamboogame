@@ -2,7 +2,6 @@ package com.maastricht.university.logic.ai.hybrid.network;
 
 import com.maastricht.university.logic.ai.hybrid.environment.Environment;
 import com.maastricht.university.logic.ai.hybrid.environment.NeuralGameState;
-import com.maastricht.university.logic.ai.reinforcement.network.Evaluation;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteDense;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,7 @@ public class Train {
      */
     public static void train() {
         LOG.info("Start training network");
-        String randomNetworkName = "src/main/resources/networks/evaluationNetwork/network-hybrid-score-opponent-learningRate-maxEpochs" + System.currentTimeMillis() + ".zip";
+        String randomNetworkName = "src/main/resources/networks/evaluationNetwork/newNetwork/network-hybrid-score-opponent-learningRate-maxEpochs" + System.currentTimeMillis() + ".zip";
 
         Environment mdp = new Environment();
         QLearningDiscreteDense<NeuralGameState> dql = new QLearningDiscreteDense<>(
