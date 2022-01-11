@@ -1,10 +1,7 @@
 import com.maastricht.university.logic.ai.agent.MiniMaxAgent;
 import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.Tree;
-import com.maastricht.university.logic.ai.minimax.tree.TreeNode;
 import com.maastricht.university.logic.game.game.GameState;
-import com.maastricht.university.logic.game.util.interfaces.IGameState;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class MiniMaxTest {

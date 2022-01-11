@@ -2,10 +2,8 @@ package com.maastricht.university.logic.ai.hybrid;
 
 import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
-import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
-import com.maastricht.university.logic.game.util.interfaces.IGameState;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class Search {

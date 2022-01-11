@@ -18,7 +18,7 @@ public class Train {
      */
     public static void train() {
         LOG.info("Start training network");
-        String randomNetworkName = "src/main/resources/networks/network-hybrid-" + System.currentTimeMillis() + ".zip";
+        String randomNetworkName = "src/main/resources/networks/daan/network-hybrid-" + System.currentTimeMillis() + ".zip";
 
         Environment mdp = new Environment();
         QLearningDiscreteDense<NeuralGameState> dql = new QLearningDiscreteDense<>(

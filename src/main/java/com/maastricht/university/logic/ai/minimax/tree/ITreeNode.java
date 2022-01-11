@@ -2,7 +2,6 @@ package com.maastricht.university.logic.ai.minimax.tree;
 
 import com.maastricht.university.logic.game.game.Move;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

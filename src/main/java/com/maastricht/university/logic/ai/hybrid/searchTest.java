@@ -2,7 +2,6 @@ package com.maastricht.university.logic.ai.hybrid;
 
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.Agent2;
-import com.maastricht.university.logic.ai.minimax.tree.TreeNode;
 import com.maastricht.university.logic.game.game.GameState;
 
 
