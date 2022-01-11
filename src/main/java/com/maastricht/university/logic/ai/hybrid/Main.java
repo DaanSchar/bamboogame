@@ -12,8 +12,8 @@ import com.maastricht.university.logic.ai.minimax.functions.ReinforceEval;
 
 public class Main {
     public static void main(String[] args) {
-//        train();
-        evaluate();
+        train();
+//        evaluate();
     }
 
     static void train() {
@@ -23,7 +23,7 @@ public class Main {
     }
 
     static void evaluate() {
-        String networkName = "src/main/resources/networks/evaluationNetwork/oldNetwork/network-hybrid-score-semiAB-0.01-99.zip";
+        String networkName = "src/main/resources/networks/evaluationNetwork/newNetwork/network-hybrid-score-0.01-99.zip";
         Evaluation.evaluateNetwork(
                 new AlphaBetaAgent(
                         new GameState(4, 2),
