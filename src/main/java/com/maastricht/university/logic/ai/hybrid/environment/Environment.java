@@ -23,8 +23,8 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
     private GameState game = new GameState(4, 2);
 //    private Agent opponent = new RandomAgent(game, 2);
 //    private LearningAgent learningAgent = new LearningAgent(game, 1);
-//    private Agent opponent = new AlphaBetaAgent(game, 1, 2, new Evaluation1());
-    private Agent opponent = new SemiRandomABAgent(game, 1, 2, new Evaluation1());
+    private Agent opponent = new AlphaBetaAgent(game, 1, 2, new Evaluation1());
+//    private Agent opponent = new SemiRandomABAgent(game, 1, 2, new Evaluation1());
     private LearningAgent learningAgent = new LearningAgent(game, 2);
 
     private boolean debug = false;

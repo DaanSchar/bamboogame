@@ -11,8 +11,8 @@ import com.maastricht.university.logic.game.game.ReinforceEval;
 
 public class Main {
     public static void main(String[] args) {
-//        train();
-        evaluate();
+        train();
+//        evaluate();
     }
 
     static void train() {
@@ -22,10 +22,11 @@ public class Main {
     }
 
     static void evaluate() {
+        String networkName = "src/main/resources/networks/evaluationNetwork/semiAB/network-hybrid-score-semiAB-0.01-99.zip";
         Evaluation.evaluateNetwork(
 //                new AlphaBetaAgent(new GameState(4, 2), 1, 2, new Evaluation1()),
                 new RandomAgent(new GameState(4, 2), 1),
-                new AlphaBetaAgent(new GameState(4, 2), 2, 2, new ReinforceEval("src/main/resources/networks/evaluationNetwork/semiAB/network-hybrid-95-semiAB-0.01-50.zip"))
+                new AlphaBetaAgent(new GameState(4, 2), 2, 2, new ReinforceEval(networkName))
         );
     }
 }
