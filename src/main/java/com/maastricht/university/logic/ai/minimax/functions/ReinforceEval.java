@@ -1,9 +1,8 @@
-package com.maastricht.university.logic.game.game;
+package com.maastricht.university.logic.ai.minimax.functions;
 
 import com.maastricht.university.logic.ai.reinforcement.environment.NeuralGameState;
 import com.maastricht.university.logic.ai.reinforcement.network.Network;
 import com.maastricht.university.logic.game.components.LogicTile;
-import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -24,6 +23,8 @@ public class ReinforceEval implements IEvaluationFunction {
         if (state.isGameOver())
             if (state.winner() == player)
                 return Integer.MAX_VALUE;
+            else
+                return Integer.MIN_VALUE;
 
         return getScore(state);
     }

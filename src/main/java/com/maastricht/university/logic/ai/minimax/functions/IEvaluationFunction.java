@@ -1,5 +1,7 @@
-package com.maastricht.university.logic.game.util.interfaces;
+package com.maastricht.university.logic.ai.minimax.functions;
 
+
+import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 /**
  * this interface makes sure that the evaluation function always has the same functions

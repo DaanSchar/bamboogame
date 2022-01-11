@@ -8,7 +8,6 @@ import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 

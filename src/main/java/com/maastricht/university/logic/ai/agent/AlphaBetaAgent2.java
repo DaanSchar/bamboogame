@@ -5,7 +5,7 @@ import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.ai.minimax.tree.Tree;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
-import com.maastricht.university.logic.game.util.interfaces.IEvaluationFunction;
+import com.maastricht.university.logic.ai.minimax.functions.IEvaluationFunction;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.List;
