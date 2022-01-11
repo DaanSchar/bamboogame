@@ -7,11 +7,12 @@ but please don't use numbers in the same place but of different values. As that 
 
 I haven't added the accuracy to all networks yet though, but I'm working on it
 
+
 opponentType:
     Network.java, line 26/27
 
 accuracy:
-    run the evaluete() method in Main.java
+    run the evaluate() method in Main.java
 
 learningRate:
     Network.java, line 45
