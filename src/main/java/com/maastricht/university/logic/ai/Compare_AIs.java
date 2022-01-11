@@ -76,7 +76,8 @@ public class Compare_AIs {
                 IGameState state = new GameState(4, 2);
                 RandomAgent agent1 = new RandomAgent(state, 1);
                 AlphaBetaAgent agent2a = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
-                AlphaBetaAgent2 agent2b = new AlphaBetaAgent2(state, 2, depth, (IEvaluationFunction) new Evaluation1());
+                //TODO: put the semi-random evaluation function in agent2b
+                AlphaBetaAgent agent2b = new AlphaBetaAgent(state, 2, depth, (IEvaluationFunction) new Evaluation1());
                 // keep going until the game is finished
                 while (state.winner() == 0) {
                     moves++;
