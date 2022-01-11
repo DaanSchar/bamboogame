@@ -11,8 +11,8 @@ import com.maastricht.university.logic.game.game.ReinforceEval;
 
 public class Main {
     public static void main(String[] args) {
-        train();
-//        evaluate();
+//        train();
+        evaluate();
     }
 
     static void train() {
