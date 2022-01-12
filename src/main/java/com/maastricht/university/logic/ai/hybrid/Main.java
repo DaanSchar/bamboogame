@@ -39,7 +39,7 @@ public class Main {
                         game,
                         2,
                         2,
-                        new ReinforceEval(networkName)
+                        new ReinforceEval(networkName )
                 )
         );
     }
