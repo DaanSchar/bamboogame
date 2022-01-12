@@ -4,6 +4,7 @@ package com.maastricht.university.logic.ai.hybrid;
 import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
 import com.maastricht.university.logic.ai.agent.RandomAgent;
 import com.maastricht.university.logic.ai.hybrid.network.Train;
+import com.maastricht.university.logic.ai.minimax.functions.EvaluationAddRandomness;
 import com.maastricht.university.logic.ai.minimax.functions.RandomEval;
 import com.maastricht.university.logic.ai.reinforcement.network.Evaluation;
 import com.maastricht.university.logic.ai.minimax.functions.StandardEval;
@@ -14,6 +15,7 @@ public class Main {
     public static void main(String[] args) {
 //        train();
         evaluate();
+        evaluate2();
 //        evaluateRandom();
     }
 
@@ -32,6 +34,25 @@ public class Main {
                         1,
                         2,
                         new RandomEval()
+                ),
+                new AlphaBetaAgent(
+                        game,
+                        2,
+                        2,
+                        new ReinforceEval(networkName )
+                )
+        );
+    }
+
+    static void evaluate2() {
+        GameState game = new GameState(4, 2);
+        String networkName = "evaluationNetwork/newNetwork/network-hybrid-95-94-0.02-100.zip";
+        Evaluation.evaluateNetwork(
+                new AlphaBetaAgent(
+                        game,
+                        1,
+                        2,
+                        new EvaluationAddRandomness(new StandardEval())
                 ),
                 new AlphaBetaAgent(
                         game,

@@ -24,8 +24,8 @@ public class Train {
     public static void train() {
         LOG.info("Start training network");
         int numberName = (int) System.currentTimeMillis();
-        String randomNetworkName = "src/main/resources/networks/evaluationNetwork/newNetwork/network-hybrid-score-learningRate-maxEpochs" + numberName + ".zip";
-        String testNetworkName = "evaluationNetwork/newNetwork/network-hybrid-score-learningRate-maxEpochs" + numberName + ".zip";
+        String randomNetworkName = "src/main/resources/networks/evaluationNetwork/newNetwork/network-hybrid-score-score2-learningRate-maxEpochs" + numberName + ".zip";
+        String testNetworkName = "evaluationNetwork/newNetwork/network-hybrid-score-score2-learningRate-maxEpochs" + numberName + ".zip";
 
         Environment mdp = new Environment();
         QLearningDiscreteDense<NeuralGameState> dql = new QLearningDiscreteDense<>(
