@@ -12,8 +12,8 @@ import com.maastricht.university.logic.ai.minimax.functions.ReinforceEval;
 
 public class Main {
     public static void main(String[] args) {
-        train();
-//        evaluate();
+//        train();
+        evaluate();
 //        evaluateRandom();
     }
 
@@ -25,7 +25,7 @@ public class Main {
 
     static void evaluate() {
         GameState game = new GameState(4, 2);
-        String networkName = "evaluationNetwork/newNetwork/network-hybrid-95-score2-0.02-200.zip";
+        String networkName = "evaluationNetwork/newNetwork/network-hybrid-95-94-0.02-100.zip";
         Evaluation.evaluateNetwork(
                 new AlphaBetaAgent(
                         game,
@@ -44,7 +44,7 @@ public class Main {
 
     static void evaluateRandom() {
         GameState game = new GameState(4, 2);
-        String networkName = "evaluationNetwork/newNetwork/network-hybrid-95-score2-0.01-50.zip";
+        String networkName = "evaluationNetwork/newNetwork/network-hybrid-95-94-0.02-100.zip";
         Evaluation.evaluateNetwork(
                 new RandomAgent(
                         game,
