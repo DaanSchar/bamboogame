@@ -1,13 +1,11 @@
 package com.maastricht.university.logic.ai.minimax.functions;
 
+import com.maastricht.university.logic.ai.learning.NetworkFactory;
 import com.maastricht.university.logic.ai.reinforcement.environment.NeuralGameState;
-import com.maastricht.university.logic.ai.reinforcement.network.Network;
-import com.maastricht.university.logic.game.components.LogicTile;
+import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.nd4j.linalg.api.ndarray.INDArray;
-
-import java.util.List;
 
 public class ReinforceEval implements IEvaluationFunction {
 
@@ -15,7 +13,7 @@ public class ReinforceEval implements IEvaluationFunction {
     private final String location = "src/main/resources/networks/";
 
     public ReinforceEval(String networkFile) {
-        this.multiLayerNetwork = Network.loadNetwork(location + networkFile);
+        this.multiLayerNetwork = NetworkFactory.loadNetwork(networkFile);
     }
 
     @Override
@@ -30,20 +28,10 @@ public class ReinforceEval implements IEvaluationFunction {
     }
 
     private double[] getNetworkOutput(IGameState gameState) {
-        NeuralGameState state = new NeuralGameState(gameStateVector(gameState));
+        NeuralGameState state = new NeuralGameState( ((GameState)gameState).getStateVector() );
         INDArray output = multiLayerNetwork.output(state.getMatrix(), false);
 
         return output.data().asDouble();
-    }
-
-    private double[] gameStateVector(IGameState state) {
-        List<LogicTile> logicVector = state.getBoard().getTileMap().vector();
-        double[] vector = new double[logicVector.size()];
-
-        for (int i = 0; i < logicVector.size(); i++)
-            vector[i] = logicVector.get(i).getPlayerColor();
-
-        return vector;
     }
 
     private int getScore(IGameState state) {
@@ -62,4 +50,8 @@ public class ReinforceEval implements IEvaluationFunction {
         return maxValueIndex;
     }
 
+    @Override
+    public String getName() {
+        return getClass().getSimpleName();
+    }
 }

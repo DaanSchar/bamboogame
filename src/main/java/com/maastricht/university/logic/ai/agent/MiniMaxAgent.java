@@ -104,4 +104,9 @@ public class MiniMaxAgent extends Agent {
         }
         return value;
     }
+
+    @Override
+    public String getName() {
+        return "MiniMaxAgent[maxDepth=" + maxDepth + "]";
+    }
 }

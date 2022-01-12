@@ -1,6 +1,8 @@
-package com.maastricht.university.logic.ai.hybrid;
+package com.maastricht.university.logic.ai.hybrid.environment;
 
 import com.maastricht.university.logic.ai.agent.Agent;
+import com.maastricht.university.logic.ai.hybrid.search.ComputeLeafNodes;
+import com.maastricht.university.logic.ai.hybrid.search.Search;
 import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.game.game.GameState;
@@ -37,10 +39,6 @@ public class LearningAgent extends Agent {
 
         return null;
     }
-
-//    public boolean isMovable() {
-//        return !hasNullNode() || isFirstMove;
-//    }
 
     public boolean isMovable() {
         return !hasNullNode();

@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.ai.reinforcement.network;
+package com.maastricht.university.logic.ai.learning;
 
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.RandomAgent;
@@ -9,10 +9,11 @@ import org.slf4j.LoggerFactory;
 
 public class Evaluation {
 
-    private static GameState game = new GameState(4,2);
     private static final Logger LOG = LoggerFactory.getLogger(Evaluation.class);
 
-    private static final int TOTAL_GAMES = 500;
+
+    private static GameState game = new GameState(4,2);
+    private static int totalGames = NetworkFactory.getTotalGames();
     private static Agent opponentAgent = new RandomAgent(game, 2);
 
     /**
@@ -25,24 +26,24 @@ public class Evaluation {
         Agent RLAgent = new ReinforcementAgent(game, 1, randomNetworkName);
         opponentAgent.setGameState(game);
 
-        for (int i = 0; i < TOTAL_GAMES; i++) {
+        for (int i = 0; i < totalGames; i++) {
             int score = playGame(RLAgent, opponentAgent);
             totalScore += score;
             resetGame(RLAgent, opponentAgent);
 
             LOG.info("Score of iteration '{}' was '{}'", i, score);
         }
-        LOG.info("Finished evaluation of the network, average score was '{}'", totalScore/TOTAL_GAMES);
+        LOG.info("Finished evaluation of the network, average score was '{}'", totalScore/ totalGames);
     }
 
-    public static void evaluateNetwork(Agent agent1, Agent agent2) {
+    public static int evaluateNetwork(Agent agent1, Agent agent2) {
         LOG.info("Evaluating network: ");
         int totalScore = 0;
 
         agent1.setGameState(game);
         agent2.setGameState(game);
 
-        for (int i = 0; i < TOTAL_GAMES; i++) {
+        for (int i = 0; i < totalGames; i++) {
             int score = playGame(agent1, agent2);
 
             totalScore += score;
@@ -50,8 +51,16 @@ public class Evaluation {
 
             LOG.info("Score of iteration '{}' was '{}'", i, score);
         }
-        LOG.info("Finished evaluation of the network, average score was '{}'", totalScore/TOTAL_GAMES);
-        System.out.println(totalScore);
+
+        int averageScore = totalScore / totalGames;
+        int winRatePlayer1 = (int) ( ((totalScore/ totalGames) + 100) / 2.0 );
+
+        LOG.info("Finished evaluation of the network");
+        LOG.info("average score was '{}'", averageScore);
+        LOG.info("Player 1 win rate: {}%, type: {}",winRatePlayer1, agent1.getName());
+        LOG.info("Player 2 win rate: {}%, type: {}", (100 - winRatePlayer1), agent2.getName());
+
+        return winRatePlayer1;
     }
 
     /**

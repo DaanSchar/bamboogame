@@ -4,4 +4,6 @@ public interface IAgent {
 
     void move();
 
+    String getName();
+
 }

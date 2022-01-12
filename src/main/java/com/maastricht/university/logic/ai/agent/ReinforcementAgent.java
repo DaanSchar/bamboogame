@@ -1,7 +1,8 @@
 package com.maastricht.university.logic.ai.agent;
 
+import com.maastricht.university.logic.ai.learning.NetworkFactory;
 import com.maastricht.university.logic.ai.reinforcement.environment.NeuralGameState;
-import com.maastricht.university.logic.ai.reinforcement.network.Network;
+import com.maastricht.university.logic.ai.learning.networks.ReinforcementNetwork;
 import com.maastricht.university.logic.game.components.Hexagon;
 import com.maastricht.university.logic.game.components.LogicTile;
 import com.maastricht.university.logic.game.game.Move;
@@ -15,10 +16,11 @@ import java.util.List;
 public class ReinforcementAgent extends Agent {
 
     private MultiLayerNetwork multiLayerNetwork;
+    private String network;
 
     public ReinforcementAgent(IGameState gameState, int playerNumber, String networkFile) {
         super(gameState, playerNumber);
-        this.multiLayerNetwork = Network.loadNetwork(networkFile);
+        this.multiLayerNetwork = NetworkFactory.loadNetwork(networkFile);
     }
 
     public void move() {
@@ -41,7 +43,7 @@ public class ReinforcementAgent extends Agent {
         if (moveList.size() == 0)
             return null;
 
-        return moveList.get(index * moveList.size()/Network.NUM_INPUTS);
+        return moveList.get(index * moveList.size()/ ReinforcementNetwork.NUM_INPUTS);
     }
 
     /**
@@ -103,4 +105,8 @@ public class ReinforcementAgent extends Agent {
         return legalList;
     }
 
+    @Override
+    public String getName() {
+        return "Reinforcement Agent[network=" + network + "]";
+    }
 }

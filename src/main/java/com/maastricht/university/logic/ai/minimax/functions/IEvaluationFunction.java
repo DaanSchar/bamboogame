@@ -17,4 +17,6 @@ public interface IEvaluationFunction {
      */
     public int getPlayerScore(IGameState state, int player);
 
+    public String getName();
+
 }

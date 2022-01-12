@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.ai.hybrid;
+package com.maastricht.university.logic.ai.hybrid.search;
 
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.Agent2;

@@ -103,4 +103,9 @@ public class Agent implements IAgent{
     public boolean isFirstMove() {
         return isFirstMove;
     }
+
+    public String getName() {
+        return "Agent";
+    }
+
 }

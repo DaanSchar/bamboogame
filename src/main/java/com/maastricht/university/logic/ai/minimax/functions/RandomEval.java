@@ -17,4 +17,9 @@ public class RandomEval implements IEvaluationFunction{
 
         return (int) (Math.random() * 100);
     }
+
+    @Override
+    public String getName() {
+        return getClass().getSimpleName();
+    }
 }

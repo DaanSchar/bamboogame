@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.ai.reinforcement.network;
+package com.maastricht.university.logic.ai.reinforcement.environment;
 
 import com.maastricht.university.logic.game.game.GameState;
 

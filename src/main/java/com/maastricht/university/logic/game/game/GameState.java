@@ -183,13 +183,21 @@ public class GameState implements IGameState, Comparable<GameState> {
      * a 1D array version of the tilemap
      */
    public double[] getStateVector() {
-       List<LogicTile> logicVector = board.getTileMap().vector();
-       double[] vector = new double[logicVector.size()];
+//       List<LogicTile> logicVector = board.getTileMap().vector();
+//       double[] vector = new double[logicVector.size()];
+//
+//       for (int i = 0; i < logicVector.size(); i++)
+//           vector[i] = logicVector.get(i).getPlayerColor();
+//
+//       return vector;
+       double stateVector[] = new double[4];
 
-       for (int i = 0; i < logicVector.size(); i++)
-           vector[i] = logicVector.get(i).getPlayerColor();
+       stateVector[0] = getTotalGroups(1);
+       stateVector[1] = getTotalGroups(2);
+       stateVector[2] = getLargestGroupSize(1);
+       stateVector[3] = getLargestGroupSize(2);
 
-       return vector;
+       return stateVector;
    }
 
     public Move getLastMove() {

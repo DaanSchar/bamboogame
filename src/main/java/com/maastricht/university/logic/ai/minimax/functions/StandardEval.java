@@ -36,4 +36,9 @@ public class StandardEval implements IEvaluationFunction {
         //System.out.println("Calculated Score: " +score);
         return score;
     }
+
+    @Override
+    public String getName() {
+        return getClass().getSimpleName();
+    }
 }
