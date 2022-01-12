@@ -1,14 +1,11 @@
 package com.maastricht.university.logic.ai.minimax.functions;
 
+import com.maastricht.university.logic.ai.learning.NetworkFactory;
 import com.maastricht.university.logic.ai.reinforcement.environment.NeuralGameState;
-import com.maastricht.university.logic.ai.reinforcement.network.Network;
-import com.maastricht.university.logic.game.components.LogicTile;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.nd4j.linalg.api.ndarray.INDArray;
-
-import java.util.List;
 
 public class ReinforceEval implements IEvaluationFunction {
 
@@ -16,7 +13,7 @@ public class ReinforceEval implements IEvaluationFunction {
     private final String location = "src/main/resources/networks/";
 
     public ReinforceEval(String networkFile) {
-        this.multiLayerNetwork = Network.loadNetwork(networkFile);
+        this.multiLayerNetwork = NetworkFactory.loadNetwork(networkFile);
     }
 
     @Override
@@ -53,4 +50,8 @@ public class ReinforceEval implements IEvaluationFunction {
         return maxValueIndex;
     }
 
+    @Override
+    public String getName() {
+        return getClass().getSimpleName();
+    }
 }

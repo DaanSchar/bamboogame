@@ -5,6 +5,7 @@ import com.maastricht.university.frontend.scenes.GameScreen;
 import com.maastricht.university.frontend.WindowUpdater;
 import com.maastricht.university.frontend.components.HoverableButton;
 import com.maastricht.university.logic.ai.agent.Agent;
+import com.maastricht.university.logic.game.game.GameStateFactory;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.scene.shape.SVGPath;
 
@@ -40,7 +41,7 @@ public class Tile {
 
     private void setClickEvent() {
         button.setOnMouseClicked(e -> {
-            IGameState game = Factory.getGameState();
+            IGameState game = GameStateFactory.getGameState();
 
             if (Factory.getGameMode() == 0)
                 game.move(q, r, game.getPlayerTurn());
@@ -54,7 +55,7 @@ public class Tile {
                 agent.move();
             }
 
-            WindowUpdater.update(Factory.getGameState());
+            WindowUpdater.update(GameStateFactory.getGameState());
 
             winner(game);
         });

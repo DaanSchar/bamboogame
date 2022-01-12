@@ -1,4 +1,4 @@
-package com.maastricht.university.logic.ai.hybrid;
+package com.maastricht.university.logic.ai.hybrid.search;
 
 import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;

@@ -2,11 +2,9 @@ package com.maastricht.university.logic.ai.hybrid.environment;
 
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
-import com.maastricht.university.logic.ai.agent.SemiRandomABAgent;
-import com.maastricht.university.logic.ai.hybrid.LearningAgent;
 import com.maastricht.university.logic.ai.minimax.functions.EvaluationAddRandomness;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
-import com.maastricht.university.logic.ai.reinforcement.network.RewardCalculator;
+import com.maastricht.university.logic.ai.reinforcement.environment.RewardCalculator;
 import com.maastricht.university.logic.ai.minimax.functions.StandardEval;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
@@ -15,7 +13,7 @@ import org.deeplearning4j.rl4j.mdp.MDP;
 import org.deeplearning4j.rl4j.space.DiscreteSpace;
 import org.deeplearning4j.rl4j.space.ObservationSpace;
 
-public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace> {
+public class HybridEnvironment implements MDP<NeuralGameState, Integer, DiscreteSpace> {
 
     private final int maxScore = 50;
 
@@ -95,7 +93,7 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
     @Override
     public MDP<NeuralGameState, Integer, DiscreteSpace> newInstance() {
-        return new Environment();
+        return new HybridEnvironment();
     }
 
     @Override

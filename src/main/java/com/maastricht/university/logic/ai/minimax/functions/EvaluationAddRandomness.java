@@ -22,4 +22,9 @@ public class EvaluationAddRandomness implements IEvaluationFunction {
         int randomness = (int) (randomFactor * Math.random());
         return evaFunction.getPlayerScore(state, player) + randomness;
     }
+
+    @Override
+    public String getName() {
+        return "Randomized " + evaFunction.getName();
+    }
 }

@@ -32,4 +32,8 @@ public class RandomAgent extends Agent {
         getGameState().move(move.getX(), move.getY(), getPlayer());
     }
 
+    @Override
+    public String getName() {
+        return "RandomAgent";
+    }
 }

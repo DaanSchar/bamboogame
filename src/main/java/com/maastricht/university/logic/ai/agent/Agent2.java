@@ -1,7 +1,7 @@
 package com.maastricht.university.logic.ai.agent;
 
-import com.maastricht.university.logic.ai.hybrid.ComputeLeafNodes;
-import com.maastricht.university.logic.ai.hybrid.Search;
+import com.maastricht.university.logic.ai.hybrid.search.ComputeLeafNodes;
+import com.maastricht.university.logic.ai.hybrid.search.Search;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
@@ -64,6 +64,10 @@ public class Agent2 implements IAgent{
      */
     public IGameState getGameState() {
         return gameState;
+    }
+
+    public String getName() {
+        return "Agent2";
     }
 }
 

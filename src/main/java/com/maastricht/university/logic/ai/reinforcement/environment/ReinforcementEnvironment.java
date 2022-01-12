@@ -2,8 +2,7 @@ package com.maastricht.university.logic.ai.reinforcement.environment;
 
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.RandomAgent;
-import com.maastricht.university.logic.ai.reinforcement.network.Network;
-import com.maastricht.university.logic.ai.reinforcement.network.RewardCalculator;
+import com.maastricht.university.logic.ai.learning.networks.ReinforcementNetwork;
 import com.maastricht.university.logic.game.components.Hexagon;
 import com.maastricht.university.logic.game.components.LogicTile;
 import com.maastricht.university.logic.game.game.GameState;
@@ -16,9 +15,9 @@ import org.deeplearning4j.rl4j.space.ObservationSpace;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace> {
+public class ReinforcementEnvironment implements MDP<NeuralGameState, Integer, DiscreteSpace> {
 
-    private DiscreteSpace actionSpace = new DiscreteSpace(Network.NUM_INPUTS);
+    private DiscreteSpace actionSpace = new DiscreteSpace(ReinforcementNetwork.NUM_INPUTS);
     private GameState game = new GameState(4,2);
     private Agent opponent = new RandomAgent(game, 2);// we can change the opponent we want to train against here
 
@@ -29,7 +28,7 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
     @Override
     public StepReply<NeuralGameState> step(Integer integer) {
         List<Move> moveList = getLegalMoves();
-        Move move = moveList.get(integer * moveList.size() / Network.NUM_INPUTS);
+        Move move = moveList.get(integer * moveList.size() / ReinforcementNetwork.NUM_INPUTS);
 
         game.move(move.getX(), move.getY(), 1);
         opponent.move();
@@ -60,7 +59,7 @@ public class Environment implements MDP<NeuralGameState, Integer, DiscreteSpace>
 
     @Override
     public MDP<NeuralGameState, Integer, DiscreteSpace> newInstance() {
-        return new Environment();
+        return new ReinforcementEnvironment();
     }
 
     @Override

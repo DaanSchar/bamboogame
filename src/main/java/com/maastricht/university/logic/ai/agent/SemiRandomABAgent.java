@@ -93,5 +93,10 @@ public class SemiRandomABAgent extends Agent{
         }
         return value;
     }
+
+    @Override
+    public String getName() {
+        return "SemiRandomABAgent[maxDepth=" + maxDepth + "]";
+    }
 }
 

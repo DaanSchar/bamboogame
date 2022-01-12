@@ -3,6 +3,7 @@ package com.maastricht.university.frontend.scenes;
 import com.maastricht.university.frontend.Factory;
 import com.maastricht.university.frontend.WindowUpdater;
 import com.maastricht.university.frontend.components.HoverableButton;
+import com.maastricht.university.logic.game.game.GameStateFactory;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -61,7 +62,7 @@ public class GameScreen {
         Stage winnerStage = new Stage();
         createWinnerPopUp();
 
-        IGameState gameState = Factory.getGameState();
+        IGameState gameState = GameStateFactory.getGameState();
 
         if (gameState.winner() == 1)
             r.getChildren().add(p1WinnerPopUp);
@@ -160,8 +161,8 @@ public class GameScreen {
         home.setGraphic(homeView);
 
         home.setOnAction(e -> {
-            Factory.resetGameState();
-            WindowUpdater.update(Factory.getGameState());
+            GameStateFactory.resetGameState();
+            WindowUpdater.update(GameStateFactory.getGameState());
             moveToMenuScene(e);
         });
 
@@ -229,7 +230,7 @@ public class GameScreen {
      * This calls the agent while there is no winner
      */
     private void gameLoop() {
-        while(Factory.getGameState().winner() == 0) {
+        while(GameStateFactory.getGameState().winner() == 0) {
             // run both agents here
         }
         showWinnerPopUp();
