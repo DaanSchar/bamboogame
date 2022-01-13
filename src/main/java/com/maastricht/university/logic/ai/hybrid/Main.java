@@ -6,6 +6,7 @@ import com.maastricht.university.logic.ai.hybrid.environment.HybridEnvironment;
 import com.maastricht.university.logic.ai.learning.train.Train;
 import com.maastricht.university.logic.ai.learning.networks.HybridNetwork;
 import com.maastricht.university.logic.ai.minimax.functions.EvaluationAddRandomness;
+import com.maastricht.university.logic.ai.minimax.functions.RandomEval;
 import com.maastricht.university.logic.ai.minimax.functions.StandardEval;
 import com.maastricht.university.logic.ai.learning.Evaluation;
 import com.maastricht.university.logic.game.game.GameState;
@@ -24,19 +25,20 @@ public class Main {
     }
 
     static void evaluate() {
-        String networkName = "src/main/resources/networks/evaluationNetwork/newNetwork/thisismynetworkstayaway.zip";
+        String networkName = "src/main/resources/networks/hybrid/newNetwork/push_later/Hybrid-wR94-wR41-lR0.01-mE600.zip";
         Evaluation.evaluateNetwork(
                 new AlphaBetaAgent(
                         new GameState(4, 2),
                         1,
                         2,
-                        new EvaluationAddRandomness(new StandardEval())
+                        new RandomEval()
+                        //new EvaluationAddRandomness(new StandardEval())
                 ),
                 new AlphaBetaAgent(
                         new GameState(4, 2),
                         2,
                         2,
-                        new EvaluationAddRandomness(new ReinforceEval(networkName))
+                        new ReinforceEval(networkName)
                 )
         );
     }
