@@ -19,7 +19,28 @@ public class Compare_AIs {
         //double[] moveTime = getTimeDepthAB(100, 4, 6);
 //        double[][] moveTime = compareABVsAB2(100, 1, 3);
 //        System.out.println(moveTime);
-        testIterativeAlphaBeta();
+//        testIterativeAlphaBeta();
+        testGreedyIterativeAlphaBeta_vs_notGreedy();
+    }
+
+    public static void testGreedyIterativeAlphaBeta_vs_notGreedy() {
+        GameState state = new GameState(4,2);
+        IterativeAlphaBetaAgent agent1 = new IterativeAlphaBetaAgent(state, 1, 10, new StandardEval());
+        GreedyIterativeAlphaBetaAgent agent2 = new GreedyIterativeAlphaBetaAgent(state, 2, 10, new StandardEval(), 3);
+        while(!state.isGameOver()) {
+            long startSearch = System.currentTimeMillis();
+            agent1.move();
+            long searchTime = System.currentTimeMillis() - startSearch;
+            System.out.println("agent1 time: " + searchTime);
+            System.out.println();
+
+            startSearch = System.currentTimeMillis();
+            agent2.move();
+            searchTime = System.currentTimeMillis() - startSearch;
+            System.out.println("agent2 time: " + searchTime);
+            System.out.println();
+        }
+        System.out.println("winner: " + state.winner());
     }
 
     public static void testIterativeAlphaBeta() {

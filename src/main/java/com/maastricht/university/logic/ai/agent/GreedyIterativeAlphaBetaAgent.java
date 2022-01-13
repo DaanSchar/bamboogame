@@ -11,13 +11,17 @@ import com.maastricht.university.logic.game.util.interfaces.IGameState;
 
 import java.util.List;
 
-public class IterativeAlphaBetaAgent extends Agent{
+public class GreedyIterativeAlphaBetaAgent extends Agent{
 
     protected final int minPlayer;
     protected long maxTime;
     protected IEvaluationFunction evaluation;
 
-    protected boolean debug = true;
+    protected ITree tree;
+    protected int maxChildren;
+
+    protected boolean debugDepth = true;
+    protected boolean debugFiltering = false;
 
     /**
      *
@@ -25,8 +29,9 @@ public class IterativeAlphaBetaAgent extends Agent{
      * @param playerNumber number of the agent
      * @param maxTime maximum time allowed to make one move in seconds
      * @param evaluation how the score in leafnodes is calculated
+     * @param maxChildren maximum children a node can keep for next iteration
      */
-    public IterativeAlphaBetaAgent(IGameState gameState, int playerNumber, long maxTime, IEvaluationFunction evaluation) {
+    public GreedyIterativeAlphaBetaAgent(IGameState gameState, int playerNumber, long maxTime, IEvaluationFunction evaluation, int maxChildren) {
         super(gameState, playerNumber);
         if(player == 1) {
             minPlayer = 2;
@@ -34,6 +39,7 @@ public class IterativeAlphaBetaAgent extends Agent{
             minPlayer = 1;
         this.maxTime = maxTime*1000 -5;
         this.evaluation = evaluation;
+        this.maxChildren = maxChildren;
     }
 
     /**
@@ -49,8 +55,11 @@ public class IterativeAlphaBetaAgent extends Agent{
      */
     @Override
     public void move() {
+        //create the tree
         long startTime = System.currentTimeMillis();
         long endTime = startTime + maxTime;
+
+        // if the game isn't over yet and it's this agent's turn
         if (this.gameState.winner() ==0 && this.gameState.getPlayerTurn()==this.player) {
 
             //find out how many moves player 1 has done
@@ -86,11 +95,11 @@ public class IterativeAlphaBetaAgent extends Agent{
                 //if it finished the search, adjust the bestMove
                 if(currentTime<endTime) {
                     bestMove = newMove;
-                    if(debug)
+                    if(debugDepth)
                         System.out.println("depth: " + depth + ", time: " + timeSearch);
                 }
             }
-            gameState.move(bestMove.getX(), bestMove.getY(), player);
+            this.gameState.move(bestMove.getX(), bestMove.getY(), this.player);
         }
     }
 
@@ -130,27 +139,60 @@ public class IterativeAlphaBetaAgent extends Agent{
         }
         // if not a leaf node, get maxValue of all children
         int value = Integer.MIN_VALUE;
-        List<Move> moves = state.getLegalMoves(player);
-        for(int i=0; i<moves.size(); i++) {
-            // Stop the search if over time
-            if(System.currentTimeMillis() >= endTime)
-                return 0;
 
-            Move move = moves.get(i);
-            GameState newState = state.clone();
-            newState.move(move.getX(), move.getY(), player);
-            node.addChild(newState, move);
-            ITreeNode<GameState> newNode = (ITreeNode<GameState>) node.getChildren().get(i);
-            value = Math.max(value, minValue(newNode, alpha, beta, depth-1, endTime));
-
-            newNode.setScore(value);
+        //if already children, go through those children and don't create new ones
+        if(node.hasChildren()) {
+            List children = node.getChildren();
+            for (int i = 0; i < children.size(); i++) {
+                // keep storing the highest value only
+                value = Math.max(value, minValue((ITreeNode) children.get(i), alpha, beta, depth-1, endTime));
+            }
+            node.setScore(value);
 
             // Prune
             if(value >= beta)
                 return value;
             alpha = Math.max(alpha, value);
+
+            return value;
         }
-        return value;
+
+        //if not already children, create children for all legal moves, but only keep the best ones
+        else {
+            List<Move> moves = state.getLegalMoves(player);
+            for(int i=0; i<moves.size(); i++) {
+                // Stop the search if over time
+                if(System.currentTimeMillis() >= endTime)
+                    return 0;
+
+                Move move = moves.get(i);
+                GameState newState = state.clone();
+                newState.move(move.getX(), move.getY(), player);
+                node.addChild(newState, move);
+                ITreeNode<GameState> newNode = (ITreeNode<GameState>) node.getChildren().get(i);
+                value = Math.max(value, minValue(newNode, alpha, beta, depth-1, endTime));
+
+                newNode.setScore(value);
+
+                // Prune
+                if(value >= beta)
+                    return value;
+                alpha = Math.max(alpha, value);
+            }
+            // remove all children that are not in the top
+            if(debugFiltering)
+                System.out.println("size list before sorting: " + node.getChildren().size());
+            node.sortChildren();
+            if(debugFiltering)
+                System.out.println("size list after sorting: " + node.getChildren().size());
+            node.subListChildren(0,this.maxChildren);
+            if(debugFiltering)
+                System.out.println("size list after filtering: " + node.getChildren().size());
+
+
+
+            return value;
+        }
     }
 
     /**
@@ -175,27 +217,59 @@ public class IterativeAlphaBetaAgent extends Agent{
         }
         // if not a leaf node, get minValue of all children
         int value = Integer.MAX_VALUE;
-        List<Move> moves = state.getLegalMoves(minPlayer);
-        for(int i=0; i<moves.size(); i++) {
-            // Stop the search if over time
-            if(System.currentTimeMillis() >= endTime)
-                return 0;
 
-            Move move = moves.get(i);
-            GameState newState = state.clone();
-            newState.move(move.getX(), move.getY(), minPlayer);
-            node.addChild(newState, move);
-            ITreeNode<GameState> newNode = (ITreeNode<GameState>) node.getChildren().get(i);
-            value = Math.min(value, maxValue(newNode, alpha, beta, depth-1, endTime));
-
-            newNode.setScore(value);
+        //if already children, go through those children and don't create new ones
+        if(node.hasChildren()) {
+            List children = node.getChildren();
+            for (int i = 0; i < children.size(); i++) {
+                // keep storing the lowest value only
+                value = Math.min(value, maxValue((ITreeNode) children.get(i), alpha, beta, depth-1, endTime));
+            }
+            node.setScore(value);
 
             // Prune
             if(value <= alpha)
                 return value;
             beta = Math.min(beta, value);
+
+            return value;
         }
-        return value;
+
+        //if not already children, create children for all legal moves, but only keep the worst ones
+        else {
+            List<Move> moves = state.getLegalMoves(minPlayer);
+            for(int i=0; i<moves.size(); i++) {
+                // Stop the search if over time
+                if(System.currentTimeMillis() >= endTime)
+                    return 0;
+
+                Move move = moves.get(i);
+                GameState newState = state.clone();
+                newState.move(move.getX(), move.getY(), minPlayer);
+                node.addChild(newState, move);
+                ITreeNode<GameState> newNode = (ITreeNode<GameState>) node.getChildren().get(i);
+                value = Math.min(value, maxValue(newNode, alpha, beta, depth-1, endTime));
+
+                newNode.setScore(value);
+
+                // Prune
+                if(value <= alpha)
+                    return value;
+                beta = Math.min(beta, value);
+            }
+            // remove all children that are not in the bottom
+            if(debugFiltering)
+                System.out.println("size list before sorting: " + node.getChildren().size());
+            node.sortChildren();
+            if(debugFiltering)
+                System.out.println("size list after sorting: " + node.getChildren().size());
+            int beginIndex = node.getChildren().size()-this.maxChildren-1;
+            node.subListChildren(beginIndex, node.getChildren().size());
+            if(debugFiltering)
+                System.out.println("size list after filtering: " + node.getChildren().size());
+
+            return value;
+        }
     }
 
     @Override
@@ -203,3 +277,4 @@ public class IterativeAlphaBetaAgent extends Agent{
         return "IterativeAlphaBetaAgent[maxTime=" + maxTime + "][eval=" + evaluation.getName() + "]";
     }
 }
+

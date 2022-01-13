@@ -1,19 +1,22 @@
 package com.maastricht.university.logic.ai.minimax.tree;
 
 import com.maastricht.university.logic.game.game.Move;
+import org.nd4j.shade.guava.collect.Lists;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
 
     private E element;
     private ITreeNode<E> parent;
-    private ArrayList<ITreeNode<E>> children;
+    private List<ITreeNode<E>> children;
     private int depth;
     private int numberOfPlayers;
     public Integer score;
     private Move lastMove;
+    private boolean childrenSorted;
 
     public TreeNode(E element, ITreeNode<E> parent, int numberOfPlayers, Move lastMove) {
         this.element = element;
@@ -25,6 +28,7 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
             this.depth = 1;
         this.numberOfPlayers = numberOfPlayers;
         this.lastMove = lastMove;
+        this.childrenSorted=false;
     }
 
     public boolean hasLastMove() {
@@ -91,6 +95,26 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
         return maxChild;
     }
 
+    @Override
+    public List<ITreeNode<E>> getMaxChildren(int amount) {
+        List<ITreeNode<E>> maxChildren = new ArrayList<ITreeNode<E>>();
+        //TODO: complete this
+        return maxChildren;
+    }
+
+    @Override
+    public List<ITreeNode<E>> getMinChildren(int amount) {
+        List<ITreeNode<E>> minChildren = new ArrayList<ITreeNode<E>>();
+        //TODO: complete this
+        return minChildren;
+    }
+
+    @Override
+    public void subListChildren(int beginIndex, int endIndex) {
+        //TODO: prevent indexOutOfBoundsExceptions
+        this.children = this.children.subList(beginIndex, endIndex);
+    }
+
     public ITreeNode<E> getMinChild() {
         ITreeNode<E> minChild = children.get(0);
 
@@ -129,5 +153,74 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
             return 0;
         else
             return -1;
+    }
+
+    public void sortChildren() {
+        sortNodes(this.children);
+    }
+
+    private List<ITreeNode<E>> sortNodes(List<ITreeNode<E>> arr) {
+        // Find the middle point
+        if (arr.size() > 1) {
+            int m = arr.size() / 2;
+
+            List<List<ITreeNode<E>>> subSets = Lists.partition(arr, m);
+
+            List<ITreeNode<E>> l1 = arr.subList(0, m);
+            List<ITreeNode<E>> l2 = arr.subList(m, arr.size());
+
+            l1 = sortNodes(l1);
+            l2 = sortNodes(l2);
+
+            return merge(l1, l2);
+        }
+        else {
+            return arr;
+        }
+    }
+
+
+    private List<ITreeNode<E>> merge(List<ITreeNode<E>> left, List<ITreeNode<E>> right) {
+        // Initial indexes of first and second subArrays
+        List<ITreeNode<E>> arr = new ArrayList<ITreeNode<E>>();
+
+        int leftIndex = 0;
+        int rightIndex = 0;
+
+        //for every index in arr, add the element at the index of the left or right array, based on which one is smaller
+        for(int i=0; i<arr.size(); i++) {
+            if(left.get(leftIndex).getScore() < right.get(rightIndex).getScore()) {
+                //arr.add(i, left.get(leftIndex));
+                arr.add(left.get(leftIndex));
+                if(leftIndex<left.size()-1)
+                    leftIndex++;
+                //if the left array is already fully in the arr array, copy the elements of the right array in arr (and stop the loop)
+                else {
+                    for(int j=i+1; j<arr.size(); j++) {
+                        //arr.add(j, right.get(rightIndex));
+                        arr.add(right.get(rightIndex));
+                        rightIndex++;
+                    }
+                    i = arr.size();
+                }
+            }
+            else {
+                //arr.add(i, right.get(rightIndex));
+                arr.add(right.get(rightIndex));
+                if(rightIndex<right.size()-1) {
+                    rightIndex++;
+                }
+                //if the right array is already fully in the arr array, copy the elements of the left array in arr (and stop the loop)
+                else {
+                    for(int j=i+1; j<arr.size(); j++) {
+                        //arr.add(j, left.get(leftIndex));
+                        arr.add(left.get(leftIndex));
+                        leftIndex++;
+                    }
+                    i = arr.size();
+                }
+            }
+        }
+        return arr;
     }
 }
