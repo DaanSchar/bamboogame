@@ -4,6 +4,7 @@ import com.maastricht.university.logic.ai.minimax.functions.IEvaluationFunction;
 import com.maastricht.university.logic.ai.minimax.tree.ITree;
 import com.maastricht.university.logic.ai.minimax.tree.ITreeNode;
 import com.maastricht.university.logic.ai.minimax.tree.Tree;
+import com.maastricht.university.logic.game.components.TileGroup;
 import com.maastricht.university.logic.game.game.GameState;
 import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IGameState;
@@ -51,7 +52,24 @@ public class IterativeAlphaBetaAgent extends Agent{
         long startTime = System.currentTimeMillis();
         long endTime = startTime + maxTime;
         if (this.gameState.winner() ==0 && this.gameState.getPlayerTurn()==this.player) {
-            // always take a default bestMove
+
+            //find out how many moves player 1 has done
+            int moves1 = 0;
+            List<TileGroup> groups1 = this.gameState.getBoard().getGroups(1);
+            for(int i=0; i<groups1.size(); i++) {
+                moves1 += groups1.get(i).getMembers().size();
+            }
+
+            // maxDepth is the number of moves of player 1 and player 2 together
+            int amountOfTiles = 72;
+            int maxDepth;
+            if(this.player==1)
+                maxDepth = amountOfTiles - (moves1*2);
+            else
+                maxDepth = amountOfTiles - (moves1*2) + 1;
+
+
+            // always take a default bestMove, just a random legal move
             Move bestMove = this.gameState.getLegalMoves(this.player).get(0);
 
             long timeSearch = 0;
@@ -59,7 +77,7 @@ public class IterativeAlphaBetaAgent extends Agent{
             //keep searching with increasing depth as long as the maxTime hasn't passed yet
             //  and depth is smaller as the amount of moves possible
             long currentTime = System.currentTimeMillis();
-            for(int depth=1; currentTime<endTime && currentTime+timeSearch<endTime && depth<72; depth++) {
+            for(int depth=1; currentTime<endTime && currentTime+timeSearch<endTime && depth<maxDepth; depth++) {
                 startSearch = System.currentTimeMillis();
                 Move newMove = search(depth, endTime);
                 timeSearch = System.currentTimeMillis() - startSearch;
