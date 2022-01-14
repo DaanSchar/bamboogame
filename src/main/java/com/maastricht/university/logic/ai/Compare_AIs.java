@@ -25,19 +25,21 @@ public class Compare_AIs {
 
     public static void testGreedyIterativeAlphaBeta_vs_notGreedy() {
         GameState state = new GameState(4,2);
-        IterativeAlphaBetaAgent agent1 = new IterativeAlphaBetaAgent(state, 1, 10, new StandardEval());
-        GreedyIterativeAlphaBetaAgent agent2 = new GreedyIterativeAlphaBetaAgent(state, 2, 10, new StandardEval(), 3);
+        IterativeAlphaBetaAgent agent1 = new IterativeAlphaBetaAgent(state, 1, 120, new StandardEval());
+        GreedyIterativeAlphaBetaAgent agent2 = new GreedyIterativeAlphaBetaAgent(state, 2, 120, new StandardEval(), 15);
         while(!state.isGameOver()) {
             long startSearch = System.currentTimeMillis();
             agent1.move();
             long searchTime = System.currentTimeMillis() - startSearch;
             System.out.println("agent1 time: " + searchTime);
+            System.out.println(agent1.getName());
             System.out.println();
 
             startSearch = System.currentTimeMillis();
             agent2.move();
             searchTime = System.currentTimeMillis() - startSearch;
             System.out.println("agent2 time: " + searchTime);
+            System.out.println(agent2.getName());
             System.out.println();
         }
         System.out.println("winner: " + state.winner());

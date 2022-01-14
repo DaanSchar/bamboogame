@@ -32,7 +32,7 @@ public class IterativeAlphaBetaAgent extends Agent{
             minPlayer = 2;
         }else
             minPlayer = 1;
-        this.maxTime = maxTime*1000 -5;
+        this.maxTime = maxTime*1000 -50;
         this.evaluation = evaluation;
     }
 

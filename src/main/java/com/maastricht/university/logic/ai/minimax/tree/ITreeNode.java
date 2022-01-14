@@ -102,27 +102,9 @@ public interface ITreeNode<E> {
      * compares all children to each other using the
      * comparable interface.
      *
-     * @param amount number of children
-     * @return top best "amount" children
-     */
-    List<ITreeNode<E>> getMaxChildren(int amount);
-
-    /**
-     * compares all children to each other using the
-     * comparable interface.
-     *
      * @return child with the smallest score
      */
     ITreeNode<E> getMinChild();
-
-    /**
-     * compares all children to each other using the
-     * comparable interface.
-     *
-     * @param amount number of children
-     * @return top worst "amount" children
-     */
-    List<ITreeNode<E>> getMinChildren(int amount);
 
     /**
      * @return boolean regarding if this node contains any children

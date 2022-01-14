@@ -96,22 +96,13 @@ public class TreeNode<E extends Comparable<? super E>> implements ITreeNode<E> {
     }
 
     @Override
-    public List<ITreeNode<E>> getMaxChildren(int amount) {
-        List<ITreeNode<E>> maxChildren = new ArrayList<ITreeNode<E>>();
-        //TODO: complete this
-        return maxChildren;
-    }
-
-    @Override
-    public List<ITreeNode<E>> getMinChildren(int amount) {
-        List<ITreeNode<E>> minChildren = new ArrayList<ITreeNode<E>>();
-        //TODO: complete this
-        return minChildren;
-    }
-
-    @Override
     public void subListChildren(int beginIndex, int endIndex) {
-        //TODO: prevent indexOutOfBoundsExceptions
+        int length = this.children.size();
+        if(endIndex > length)
+            endIndex = length;
+        if(beginIndex < 0)
+            beginIndex = 0;
+
         this.children = this.children.subList(beginIndex, endIndex);
     }
 

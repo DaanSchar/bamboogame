@@ -37,7 +37,7 @@ public class GreedyIterativeAlphaBetaAgent extends Agent{
             minPlayer = 2;
         }else
             minPlayer = 1;
-        this.maxTime = maxTime*1000 -5;
+        this.maxTime = maxTime*1000 -50;
         this.evaluation = evaluation;
         this.maxChildren = maxChildren;
     }
@@ -61,6 +61,8 @@ public class GreedyIterativeAlphaBetaAgent extends Agent{
 
         // if the game isn't over yet and it's this agent's turn
         if (this.gameState.winner() ==0 && this.gameState.getPlayerTurn()==this.player) {
+            //create the tree and make global variable
+            this.tree = new Tree<GameState>((GameState) gameState, 2);
 
             //find out how many moves player 1 has done
             int moves1 = 0;
@@ -99,6 +101,10 @@ public class GreedyIterativeAlphaBetaAgent extends Agent{
                         System.out.println("depth: " + depth + ", time: " + timeSearch);
                 }
             }
+            //Delete the tree
+            this.tree = null;
+
+            //make the move
             this.gameState.move(bestMove.getX(), bestMove.getY(), this.player);
         }
     }
@@ -110,8 +116,13 @@ public class GreedyIterativeAlphaBetaAgent extends Agent{
      * @return the best move
      */
     public Move search(int depth, long endTime) {
-        ITree<GameState> tree = new Tree<GameState>((GameState) gameState, 2);
-        ITreeNode<GameState> root = tree.getRoot();
+        ITreeNode<GameState> root;
+        if(this.tree != null)
+            root = this.tree.getRoot();
+        else {
+            ITree<GameState> tree = new Tree<GameState>((GameState) gameState, 2);
+            root = tree.getRoot();
+        }
         maxValue(root, Integer.MIN_VALUE, Integer.MAX_VALUE, depth, endTime);
         return root.getMaxChild().getLastMove();
     }
@@ -274,7 +285,7 @@ public class GreedyIterativeAlphaBetaAgent extends Agent{
 
     @Override
     public String getName() {
-        return "IterativeAlphaBetaAgent[maxTime=" + maxTime + "][eval=" + evaluation.getName() + "]";
+        return "GreedyIterativeAlphaBetaAgent[maxTime=" + maxTime + "][maxChildren=" + maxChildren + "][eval=" + evaluation.getName() + "]";
     }
 }
 
