@@ -16,6 +16,7 @@ public class IterativeAlphaBetaAgent extends Agent{
     protected final int minPlayer;
     protected long maxTime;
     protected IEvaluationFunction evaluation;
+    protected long timeError = 50;
 
     protected boolean debug = true;
 
@@ -32,7 +33,7 @@ public class IterativeAlphaBetaAgent extends Agent{
             minPlayer = 2;
         }else
             minPlayer = 1;
-        this.maxTime = maxTime*1000 -50;
+        this.maxTime = maxTime*1000 -timeError;
         this.evaluation = evaluation;
     }
 
@@ -200,6 +201,6 @@ public class IterativeAlphaBetaAgent extends Agent{
 
     @Override
     public String getName() {
-        return "IterativeAlphaBetaAgent[maxTime=" + maxTime + "][eval=" + evaluation.getName() + "]";
+        return "IterativeAlphaBetaAgent[maxTime=" + (maxTime+timeError) + "][eval=" + evaluation.getName() + "]";
     }
 }

@@ -16,6 +16,7 @@ public class GreedyIterativeAlphaBetaAgent extends Agent{
     protected final int minPlayer;
     protected long maxTime;
     protected IEvaluationFunction evaluation;
+    protected long timeError = 50;
 
     protected ITree tree;
     protected int maxChildren;
@@ -37,7 +38,7 @@ public class GreedyIterativeAlphaBetaAgent extends Agent{
             minPlayer = 2;
         }else
             minPlayer = 1;
-        this.maxTime = maxTime*1000 -50;
+        this.maxTime = maxTime*1000 -timeError;
         this.evaluation = evaluation;
         this.maxChildren = maxChildren;
     }
@@ -285,7 +286,7 @@ public class GreedyIterativeAlphaBetaAgent extends Agent{
 
     @Override
     public String getName() {
-        return "GreedyIterativeAlphaBetaAgent[maxTime=" + maxTime + "][maxChildren=" + maxChildren + "][eval=" + evaluation.getName() + "]";
+        return "GreedyIterativeAlphaBetaAgent[maxTime=" + (maxTime+timeError) + "][maxChildren=" + maxChildren + "][eval=" + evaluation.getName() + "]";
     }
 }
 
