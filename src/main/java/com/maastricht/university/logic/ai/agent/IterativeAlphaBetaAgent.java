@@ -18,7 +18,7 @@ public class IterativeAlphaBetaAgent extends Agent{
     protected IEvaluationFunction evaluation;
     protected long timeError = 50;
 
-    protected boolean debug = true;
+    protected boolean debug = false;
 
     /**
      *
