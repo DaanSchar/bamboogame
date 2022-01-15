@@ -6,7 +6,7 @@ import com.rits.cloning.Cloner;
 
 import java.util.*;
 
-public class Hexagon<T> implements IHexagon<T>, Iterable<T> {
+public class Hexagon<T> implements IHexagon<T> {
 
     /**
      * this class represent a 2d hexagonal structure represented by a 2d array.
