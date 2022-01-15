@@ -25,12 +25,9 @@ public class TileMap {
     public Pane getTileMapPane() {
         Pane tileMapPane = new Pane();
 
-        for(int i = 0; i<dimension;i++) {
-            for(int j = 0; j<dimension;j++) {
-                if(hexagon.get(i,j) != null)
-                    tileMapPane.getChildren().add(hexagon.get(i,j).getButton());
-            }
-        }
+        for (Tile tile : hexagon)
+            tileMapPane.getChildren().add(tile.getButton());
+
         return tileMapPane;
     }
 

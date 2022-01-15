@@ -3,7 +3,7 @@ package com.maastricht.university.logic.game.util.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface IHexagon<T>{
+public interface IHexagon<T> {
 
     T get(int x, int y);
 
