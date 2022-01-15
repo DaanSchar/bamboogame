@@ -67,4 +67,11 @@ public class Tile {
         }
     }
 
+    public int getQ() {
+        return q;
+    }
+
+    public int getR() {
+        return r;
+    }
 }

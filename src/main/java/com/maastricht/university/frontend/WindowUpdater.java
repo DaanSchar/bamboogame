@@ -24,10 +24,13 @@ public class WindowUpdater {
     public static void updateTileColors(IGameState state) {
         TileMap tileMap = Factory.getTileMap();
 
-        for (int i = 0; i < tileMap.getDimension(); i++)
-            for (int j = 0; j < tileMap.getDimension(); j++)
-                if (tileMap.getHexagon().get(i,j) != null)
-                    determineTileColor(i, j, tileMap.getHexagon(), state);
+        for (Tile tile : tileMap.getHexagon())
+            determineTileColor(
+                    tile.getQ(),
+                    tile.getR(),
+                    tileMap.getHexagon(),
+                    state
+            );
     }
 
     private static void determineTileColor(int q, int r, Hexagon<Tile> hexagon, IGameState state) {

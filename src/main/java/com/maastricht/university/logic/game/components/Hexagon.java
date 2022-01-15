@@ -85,21 +85,17 @@ public class Hexagon<T> implements IHexagon<T>, Iterable<T> {
                 copy.insert(i, j, clone);
             }
         }
+
         return copy;
     }
 
 
     @Override
     public boolean contains(T entity) {
-        for (int i = 0; i < arraySize; i++) {
-            for (int j = 0; j < arraySize; j++) {
+        for (T otherEntity: this)
+            if (otherEntity.equals(entity))
+                return true;
 
-                if (get(i, j) == null)
-                    break;
-                if (get(i, j).equals(entity))
-                    return true;
-            }
-        }
         return false;
     }
 
@@ -129,10 +125,8 @@ public class Hexagon<T> implements IHexagon<T>, Iterable<T> {
     public List<T> vector() {
         ArrayList<T> vector = new ArrayList<>();
 
-        for (int i = 0; i < arraySize; i++)
-            for (int j = 0; j < arraySize; j++)
-                if (get(i, j) != null)
-                    vector.add(get(i, j));
+        for (T entity: this)
+            vector.add(entity);
 
         return vector;
     }
