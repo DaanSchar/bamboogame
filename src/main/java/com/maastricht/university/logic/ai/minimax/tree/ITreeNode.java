@@ -94,7 +94,7 @@ public interface ITreeNode<E> {
      * compares all children to each other using the
      * comparable interface.
      *
-     * @return child with the largest element
+     * @return child with the largest score
      */
     ITreeNode<E> getMaxChild();
 
@@ -102,7 +102,7 @@ public interface ITreeNode<E> {
      * compares all children to each other using the
      * comparable interface.
      *
-     * @return child with the smallest element
+     * @return child with the smallest score
      */
     ITreeNode<E> getMinChild();
 
@@ -116,4 +116,16 @@ public interface ITreeNode<E> {
      * node must have no children.
      */
     void delete();
+
+    /**
+     * sorts all children of the node from highest to lowest score
+     */
+    void sortChildren();
+
+    /**
+     * removes all children except the ones within the index bounds
+     * @param beginIndex starting index of children kept (including this index)
+     * @param endIndex starting index of children kept (excluding this index)
+     */
+    void subListChildren(int beginIndex, int endIndex);
 }

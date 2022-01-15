@@ -17,8 +17,52 @@ public class Compare_AIs {
         //runAlphaBetaVsRL(100000);
         //double[][] moveTime = compareABMinimax(100, 1, 3);
         //double[] moveTime = getTimeDepthAB(100, 4, 6);
-        double[][] moveTime = compareABVsAB2(100, 1, 3);
-        System.out.println(moveTime);
+//        double[][] moveTime = compareABVsAB2(100, 1, 3);
+//        System.out.println(moveTime);
+//        testIterativeAlphaBeta();
+        testGreedyIterativeAlphaBeta_vs_notGreedy();
+    }
+
+    public static void testGreedyIterativeAlphaBeta_vs_notGreedy() {
+        GameState state = new GameState(4,2);
+        GreedyIterativeAlphaBetaAgent agent2 = new GreedyIterativeAlphaBetaAgent(state, 2, 30, new StandardEval(), 20);
+        IterativeAlphaBetaAgent agent1 = new IterativeAlphaBetaAgent(state, 1, 30, new StandardEval());
+        while(!state.isGameOver()) {
+            long startSearch = System.currentTimeMillis();
+            agent1.move();
+            long searchTime = System.currentTimeMillis() - startSearch;
+            System.out.println("agent1 time: " + searchTime);
+            System.out.println(agent1.getName());
+            System.out.println();
+
+            startSearch = System.currentTimeMillis();
+            agent2.move();
+            searchTime = System.currentTimeMillis() - startSearch;
+            System.out.println("agent2 time: " + searchTime);
+            System.out.println(agent2.getName());
+            System.out.println();
+        }
+        System.out.println("winner: " + state.winner());
+    }
+
+    public static void testIterativeAlphaBeta() {
+        GameState state = new GameState(4,2);
+        IterativeAlphaBetaAgent agent1 = new IterativeAlphaBetaAgent(state, 1, 1, new StandardEval());
+        IterativeAlphaBetaAgent agent2 = new IterativeAlphaBetaAgent(state, 2, 10, new StandardEval());
+        while(!state.isGameOver()) {
+            long startSearch = System.currentTimeMillis();
+            agent1.move();
+            long searchTime = System.currentTimeMillis() - startSearch;
+            System.out.println("agent1 time: " + searchTime);
+            System.out.println();
+
+            startSearch = System.currentTimeMillis();
+            agent2.move();
+            searchTime = System.currentTimeMillis() - startSearch;
+            System.out.println("agent2 time: " + searchTime);
+            System.out.println();
+        }
+        System.out.println("winner: " + state.winner());
     }
 
     public static double[] getTimeDepthAB(int minMoves, int minDepth, int maxDepth) {
