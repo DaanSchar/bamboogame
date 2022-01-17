@@ -5,6 +5,7 @@ import com.maastricht.university.frontend.scenes.GameScreen;
 import com.maastricht.university.frontend.scenes.Menu;
 import com.maastricht.university.logic.ai.agent.Agent;
 import com.maastricht.university.logic.ai.agent.AlphaBetaAgent;
+import com.maastricht.university.logic.ai.agent.AlphaBetaAgent2;
 import com.maastricht.university.logic.ai.agent.IterativeAlphaBetaAgent;
 import com.maastricht.university.logic.ai.agent.ReinforcementAgent;
 import com.maastricht.university.logic.ai.minimax.functions.StandardEval;
@@ -25,20 +26,15 @@ public class Factory {
 
     // agent 0 = Reinforcement
     // agent 1 = AlphaBeta
+    // agent 2 = Hybrid
     private static int agentType = 0;
 
     private static final GameState state = new GameState(4,2);
     private static final TileMap tilemap = new TileMap(9, SCREEN_WIDTH /4,SCREEN_HEIGHT/6,30);
 
-    private static final Agent ReinforcementAgent =
-            new IterativeAlphaBetaAgent(
-                    GameStateFactory.getGameState(),
-                    1,
-                    5,
-                    new ReinforceEval("src/main/resources/networks/hybrid/newNetwork/thisismynetworkstayaway.zip")
-            );//new ReinforcementAgent(GameStateFactory.getGameState(), 2, "src/main/resources/networks/network-74-12L.zip");
-    private static final Agent abAgent = new IterativeAlphaBetaAgent(GameStateFactory.getGameState(), 2, 5,new StandardEval());
-    private static final Agent hybridAgent = new AlphaBetaAgent(GameStateFactory.getGameState(), 2, 4, new ReinforceEval("src/main/resources/networks/network-hybrid-wr98"));
+    private static final Agent ReinforcementAgent = new ReinforcementAgent(state, 2, "src/main/resources/networks/network-74-12L.zip");
+    private static final Agent abAgent = new AlphaBetaAgent(state, 2, 4, (IEvaluationFunction) new Evaluation1());
+    private static final Agent abAgent2 = new AlphaBetaAgent2(state,2,4,(IEvaluationFunction) new Evaluation1());
 
     private static final Menu menu = new Menu();
     private static final GameScreen gameScreen = new GameScreen();
@@ -93,8 +89,8 @@ public class Factory {
             return ReinforcementAgent;
         else if (agentType == 1)
             return abAgent;
-        else if (agentType == 2)
-            return hybridAgent;
+        else if(agentType == 2)
+            return abAgent2;
 
         return null;
     }
