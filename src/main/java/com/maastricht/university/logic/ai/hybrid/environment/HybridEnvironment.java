@@ -19,7 +19,7 @@ public class HybridEnvironment implements MDP<NeuralGameState, Integer, Discrete
 
     private DiscreteSpace actionSpace = new DiscreteSpace(maxScore);
     private GameState game = new GameState(4, 2);
-    private Agent opponent = new AlphaBetaAgent(game, 1, 2, new EvaluationAddRandomness(new StandardEval(), 10));
+    private Agent opponent = new AlphaBetaAgent(game, 1, 2, new EvaluationAddRandomness(new StandardEval(), 1));
     private LearningAgent learningAgent = new LearningAgent(game, 2);
 
     private boolean debug = false;
