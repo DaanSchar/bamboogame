@@ -147,13 +147,9 @@ public class GameState implements IGameState, Comparable<GameState> {
     }
 
     public boolean legalMovesLeft(int playerColor) {
-        int maxCoordinate = board.getBoardSize()*2+1;
-
-        for (int i = 0; i < maxCoordinate; i++)
-            for (int j = 0; j < maxCoordinate; j++)
-                if (board.getTileMap().get(i, j) != null)
-                    if (isLegal(i, j, playerColor))
-                        return true;
+        for (LogicTile tile : board.getTileMap())
+            if (isLegal(tile.getQ(), tile.getR(), playerColor))
+                return true;
 
         return false;
     }
@@ -165,15 +161,9 @@ public class GameState implements IGameState, Comparable<GameState> {
    public ArrayList<Move> getLegalMoves(int playerColor) {
         ArrayList<Move> moveList = new ArrayList<>();
 
-        int maxCoordinate = board.getBoardSize()*2+1;
-
-        for (int i = 0; i < maxCoordinate; i++) {
-            for (int j = 0; j < maxCoordinate; j++) {
-                if (board.getTileMap().get(i, j) != null)
-                    if (isLegal(i, j, playerColor))
-                        moveList.add(new Move(i,j));
-            }
-        }
+        for (LogicTile tile: board.getTileMap())
+            if (isLegal(tile.getQ(), tile.getR(), playerColor))
+                moveList.add(new Move(tile.getQ(), tile.getR()));
 
         return moveList;
    }

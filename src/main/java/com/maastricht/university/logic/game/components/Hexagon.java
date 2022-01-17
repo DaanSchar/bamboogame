@@ -4,8 +4,7 @@ import com.maastricht.university.logic.game.game.Move;
 import com.maastricht.university.logic.game.util.interfaces.IHexagon;
 import com.rits.cloning.Cloner;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Hexagon<T> implements IHexagon<T> {
 
@@ -86,22 +85,17 @@ public class Hexagon<T> implements IHexagon<T> {
                 copy.insert(i, j, clone);
             }
         }
+
         return copy;
     }
 
 
-
     @Override
     public boolean contains(T entity) {
-        for (int i = 0; i < arraySize; i++) {
-            for (int j = 0; j < arraySize; j++) {
+        for (T otherEntity: this)
+            if (otherEntity.equals(entity))
+                return true;
 
-                if (get(i, j) == null)
-                    break;
-                if (get(i, j).equals(entity))
-                    return true;
-            }
-        }
         return false;
     }
 
@@ -131,10 +125,8 @@ public class Hexagon<T> implements IHexagon<T> {
     public List<T> vector() {
         ArrayList<T> vector = new ArrayList<>();
 
-        for (int i = 0; i < arraySize; i++)
-            for (int j = 0; j < arraySize; j++)
-                if (get(i, j) != null)
-                    vector.add(get(i, j));
+        for (T entity: this)
+            vector.add(entity);
 
         return vector;
     }
@@ -174,4 +166,42 @@ public class Hexagon<T> implements IHexagon<T> {
         }
         return str;
     }
+
+    @Override
+    public HexagonIterator<T> iterator() {
+        return new HexagonIterator<>();
+    }
+
+    class HexagonIterator<T> implements Iterator<T> {
+
+        private int count = 0;
+        private Stack<T> stack = new Stack<>();
+        private int hexagonSize;
+
+        HexagonIterator() {
+            fillStack();
+            this.hexagonSize = stack.size();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return hexagonSize >= count + 1;
+        }
+
+        @Override
+        public T next() {
+            count++;
+            return stack.pop();
+        }
+
+        private void fillStack() {
+            for (int i = 0; i < arraySize; i++) {
+                for (int j = 0; j < arraySize; j++) {
+                    if (get(i, j) != null)
+                        stack.push((T) get(i, j));
+                }
+            }
+        }
+    }
+
 }
