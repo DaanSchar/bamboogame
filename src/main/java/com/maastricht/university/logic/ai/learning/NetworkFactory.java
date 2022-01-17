@@ -8,10 +8,10 @@ import java.io.IOException;
 public class NetworkFactory {
 
     private static final double LEARNING_RATE = 0.01;
-    private static final int MIN_EPOCHS = 1;
+    private static int MIN_EPOCHS = 100;
     private static final int NUM_LAYERS = 1;
 
-    private static final int TOTAL_GAMES = 10; // for evaluation
+    private static final int TOTAL_GAMES = 500; // for evaluation
 
     public static double getLearningRate() {
         return LEARNING_RATE;
@@ -37,5 +37,9 @@ public class NetworkFactory {
         }
 
         return null;
+    }
+
+    public static void setMinEpochs(int minEpochs) {
+        MIN_EPOCHS = minEpochs;
     }
 }

@@ -32,7 +32,7 @@ public class Train {
         long startTime = System.currentTimeMillis();
 
         String networkName = network.getName() + "-lR" + NetworkFactory.getLearningRate() + "-mE" + NetworkFactory.getMinEpochs() + "-" + System.currentTimeMillis() + ".zip";
-        String location = "src/main/resources/networks/hybrid/newNetwork/";
+        String location = "src/main/resources/networks/hybrid/test/";
 
         QLearningDiscreteDense<NeuralGameState> dql = new QLearningDiscreteDense<>(
                 environment,
@@ -53,7 +53,7 @@ public class Train {
         }
 
         int evalScore1 = evaluateNetwork(location + networkName, new RandomEval());
-        int evalScore2 = evaluateNetwork(location + networkName, new EvaluationAddRandomness(new StandardEval()));
+        int evalScore2 = evaluateNetwork(location + networkName, new EvaluationAddRandomness(new StandardEval(), 10));
 
         String evaluatedNetworkName = network.getName() + "-wR" + evalScore1 + "-wR" + evalScore2 + "-lR" + NetworkFactory.getLearningRate() + "-mE" + NetworkFactory.getMinEpochs() + ".zip";
 
